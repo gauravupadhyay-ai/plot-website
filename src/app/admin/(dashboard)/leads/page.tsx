@@ -104,7 +104,7 @@ export default async function LeadsPage() {
               {lead.message && (
                 <div className="p-4 bg-gray-50/80 rounded-[1.5rem] border border-gray-100 relative group">
                   <MessageSquare size={16} className="absolute -top-3 -left-3 text-brand-accent bg-white rounded-full p-0.5 shadow-sm" />
-                  <p className="text-gray-600 italic leading-relaxed text-xs">"{lead.message}"</p>
+                  <p className="text-gray-600 italic leading-relaxed text-xs">&ldquo;{lead.message}&rdquo;</p>
                 </div>
               )}
               
