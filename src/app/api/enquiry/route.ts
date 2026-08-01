@@ -1,5 +1,7 @@
 import { NextResponse } from 'next/server'
-import { supabase } from '@/lib/supabase'
+import { getSupabase } from '@/lib/supabase'
+
+export const dynamic = 'force-dynamic'
 
 export async function POST(request: Request) {
   try {
@@ -10,22 +12,26 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'Name and phone are required' }, { status: 400 })
     }
 
-    // 1. Log lead in Supabase database
-    const { error: dbError } = await supabase.from('leads').insert([{
-      name,
-      phone,
-      email: email || null,
-      user_type: userType || null,
-      property_type: propertyType || null,
-      budget_range: budgetRange || null,
-      message: message || null,
-      property_code: propertyCode || null,
-      source: source || null
-    }])
+    // 1. Log lead in Supabase database (skip if env not configured)
+    try {
+      const { error: dbError } = await getSupabase().from('leads').insert([{
+        name,
+        phone,
+        email: email || null,
+        user_type: userType || null,
+        property_type: propertyType || null,
+        budget_range: budgetRange || null,
+        message: message || null,
+        property_code: propertyCode || null,
+        source: source || null
+      }])
 
-    if (dbError) {
-      console.error('Supabase Error:', dbError)
-      // We log it but continue to send email if configured
+      if (dbError) {
+        console.error('Supabase Error:', dbError)
+        // Continue to send email if configured
+      }
+    } catch (dbInitError) {
+      console.error('Supabase unavailable:', dbInitError)
     }
 
     // 2. Send email via Resend if API key is configured
