@@ -1,135 +1,26 @@
-'use client'
+import Image from 'next/image'
+import { HeroDesktop, HeroMobileFilters } from '@/components/home/HeroInteractive'
 
-import React, { useEffect, useState } from 'react'
-import { motion, AnimatePresence, LayoutGroup } from 'framer-motion'
-import { Search, MapPin, Wallet, Layers, Ruler, ChevronDown, X } from 'lucide-react'
-import { useRouter } from 'next/navigation'
-import { ParallaxImage } from '@/components/ui/ParallaxImage'
-
-const localities = ['Waghodia Road', 'Ajwa Road', 'Jarod', 'Subhanpura']
-const budgets = [
-  { label: 'Any budget', value: '' },
-  { label: 'Under ₹30L', value: '0-30' },
-  { label: '₹30L – ₹50L', value: '30-50' },
-  { label: '₹50L – ₹75L', value: '50-75' },
-  { label: '₹75L+', value: '75+' },
-]
-const plotTypes = [
-  { label: 'All plots', value: 'Plot' },
-  { label: 'Residential plot', value: 'Plot' },
-]
-const areas = [
-  { label: 'Any size', value: '' },
-  { label: 'Up to 100 sq.yd', value: '0-100' },
-  { label: '100 – 200 sq.yd', value: '100-200' },
-  { label: '200+ sq.yd', value: '200+' },
-]
-
+/**
+ * Server Component hero shell.
+ * Mobile LCP image is rendered here (no client JS / no transform) so it can paint
+ * before hydration — fixing Lighthouse "element render delay".
+ */
 export function HeroSection() {
-  const router = useRouter()
-  const [expanded, setExpanded] = useState(false)
-  const [locality, setLocality] = useState('')
-  const [budget, setBudget] = useState('')
-  const [plotType, setPlotType] = useState('Plot')
-  const [area, setArea] = useState('')
-
-  useEffect(() => {
-    // Only lock scroll for desktop overlay expand
-    const isDesktop = window.matchMedia('(min-width: 640px)').matches
-    document.body.style.overflow = expanded && isDesktop ? 'hidden' : ''
-    return () => {
-      document.body.style.overflow = ''
-    }
-  }, [expanded])
-
-  useEffect(() => {
-    if (!expanded) return
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') setExpanded(false)
-    }
-    window.addEventListener('keydown', onKey)
-    return () => window.removeEventListener('keydown', onKey)
-  }, [expanded])
-
-  const handleSearch = () => {
-    const params = new URLSearchParams()
-    params.set('type', plotType || 'Plot')
-    if (locality) params.set('locality', locality)
-    if (budget) params.set('budget', budget)
-    if (area) params.set('area', area)
-    params.set('filters', '1')
-    setExpanded(false)
-    router.push(`/properties?${params.toString()}#plot-filters`)
-  }
-
-  const renderSelects = (idPrefix: string) => (
-    <>
-      <FilterField icon={<MapPin size={16} />} label="Location" htmlFor={`${idPrefix}-locality`} expanded>
-        <select
-          id={`${idPrefix}-locality`}
-          value={locality}
-          onChange={(e) => setLocality(e.target.value)}
-          className="w-full appearance-none bg-transparent text-sm font-semibold text-text-primary outline-none"
-        >
-          <option value="">Vadodara</option>
-          {localities.map((loc) => (
-            <option key={loc} value={loc}>{loc}</option>
-          ))}
-        </select>
-      </FilterField>
-      <FilterField icon={<Wallet size={16} />} label="Price" htmlFor={`${idPrefix}-budget`} expanded>
-        <select
-          id={`${idPrefix}-budget`}
-          value={budget}
-          onChange={(e) => setBudget(e.target.value)}
-          className="w-full appearance-none bg-transparent text-sm font-semibold text-text-primary outline-none"
-        >
-          {budgets.map((b) => (
-            <option key={b.label} value={b.value}>{b.label}</option>
-          ))}
-        </select>
-      </FilterField>
-      <FilterField icon={<Layers size={16} />} label="Plot type" htmlFor={`${idPrefix}-plot-type`} expanded>
-        <select
-          id={`${idPrefix}-plot-type`}
-          value={plotType}
-          onChange={(e) => setPlotType(e.target.value)}
-          className="w-full appearance-none bg-transparent text-sm font-semibold text-text-primary outline-none"
-        >
-          {plotTypes.map((t) => (
-            <option key={t.label} value={t.value}>{t.label}</option>
-          ))}
-        </select>
-      </FilterField>
-      <FilterField icon={<Ruler size={16} />} label="Plot size" htmlFor={`${idPrefix}-area`} expanded>
-        <select
-          id={`${idPrefix}-area`}
-          value={area}
-          onChange={(e) => setArea(e.target.value)}
-          className="w-full appearance-none bg-transparent text-sm font-semibold text-text-primary outline-none"
-        >
-          {areas.map((a) => (
-            <option key={a.label} value={a.value}>{a.label}</option>
-          ))}
-        </select>
-      </FilterField>
-    </>
-  )
-
   return (
     <>
-      {/* ══════════════ MOBILE ══════════════ */}
+      {/* ══════════════ MOBILE LCP ══════════════ */}
       <section className="bg-brand-light px-2 pb-3 pt-[4.25rem] sm:hidden">
         <div className="relative overflow-hidden rounded-2xl">
           <div className="relative h-[38dvh] min-h-[240px]">
-            <ParallaxImage
-              src="/images/hero/home-hero-bg.jpg"
+            <Image
+              src="/images/hero/home-hero-bg-mobile.jpg"
               alt="Premium residential plots in Vadodara"
+              fill
               priority
-              unoptimized
-              objectPosition="center 35%"
-              baseScale={1}
-              maxZoom={0.03}
+              fetchPriority="high"
+              sizes="100vw"
+              className="object-cover object-[center_35%]"
             />
             <div className="absolute inset-0 z-[1] bg-gradient-to-b from-black/50 via-black/25 to-black/55" />
             <div className="relative z-10 flex h-full flex-col justify-end px-4 pb-5">
@@ -146,208 +37,10 @@ export function HeroSection() {
           </div>
         </div>
 
-        {/* Always open filter on mobile */}
-        <div className="relative z-20 -mt-3 mx-0.5 rounded-2xl border border-black/5 bg-white p-3 shadow-filter">
-          <p className="mb-0.5 text-[10px] font-bold uppercase tracking-wider text-text-secondary">
-            Filter plots
-          </p>
-          <p className="mb-2.5 font-display text-[15px] font-bold text-text-primary">
-            Find your plot
-          </p>
-          <div className="grid grid-cols-1 gap-2">
-            {renderSelects('hero-mobile')}
-          </div>
-          <button
-            type="button"
-            onClick={handleSearch}
-            className="mt-2.5 inline-flex h-11 w-full items-center justify-center gap-2 rounded-full bg-brand-primary text-sm font-semibold text-white shadow-cta"
-          >
-            <Search size={16} />
-            Search plots
-          </button>
-        </div>
+        <HeroMobileFilters />
       </section>
 
-      {/* ══════════════ DESKTOP / TABLET ══════════════ */}
-      <LayoutGroup>
-        <section className="relative hidden overflow-hidden bg-brand-light px-4 pb-8 pt-24 sm:block lg:px-5 lg:pb-10 lg:pt-28">
-          <div className="relative mx-auto max-w-[90rem] overflow-hidden rounded-[2rem] bg-white lg:rounded-[2.5rem]">
-            <div className="relative min-h-[74vh] lg:min-h-[80vh]">
-              <ParallaxImage
-                src="/images/hero/home-hero-bg.jpg"
-                alt="Premium residential plots in Vadodara"
-                priority
-                unoptimized
-                objectPosition="center 40%"
-                baseScale={1}
-                maxZoom={0.06}
-                className={expanded ? 'blur-md' : ''}
-              />
-              <div className="absolute inset-0 z-[1] bg-gradient-to-b from-black/35 via-black/10 to-black/30" />
-
-              <AnimatePresence>
-                {expanded && (
-                  <motion.button
-                    type="button"
-                    aria-label="Close filters"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                    className="absolute inset-0 z-20 cursor-default bg-black/30"
-                    onClick={() => setExpanded(false)}
-                  />
-                )}
-              </AnimatePresence>
-
-              <div className="relative z-10 flex min-h-[74vh] flex-col justify-between gap-8 px-8 py-8 lg:min-h-[80vh] lg:px-12 lg:py-10">
-                <motion.div
-                  initial={{ opacity: 0, y: 18 }}
-                  animate={{ opacity: expanded ? 0.2 : 1, y: 0 }}
-                  className="mx-auto w-full max-w-3xl pt-10 text-center lg:pt-14"
-                >
-                  <p className="mb-3 text-sm font-bold uppercase tracking-[0.18em] text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.55)]">
-                    Gaurav Plots
-                  </p>
-                  <h1 className="font-display text-5xl font-extrabold tracking-tight text-white drop-shadow-[0_2px_12px_rgba(0,0,0,0.55)] lg:text-6xl">
-                    Find Your Perfect Plot to Build On.
-                  </h1>
-                  <p className="mx-auto mt-4 max-w-xl text-base text-white/95 drop-shadow-[0_2px_8px_rgba(0,0,0,0.5)] lg:text-lg">
-                    Verified residential plots across Vadodara — clear titles, honest guidance, site visits on request.
-                  </p>
-                </motion.div>
-
-                {!expanded && (
-                  <motion.div
-                    layoutId="plot-filter-panel"
-                    onClick={() => setExpanded(true)}
-                    className="relative z-30 mx-auto mb-1 w-[88%] max-w-5xl cursor-pointer lg:w-[80%]"
-                  >
-                    <div className="overflow-hidden rounded-3xl border border-black/5 bg-white p-4 shadow-filter">
-                      <div className="grid gap-3 md:grid-cols-[1fr_1fr_1fr_1fr_auto] md:items-center">
-                        <FilterField icon={<MapPin size={18} />} label="Location" expanded={false}>
-                          <span className="text-sm font-semibold text-text-primary">{locality || 'Vadodara'}</span>
-                        </FilterField>
-                        <FilterField icon={<Wallet size={18} />} label="Price" expanded={false}>
-                          <span className="text-sm font-semibold text-text-primary">
-                            {budgets.find((b) => b.value === budget)?.label || 'Any budget'}
-                          </span>
-                        </FilterField>
-                        <FilterField icon={<Layers size={18} />} label="Plot type" expanded={false}>
-                          <span className="text-sm font-semibold text-text-primary">
-                            {plotTypes.find((t) => t.value === plotType)?.label || 'All plots'}
-                          </span>
-                        </FilterField>
-                        <FilterField icon={<Ruler size={18} />} label="Plot size" expanded={false}>
-                          <span className="text-sm font-semibold text-text-primary">
-                            {areas.find((a) => a.value === area)?.label || 'Any size'}
-                          </span>
-                        </FilterField>
-                        <button
-                          type="button"
-                          onClick={(e) => {
-                            e.stopPropagation()
-                            setExpanded(true)
-                          }}
-                          className="inline-flex h-12 items-center justify-center gap-2 rounded-full bg-brand-primary px-8 text-sm font-semibold text-white shadow-cta"
-                        >
-                          <Search size={16} />
-                          Search
-                        </button>
-                      </div>
-                    </div>
-                  </motion.div>
-                )}
-              </div>
-
-              <AnimatePresence>
-                {expanded && (
-                  <motion.div
-                    className="absolute inset-0 z-30 flex items-center justify-center p-6"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                    onClick={() => setExpanded(false)}
-                  >
-                    <motion.div
-                      layoutId="plot-filter-panel"
-                      initial={{ scale: 0.94, opacity: 0.95 }}
-                      animate={{ scale: 1, opacity: 1 }}
-                      exit={{ scale: 0.96, opacity: 0 }}
-                      transition={{ type: 'spring', stiffness: 220, damping: 24 }}
-                      className="relative flex h-[min(80vh,80%)] w-[85%] max-w-5xl flex-col overflow-hidden rounded-3xl border border-white/40 bg-white/95 p-7 shadow-filter backdrop-blur-xl lg:w-[80%] lg:p-8"
-                      onClick={(e) => e.stopPropagation()}
-                    >
-                      <div className="mb-5 flex shrink-0 items-start justify-between gap-3">
-                        <div>
-                          <p className="text-xs font-bold uppercase tracking-wider text-text-secondary">Filter plots</p>
-                          <h2 className="font-display text-2xl font-bold text-text-primary">Find your plot</h2>
-                        </div>
-                        <button
-                          type="button"
-                          onClick={() => setExpanded(false)}
-                          className="rounded-full bg-brand-light p-2 text-text-secondary hover:text-text-primary"
-                          aria-label="Close"
-                        >
-                          <X size={18} />
-                        </button>
-                      </div>
-                      <div className="grid flex-1 grid-cols-2 content-center gap-5 overflow-hidden">
-                        {renderSelects('hero-desktop')}
-                      </div>
-                      <p className="mt-4 shrink-0 text-sm text-text-secondary">
-                        Search opens the plots page with these filters applied. Click outside to close.
-                      </p>
-                      <button
-                        type="button"
-                        onClick={handleSearch}
-                        className="mt-4 inline-flex h-12 w-full shrink-0 items-center justify-center gap-2 rounded-full bg-brand-primary px-8 text-sm font-semibold text-white shadow-cta"
-                      >
-                        <Search size={16} />
-                        Search plots
-                      </button>
-                    </motion.div>
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </div>
-          </div>
-        </section>
-      </LayoutGroup>
+      <HeroDesktop />
     </>
-  )
-}
-
-function FilterField({
-  icon,
-  label,
-  htmlFor,
-  expanded,
-  children,
-}: {
-  icon: React.ReactNode
-  label: string
-  htmlFor?: string
-  expanded: boolean
-  children: React.ReactNode
-}) {
-  return (
-    <div
-      className={`relative rounded-2xl border px-3 py-2.5 transition ${
-        expanded ? 'border-border bg-brand-light/80' : 'border-transparent hover:bg-brand-light/60'
-      }`}
-    >
-      <div className="mb-0.5 flex items-center gap-2 text-text-secondary">
-        {icon}
-        {htmlFor ? (
-          <label htmlFor={htmlFor} className="text-[10px] font-bold uppercase tracking-wider">
-            {label}
-          </label>
-        ) : (
-          <span className="text-[10px] font-bold uppercase tracking-wider">{label}</span>
-        )}
-        <ChevronDown size={12} className="ml-auto opacity-50" aria-hidden="true" />
-      </div>
-      {children}
-    </div>
   )
 }

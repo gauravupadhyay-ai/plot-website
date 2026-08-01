@@ -82,15 +82,18 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
     <>
       <Header />
 
-      {/* Hero Section with Cover Image */}
+      {/* Hero Section with Cover Image — server-rendered for fast LCP */}
+      {post.coverImage?.startsWith('/') && (
+        <link rel="preload" as="image" href={post.coverImage} fetchPriority="high" />
+      )}
       <section className="relative min-h-[50vh] md:min-h-[55vh] flex items-end overflow-hidden">
-        {/* Background Image */}
         <Image
           src={post.coverImage}
           alt={post.title}
           fill
           priority
-          quality={80}
+          fetchPriority="high"
+          quality={75}
           className="object-cover"
           sizes="100vw"
         />

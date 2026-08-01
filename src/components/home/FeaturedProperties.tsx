@@ -137,7 +137,7 @@ export function FeaturedProperties() {
                       target="_blank"
                       rel="noopener noreferrer"
                       className="w-11 h-11 rounded-full bg-[#25D366] flex items-center justify-center text-white hover:scale-110 transition-transform shrink-0"
-                      aria-label="Enquire via WhatsApp"
+                      aria-label={`Enquire on WhatsApp about ${property.title}`}
                     >
                       <MessageCircle size={18} />
                     </a>

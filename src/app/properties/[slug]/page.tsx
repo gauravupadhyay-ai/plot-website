@@ -40,8 +40,13 @@ export default async function PropertyDetailPage({ params }: { params: { slug: s
     })
     .slice(0, 4)
 
+  const lcpImage = property.images?.[0] || '/images/hero/hero-plots.jpg'
+
   return (
     <main id="main-content" className="min-h-screen">
+      {lcpImage.startsWith('/') && (
+        <link rel="preload" as="image" href={lcpImage} fetchPriority="high" />
+      )}
       <Header />
       <PlotDetailView property={property} similar={similar} />
       <Footer />

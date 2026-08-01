@@ -24,7 +24,7 @@ export default function HomeLoanPage() {
           { label: 'Services', href: '/services' },
           { label: 'Plot & Construction Loans' },
         ]}
-        imageClassName="object-[center_80%] md:object-[center_70%]"
+        imageClassName="object-cover object-[center_80%] md:object-[center_70%]"
       />
 
       <section className="py-16 md:py-24 bg-white">

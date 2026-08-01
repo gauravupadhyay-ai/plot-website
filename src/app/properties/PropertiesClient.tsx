@@ -6,8 +6,6 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { useSearchParams } from 'next/navigation'
 import { motion } from 'framer-motion'
-import { Header } from '@/components/layout/Header'
-import { Footer } from '@/components/layout/Footer'
 import { getProperties } from '@/data/properties'
 import { localities } from '@/data/localities'
 import {
@@ -187,26 +185,12 @@ export function PropertiesClient() {
   )
 
   return (
-    <main id="main-content" className="min-h-screen bg-brand-light">
-      <Header />
-
-      <section className="px-4 pb-6 pt-24 sm:px-6 lg:px-8 lg:pt-28">
+    <section className="bg-brand-light px-4 pb-6 pt-4 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-[90rem]">
-          <nav className="mb-4 text-sm text-text-muted">
-            <Link href="/" className="hover:text-text-primary">Home</Link>
-            <span className="mx-2">›</span>
-            <Link href="/properties" className="hover:text-text-primary">Listings</Link>
-            <span className="mx-2">›</span>
-            <span className="text-text-primary">Residential Plots</span>
-          </nav>
-
           <div className="mb-8 flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
             <div>
-              <h1 className="font-display text-3xl font-bold tracking-tight text-text-primary sm:text-4xl md:text-5xl">
-                Residential Plots
-              </h1>
-              <p className="mt-2 max-w-xl text-text-secondary">
-                Choose from our premium plots and build the home you&apos;ve always dreamed of.
+              <p className="text-sm font-semibold text-text-secondary">
+                {loading ? 'Loading plots…' : `${filtered.length} plots available`}
               </p>
             </div>
             <div className="flex flex-wrap items-center gap-3">
@@ -217,7 +201,7 @@ export function PropertiesClient() {
               >
                 {view === 'grid' ? 'View on Map' : 'Grid View'}
               </button>
-              <select value={sortBy} onChange={(e) => setSortBy(e.target.value)} className="select !h-10 !w-auto !rounded-full !text-sm">
+              <select value={sortBy} onChange={(e) => setSortBy(e.target.value)} className="select !h-10 !w-auto !rounded-full !text-sm" aria-label="Sort plots">
                 <option value="relevance">Sort by: Relevance</option>
                 <option value="price-asc">Price: Low to High</option>
                 <option value="price-desc">Price: High to Low</option>
@@ -338,9 +322,6 @@ export function PropertiesClient() {
             ))}
           </div>
         </div>
-      </section>
-
-      <Footer />
-    </main>
+    </section>
   )
 }

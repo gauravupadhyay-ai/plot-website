@@ -24,7 +24,7 @@ export default function ConsultingPage() {
           { label: 'Services', href: '/services' },
           { label: 'Plot Consulting' },
         ]}
-        imageClassName="object-[center_90%] md:object-[center_80%]"
+        imageClassName="object-cover object-[center_90%] md:object-[center_80%]"
       />
 
       <section className="py-16 md:py-24 bg-white">

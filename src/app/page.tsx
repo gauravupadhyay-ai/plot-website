@@ -34,11 +34,11 @@ const ToolsStrip = dynamic(
 export default function HomePage() {
   return (
     <main id="main-content" className="min-h-screen">
-      {/* Preload LCP hero — skips /_next/image hop for above-the-fold paint */}
+      {/* Preload mobile LCP hero (matches Moto G / Slow 4G audits) */}
       <link
         rel="preload"
         as="image"
-        href="/images/hero/home-hero-bg.jpg"
+        href="/images/hero/home-hero-bg-mobile.jpg"
         fetchPriority="high"
       />
       <Header />

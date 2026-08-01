@@ -60,9 +60,10 @@ export function PlotDetailView({
                   alt={property.title}
                   fill
                   sizes="(max-width: 1024px) 100vw, 60vw"
-                  quality={80}
+                  quality={75}
                   className="object-cover"
-                  priority
+                  priority={active === 0}
+                  fetchPriority={active === 0 ? 'high' : 'auto'}
                 />
                 <div className="absolute left-4 top-4 flex flex-wrap gap-2">
                   {property.featured && (
