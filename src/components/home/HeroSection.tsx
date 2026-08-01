@@ -62,10 +62,11 @@ export function HeroSection() {
     router.push(`/properties?${params.toString()}#plot-filters`)
   }
 
-  const selects = (
+  const renderSelects = (idPrefix: string) => (
     <>
-      <FilterField icon={<MapPin size={16} />} label="Location" expanded>
+      <FilterField icon={<MapPin size={16} />} label="Location" htmlFor={`${idPrefix}-locality`} expanded>
         <select
+          id={`${idPrefix}-locality`}
           value={locality}
           onChange={(e) => setLocality(e.target.value)}
           className="w-full appearance-none bg-transparent text-sm font-semibold text-text-primary outline-none"
@@ -76,8 +77,9 @@ export function HeroSection() {
           ))}
         </select>
       </FilterField>
-      <FilterField icon={<Wallet size={16} />} label="Price" expanded>
+      <FilterField icon={<Wallet size={16} />} label="Price" htmlFor={`${idPrefix}-budget`} expanded>
         <select
+          id={`${idPrefix}-budget`}
           value={budget}
           onChange={(e) => setBudget(e.target.value)}
           className="w-full appearance-none bg-transparent text-sm font-semibold text-text-primary outline-none"
@@ -87,8 +89,9 @@ export function HeroSection() {
           ))}
         </select>
       </FilterField>
-      <FilterField icon={<Layers size={16} />} label="Plot type" expanded>
+      <FilterField icon={<Layers size={16} />} label="Plot type" htmlFor={`${idPrefix}-plot-type`} expanded>
         <select
+          id={`${idPrefix}-plot-type`}
           value={plotType}
           onChange={(e) => setPlotType(e.target.value)}
           className="w-full appearance-none bg-transparent text-sm font-semibold text-text-primary outline-none"
@@ -98,8 +101,9 @@ export function HeroSection() {
           ))}
         </select>
       </FilterField>
-      <FilterField icon={<Ruler size={16} />} label="Plot size" expanded>
+      <FilterField icon={<Ruler size={16} />} label="Plot size" htmlFor={`${idPrefix}-area`} expanded>
         <select
+          id={`${idPrefix}-area`}
           value={area}
           onChange={(e) => setArea(e.target.value)}
           className="w-full appearance-none bg-transparent text-sm font-semibold text-text-primary outline-none"
@@ -122,6 +126,7 @@ export function HeroSection() {
               src="/images/hero/home-hero-bg.jpg"
               alt="Premium residential plots in Vadodara"
               priority
+              unoptimized
               objectPosition="center 35%"
               baseScale={1}
               maxZoom={0.03}
@@ -143,14 +148,14 @@ export function HeroSection() {
 
         {/* Always open filter on mobile */}
         <div className="relative z-20 -mt-3 mx-0.5 rounded-2xl border border-black/5 bg-white p-3 shadow-filter">
-          <p className="mb-0.5 text-[10px] font-bold uppercase tracking-wider text-text-muted">
+          <p className="mb-0.5 text-[10px] font-bold uppercase tracking-wider text-text-secondary">
             Filter plots
           </p>
           <p className="mb-2.5 font-display text-[15px] font-bold text-text-primary">
             Find your plot
           </p>
           <div className="grid grid-cols-1 gap-2">
-            {selects}
+            {renderSelects('hero-mobile')}
           </div>
           <button
             type="button"
@@ -172,6 +177,7 @@ export function HeroSection() {
                 src="/images/hero/home-hero-bg.jpg"
                 alt="Premium residential plots in Vadodara"
                 priority
+                unoptimized
                 objectPosition="center 40%"
                 baseScale={1}
                 maxZoom={0.06}
@@ -273,7 +279,7 @@ export function HeroSection() {
                     >
                       <div className="mb-5 flex shrink-0 items-start justify-between gap-3">
                         <div>
-                          <p className="text-xs font-bold uppercase tracking-wider text-text-muted">Filter plots</p>
+                          <p className="text-xs font-bold uppercase tracking-wider text-text-secondary">Filter plots</p>
                           <h2 className="font-display text-2xl font-bold text-text-primary">Find your plot</h2>
                         </div>
                         <button
@@ -286,7 +292,7 @@ export function HeroSection() {
                         </button>
                       </div>
                       <div className="grid flex-1 grid-cols-2 content-center gap-5 overflow-hidden">
-                        {selects}
+                        {renderSelects('hero-desktop')}
                       </div>
                       <p className="mt-4 shrink-0 text-sm text-text-secondary">
                         Search opens the plots page with these filters applied. Click outside to close.
@@ -314,11 +320,13 @@ export function HeroSection() {
 function FilterField({
   icon,
   label,
+  htmlFor,
   expanded,
   children,
 }: {
   icon: React.ReactNode
   label: string
+  htmlFor?: string
   expanded: boolean
   children: React.ReactNode
 }) {
@@ -328,10 +336,16 @@ function FilterField({
         expanded ? 'border-border bg-brand-light/80' : 'border-transparent hover:bg-brand-light/60'
       }`}
     >
-      <div className="mb-0.5 flex items-center gap-2 text-text-muted">
+      <div className="mb-0.5 flex items-center gap-2 text-text-secondary">
         {icon}
-        <span className="text-[10px] font-bold uppercase tracking-wider">{label}</span>
-        <ChevronDown size={12} className="ml-auto opacity-50" />
+        {htmlFor ? (
+          <label htmlFor={htmlFor} className="text-[10px] font-bold uppercase tracking-wider">
+            {label}
+          </label>
+        ) : (
+          <span className="text-[10px] font-bold uppercase tracking-wider">{label}</span>
+        )}
+        <ChevronDown size={12} className="ml-auto opacity-50" aria-hidden="true" />
       </div>
       {children}
     </div>

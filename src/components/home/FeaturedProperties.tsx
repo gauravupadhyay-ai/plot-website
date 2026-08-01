@@ -128,6 +128,7 @@ export function FeaturedProperties() {
                     <Link
                       href={`/properties/${property.slug}`}
                       className="btn-secondary flex-1 !py-2.5 !px-4 text-sm justify-center"
+                      aria-label={`View details for ${property.title}`}
                     >
                       View Details
                     </Link>

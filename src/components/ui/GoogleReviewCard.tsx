@@ -23,11 +23,16 @@ export function GoogleMark({ size = 18 }: { size?: number }) {
 export function GoogleStars({ rating }: { rating: number }) {
   const full = Math.floor(rating)
   return (
-    <div className="flex items-center gap-0.5" aria-label={`${rating} out of 5 stars`}>
+    <div
+      className="flex items-center gap-0.5"
+      role="img"
+      aria-label={`${rating} out of 5 stars`}
+    >
       {Array.from({ length: 5 }).map((_, j) => (
         <Star
           key={j}
           size={14}
+          aria-hidden="true"
           className={j < full ? 'fill-[#FABB05] text-[#FABB05]' : 'fill-gray-200 text-gray-200'}
         />
       ))}
@@ -59,7 +64,7 @@ export function GoogleReviewCard({
           </div>
           <div className="min-w-0">
             <p className="truncate text-sm font-semibold text-[#202124]">{name}</p>
-            <p className="text-xs text-[#70757a]">
+            <p className="text-xs text-[#5f6368]">
               {meta ? `${meta} · ` : ''}
               {timeLabel}
             </p>
@@ -85,7 +90,7 @@ export function GoogleReviewsHeader({
     <div className="mb-8 sm:mb-10">
       <div className="mb-2 flex items-center gap-2">
         <GoogleMark size={20} />
-        <p className="text-sm font-semibold text-[#70757a]">Google Reviews</p>
+        <p className="text-sm font-semibold text-[#5f6368]">Google Reviews</p>
       </div>
       <h2 className="font-display text-3xl font-bold tracking-tight text-[#202124] sm:text-4xl">
         {title}
@@ -94,7 +99,7 @@ export function GoogleReviewsHeader({
         <span className="text-3xl font-bold text-[#202124]">{score}</span>
         <div>
           <GoogleStars rating={5} />
-          <p className="mt-0.5 text-xs text-[#70757a]">Based on buyer feedback</p>
+          <p className="mt-0.5 text-xs text-[#5f6368]">Based on buyer feedback</p>
         </div>
       </div>
     </div>

@@ -312,6 +312,7 @@ export function PropertiesClient() {
                         <Link
                           href={`/properties/${plot.slug}`}
                           className="btn-primary mt-5 w-full justify-center !rounded-2xl"
+                          aria-label={`View details for ${plot.title}`}
                         >
                           View Details <ArrowRight size={16} />
                         </Link>

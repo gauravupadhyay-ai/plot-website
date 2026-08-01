@@ -23,10 +23,11 @@ export function MobileBottomNav() {
               key={item.href}
               href={item.href}
               className={`flex flex-col items-center justify-center gap-0.5 w-16 h-full transition-colors ${
-                isActive ? 'text-brand-primary' : 'text-text-muted'
+                isActive ? 'text-brand-primary' : 'text-text-secondary'
               }`}
+              aria-label={item.label}
             >
-              <item.icon size={20} strokeWidth={isActive ? 2.5 : 1.5} />
+              <item.icon size={20} strokeWidth={isActive ? 2.5 : 1.5} aria-hidden="true" />
               <span className="text-[10px] font-semibold">{item.label}</span>
             </Link>
           )

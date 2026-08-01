@@ -27,7 +27,7 @@ function StatItem({ icon: Icon, value, suffix, label, context, delay }: typeof s
         {count}{suffix}
       </div>
       <div className="text-text-primary font-semibold text-sm mt-1">{label}</div>
-      <div className="text-text-muted text-xs mt-1">{context}</div>
+      <div className="text-text-secondary text-xs mt-1">{context}</div>
     </div>
   )
 }

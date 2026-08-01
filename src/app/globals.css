@@ -17,7 +17,8 @@
 
   --text-primary: #0A0A0A;
   --text-secondary: #525252;
-  --text-muted: #8A8F98;
+  /* Darker muted text for WCAG AA contrast on brand-light / white */
+  --text-muted: #5C6370;
 
   --border: #E5E7EB;
   --success: #16A34A;

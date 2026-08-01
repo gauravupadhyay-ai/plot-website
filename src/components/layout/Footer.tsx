@@ -175,13 +175,13 @@ export function Footer() {
 
       <div className="border-t border-white/10">
         <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-3 px-4 py-5 sm:flex-row sm:px-6 lg:px-8">
-          <p className="text-sm text-white/40">
+          <p className="text-sm text-white/70">
             © {new Date().getFullYear()} Gaurav Plots. All Rights Reserved.
           </p>
-          <div className="flex items-center gap-4 text-sm text-white/40">
-            <Link href="/contact" className="transition-colors hover:text-white/70">Contact</Link>
-            <span>|</span>
-            <Link href="/about" className="transition-colors hover:text-white/70">About</Link>
+          <div className="flex items-center gap-4 text-sm text-white/70">
+            <Link href="/contact" className="transition-colors hover:text-white">Contact</Link>
+            <span aria-hidden="true">|</span>
+            <Link href="/about" className="transition-colors hover:text-white">About</Link>
           </div>
         </div>
       </div>

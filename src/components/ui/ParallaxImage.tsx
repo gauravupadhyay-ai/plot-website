@@ -15,6 +15,10 @@ interface ParallaxImageProps {
   baseScale?: number
   /** Extra zoom amount over scroll. Default 0.08 */
   maxZoom?: number
+  /**
+   * Skip the /_next/image optimizer (faster LCP for already-compressed local heroes).
+   */
+  unoptimized?: boolean
 }
 
 /** Subtle zoom-in as the section scrolls through the viewport */
@@ -27,11 +31,24 @@ export function ParallaxImage({
   objectPosition,
   baseScale = 1.02,
   maxZoom = 0.08,
+  unoptimized = false,
 }: ParallaxImageProps) {
   const ref = useRef<HTMLDivElement>(null)
-  const [scale, setScale] = useState(baseScale)
+  // Priority LCP images paint at scale 1 with no will-change until after first paint
+  const [scale, setScale] = useState(priority ? 1 : baseScale)
+  const [motionReady, setMotionReady] = useState(!priority)
 
   useEffect(() => {
+    if (!priority) return
+    const id = window.setTimeout(() => {
+      setMotionReady(true)
+      setScale(baseScale)
+    }, 400)
+    return () => window.clearTimeout(id)
+  }, [priority, baseScale])
+
+  useEffect(() => {
+    if (!motionReady) return
     const el = ref.current
     if (!el) return
 
@@ -54,7 +71,7 @@ export function ParallaxImage({
       window.removeEventListener('scroll', onScroll)
       window.removeEventListener('resize', onScroll)
     }
-  }, [baseScale, maxZoom])
+  }, [baseScale, maxZoom, motionReady])
 
   return (
     <div ref={ref} className="absolute inset-0 overflow-hidden">
@@ -64,12 +81,13 @@ export function ParallaxImage({
         fill
         priority={priority}
         sizes={sizes}
-        quality={priority ? 80 : 70}
-        className={`will-change-transform object-cover ${className}`}
+        quality={priority ? 75 : 70}
+        unoptimized={unoptimized}
+        className={`object-cover ${motionReady ? 'will-change-transform' : ''} ${className}`}
         style={{
           ...(objectPosition ? { objectPosition } : {}),
           transform: `scale(${scale})`,
-          transition: 'transform 80ms linear',
+          transition: motionReady ? 'transform 80ms linear' : undefined,
         }}
       />
     </div>

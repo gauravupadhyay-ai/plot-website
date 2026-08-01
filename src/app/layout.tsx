@@ -1,26 +1,42 @@
 import type { Metadata, Viewport } from 'next'
+import dynamic from 'next/dynamic'
 import { Outfit, Manrope, Space_Mono } from 'next/font/google'
 import { GoogleAnalytics } from '@next/third-parties/google'
 import './globals.css'
-import { WhatsAppFAB } from '@/components/ui/WhatsAppFAB'
-import { AIAssistantFAB } from '@/components/ui/AIAssistantFAB'
-import { UpcomingProjectModal } from '@/components/ui/UpcomingProjectModal'
-import { BackToTop } from '@/components/ui/BackToTop'
 import { MobileBottomNav } from '@/components/ui/MobileBottomNav'
 import { PHONE_NUMBER, SITE_NAME, SITE_URL } from '@/lib/utils'
+
+const WhatsAppFAB = dynamic(
+  () => import('@/components/ui/WhatsAppFAB').then((m) => m.WhatsAppFAB),
+  { ssr: false }
+)
+const AIAssistantFAB = dynamic(
+  () => import('@/components/ui/AIAssistantFAB').then((m) => m.AIAssistantFAB),
+  { ssr: false }
+)
+const UpcomingProjectModal = dynamic(
+  () => import('@/components/ui/UpcomingProjectModal').then((m) => m.UpcomingProjectModal),
+  { ssr: false }
+)
+const BackToTop = dynamic(
+  () => import('@/components/ui/BackToTop').then((m) => m.BackToTop),
+  { ssr: false }
+)
 
 const outfit = Outfit({
   subsets: ['latin'],
   variable: '--font-display',
   display: 'swap',
-  weight: ['400', '500', '600', '700', '800'],
+  weight: ['600', '700', '800'],
+  preload: true,
 })
 
 const manrope = Manrope({
   subsets: ['latin'],
   variable: '--font-sans',
   display: 'swap',
-  weight: ['400', '500', '600', '700', '800'],
+  weight: ['400', '600', '700'],
+  preload: true,
 })
 
 const spaceMono = Space_Mono({
@@ -28,6 +44,8 @@ const spaceMono = Space_Mono({
   variable: '--font-mono',
   display: 'swap',
   weight: ['400', '700'],
+  // Mono is rarely above-the-fold — keep it off the critical path
+  preload: false,
 })
 
 export const metadata: Metadata = {
