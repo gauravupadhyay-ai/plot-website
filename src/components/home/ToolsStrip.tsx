@@ -22,7 +22,7 @@ const tools = [
   {
     icon: MessageCircle,
     title: 'Free Plot Consultation',
-    desc: 'Talk to Gaurav Plots — no obligation, clear advice on land and paperwork.',
+    desc: 'Talk to Aurixrealty — no obligation, clear advice on land and paperwork.',
     href: '',
     isLink: false,
   },

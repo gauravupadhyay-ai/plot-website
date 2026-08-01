@@ -40,6 +40,7 @@ export default function AboutPage() {
         subtitle="Plot specialists helping Vadodara families invest with clarity."
         image="/images/hero/hero-about.jpg"
         breadcrumb={[{ label: 'About' }]}
+        imageClassName="object-cover object-[center_40%] md:object-[center_40%]"
       />
 
       <section className="py-20 md:py-28 bg-white">

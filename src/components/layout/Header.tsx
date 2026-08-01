@@ -54,10 +54,10 @@ export function Header() {
           <div className="flex h-16 items-center justify-between sm:h-20">
             <Link href="/" className="z-10 flex min-w-0 items-center gap-2">
               <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-brand-primary text-sm font-bold text-white sm:h-9 sm:w-9">
-                GP
+                A
               </span>
               <span className="truncate font-display text-lg font-bold tracking-tight text-text-primary sm:text-xl">
-                Gaurav Plots
+                Aurixrealty
               </span>
             </Link>
 

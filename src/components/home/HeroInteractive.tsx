@@ -1,10 +1,10 @@
 'use client'
 
 import React, { useEffect, useState } from 'react'
-import Image from 'next/image'
 import { motion, AnimatePresence, LayoutGroup } from 'framer-motion'
 import { Search, MapPin, Wallet, Layers, Ruler, ChevronDown, X } from 'lucide-react'
 import { useRouter } from 'next/navigation'
+import { ParallaxImage } from '@/components/ui/ParallaxImage'
 
 const localities = ['Waghodia Road', 'Ajwa Road', 'Jarod', 'Subhanpura']
 const budgets = [
@@ -112,17 +112,15 @@ export function HeroDesktop() {
       <section className="relative hidden overflow-hidden bg-brand-light px-4 pb-8 pt-24 sm:block lg:px-5 lg:pb-10 lg:pt-28">
         <div className="relative mx-auto max-w-[90rem] overflow-hidden rounded-[2rem] bg-white lg:rounded-[2.5rem]">
           <div className="relative min-h-[74vh] lg:min-h-[80vh]">
-            {/* Static cover — no transform/will-change competing with LCP */}
-            <div className="absolute inset-0 overflow-hidden">
-              <Image
-                src="/images/hero/home-hero-bg-desktop.jpg"
-                alt="Premium residential plots in Vadodara"
-                fill
-                sizes="100vw"
-                quality={75}
-                className={`object-cover object-[center_40%] transition-[filter] duration-300 ${expanded ? 'blur-md' : ''}`}
-              />
-            </div>
+            <ParallaxImage
+              src="/images/hero/home-hero-bg-desktop.jpg"
+              alt="Premium residential plots in Vadodara"
+              sizes="100vw"
+              className={`object-[center_40%] transition-[filter] duration-300 ${expanded ? 'blur-md' : ''}`}
+              baseScale={1.05}
+              maxZoom={0.12}
+              maxShift={56}
+            />
             <div className="absolute inset-0 z-[1] bg-gradient-to-b from-black/35 via-black/10 to-black/30" />
 
             <AnimatePresence>
@@ -139,19 +137,19 @@ export function HeroDesktop() {
               )}
             </AnimatePresence>
 
-            <div className="relative z-10 flex min-h-[74vh] flex-col justify-between gap-8 px-8 py-8 lg:min-h-[80vh] lg:px-12 lg:py-10">
+            <div className="relative z-10 flex min-h-[74vh] flex-col justify-between gap-6 px-5 py-7 md:gap-8 md:px-8 md:py-8 lg:min-h-[80vh] lg:px-12 lg:py-10">
               <motion.div
                 initial={{ opacity: 0, y: 18 }}
                 animate={{ opacity: expanded ? 0.2 : 1, y: 0 }}
-                className="mx-auto w-full max-w-3xl pt-10 text-center lg:pt-14"
+                className="mx-auto w-full max-w-3xl pt-6 text-center md:pt-10 lg:pt-14"
               >
                 <p className="mb-3 text-sm font-bold uppercase tracking-[0.18em] text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.55)]">
-                  Gaurav Plots
+                  Aurixrealty
                 </p>
-                <h1 className="font-display text-5xl font-extrabold tracking-tight text-white drop-shadow-[0_2px_12px_rgba(0,0,0,0.55)] lg:text-6xl">
+                <h1 className="font-display text-4xl font-extrabold tracking-tight text-white drop-shadow-[0_2px_12px_rgba(0,0,0,0.55)] md:text-5xl lg:text-6xl">
                   Find Your Perfect Plot to Build On.
                 </h1>
-                <p className="mx-auto mt-4 max-w-xl text-base text-white/95 drop-shadow-[0_2px_8px_rgba(0,0,0,0.5)] lg:text-lg">
+                <p className="mx-auto mt-3 max-w-xl text-sm text-white/95 drop-shadow-[0_2px_8px_rgba(0,0,0,0.5)] md:mt-4 md:text-base lg:text-lg">
                   Verified residential plots across Vadodara — clear titles, honest guidance, site visits on request.
                 </p>
               </motion.div>
@@ -160,25 +158,26 @@ export function HeroDesktop() {
                 <motion.div
                   layoutId="plot-filter-panel"
                   onClick={() => setExpanded(true)}
-                  className="relative z-30 mx-auto mb-1 w-[88%] max-w-5xl cursor-pointer lg:w-[80%]"
+                  className="relative z-30 mx-auto mb-1 w-full max-w-5xl cursor-pointer px-0 sm:w-[96%] lg:w-[80%]"
                 >
-                  <div className="overflow-hidden rounded-3xl border border-black/5 bg-white p-4 shadow-filter">
-                    <div className="grid gap-3 md:grid-cols-[1fr_1fr_1fr_1fr_auto] md:items-center">
+                  <div className="rounded-3xl border border-black/5 bg-white p-3 shadow-filter md:p-4">
+                    {/* Tablet: 2x2 + full-width search. Desktop: single row */}
+                    <div className="grid grid-cols-2 gap-2 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)_minmax(0,1fr)_minmax(0,1fr)_auto] lg:items-center lg:gap-3">
                       <FilterField icon={<MapPin size={18} />} label="Location" expanded={false}>
-                        <span className="text-sm font-semibold text-text-primary">{locality || 'Vadodara'}</span>
+                        <span className="block truncate text-sm font-semibold text-text-primary">{locality || 'Vadodara'}</span>
                       </FilterField>
                       <FilterField icon={<Wallet size={18} />} label="Price" expanded={false}>
-                        <span className="text-sm font-semibold text-text-primary">
+                        <span className="block truncate text-sm font-semibold text-text-primary">
                           {budgets.find((b) => b.value === budget)?.label || 'Any budget'}
                         </span>
                       </FilterField>
                       <FilterField icon={<Layers size={18} />} label="Plot type" expanded={false}>
-                        <span className="text-sm font-semibold text-text-primary">
+                        <span className="block truncate text-sm font-semibold text-text-primary">
                           {plotTypes.find((t) => t.value === plotType)?.label || 'All plots'}
                         </span>
                       </FilterField>
                       <FilterField icon={<Ruler size={18} />} label="Plot size" expanded={false}>
-                        <span className="text-sm font-semibold text-text-primary">
+                        <span className="block truncate text-sm font-semibold text-text-primary">
                           {areas.find((a) => a.value === area)?.label || 'Any size'}
                         </span>
                       </FilterField>
@@ -188,7 +187,7 @@ export function HeroDesktop() {
                           e.stopPropagation()
                           setExpanded(true)
                         }}
-                        className="inline-flex h-12 items-center justify-center gap-2 rounded-full bg-brand-primary px-8 text-sm font-semibold text-white shadow-cta"
+                        className="col-span-2 inline-flex h-12 w-full items-center justify-center gap-2 rounded-full bg-brand-primary px-6 text-sm font-semibold text-white shadow-cta lg:col-span-1 lg:h-12 lg:w-auto lg:px-8"
                       >
                         <Search size={16} />
                         Search
@@ -339,20 +338,20 @@ function FilterField({
 }) {
   return (
     <div
-      className={`relative rounded-2xl border px-3 py-2.5 transition ${
+      className={`relative min-w-0 rounded-2xl border px-3 py-2.5 transition ${
         expanded ? 'border-border bg-brand-light/80' : 'border-transparent hover:bg-brand-light/60'
       }`}
     >
-      <div className="mb-0.5 flex items-center gap-2 text-text-secondary">
-        {icon}
+      <div className="mb-0.5 flex min-w-0 items-center gap-1.5 text-text-secondary">
+        <span className="shrink-0">{icon}</span>
         {htmlFor ? (
-          <label htmlFor={htmlFor} className="text-[10px] font-bold uppercase tracking-wider">
+          <label htmlFor={htmlFor} className="truncate text-[10px] font-bold uppercase tracking-wider">
             {label}
           </label>
         ) : (
-          <span className="text-[10px] font-bold uppercase tracking-wider">{label}</span>
+          <span className="truncate text-[10px] font-bold uppercase tracking-wider">{label}</span>
         )}
-        <ChevronDown size={12} className="ml-auto opacity-50" aria-hidden="true" />
+        <ChevronDown size={12} className="ml-auto shrink-0 opacity-50" aria-hidden="true" />
       </div>
       {children}
     </div>

@@ -42,7 +42,7 @@ export function WhyChooseUs() {
             <div className="relative rounded-3xl overflow-hidden aspect-[4/3]">
               <Image
                 src="/images/gallery-images/6.jpg"
-                alt="Gaurav Plots team assisting plot buyers in Vadodara"
+                alt="Aurixrealty team assisting plot buyers in Vadodara"
                 fill
                 sizes="(max-width: 1024px) 100vw, 50vw"
                 quality={75}
@@ -75,7 +75,7 @@ export function WhyChooseUs() {
               <span className="text-brand-primary">Plot Specialists</span>
             </h2>
             <p className="text-text-secondary text-lg leading-relaxed mb-8">
-              Gaurav Plots helps you buy residential and NA land with clarity —
+              Aurixrealty helps you buy residential and NA land with clarity —
               locality fit, title confidence, and honest pricing at every step.
             </p>
 
@@ -105,7 +105,7 @@ export function WhyChooseUs() {
               <p className="text-text-secondary italic text-[15px] leading-relaxed">
                 &ldquo;We don&apos;t just show plots. We help you buy land you can build on with confidence.&rdquo;
               </p>
-              <p className="text-text-primary font-semibold text-sm mt-2">— Gaurav Plots Team</p>
+              <p className="text-text-primary font-semibold text-sm mt-2">— Aurixrealty Team</p>
             </div>
 
             <Link href="/about" className="btn-charcoal">

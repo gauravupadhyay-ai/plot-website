@@ -52,7 +52,7 @@ export function TestimonialsClient() {
 
         <div className="mt-12 text-center">
           <a
-            href="https://g.page/r/gauravplots/review"
+            href="https://g.page/r/aurixrealty/review"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 rounded-full bg-[#1a73e8] px-6 py-3 text-sm font-semibold text-white shadow-sm hover:bg-[#1765cc]"

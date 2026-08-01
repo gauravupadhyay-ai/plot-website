@@ -232,10 +232,10 @@ export function PlotDetailView({
             <div className="rounded-3xl border border-border bg-white p-5 shadow-card">
               <div className="flex items-center gap-3">
                 <div className="flex h-14 w-14 items-center justify-center rounded-full bg-brand-primary text-lg font-bold text-white">
-                  GP
+                  A
                 </div>
                 <div>
-                  <p className="font-semibold text-text-primary">Gaurav Plots Advisor</p>
+                  <p className="font-semibold text-text-primary">Aurixrealty Advisor</p>
                   <p className="text-xs text-text-secondary">Plot Consultant · Vadodara</p>
                   <p className="mt-1 inline-flex items-center gap-1 text-xs font-semibold text-emerald-600">
                     <span className="h-2 w-2 rounded-full bg-emerald-500" /> Online

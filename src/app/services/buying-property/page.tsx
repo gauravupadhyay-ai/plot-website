@@ -24,7 +24,7 @@ export default function BuyingPropertyPage() {
           { label: 'Services', href: '/services' },
           { label: 'Buying Plots' },
         ]}
-        imageClassName="object-cover object-[center_90%] md:object-[center_78%]"
+        imageClassName="object-cover object-[center_90%] md:object-[center_85%]"
       />
 
       <section className="py-16 md:py-24 bg-white">

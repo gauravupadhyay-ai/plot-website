@@ -1,5 +1,5 @@
 -- ============================================================
--- Gaurav Plots — schema upgrades + 6 plot listings + reviews
+-- Aurixrealty — schema upgrades + 6 plot listings + reviews
 -- Run in Supabase SQL Editor
 -- ============================================================
 
@@ -221,13 +221,13 @@ DELETE FROM public.plot_reviews WHERE property_code LIKE 'GP-P%';
 INSERT INTO public.plot_reviews (property_code, property_slug, author, rating, comment, review_date) VALUES
 ('GP-P001', 'greenfield-estate-waghodia', 'Amit Patel', 5.0, 'Transparent process and the plot location is excellent for long-term value.', '2026-05-12'),
 ('GP-P001', 'greenfield-estate-waghodia', 'Neha Shah', 4.5, 'Site visit was well arranged. Documents were explained clearly.', '2026-06-02'),
-('GP-P002', 'sunrise-na-plot-ajwa', 'Ravi Desai', 5.0, 'Good NA plot option in our budget. Gaurav Plots team was responsive.', '2026-04-18'),
+('GP-P002', 'sunrise-na-plot-ajwa', 'Ravi Desai', 5.0, 'Good NA plot option in our budget. Aurixrealty team was responsive.', '2026-04-18'),
 ('GP-P002', 'sunrise-na-plot-ajwa', 'Sonal Rana', 4.0, 'Nice facing and approach road. Happy with the shortlisting help.', '2026-05-03'),
 ('GP-P003', 'jarod-garden-villa-plot', 'Kiran Trivedi', 4.0, 'Value for money plot. Happy with the guidance on documentation.', '2026-03-22'),
 ('GP-P003', 'jarod-garden-villa-plot', 'Deepak Solanki', 4.5, 'Good investment corridor. Clear communication throughout.', '2026-04-09'),
 ('GP-P004', 'subhanpura-prime-corner', 'Meera Joshi', 5.0, 'Premium location. The corner advantage is real — very happy we booked this.', '2026-07-01'),
 ('GP-P004', 'subhanpura-prime-corner', 'Harsh Patel', 5.0, 'Professional team. Title checks gave us confidence.', '2026-07-10'),
-('GP-P005', 'orchard-lane-plot-waghodia', 'Suresh Mehta', 5.0, 'Smooth experience from enquiry to agreement. Strongly recommend Gaurav Plots.', '2026-05-28'),
+('GP-P005', 'orchard-lane-plot-waghodia', 'Suresh Mehta', 5.0, 'Smooth experience from enquiry to agreement. Strongly recommend Aurixrealty.', '2026-05-28'),
 ('GP-P005', 'orchard-lane-plot-waghodia', 'Anjali Dave', 4.5, 'Loan assistance tip was useful. Plot size fits our plan.', '2026-06-08'),
 ('GP-P006', 'lakeview-residences-plot-ajwa', 'Pooja Amin', 4.5, 'Loved the size and facing. Looking forward to building our home here.', '2026-06-15'),
 ('GP-P006', 'lakeview-residences-plot-ajwa', 'Nikhil Shah', 4.0, 'Calm surroundings and verified papers. Good support from the advisor.', '2026-06-21');

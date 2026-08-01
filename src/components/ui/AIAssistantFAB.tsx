@@ -34,7 +34,7 @@ export function AIAssistantFAB() {
   const [messages, setMessages] = useState<ChatMessage[]>([
     {
       role: 'assistant',
-      text: 'Hi! I’m the Gaurav Plots assistant. Ask me anything about buying plots in Vadodara.',
+      text: 'Hi! I’m the Aurixrealty assistant. Ask me anything about buying plots in Vadodara.',
     },
   ])
 
@@ -87,7 +87,7 @@ export function AIAssistantFAB() {
           >
             <div className="flex items-center justify-between border-b border-border bg-brand-primary px-4 py-3 text-white">
               <div>
-                <p className="text-sm font-bold">Gaurav Plots AI</p>
+                <p className="text-sm font-bold">Aurixrealty AI</p>
                 <p className="text-xs text-white/70">FAQ assistant</p>
               </div>
               <button

@@ -88,7 +88,7 @@ export function Footer() {
         <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-4 lg:gap-8">
           <div className="sm:col-span-2 lg:col-span-1">
             <Link href="/" className="mb-4 inline-block">
-              <span className="font-display text-2xl font-bold text-white">Gaurav Plots</span>
+              <span className="font-display text-2xl font-bold text-white">Aurixrealty</span>
             </Link>
             <p className="mb-6 text-[15px] leading-relaxed text-white/60">
               Vadodara&apos;s plot specialists. Helping buyers find verified residential land with clear titles and honest guidance.
@@ -159,9 +159,9 @@ export function Footer() {
                 </a>
               </li>
               <li>
-                <a href="mailto:contact@gauravplots.com" className="flex items-center gap-3 text-[15px] text-white/60 transition-colors hover:text-white">
+                <a href="mailto:contact@aurixrealty.com" className="flex items-center gap-3 text-[15px] text-white/60 transition-colors hover:text-white">
                   <Mail size={18} className="flex-shrink-0 text-white" />
-                  contact@gauravplots.com
+                  contact@aurixrealty.com
                 </a>
               </li>
               <li className="flex items-center gap-3 text-[15px] text-white/60">
@@ -176,7 +176,7 @@ export function Footer() {
       <div className="border-t border-white/10">
         <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-3 px-4 py-5 sm:flex-row sm:px-6 lg:px-8">
           <p className="text-sm text-white/70">
-            © {new Date().getFullYear()} Gaurav Plots. All Rights Reserved.
+            © {new Date().getFullYear()} Aurixrealty. All Rights Reserved.
           </p>
           <div className="flex items-center gap-4 text-sm text-white/70">
             <Link href="/contact" className="transition-colors hover:text-white">Contact</Link>

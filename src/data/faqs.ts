@@ -53,7 +53,7 @@ export const generalFaqs: FAQ[] = [
   {
     question: 'Do you verify plot titles?',
     answer:
-      'Yes. Gaurav Plots prioritizes clear-title inventory. We review ownership papers, basic compliance signals, and physical access before recommending a plot.',
+      'Yes. Aurixrealty prioritizes clear-title inventory. We review ownership papers, basic compliance signals, and physical access before recommending a plot.',
   },
   {
     question: 'What does NA plot mean?',
@@ -66,7 +66,7 @@ export const generalFaqs: FAQ[] = [
       'We support agreement drafting guidance, stamp duty estimates, registration coordination, and mutation follow-ups so paperwork stays on track.',
   },
   {
-    question: 'Can I sell my plot through Gaurav Plots?',
+    question: 'Can I sell my plot through Aurixrealty?',
     answer:
       'Yes. List your plot via our Post Property form or WhatsApp. We connect verified sellers with serious plot buyers in Vadodara.',
   },

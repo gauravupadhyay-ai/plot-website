@@ -50,17 +50,17 @@ const spaceMono = Space_Mono({
 
 export const metadata: Metadata = {
   title: {
-    default: 'Gaurav Plots — Premium Residential Plots in Vadodara',
-    template: '%s | Gaurav Plots',
+    default: 'Aurixrealty — Premium Residential Plots in Vadodara',
+    template: '%s | Aurixrealty',
   },
   description:
-    'Gaurav Plots specializes in verified residential plots across Vadodara. Find NA plots, clear-title land, and upcoming plotted projects in Waghodia Road, Ajwa Road, Subhanpura & more.',
+    'Aurixrealty specializes in verified residential plots across Vadodara. Find NA plots, clear-title land, and upcoming plotted projects in Waghodia Road, Ajwa Road, Subhanpura & more.',
   keywords: [
     'plots in Vadodara',
     'residential plots Vadodara',
     'NA plots Vadodara',
     'plot for sale Waghodia Road',
-    'Gaurav Plots',
+    'Aurixrealty',
     'buy plot Vadodara',
     'land for sale Vadodara',
     'Gujarat plots',
@@ -76,7 +76,7 @@ export const metadata: Metadata = {
       url: `${SITE_URL}/og-image.jpg`,
       width: 1200,
       height: 630,
-      alt: 'Gaurav Plots — Premium Residential Plots in Vadodara',
+      alt: 'Aurixrealty — Premium Residential Plots in Vadodara',
     }],
   },
   twitter: { card: 'summary_large_image' },
@@ -102,7 +102,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             __html: JSON.stringify({
               '@context': 'https://schema.org',
               '@type': 'RealEstateAgent',
-              name: 'Gaurav Plots',
+              name: 'Aurixrealty',
               description:
                 'Vadodara plot specialists helping buyers find verified residential land with clear titles.',
               address: {
@@ -114,7 +114,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 addressCountry: 'IN',
               },
               telephone: PHONE_NUMBER,
-              email: 'contact@gauravplots.com',
+              email: 'contact@aurixrealty.com',
               url: SITE_URL,
               priceRange: '₹₹',
               openingHours: 'Mo-Sa 09:00-19:00',

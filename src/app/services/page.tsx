@@ -53,7 +53,7 @@ export default function ServicesPage() {
         subtitle="End-to-end plot services tailored for Vadodara buyers and investors"
         image="/images/hero/hero-services.jpg"
         breadcrumb={[{ label: 'Services' }]}
-        imageClassName="object-cover object-[center_92%] md:object-[center_82%]"
+        imageClassName="object-cover object-[center_90%] md:object-[center_85%]"
       />
 
       <section className="py-16 md:py-24 bg-brand-light">

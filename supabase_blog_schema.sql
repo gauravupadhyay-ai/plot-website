@@ -1,5 +1,5 @@
 -- ============================================================
--- Gaurav Plots — Blog posts in Supabase (+ images bucket)
+-- Aurixrealty — Blog posts in Supabase (+ images bucket)
 -- Run in Supabase SQL Editor
 -- ============================================================
 

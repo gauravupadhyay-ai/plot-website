@@ -63,10 +63,10 @@ export function AdminSidebar() {
             </div>
             <div>
               <h2 className="text-xl font-bold font-display text-brand-primary leading-tight">
-                Gaurav
+                Aurixrealty
               </h2>
               <p className="text-[10px] uppercase tracking-widest text-text-muted font-bold">
-                Plots Admin
+                Admin
               </p>
             </div>
           </div>

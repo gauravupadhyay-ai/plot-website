@@ -13,7 +13,7 @@ export default function TestimonialsPage() {
         subtitle={`Families and investors who trusted ${SITE_NAME} with their plot decisions.`}
         image="/images/hero/hero-testimonials.jpg"
         breadcrumb={[{ label: 'Testimonials' }]}
-        imageClassName="object-cover object-[center_85%] md:object-[center_75%]"
+        imageClassName="object-cover object-[center_88%] md:object-[center_85%]"
       />
       <TestimonialsClient />
       <Footer />

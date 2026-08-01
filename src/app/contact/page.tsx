@@ -13,6 +13,7 @@ export default function ContactPage() {
         subtitle={`Talk to ${SITE_NAME} about plots in Vadodara`}
         image="/images/hero/hero-contact.jpg"
         breadcrumb={[{ label: 'Contact' }]}
+        imageClassName="object-cover object-[center_40%] md:object-[center_40%]"
       />
       <ContactClient />
       <Footer />

@@ -13,7 +13,7 @@ export default function PropertiesPage() {
         subtitle="Choose from our premium plots and build the home you've always dreamed of."
         image="/images/hero/hero-plots.jpg"
         breadcrumb={[{ label: 'Plots' }]}
-        imageClassName="object-cover object-[center_70%] md:object-[center_60%]"
+        imageClassName="object-cover object-[center_85%] md:object-[center_80%]"
       />
       <Suspense
         fallback={
