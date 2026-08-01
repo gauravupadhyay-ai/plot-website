@@ -51,6 +51,8 @@ export default function AboutPage() {
                   src="/images/gallery-images/6.jpg"
                   alt={`The ${SITE_NAME} team`}
                   fill
+                  sizes="(max-width: 1024px) 100vw, 50vw"
+                  quality={75}
                   className="object-cover"
                 />
               </div>
@@ -169,6 +171,8 @@ export default function AboutPage() {
                     src={photo.src}
                     alt={photo.caption}
                     fill
+                    sizes="(max-width: 768px) 50vw, (max-width: 1024px) 33vw, 400px"
+                    quality={70}
                     className="object-cover group-hover:scale-105 transition-transform duration-500"
                   />
                 </div>

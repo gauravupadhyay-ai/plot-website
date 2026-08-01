@@ -119,7 +119,7 @@ export function HeroSection() {
         <div className="relative overflow-hidden rounded-2xl">
           <div className="relative h-[38dvh] min-h-[240px]">
             <ParallaxImage
-              src="/images/hero/home-hero-bg.png"
+              src="/images/hero/home-hero-bg.jpg"
               alt="Premium residential plots in Vadodara"
               priority
               objectPosition="center 35%"
@@ -169,7 +169,7 @@ export function HeroSection() {
           <div className="relative mx-auto max-w-[90rem] overflow-hidden rounded-[2rem] bg-white lg:rounded-[2.5rem]">
             <div className="relative min-h-[74vh] lg:min-h-[80vh]">
               <ParallaxImage
-                src="/images/hero/home-hero-bg.png"
+                src="/images/hero/home-hero-bg.jpg"
                 alt="Premium residential plots in Vadodara"
                 priority
                 objectPosition="center 40%"

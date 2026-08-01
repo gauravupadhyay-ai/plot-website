@@ -64,6 +64,7 @@ export function ParallaxImage({
         fill
         priority={priority}
         sizes={sizes}
+        quality={priority ? 80 : 70}
         className={`will-change-transform object-cover ${className}`}
         style={{
           ...(objectPosition ? { objectPosition } : {}),

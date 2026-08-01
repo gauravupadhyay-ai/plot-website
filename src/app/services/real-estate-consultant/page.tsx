@@ -65,6 +65,8 @@ export default function ConsultingPage() {
                 src="/images/gallery-images/13.jpg"
                 alt="Plot consulting"
                 fill
+                sizes="(max-width: 1024px) 100vw, 50vw"
+                quality={75}
                 className="object-cover"
               />
             </div>

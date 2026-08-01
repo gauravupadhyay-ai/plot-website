@@ -55,7 +55,15 @@ export function PlotDetailView({
           <div className="space-y-8">
             <div>
               <div className="relative aspect-[16/10] overflow-hidden rounded-3xl bg-white shadow-card">
-                <Image src={images[active]} alt={property.title} fill className="object-cover" priority />
+                <Image
+                  src={images[active]}
+                  alt={property.title}
+                  fill
+                  sizes="(max-width: 1024px) 100vw, 60vw"
+                  quality={80}
+                  className="object-cover"
+                  priority
+                />
                 <div className="absolute left-4 top-4 flex flex-wrap gap-2">
                   {property.featured && (
                     <span className="rounded-full bg-brand-primary px-3 py-1 text-xs font-bold text-white">★ Featured</span>
@@ -92,7 +100,7 @@ export function PlotDetailView({
                       active === i ? 'border-brand-primary' : 'border-transparent'
                     }`}
                   >
-                    <Image src={src} alt="" fill className="object-cover" />
+                    <Image src={src} alt="" fill sizes="112px" quality={60} className="object-cover" />
                     {i === 5 && images.length > 6 && (
                       <span className="absolute inset-0 flex items-center justify-center bg-black/55 text-xs font-bold text-white">
                         +{images.length - 5} Photos
@@ -279,7 +287,14 @@ export function PlotDetailView({
                   className="w-[260px] shrink-0 overflow-hidden rounded-3xl border border-border bg-white shadow-card"
                 >
                   <div className="relative aspect-[16/10]">
-                    <Image src={p.images[0] || '/images/hero/hero-plots.jpg'} alt={p.title} fill className="object-cover" />
+                    <Image
+                      src={p.images[0] || '/images/hero/hero-plots.jpg'}
+                      alt={p.title}
+                      fill
+                      sizes="260px"
+                      quality={70}
+                      className="object-cover"
+                    />
                   </div>
                   <div className="p-4">
                     <p className="line-clamp-1 font-semibold text-text-primary">{p.title}</p>

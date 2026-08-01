@@ -65,6 +65,8 @@ export default function BuyingPropertyPage() {
                 src="/images/gallery-images/12.jpg"
                 alt={`Buying plots with ${SITE_NAME}`}
                 fill
+                sizes="(max-width: 1024px) 100vw, 50vw"
+                quality={75}
                 className="object-cover"
               />
             </div>

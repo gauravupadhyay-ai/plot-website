@@ -275,6 +275,8 @@ export function PropertiesClient() {
                           src={plot.images[0] || '/images/hero/hero-plots.jpg'}
                           alt={plot.title}
                           fill
+                          sizes="(max-width: 640px) 100vw, (max-width: 1280px) 50vw, 33vw"
+                          quality={75}
                           className="object-cover transition-transform duration-700 hover:scale-105"
                         />
                         {plot.featured && (

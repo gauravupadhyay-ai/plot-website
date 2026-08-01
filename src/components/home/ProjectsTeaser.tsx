@@ -40,6 +40,8 @@ export function ProjectsTeaser() {
                 src="/images/gallery-images/10.jpg"
                 alt="Sarthak Enclave - Residential plots in Subhanpura"
                 fill
+                sizes="(max-width: 1024px) 100vw, 50vw"
+                quality={75}
                 className="object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-r from-brand-primary/60 to-transparent lg:bg-gradient-to-r lg:from-transparent lg:to-brand-primary/40" />

@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import Image from 'next/image'
 import Link from 'next/link'
 import { supabase } from '@/lib/supabase'
 import { Property } from '@/types/property'
@@ -76,12 +77,14 @@ export default function AdminPropertiesPage() {
                   <tr key={prop.id} className="hover:bg-brand-light/50 transition-colors group">
                     <td className="px-6 py-4">
                       <div className="flex items-center gap-4">
-                        <div className="w-14 h-14 bg-gray-100 rounded-xl overflow-hidden shadow-sm flex-shrink-0">
+                        <div className="relative w-14 h-14 bg-gray-100 rounded-xl overflow-hidden shadow-sm flex-shrink-0">
                           {prop.images?.[0] ? (
-                            <img
+                            <Image
                               src={prop.images[0]}
                               alt=""
-                              className="w-full h-full object-cover"
+                              fill
+                              sizes="56px"
+                              className="object-cover"
                             />
                           ) : (
                             <div className="w-full h-full flex items-center justify-center">
@@ -137,7 +140,13 @@ export default function AdminPropertiesPage() {
               >
                 <div className="relative aspect-[16/9] w-full">
                   {prop.images?.[0] ? (
-                    <img src={prop.images[0]} alt="" className="w-full h-full object-cover" />
+                    <Image
+                      src={prop.images[0]}
+                      alt=""
+                      fill
+                      sizes="100vw"
+                      className="object-cover"
+                    />
                   ) : (
                     <div className="w-full h-full bg-gray-100 flex items-center justify-center text-gray-300">
                       <Map size={32} />

@@ -44,6 +44,8 @@ export function WhyChooseUs() {
                 src="/images/gallery-images/6.jpg"
                 alt="Gaurav Plots team assisting plot buyers in Vadodara"
                 fill
+                sizes="(max-width: 1024px) 100vw, 50vw"
+                quality={75}
                 className="object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-brand-primary/40 to-transparent" />

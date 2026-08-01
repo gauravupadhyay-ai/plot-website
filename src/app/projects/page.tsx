@@ -32,6 +32,8 @@ export default function ProjectsPage() {
                 src="/images/gallery-images/10.jpg"
                 alt="Sarthak Enclave Plot Project"
                 fill
+                sizes="(max-width: 896px) 100vw, 896px"
+                quality={75}
                 className="object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />

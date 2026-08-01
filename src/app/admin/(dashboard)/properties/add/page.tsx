@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import { supabase } from '@/lib/supabase'
 import {
@@ -417,10 +418,13 @@ export default function AddPropertyPage() {
                 <div className="relative aspect-[4/3] rounded-3xl border-2 border-dashed border-border hover:border-brand-primary bg-gray-50/30 overflow-hidden transition-all group">
                   {coverPreview ? (
                     <>
-                      <img
+                      <Image
                         src={coverPreview}
                         alt="Cover Preview"
-                        className="w-full h-full object-cover"
+                        fill
+                        unoptimized
+                        sizes="(max-width: 768px) 100vw, 33vw"
+                        className="object-cover"
                       />
                       <button
                         type="button"
@@ -459,7 +463,14 @@ export default function AddPropertyPage() {
                     key={index}
                     className="relative aspect-square rounded-2xl overflow-hidden group border border-gray-100"
                   >
-                    <img src={src} alt="" className="w-full h-full object-cover" />
+                    <Image
+                      src={src}
+                      alt=""
+                      fill
+                      unoptimized
+                      sizes="(max-width: 640px) 50vw, 25vw"
+                      className="object-cover"
+                    />
                     <button
                       type="button"
                       onClick={() => removeGalleryFile(index)}

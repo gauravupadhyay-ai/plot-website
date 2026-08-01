@@ -36,6 +36,7 @@ export function LocalitiesGrid() {
                     alt={locality.name}
                     fill
                     sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                    quality={70}
                     className="object-cover transition-transform duration-700 group-hover:scale-110"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/35 to-black/10" />
