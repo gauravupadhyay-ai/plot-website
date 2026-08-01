@@ -1,5 +1,5 @@
 /**
- * Represents a blog post as stored in MongoDB.
+ * Represents a blog post as stored in Supabase `blog_posts`.
  */
 export interface BlogPost {
   _id?: string

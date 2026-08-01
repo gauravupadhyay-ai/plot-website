@@ -1,95 +1,77 @@
 'use client'
+
 import { useState } from 'react'
 import { Header } from '@/components/layout/Header'
 import { Footer } from '@/components/layout/Footer'
-import { Breadcrumb } from '@/components/layout/Breadcrumb'
+import { PageHero } from '@/components/layout/PageHero'
 import { testimonials } from '@/data/testimonials'
-import { Star, ExternalLink } from 'lucide-react'
+import { ExternalLink } from 'lucide-react'
 import { motion } from 'framer-motion'
+import { SITE_NAME } from '@/lib/utils'
+import { GoogleReviewCard, GoogleReviewsHeader } from '@/components/ui/GoogleReviewCard'
 
 export default function TestimonialsPage() {
   const [filter, setFilter] = useState<string>('All')
-  const filtered = filter === 'All' ? testimonials : testimonials.filter(t => t.type === filter)
+  const filtered = filter === 'All' ? testimonials : testimonials.filter((t) => t.type === filter)
 
   return (
     <main id="main-content" className="min-h-screen">
       <Header />
-      <section className="hero-section hero-section--page charcoal-gradient relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-b from-brand-primary/90 to-brand-primary/80 z-10" />
-        <div className="relative z-20 text-center w-full px-4">
-          <Breadcrumb items={[{ label: 'Testimonials' }]} />
-          <h1 className="font-serif font-bold text-4xl md:text-5xl text-white mt-6">
-            Client <span className="gold-gradient-text">Reviews</span>
-          </h1>
-          <p className="text-white/60 text-lg mt-4">325+ families have trusted us with their most important investment</p>
-        </div>
-      </section>
+      <PageHero
+        title="Client Reviews"
+        subtitle={`Families and investors who trusted ${SITE_NAME} with their plot decisions.`}
+        image="/images/hero/hero-testimonials.jpg"
+        breadcrumb={[{ label: 'Testimonials' }]}
+        imageClassName="object-[center_85%] md:object-[center_75%]"
+      />
 
-      <section className="py-16 md:py-24 bg-brand-light">
+      <section className="bg-[#f8f9fa] py-14 md:py-20">
         <div className="section-container">
-          {/* Rating Summary */}
-          <div className="card-static p-8 !rounded-2xl text-center mb-12 max-w-md mx-auto">
-            <div className="flex gap-1 justify-center mb-3">
-              {[1,2,3,4,5].map(s => (
-                <Star key={s} size={24} className="text-brand-secondary fill-brand-secondary" />
-              ))}
-            </div>
-            <div className="font-mono font-bold text-4xl text-brand-primary">4.8/5</div>
-            <p className="text-text-secondary text-sm mt-1">Based on 325+ reviews</p>
-          </div>
+          <GoogleReviewsHeader title="Google reviews from plot buyers" score="4.9" />
 
-          {/* Filter Tabs */}
-          <div className="flex flex-wrap justify-center gap-2 mb-10">
-            {['All', 'Buyer', 'Seller', 'Investor'].map(tab => (
+          <div className="mb-8 flex flex-wrap gap-2">
+            {['All', 'Buyer', 'Seller', 'Investor'].map((tab) => (
               <button
                 key={tab}
                 onClick={() => setFilter(tab)}
-                className={`pill-toggle ${filter === tab ? 'active' : ''}`}
+                className={`rounded-full px-4 py-2 text-sm font-semibold transition ${
+                  filter === tab
+                    ? 'bg-[#1a73e8] text-white'
+                    : 'border border-[#dadce0] bg-white text-[#3c4043] hover:bg-[#f1f3f4]'
+                }`}
               >
-                {tab === 'All' ? 'All Reviews' : `${tab}s`}
+                {tab === 'All' ? 'All reviews' : `${tab}s`}
               </button>
             ))}
           </div>
 
-          {/* Reviews Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 sm:gap-5">
             {filtered.map((review, i) => (
               <motion.div
                 key={review.id}
-                initial={{ opacity: 0, y: 16 }}
+                initial={{ opacity: 0, y: 12 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: Math.min(i * 0.05, 0.3) }}
+                transition={{ delay: Math.min(i * 0.04, 0.24) }}
               >
-                <div className="card-static p-6 !rounded-2xl h-full flex flex-col">
-                  <div className="flex gap-0.5 mb-4">
-                    {Array.from({ length: review.rating }).map((_, j) => (
-                      <Star key={j} size={16} className="text-brand-secondary fill-brand-secondary" />
-                    ))}
-                  </div>
-                  <p className="text-text-secondary text-[15px] leading-relaxed italic flex-1 mb-6">
-                    &ldquo;{review.quote}&rdquo;
-                  </p>
-                  <div className="border-t border-border pt-4">
-                    <div className="font-bold text-text-primary">{review.name}</div>
-                    {review.type && (
-                      <div className="text-brand-secondary text-xs font-semibold uppercase tracking-wider mt-1">{review.type}</div>
-                    )}
-                  </div>
-                </div>
+                <GoogleReviewCard
+                  name={review.name}
+                  quote={review.quote}
+                  rating={review.rating}
+                  meta={review.type}
+                />
               </motion.div>
             ))}
           </div>
 
-          {/* CTA */}
-          <div className="text-center mt-12">
+          <div className="mt-12 text-center">
             <a
-              href="https://g.page/morinproperty/review"
+              href="https://g.page/r/gauravplots/review"
               target="_blank"
               rel="noopener noreferrer"
-              className="btn-primary"
+              className="inline-flex items-center gap-2 rounded-full bg-[#1a73e8] px-6 py-3 text-sm font-semibold text-white shadow-sm hover:bg-[#1765cc]"
             >
               <ExternalLink size={16} />
-              Share Your Experience
+              Share your experience on Google
             </a>
           </div>
         </div>

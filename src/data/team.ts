@@ -2,10 +2,10 @@ import { TeamMember } from '@/types/property'
 
 export const team: TeamMember[] = [
   {
-    name: 'Morin Property Team',
-    role: 'Real Estate Experts',
+    name: 'Gaurav Plots Team',
+    role: 'Plot Specialists',
     image: '/images/about-team.jpg',
-    bio: 'Our dedicated team of real estate professionals brings years of Vadodara market expertise to help you find your perfect property.',
+    bio: 'Our team focuses on residential and NA plots across Vadodara — helping you shortlist land, review paperwork, and close with clarity.',
   },
 ]
 
@@ -20,6 +20,6 @@ export const galleryImages = [
   { src: '/images/gallery/investor-meet.jpg', alt: 'Investor Meet', caption: 'Investor Meet' },
   { src: '/images/gallery/exhibition-navlakhi.jpg', alt: 'Exhibition Stall at Navlakhi', caption: 'Exhibition Stall at Navlakhi' },
   { src: '/images/gallery/credai.jpg', alt: 'At CREDAI', caption: 'At CREDAI' },
-  { src: '/images/gallery/morin-team.jpg', alt: 'Morin Property Team', caption: 'Morin Property Team' },
+  { src: '/images/gallery/morin-team.jpg', alt: 'Gaurav Plots Team', caption: 'Gaurav Plots Team' },
   { src: '/images/gallery/vpca-visit.jpg', alt: 'VPCA Leader Visit', caption: 'VPCA Leader Visit' },
 ]

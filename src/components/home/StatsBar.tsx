@@ -1,13 +1,13 @@
 'use client'
 import { useCountUp } from '@/hooks/useCountUp'
 import { useInView } from '@/hooks/useInView'
-import { Building2, MapPin, Home, Users, Heart } from 'lucide-react'
+import { Layers, MapPin, FileCheck, Users } from 'lucide-react'
 
 const stats = [
-  { icon: Heart, value: 325, suffix: '+', label: 'Happy Families', context: 'Real families. Real homes.' },
-  { icon: Building2, value: 3, suffix: '+', label: 'Landmark Projects', context: 'Signature developments.' },
-  { icon: MapPin, value: 132, suffix: '+', label: 'Plots Sold', context: 'Prime Vadodara locations.' },
-  { icon: Users, value: 5, suffix: '+', label: 'Years of Service', context: 'Trusted since day one.' },
+  { icon: Layers, value: 132, suffix: '+', label: 'Plots Sold', context: 'Clear-title land across Vadodara.' },
+  { icon: MapPin, value: 4, suffix: '+', label: 'Key Localities', context: 'Waghodia, Ajwa, Jarod & more.' },
+  { icon: FileCheck, value: 100, suffix: '%', label: 'Title Focus', context: 'NA status & paperwork first.' },
+  { icon: Users, value: 5, suffix: '+', label: 'Years of Service', context: 'Trusted plot guidance.' },
 ]
 
 function StatItem({ icon: Icon, value, suffix, label, context, delay }: typeof stats[0] & { delay: number }) {
@@ -20,8 +20,8 @@ function StatItem({ icon: Icon, value, suffix, label, context, delay }: typeof s
       className="flex flex-col items-center text-center px-4"
       style={{ animationDelay: `${delay}ms` }}
     >
-      <div className="w-14 h-14 rounded-2xl bg-brand-secondary/10 flex items-center justify-center mb-4">
-        <Icon size={24} className="text-brand-secondary" />
+      <div className="w-14 h-14 rounded-2xl bg-brand-primary/10 flex items-center justify-center mb-4">
+        <Icon size={24} className="text-brand-primary" />
       </div>
       <div className="font-mono font-bold text-3xl sm:text-4xl text-brand-primary tracking-tight">
         {count}{suffix}

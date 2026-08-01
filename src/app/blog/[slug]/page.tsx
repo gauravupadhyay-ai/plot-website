@@ -7,6 +7,7 @@ import { CTABanner } from '@/components/home/CTABanner'
 import { Breadcrumb } from '@/components/layout/Breadcrumb'
 import { BlogMarkdownContent } from '@/components/blog/BlogMarkdownContent'
 import { getAllBlogPosts, getBlogPostBySlug } from '@/data/blogPosts'
+import { SITE_NAME, SITE_URL } from '@/lib/utils'
 import { Calendar, Tag } from 'lucide-react'
 
 interface BlogPostPageProps {
@@ -27,19 +28,19 @@ export async function generateMetadata({ params }: BlogPostPageProps): Promise<M
 
   if (!post) {
     return {
-      title: 'Blog Post Not Found | Morin Propertys',
+      title: `Blog Post Not Found | ${SITE_NAME}`,
       description: 'The requested blog post could not be found.',
     }
   }
 
   return {
-    title: `${post.title} | Morin Propertys Blog`,
+    title: `${post.title} | ${SITE_NAME} Blog`,
     description: post.metaDescription || post.title,
     keywords: post.keywords,
     openGraph: {
       title: post.title,
       description: post.metaDescription || post.title,
-      url: `https://morin-propertys-main.vercel.app/blog/${post.slug}`,
+      url: `${SITE_URL}/blog/${post.slug}`,
       type: 'article',
       images: [
         {
@@ -93,8 +94,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
           sizes="100vw"
         />
 
-        {/* Dark overlay */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-black/30" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
 
         {/* Content */}
         <div className="relative z-10 w-full pb-10 pt-32 px-4 sm:px-6 lg:px-8">

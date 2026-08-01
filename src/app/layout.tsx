@@ -1,25 +1,26 @@
 import type { Metadata, Viewport } from 'next'
-import { Cormorant_Garamond, DM_Sans, Space_Mono } from 'next/font/google'
+import { Outfit, Manrope, Space_Mono } from 'next/font/google'
 import { GoogleAnalytics } from '@next/third-parties/google'
 import './globals.css'
 import { WhatsAppFAB } from '@/components/ui/WhatsAppFAB'
-import { PhoneCallFAB } from '@/components/ui/PhoneCallFAB'
-import { LeadMagnet } from '@/components/ui/LeadMagnet'
+import { AIAssistantFAB } from '@/components/ui/AIAssistantFAB'
+import { UpcomingProjectModal } from '@/components/ui/UpcomingProjectModal'
 import { BackToTop } from '@/components/ui/BackToTop'
 import { MobileBottomNav } from '@/components/ui/MobileBottomNav'
+import { PHONE_NUMBER, SITE_NAME, SITE_URL } from '@/lib/utils'
 
-const cormorant = Cormorant_Garamond({
+const outfit = Outfit({
   subsets: ['latin'],
-  variable: '--font-serif',
+  variable: '--font-display',
   display: 'swap',
-  weight: ['300', '400', '500', '600', '700'],
+  weight: ['400', '500', '600', '700', '800'],
 })
 
-const dmSans = DM_Sans({
+const manrope = Manrope({
   subsets: ['latin'],
   variable: '--font-sans',
   display: 'swap',
-  weight: ['300', '400', '500', '600', '700'],
+  weight: ['400', '500', '600', '700', '800'],
 })
 
 const spaceMono = Space_Mono({
@@ -31,48 +32,51 @@ const spaceMono = Space_Mono({
 
 export const metadata: Metadata = {
   title: {
-    default: 'Morin Property — Trusted Real Estate in Vadodara',
-    template: '%s | Morin Property',
+    default: 'Gaurav Plots — Premium Residential Plots in Vadodara',
+    template: '%s | Gaurav Plots',
   },
   description:
-    'Morin Property is Vadodara\'s trusted real estate agency. Find verified properties, flats, houses & plots in Waghodia Road, Ajwa Road, Subhanpura & more. 325+ happy families served.',
+    'Gaurav Plots specializes in verified residential plots across Vadodara. Find NA plots, clear-title land, and upcoming plotted projects in Waghodia Road, Ajwa Road, Subhanpura & more.',
   keywords: [
-    'Vadodara real estate', 'property in Vadodara', 'flats in Vadodara',
-    'houses for sale Vadodara', 'Waghodia Road property', 'Ajwa Road flats',
-    'Morin Property', 'real estate agent Vadodara', 'home loan Vadodara',
-    'buy property Vadodara', 'Gujarat real estate',
+    'plots in Vadodara',
+    'residential plots Vadodara',
+    'NA plots Vadodara',
+    'plot for sale Waghodia Road',
+    'Gaurav Plots',
+    'buy plot Vadodara',
+    'land for sale Vadodara',
+    'Gujarat plots',
   ],
-  authors: [{ name: 'Morin Property', url: 'https://www.morinpropertys.com' }],
-  creator: 'Morin Property',
+  authors: [{ name: SITE_NAME, url: SITE_URL }],
+  creator: SITE_NAME,
   openGraph: {
     type: 'website',
     locale: 'en_IN',
-    url: 'https://www.morinpropertys.com',
-    siteName: 'Morin Property',
+    url: SITE_URL,
+    siteName: SITE_NAME,
     images: [{
-      url: 'https://www.morinpropertys.com/og-image.jpg',
-      width: 1200, height: 630,
-      alt: 'Morin Property — Trusted Real Estate in Vadodara',
+      url: `${SITE_URL}/og-image.jpg`,
+      width: 1200,
+      height: 630,
+      alt: 'Gaurav Plots — Premium Residential Plots in Vadodara',
     }],
   },
-  twitter: {
-    card: 'summary_large_image',
-  },
+  twitter: { card: 'summary_large_image' },
   robots: { index: true, follow: true },
-  alternates: { canonical: 'https://www.morinpropertys.com' },
+  alternates: { canonical: SITE_URL },
 }
 
 export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
-  themeColor: '#1A1A2E',
+  themeColor: '#0A0A0A',
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   const gaId = process.env.NEXT_PUBLIC_GA_ID
 
   return (
-    <html lang="en" className={`${cormorant.variable} ${dmSans.variable} ${spaceMono.variable}`}>
+    <html lang="en" className={`${outfit.variable} ${manrope.variable} ${spaceMono.variable}`}>
       <head>
         <script
           type="application/ld+json"
@@ -80,8 +84,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             __html: JSON.stringify({
               '@context': 'https://schema.org',
               '@type': 'RealEstateAgent',
-              name: 'Morin Property',
-              description: 'Vadodara\'s trusted real estate agency helping families buy, sell, and invest in property.',
+              name: 'Gaurav Plots',
+              description:
+                'Vadodara plot specialists helping buyers find verified residential land with clear titles.',
               address: {
                 '@type': 'PostalAddress',
                 streetAddress: 'Kubereshwar Rd, Goverdhan Twp, Kendranagar',
@@ -90,15 +95,15 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 postalCode: '390025',
                 addressCountry: 'IN',
               },
-              telephone: '+91-9376786108',
-              email: 'morincontact@gmail.com',
-              url: 'https://www.morinpropertys.com',
+              telephone: PHONE_NUMBER,
+              email: 'contact@gauravplots.com',
+              url: SITE_URL,
               priceRange: '₹₹',
               openingHours: 'Mo-Sa 09:00-19:00',
               aggregateRating: {
                 '@type': 'AggregateRating',
                 ratingValue: '4.8',
-                reviewCount: '325',
+                reviewCount: '132',
               },
             }),
           }}
@@ -108,10 +113,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <a href="#main-content" className="skip-link">Skip to main content</a>
         {children}
         <WhatsAppFAB />
-        <PhoneCallFAB />
+        <AIAssistantFAB />
+        <UpcomingProjectModal />
         <BackToTop />
         <MobileBottomNav />
-        <LeadMagnet />
       </body>
       {gaId && <GoogleAnalytics gaId={gaId} />}
     </html>

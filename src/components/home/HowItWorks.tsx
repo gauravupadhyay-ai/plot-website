@@ -1,31 +1,31 @@
 'use client'
 import { motion } from 'framer-motion'
-import { MessageSquare, Search, MapPin, Key } from 'lucide-react'
+import { MessageSquare, Search, MapPin, FileCheck } from 'lucide-react'
 
 const steps = [
   {
     icon: MessageSquare,
     number: '01',
-    title: 'Tell Us What You Need',
-    desc: 'Share your budget, locality preference, and BHK requirement. We listen first.',
+    title: 'Share Your Plot Needs',
+    desc: 'Tell us budget, preferred locality, size (sq.yd), and NA / residential preference.',
   },
   {
     icon: Search,
     number: '02',
-    title: 'We Curate Options',
-    desc: 'Handpicked, verified properties matched to your exact profile and priorities.',
+    title: 'We Shortlist Plots',
+    desc: 'Curated options with clear titles and location fit — no apartment clutter.',
   },
   {
     icon: MapPin,
     number: '03',
-    title: 'Site Visits & Guidance',
-    desc: 'We accompany you to every visit, answer every question — honestly.',
+    title: 'Site Visits & Checks',
+    desc: 'We walk the land with you and flag access, boundaries, and paperwork signals.',
   },
   {
-    icon: Key,
+    icon: FileCheck,
     number: '04',
-    title: 'Smooth Possession',
-    desc: 'Legal checks, loan coordination, registration, and documentation support.',
+    title: 'Close with Confidence',
+    desc: 'Support on documentation, registration, and plot loan coordination.',
   },
 ]
 
@@ -39,20 +39,18 @@ export function HowItWorks() {
             How It Works
           </h2>
           <p className="section-subtitle mx-auto text-center">
-            Four simple steps to your dream home in Vadodara
+            Four clear steps to your plot in Vadodara
           </p>
         </div>
 
-        {/* Desktop: Horizontal Timeline */}
         <div className="hidden md:block relative">
-          {/* Connecting Line */}
           <div className="absolute top-[52px] left-[12.5%] right-[12.5%] h-0.5 bg-border z-0">
             <motion.div
               initial={{ scaleX: 0 }}
               whileInView={{ scaleX: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 1.2, ease: 'easeInOut' }}
-              className="h-full bg-brand-secondary origin-left"
+              className="h-full bg-brand-primary origin-left"
             />
           </div>
 
@@ -66,21 +64,19 @@ export function HowItWorks() {
                 transition={{ delay: 0.2 + i * 0.15 }}
                 className="text-center"
               >
-                {/* Number Circle */}
-                <div className="w-[104px] h-[104px] rounded-full bg-white shadow-card mx-auto mb-6 flex items-center justify-center border-2 border-brand-secondary/20 relative">
-                  <span className="font-serif font-bold text-3xl text-brand-secondary">{step.number}</span>
-                  <div className="absolute -top-1 -right-1 w-8 h-8 rounded-full bg-brand-secondary/10 flex items-center justify-center">
-                    <step.icon size={14} className="text-brand-secondary" />
+                <div className="w-[104px] h-[104px] rounded-full bg-white shadow-card mx-auto mb-6 flex items-center justify-center border-2 border-brand-primary/20 relative">
+                  <span className="font-display font-bold text-3xl text-brand-primary">{step.number}</span>
+                  <div className="absolute -top-1 -right-1 w-8 h-8 rounded-full bg-brand-primary/10 flex items-center justify-center">
+                    <step.icon size={14} className="text-brand-primary" />
                   </div>
                 </div>
-                <h3 className="font-serif font-bold text-lg text-text-primary mb-2">{step.title}</h3>
+                <h3 className="font-display font-bold text-lg text-text-primary mb-2">{step.title}</h3>
                 <p className="text-text-secondary text-sm leading-relaxed max-w-[220px] mx-auto">{step.desc}</p>
               </motion.div>
             ))}
           </div>
         </div>
 
-        {/* Mobile: Vertical Timeline */}
         <div className="md:hidden space-y-0">
           {steps.map((step, i) => (
             <motion.div
@@ -91,17 +87,16 @@ export function HowItWorks() {
               transition={{ delay: i * 0.1 }}
               className="flex gap-4 relative"
             >
-              {/* Vertical Line */}
               <div className="flex flex-col items-center">
-                <div className="w-14 h-14 rounded-full bg-white shadow-card flex items-center justify-center border-2 border-brand-secondary/20 shrink-0 z-10">
-                  <span className="font-serif font-bold text-xl text-brand-secondary">{step.number}</span>
+                <div className="w-14 h-14 rounded-full bg-white shadow-card flex items-center justify-center border-2 border-brand-primary/20 shrink-0 z-10">
+                  <span className="font-display font-bold text-xl text-brand-primary">{step.number}</span>
                 </div>
                 {i < steps.length - 1 && (
-                  <div className="w-0.5 flex-1 bg-brand-secondary/20 my-1" />
+                  <div className="w-0.5 flex-1 bg-brand-primary/20 my-1" />
                 )}
               </div>
               <div className="pb-8">
-                <h3 className="font-serif font-bold text-lg text-text-primary mb-1">{step.title}</h3>
+                <h3 className="font-display font-bold text-lg text-text-primary mb-1">{step.title}</h3>
                 <p className="text-text-secondary text-sm leading-relaxed">{step.desc}</p>
               </div>
             </motion.div>

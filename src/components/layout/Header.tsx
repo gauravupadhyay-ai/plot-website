@@ -3,66 +3,43 @@ import { useState, useEffect, useCallback } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Phone, Menu, X, ChevronDown, MessageCircle } from 'lucide-react'
-import { getWhatsAppUrl, getCallUrl } from '@/lib/utils'
+import { Phone, Menu, X, ChevronDown } from 'lucide-react'
+import { getCallUrl, PHONE_NUMBER } from '@/lib/utils'
+
 
 const navLinks = [
-  { label: 'Home', href: '/' },
+  { label: 'Plots', href: '/properties' },
   {
-    label: 'Properties',
-    href: '/properties',
-    children: [
-      { label: 'All Properties', href: '/properties' },
-      { label: 'Waghodia Road', href: '/properties?locality=Waghodia+Road' },
-      { label: 'Ajwa Road', href: '/properties?locality=Ajwa+Road' },
-      { label: 'Subhanpura', href: '/properties?locality=Subhanpura' },
-      { label: 'Jarod', href: '/properties?locality=Jarod' },
-    ],
-  },
-  { label: 'Projects', href: '/projects' },
-  {
-    label: 'Services',
+    label: 'Our services',
     href: '/services',
     children: [
       { label: 'All Services', href: '/services' },
-      { label: 'Buying Property', href: '/services/buying-property' },
-      { label: 'Real Estate Consulting', href: '/services/real-estate-consultant' },
-      { label: 'Home Loan Assistance', href: '/services/home-loan' },
+      { label: 'Buying a Plot', href: '/services/buying-property' },
+      { label: 'Plot Consulting', href: '/services/real-estate-consultant' },
+      { label: 'Loan Assistance', href: '/services/home-loan' },
     ],
   },
-  { label: 'About', href: '/about' },
+  { label: 'Projects', href: '/projects' },
+  { label: 'About us', href: '/about' },
   { label: 'Blog', href: '/blog' },
-  { label: 'Contact', href: '/contact' },
 ]
 
 export function Header() {
-  const [scrolled, setScrolled] = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null)
   const pathname = usePathname()
 
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 80)
-    window.addEventListener('scroll', handleScroll, { passive: true })
-    return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
-
-  useEffect(() => {
-    if (mobileOpen) {
-      document.body.style.overflow = 'hidden'
-    } else {
-      document.body.style.overflow = ''
-    }
+    document.body.style.overflow = mobileOpen ? 'hidden' : ''
     return () => { document.body.style.overflow = '' }
   }, [mobileOpen])
 
-  // Close mobile menu on route change
   useEffect(() => {
     setMobileOpen(false)
   }, [pathname])
 
   const toggleDropdown = useCallback((label: string) => {
-    setActiveDropdown(prev => prev === label ? null : label)
+    setActiveDropdown((prev) => (prev === label ? null : label))
   }, [])
 
   const isActive = (href: string) => {
@@ -72,68 +49,53 @@ export function Header() {
 
   return (
     <>
-      <header
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-          scrolled
-            ? 'bg-brand-primary/95 backdrop-blur-md shadow-nav border-b border-white/5'
-            : 'bg-transparent'
-        }`}
-      >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-20">
-            {/* Logo */}
-            <Link href="/" className="flex items-center gap-2 z-10">
-              <span className="font-serif font-bold text-2xl tracking-tight text-white">
-                Morin
+      <header className="fixed top-0 left-0 right-0 z-50 border-b border-border bg-white shadow-nav">
+        <div className="mx-auto max-w-[90rem] px-4 sm:px-6 lg:px-8">
+          <div className="flex h-16 items-center justify-between sm:h-20">
+            <Link href="/" className="z-10 flex min-w-0 items-center gap-2">
+              <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-brand-primary text-sm font-bold text-white sm:h-9 sm:w-9">
+                GP
               </span>
-              <span className="font-serif font-bold text-2xl tracking-tight text-brand-secondary">
-                Property
+              <span className="truncate font-display text-lg font-bold tracking-tight text-text-primary sm:text-xl">
+                Gaurav Plots
               </span>
             </Link>
 
-            {/* Desktop Nav — Centered */}
-            <nav className="hidden lg:flex items-center gap-1">
+            <nav className="hidden items-center gap-1 lg:flex">
               {navLinks.map((link) => (
-                <div key={link.label} className="relative group">
+                <div key={link.label} className="group relative">
                   {link.children ? (
                     <button
-                      className={`flex items-center gap-1 px-4 py-2 text-[15px] font-medium rounded-full transition-all ${
+                      className={`flex items-center gap-1 rounded-full px-4 py-2 text-[15px] font-medium transition-all ${
                         isActive(link.href)
-                          ? 'text-brand-secondary'
-                          : 'text-white/80 hover:text-white hover:bg-white/10'
+                          ? 'text-text-primary'
+                          : 'text-text-secondary hover:bg-black/5 hover:text-text-primary'
                       }`}
                     >
                       {link.label}
-                      <ChevronDown size={14} className="group-hover:rotate-180 transition-transform duration-300" />
+                      <ChevronDown size={14} className="transition-transform duration-300 group-hover:rotate-180" />
                     </button>
                   ) : (
                     <Link
                       href={link.href}
-                      className={`relative px-4 py-2 text-[15px] font-medium rounded-full transition-all ${
+                      className={`rounded-full px-4 py-2 text-[15px] font-medium transition-all ${
                         isActive(link.href)
-                          ? 'text-brand-secondary'
-                          : 'text-white/80 hover:text-white hover:bg-white/10'
+                          ? 'text-text-primary'
+                          : 'text-text-secondary hover:bg-black/5 hover:text-text-primary'
                       }`}
                     >
                       {link.label}
-                      {isActive(link.href) && (
-                        <motion.div
-                          layoutId="nav-underline"
-                          className="absolute -bottom-1 left-4 right-4 h-0.5 bg-brand-secondary rounded-full"
-                        />
-                      )}
                     </Link>
                   )}
 
-                  {/* Dropdown */}
                   {link.children && (
-                    <div className="absolute top-full left-0 pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
-                      <div className="bg-brand-primary/95 backdrop-blur-lg rounded-2xl py-2 min-w-[220px] border border-white/10 shadow-card-hover">
+                    <div className="invisible absolute left-0 top-full pt-2 opacity-0 transition-all duration-200 group-hover:visible group-hover:opacity-100">
+                      <div className="min-w-[220px] rounded-2xl border border-border bg-white py-2 shadow-card-hover">
                         {link.children.map((child) => (
                           <Link
                             key={child.href}
                             href={child.href}
-                            className="block px-5 py-2.5 text-[14px] text-white/70 hover:text-brand-secondary hover:bg-white/5 transition-colors"
+                            className="block px-5 py-2.5 text-[14px] text-text-secondary transition-colors hover:bg-brand-light hover:text-text-primary"
                           >
                             {child.label}
                           </Link>
@@ -145,30 +107,15 @@ export function Header() {
               ))}
             </nav>
 
-            {/* Right Actions */}
-            <div className="hidden lg:flex items-center gap-3">
-              <a
-                href={getWhatsAppUrl()}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-2 px-4 py-2 rounded-full text-sm font-semibold text-white/80 hover:text-white hover:bg-white/10 transition-all"
-              >
-                <MessageCircle size={16} />
-                WhatsApp
-              </a>
-              <a
-                href={getCallUrl()}
-                className="flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-semibold bg-brand-secondary text-white shadow-cta hover:bg-brand-secondary/90 hover:scale-[1.03] transition-all"
-              >
-                <Phone size={15} />
-                +91-9376786108
-              </a>
+            <div className="hidden items-center gap-3 lg:flex">
+              <Link href="/contact" className="btn-primary !px-5 !py-2.5 text-sm">
+                Contact us
+              </Link>
             </div>
 
-            {/* Mobile Hamburger */}
             <button
               onClick={() => setMobileOpen(!mobileOpen)}
-              className="lg:hidden z-10 p-2 rounded-xl transition-all text-white"
+              className="z-10 rounded-xl p-2 text-text-primary transition-all lg:hidden"
               aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
             >
               {mobileOpen ? <X size={24} /> : <Menu size={24} />}
@@ -177,7 +124,6 @@ export function Header() {
         </div>
       </header>
 
-      {/* Mobile Drawer */}
       <AnimatePresence>
         {mobileOpen && (
           <motion.div
@@ -186,22 +132,18 @@ export function Header() {
             exit={{ opacity: 0 }}
             className="fixed inset-0 z-40 lg:hidden"
           >
-            {/* Backdrop */}
             <motion.div
-              className="absolute inset-0 bg-black/60 backdrop-blur-sm"
+              className="absolute inset-0 bg-black/40 backdrop-blur-sm"
               onClick={() => setMobileOpen(false)}
             />
-
-            {/* Drawer Content */}
             <motion.nav
               initial={{ x: '100%' }}
               animate={{ x: 0 }}
               exit={{ x: '100%' }}
               transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-              className="absolute right-0 top-0 bottom-0 w-full max-w-sm bg-brand-primary overflow-y-auto"
+              className="absolute bottom-0 right-0 top-0 w-[70vw] max-w-[70vw] overflow-y-auto bg-white shadow-card-hover"
             >
               <div className="p-6 pt-24">
-                {/* Nav Links */}
                 <div className="space-y-1">
                   {navLinks.map((link) => (
                     <div key={link.label}>
@@ -209,9 +151,7 @@ export function Header() {
                         <>
                           <button
                             onClick={() => toggleDropdown(link.label)}
-                            className={`w-full flex items-center justify-between py-3 px-4 text-lg font-semibold rounded-xl transition-all ${
-                              isActive(link.href) ? 'text-brand-secondary' : 'text-white/90 hover:text-white hover:bg-white/5'
-                            }`}
+                            className="flex w-full items-center justify-between rounded-xl px-4 py-3 text-lg font-semibold text-text-primary"
                           >
                             {link.label}
                             <ChevronDown
@@ -232,7 +172,7 @@ export function Header() {
                                     key={child.href}
                                     href={child.href}
                                     onClick={() => setMobileOpen(false)}
-                                    className="block py-2.5 px-4 text-[15px] text-white/60 hover:text-brand-secondary rounded-lg transition-all"
+                                    className="block rounded-lg px-4 py-2.5 text-[15px] text-text-secondary"
                                   >
                                     {child.label}
                                   </Link>
@@ -245,9 +185,7 @@ export function Header() {
                         <Link
                           href={link.href}
                           onClick={() => setMobileOpen(false)}
-                          className={`block py-3 px-4 text-lg font-semibold rounded-xl transition-all ${
-                            isActive(link.href) ? 'text-brand-secondary' : 'text-white/90 hover:text-white hover:bg-white/5'
-                          }`}
+                          className="block rounded-xl px-4 py-3 text-lg font-semibold text-text-primary"
                         >
                           {link.label}
                         </Link>
@@ -256,38 +194,18 @@ export function Header() {
                   ))}
                 </div>
 
-                {/* CTA Buttons */}
-                <div className="mt-8 pt-6 border-t border-white/10 space-y-3">
-                  <a
-                    href={getCallUrl()}
+                <div className="mt-8 space-y-3 border-t border-border pt-6">
+                  <Link
+                    href="/contact"
+                    onClick={() => setMobileOpen(false)}
                     className="btn-primary w-full justify-center"
-                    onClick={() => setMobileOpen(false)}
                   >
+                    Contact us
+                  </Link>
+                  <a href={getCallUrl()} className="btn-secondary w-full justify-center">
                     <Phone size={18} />
-                    Call Now
+                    {PHONE_NUMBER}
                   </a>
-                  <a
-                    href={getWhatsAppUrl()}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="btn-whatsapp w-full justify-center"
-                    onClick={() => setMobileOpen(false)}
-                  >
-                    <MessageCircle size={18} />
-                    WhatsApp Us
-                  </a>
-                </div>
-
-                {/* Contact Info */}
-                <div className="mt-8 pt-6 border-t border-white/10">
-                  <p className="text-sm text-white/50 leading-relaxed">
-                    Kubereshwar Rd, Goverdhan Township,<br />
-                    Kendranagar, Waghodia Road,<br />
-                    Vadodara, Gujarat — 390025
-                  </p>
-                  <p className="text-sm text-white/40 mt-3">
-                    Mon–Sat: 9:00 AM – 7:00 PM
-                  </p>
                 </div>
               </div>
             </motion.nav>

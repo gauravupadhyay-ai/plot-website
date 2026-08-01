@@ -1,60 +1,50 @@
 import { BlogPost } from '@/types/blog'
-import { getMongoDb } from '@/lib/mongodb'
+import { supabase } from '@/lib/supabase'
 
-const COLLECTION = 'blog_posts'
+function mapBlog(row: any): BlogPost {
+  return {
+    _id: row.id,
+    title: row.title,
+    slug: row.slug,
+    content: row.content,
+    coverImage: row.cover_image,
+    metaDescription: row.meta_description || '',
+    keywords: row.keywords || [],
+    sourceUrl: row.source_url || undefined,
+    createdAt: row.created_at,
+    updatedAt: row.updated_at,
+  }
+}
 
-/**
- * Fetch all blog posts, sorted by newest first.
- */
 export async function getAllBlogPosts(): Promise<BlogPost[]> {
   try {
-    const db = await getMongoDb()
-    const docs = await db
-      .collection(COLLECTION)
-      .find({})
-      .sort({ createdAt: -1 })
-      .toArray()
+    const { data, error } = await supabase
+      .from('blog_posts')
+      .select('*')
+      .order('created_at', { ascending: false })
 
-    return docs.map((doc) => ({
-      _id: doc._id.toString(),
-      title: doc.title,
-      slug: doc.slug,
-      content: doc.content,
-      coverImage: doc.coverImage,
-      metaDescription: doc.metaDescription || '',
-      keywords: doc.keywords || [],
-      sourceUrl: doc.sourceUrl,
-      createdAt: doc.createdAt,
-      updatedAt: doc.updatedAt,
-    })) as BlogPost[]
+    if (error || !data) {
+      console.error('[blogPosts] Failed to fetch all blog posts:', error)
+      return []
+    }
+
+    return data.map(mapBlog)
   } catch (error) {
     console.error('[blogPosts] Failed to fetch all blog posts:', error)
     return []
   }
 }
 
-/**
- * Fetch a single blog post by its URL slug.
- */
 export async function getBlogPostBySlug(slug: string): Promise<BlogPost | undefined> {
   try {
-    const db = await getMongoDb()
-    const doc = await db.collection(COLLECTION).findOne({ slug })
+    const { data, error } = await supabase
+      .from('blog_posts')
+      .select('*')
+      .eq('slug', slug)
+      .maybeSingle()
 
-    if (!doc) return undefined
-
-    return {
-      _id: doc._id.toString(),
-      title: doc.title,
-      slug: doc.slug,
-      content: doc.content,
-      coverImage: doc.coverImage,
-      metaDescription: doc.metaDescription || '',
-      keywords: doc.keywords || [],
-      sourceUrl: doc.sourceUrl,
-      createdAt: doc.createdAt,
-      updatedAt: doc.updatedAt,
-    } as BlogPost
+    if (error || !data) return undefined
+    return mapBlog(data)
   } catch (error) {
     console.error('[blogPosts] Failed to fetch blog post by slug:', error)
     return undefined

@@ -2,13 +2,14 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import { Phone, Mail, MapPin, Clock, Facebook, Youtube, Send, Award } from 'lucide-react'
+import { getCallUrl, PHONE_NUMBER } from '@/lib/utils'
 
 const credentials = [
-  'NAR Certified',
-  'CREDAI Member',
-  'VPCA Member',
-  'eXp Realty Certified',
-  'Digital Certified',
+  'Title Verified',
+  'NA Guidance',
+  'Site Visits',
+  'Loan Support',
+  'Clear Docs',
 ]
 
 export function Footer() {
@@ -34,30 +35,29 @@ export function Footer() {
 
   return (
     <footer className="bg-brand-primary text-white pb-16 lg:pb-0">
-      {/* Newsletter Bar */}
       <div className="border-b border-white/10">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+        <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
+          <div className="flex flex-col items-center justify-between gap-6 md:flex-row">
             <div>
-              <h3 className="font-serif font-bold text-xl text-white">
-                Get new property alerts for Vadodara
+              <h3 className="font-display text-xl font-bold text-white">
+                Get new plot alerts for Vadodara
               </h3>
-              <p className="text-white/50 text-sm mt-1">
-                Join 325+ families who receive curated listings weekly.
+              <p className="mt-1 text-sm text-white/50">
+                Join buyers who receive curated plot listings weekly.
               </p>
             </div>
-            <form onSubmit={handleNewsletter} className="flex w-full md:w-auto gap-3">
+            <form onSubmit={handleNewsletter} className="flex w-full gap-3 md:w-auto">
               <input
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="Enter your email"
-                className="h-12 px-5 rounded-full bg-white/10 border border-white/15 text-white placeholder:text-white/40 text-sm font-medium focus:outline-none focus:border-brand-secondary w-full md:w-72 transition-colors"
+                className="h-12 w-full rounded-full border border-white/15 bg-white/10 px-5 text-sm font-medium text-white placeholder:text-white/40 transition-colors focus:border-white focus:outline-none md:w-72"
                 required
               />
               <button
                 type="submit"
-                className="h-12 px-6 rounded-full bg-brand-secondary text-white font-semibold text-sm hover:bg-brand-secondary/90 transition-all flex items-center gap-2 shrink-0"
+                className="flex h-12 shrink-0 items-center gap-2 rounded-full bg-white px-6 text-sm font-semibold text-brand-primary transition-all hover:bg-brand-light"
               >
                 {subscribed ? '✓ Subscribed!' : (
                   <>
@@ -71,13 +71,12 @@ export function Footer() {
         </div>
       </div>
 
-      {/* Awards Strip */}
       <div className="border-b border-white/10">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5">
+        <div className="mx-auto max-w-7xl px-4 py-5 sm:px-6 lg:px-8">
           <div className="flex flex-wrap items-center justify-center gap-4 md:gap-8">
-            {credentials.map(cred => (
-              <div key={cred} className="flex items-center gap-2 text-white/50 text-xs font-semibold uppercase tracking-wider">
-                <Award size={14} className="text-brand-secondary" />
+            {credentials.map((cred) => (
+              <div key={cred} className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-white/50">
+                <Award size={14} className="text-white" />
                 {cred}
               </div>
             ))}
@@ -85,61 +84,39 @@ export function Footer() {
         </div>
       </div>
 
-      {/* Main Footer */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-20 golden-grid-texture">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-8">
-          {/* Col 1: Logo + Tagline */}
+      <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 md:py-20 lg:px-8">
+        <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-4 lg:gap-8">
           <div className="sm:col-span-2 lg:col-span-1">
-            <Link href="/" className="inline-block mb-4">
-              <span className="font-serif font-bold text-2xl text-white">
-                Morin <span className="text-brand-secondary">Property</span>
-              </span>
+            <Link href="/" className="mb-4 inline-block">
+              <span className="font-display text-2xl font-bold text-white">Gaurav Plots</span>
             </Link>
-            <p className="text-white/60 text-[15px] leading-relaxed mb-6">
-              Vadodara&apos;s most trusted real estate partner. Helping families find their dream homes with honesty, transparency, and care.
+            <p className="mb-6 text-[15px] leading-relaxed text-white/60">
+              Vadodara&apos;s plot specialists. Helping buyers find verified residential land with clear titles and honest guidance.
             </p>
             <div className="flex gap-3">
-              <a
-                href="https://facebook.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-brand-secondary transition-colors"
-                aria-label="Facebook"
-              >
+              <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="flex h-10 w-10 items-center justify-center rounded-full bg-white/10 transition-colors hover:bg-white/20" aria-label="Facebook">
                 <Facebook size={18} />
               </a>
-              <a
-                href="https://youtube.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-brand-secondary transition-colors"
-                aria-label="YouTube"
-              >
+              <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" className="flex h-10 w-10 items-center justify-center rounded-full bg-white/10 transition-colors hover:bg-white/20" aria-label="YouTube">
                 <Youtube size={18} />
               </a>
             </div>
           </div>
 
-          {/* Col 2: Quick Links */}
           <div>
-            <h4 className="font-sans font-bold text-sm uppercase tracking-wider text-brand-secondary mb-5">
-              Quick Links
-            </h4>
+            <h4 className="mb-5 font-sans text-sm font-bold uppercase tracking-wider text-white/80">Quick Links</h4>
             <ul className="space-y-3">
               {[
                 { label: 'Home', href: '/' },
-                { label: 'Properties', href: '/properties' },
+                { label: 'Plots', href: '/properties' },
                 { label: 'Projects', href: '/projects' },
                 { label: 'About Us', href: '/about' },
                 { label: 'Blog', href: '/blog' },
                 { label: 'Contact', href: '/contact' },
                 { label: 'Careers', href: '/careers' },
-              ].map(link => (
+              ].map((link) => (
                 <li key={link.href}>
-                  <Link
-                    href={link.href}
-                    className="text-white/60 text-[15px] hover:text-brand-secondary transition-colors"
-                  >
+                  <Link href={link.href} className="text-[15px] text-white/60 transition-colors hover:text-white">
                     {link.label}
                   </Link>
                 </li>
@@ -147,24 +124,18 @@ export function Footer() {
             </ul>
           </div>
 
-          {/* Col 3: Services */}
           <div>
-            <h4 className="font-sans font-bold text-sm uppercase tracking-wider text-brand-secondary mb-5">
-              Our Services
-            </h4>
+            <h4 className="mb-5 font-sans text-sm font-bold uppercase tracking-wider text-white/80">Our Services</h4>
             <ul className="space-y-3">
               {[
-                { label: 'Buying Property', href: '/services/buying-property' },
-                { label: 'Real Estate Consulting', href: '/services/real-estate-consultant' },
-                { label: 'Home Loan Assistance', href: '/services/home-loan' },
-                { label: 'Post Your Property', href: '/post-property' },
+                { label: 'Buying a Plot', href: '/services/buying-property' },
+                { label: 'Plot Consulting', href: '/services/real-estate-consultant' },
+                { label: 'Loan Assistance', href: '/services/home-loan' },
+                { label: 'List Your Plot', href: '/post-property' },
                 { label: 'EMI Calculator', href: '/tools/emi-calculator' },
-              ].map(link => (
+              ].map((link) => (
                 <li key={link.href}>
-                  <Link
-                    href={link.href}
-                    className="text-white/60 text-[15px] hover:text-brand-secondary transition-colors"
-                  >
+                  <Link href={link.href} className="text-[15px] text-white/60 transition-colors hover:text-white">
                     {link.label}
                   </Link>
                 </li>
@@ -172,32 +143,29 @@ export function Footer() {
             </ul>
           </div>
 
-          {/* Col 4: Contact */}
           <div>
-            <h4 className="font-sans font-bold text-sm uppercase tracking-wider text-brand-secondary mb-5">
-              Contact Us
-            </h4>
+            <h4 className="mb-5 font-sans text-sm font-bold uppercase tracking-wider text-white/80">Contact Us</h4>
             <ul className="space-y-4">
               <li className="flex gap-3">
-                <MapPin size={18} className="text-brand-secondary flex-shrink-0 mt-1" />
-                <span className="text-white/60 text-[15px] leading-relaxed">
+                <MapPin size={18} className="mt-1 flex-shrink-0 text-white" />
+                <span className="text-[15px] leading-relaxed text-white/60">
                   Kubereshwar Rd, Goverdhan Township, Kendranagar, Waghodia Road, Vadodara, Gujarat — 390025
                 </span>
               </li>
               <li>
-                <a href="tel:+919376786108" className="flex items-center gap-3 text-white/60 text-[15px] hover:text-brand-secondary transition-colors">
-                  <Phone size={18} className="text-brand-secondary flex-shrink-0" />
-                  +91-9376786108
+                <a href={getCallUrl()} className="flex items-center gap-3 text-[15px] text-white/60 transition-colors hover:text-white">
+                  <Phone size={18} className="flex-shrink-0 text-white" />
+                  {PHONE_NUMBER}
                 </a>
               </li>
               <li>
-                <a href="mailto:morincontact@gmail.com" className="flex items-center gap-3 text-white/60 text-[15px] hover:text-brand-secondary transition-colors">
-                  <Mail size={18} className="text-brand-secondary flex-shrink-0" />
-                  morincontact@gmail.com
+                <a href="mailto:contact@gauravplots.com" className="flex items-center gap-3 text-[15px] text-white/60 transition-colors hover:text-white">
+                  <Mail size={18} className="flex-shrink-0 text-white" />
+                  contact@gauravplots.com
                 </a>
               </li>
-              <li className="flex items-center gap-3 text-white/60 text-[15px]">
-                <Clock size={18} className="text-brand-secondary flex-shrink-0" />
+              <li className="flex items-center gap-3 text-[15px] text-white/60">
+                <Clock size={18} className="flex-shrink-0 text-white" />
                 Mon–Sat: 9 AM – 7 PM
               </li>
             </ul>
@@ -205,16 +173,15 @@ export function Footer() {
         </div>
       </div>
 
-      {/* Bottom Bar */}
       <div className="border-t border-white/10">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5 flex flex-col sm:flex-row items-center justify-between gap-3">
-          <p className="text-white/40 text-sm">
-            © {new Date().getFullYear()} Morin Property. All Rights Reserved. Built with ❤️ for Vadodara families.
+        <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-3 px-4 py-5 sm:flex-row sm:px-6 lg:px-8">
+          <p className="text-sm text-white/40">
+            © {new Date().getFullYear()} Gaurav Plots. All Rights Reserved.
           </p>
-          <div className="flex items-center gap-4 text-white/40 text-sm">
-            <Link href="/privacy" className="hover:text-white/70 transition-colors">Privacy Policy</Link>
+          <div className="flex items-center gap-4 text-sm text-white/40">
+            <Link href="/contact" className="transition-colors hover:text-white/70">Contact</Link>
             <span>|</span>
-            <Link href="/terms" className="hover:text-white/70 transition-colors">Terms of Use</Link>
+            <Link href="/about" className="transition-colors hover:text-white/70">About</Link>
           </div>
         </div>
       </div>

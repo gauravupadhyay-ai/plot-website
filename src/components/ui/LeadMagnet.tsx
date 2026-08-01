@@ -1,66 +1,69 @@
-'use client';
+'use client'
 
-import React, { useState, useEffect, FormEvent } from 'react';
-import { usePathname } from 'next/navigation';
-import { motion, AnimatePresence } from 'framer-motion';
-import { X, Send, Phone, User, CheckCircle2 } from 'lucide-react';
+import React, { useState, useEffect, FormEvent } from 'react'
+import { usePathname } from 'next/navigation'
+import { motion, AnimatePresence } from 'framer-motion'
+import { X, Send, Phone, User, CheckCircle2 } from 'lucide-react'
+import { SITE_NAME } from '@/lib/utils'
 
 export function LeadMagnet() {
-  const [isVisible, setIsVisible] = useState(false);
-  const [isSubmitted, setIsSubmitted] = useState(false);
-  const [name, setName] = useState('');
-  const [phone, setPhone] = useState('');
-  const pathname = usePathname();
+  const [isVisible, setIsVisible] = useState(false)
+  const [isSubmitted, setIsSubmitted] = useState(false)
+  const [name, setName] = useState('')
+  const [phone, setPhone] = useState('')
+  const pathname = usePathname()
 
   useEffect(() => {
-    // Don't show lead magnet on admin login page
-    if (pathname === '/admin/login') return;
+    if (pathname === '/admin/login') return
 
-    const hasSeenLeadMagnet = sessionStorage.getItem('hasSeenLeadMagnet');
+    const hasSeenLeadMagnet = sessionStorage.getItem('hasSeenLeadMagnet')
     if (!hasSeenLeadMagnet) {
       const timer = setTimeout(() => {
-        setIsVisible(true);
-      }, 5000);
-      return () => clearTimeout(timer);
+        setIsVisible(true)
+      }, 5000)
+      return () => clearTimeout(timer)
     }
-  }, []);
+  }, [pathname])
 
   const handleClose = () => {
-    setIsVisible(false);
-    sessionStorage.setItem('hasSeenLeadMagnet', 'true');
-  };
+    setIsVisible(false)
+    sessionStorage.setItem('hasSeenLeadMagnet', 'true')
+  }
 
   const handleSubmit = async (e: FormEvent) => {
-    e.preventDefault();
-    
+    e.preventDefault()
+
     try {
       const res = await fetch('/api/enquiry', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ 
-          name, 
-          phone, 
+        body: JSON.stringify({
+          name,
+          phone,
           source: 'Lead Magnet Popup',
-          message: 'Interested in exclusive property fast-tracks'
-        })
-      });
+          message: 'Interested in residential plots in Vadodara',
+        }),
+      })
 
       if (res.ok) {
-        setIsSubmitted(true);
-        sessionStorage.setItem('hasSeenLeadMagnet', 'true');
+        setIsSubmitted(true)
+        sessionStorage.setItem('hasSeenLeadMagnet', 'true')
         setTimeout(() => {
-          setIsVisible(false);
-        }, 3000);
+          setIsVisible(false)
+        }, 3000)
       }
     } catch (err) {
-      console.error('Failed to submit lead:', err);
+      console.error('Failed to submit lead:', err)
     }
-  };
+  }
 
   return (
     <AnimatePresence>
       {isVisible && (
-        <div key="lead-magnet-popup" className="fixed inset-0 z-[100] flex items-center justify-center px-4 pointer-events-none">
+        <div
+          key="lead-magnet-popup"
+          className="fixed inset-0 z-[100] flex items-center justify-center px-4 pointer-events-none"
+        >
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -87,27 +90,38 @@ export function LeadMagnet() {
 
             {isSubmitted ? (
               <div className="text-center py-8">
-                <div className="w-20 h-20 rounded-full bg-brand-accent/20 flex items-center justify-center mx-auto mb-6">
-                  <CheckCircle2 size={40} className="text-brand-accent" />
+                <div className="w-20 h-20 rounded-full bg-brand-primary/10 flex items-center justify-center mx-auto mb-6">
+                  <CheckCircle2 size={40} className="text-brand-primary" />
                 </div>
-                <h2 className="font-serif font-bold text-2xl text-text-primary mb-2">Thank You!</h2>
-                <p className="text-text-secondary">Our property expert will call you shortly to help with your search.</p>
+                <h2 className="font-display font-bold text-2xl text-text-primary mb-2">
+                  Thank You!
+                </h2>
+                <p className="text-text-secondary font-sans">
+                  Our plot specialist will call you shortly to help with your search.
+                </p>
               </div>
             ) : (
               <div>
                 <div className="flex items-center gap-3 mb-6">
-                  <div className="w-12 h-12 rounded-xl bg-brand-secondary/20 flex items-center justify-center">
-                    <Send size={24} className="text-brand-secondary" />
+                  <div className="w-12 h-12 rounded-xl bg-brand-primary/10 flex items-center justify-center">
+                    <Send size={24} className="text-brand-primary" />
                   </div>
                   <div>
-                    <h2 className="font-serif font-bold text-xl text-brand-primary">Get Exclusive Property Fast-Tracks</h2>
-                    <p className="text-text-secondary text-sm">Join 325+ families who found their dream home with us.</p>
+                    <h2 className="font-display font-bold text-xl text-brand-primary">
+                      Looking for Plots in Vadodara?
+                    </h2>
+                    <p className="text-text-secondary text-sm font-sans">
+                      Get a free callback from {SITE_NAME}.
+                    </p>
                   </div>
                 </div>
 
                 <form onSubmit={handleSubmit} className="space-y-4">
                   <div className="relative">
-                    <User size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-text-muted" />
+                    <User
+                      size={18}
+                      className="absolute left-4 top-1/2 -translate-y-1/2 text-text-muted"
+                    />
                     <input
                       type="text"
                       placeholder="Your Full Name *"
@@ -118,7 +132,10 @@ export function LeadMagnet() {
                     />
                   </div>
                   <div className="relative">
-                    <Phone size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-text-muted" />
+                    <Phone
+                      size={18}
+                      className="absolute left-4 top-1/2 -translate-y-1/2 text-text-muted"
+                    />
                     <input
                       type="tel"
                       placeholder="Mobile Number *"
@@ -134,17 +151,17 @@ export function LeadMagnet() {
                   >
                     Get a Call Back <Send size={18} />
                   </button>
-                  <p className="text-[10px] text-text-muted text-center mt-4">
-                    By clicking, you agree to receive property updates. We respect your privacy.
+                  <p className="text-[10px] text-text-muted text-center mt-4 font-sans">
+                    By clicking, you agree to receive plot updates. We respect your privacy.
                   </p>
                 </form>
               </div>
             )}
 
-            <div className="absolute top-0 right-0 w-32 h-32 bg-brand-secondary/10 blur-[60px] rounded-full -translate-y-1/2 translate-x-1/2" />
+            <div className="absolute top-0 right-0 w-32 h-32 bg-brand-primary/5 blur-[60px] rounded-full -translate-y-1/2 translate-x-1/2" />
           </motion.div>
         </div>
       )}
     </AnimatePresence>
-  );
+  )
 }

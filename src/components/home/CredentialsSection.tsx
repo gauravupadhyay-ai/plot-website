@@ -25,13 +25,12 @@ export function CredentialsSection() {
         <div className="text-center mb-12">
           <p className="section-eyebrow justify-center">Credentials</p>
           <h2 className="section-title text-3xl sm:text-4xl md:text-[2.75rem]">
-            Trusted by the Industry,
+            Trusted Credentials,
             <br />
-            <span className="text-brand-secondary">Loved by Families</span>
+            <span className="text-brand-primary">Plot Buyers First</span>
           </h2>
         </div>
 
-        {/* Logo Ticker */}
         <div className="mb-12 overflow-hidden">
           <div className="flex items-center justify-center gap-6 md:gap-12 flex-wrap">
             {credentials.map((cred, i) => (
@@ -43,7 +42,7 @@ export function CredentialsSection() {
                 transition={{ delay: i * 0.1 }}
                 className="flex items-center gap-2 px-6 py-3 bg-white rounded-2xl shadow-card border border-border/50"
               >
-                <Award size={18} className="text-brand-secondary" />
+                <Award size={18} className="text-brand-primary" />
                 <div>
                   <div className="font-semibold text-sm text-text-primary">{cred.name}</div>
                   <div className="text-[11px] text-text-muted hidden sm:block">{cred.fullName}</div>
@@ -53,7 +52,6 @@ export function CredentialsSection() {
           </div>
         </div>
 
-        {/* Event Photos Grid */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           {eventPhotos.map((photo, i) => (
             <motion.div

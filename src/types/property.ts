@@ -1,3 +1,11 @@
+export interface PlotReview {
+  id: string
+  author: string
+  rating: number
+  comment: string
+  date: string
+}
+
 export interface Property {
   slug: string
   code: string
@@ -7,6 +15,7 @@ export interface Property {
   locality: string
   price: number
   priceLabel: string
+  pricePerUnit?: string
   bhk: string
   bedrooms: number
   bathrooms: number
@@ -16,14 +25,22 @@ export interface Property {
   facing?: string
   age?: string
   parking?: string
+  ownership?: string
+  status?: string
   description: string
   highlights: string[]
+  amenities?: string[]
   images: string[]
   videos: string[]
   featured: boolean
   badge: 'For Sale' | 'Hot Deal' | 'New' | 'Sold'
   nearbyPlaces?: { name: string; distance: string }[]
   mapEmbedUrl?: string
+  lat?: number
+  lng?: number
+  reviews?: PlotReview[]
+  ratingAvg?: number
+  ratingCount?: number
 }
 
 export interface Enquiry {

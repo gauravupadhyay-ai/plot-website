@@ -14,7 +14,7 @@ export function SectionHeading({ eyebrow, title, subtitle, center = false, light
           {eyebrow}
         </p>
       )}
-      <h2 className={`section-title text-3xl sm:text-4xl md:text-[2.75rem] ${
+      <h2 className={`section-title font-display text-3xl sm:text-4xl md:text-[2.75rem] ${
         light ? 'text-white' : 'text-text-primary'
       }`}>
         {title}

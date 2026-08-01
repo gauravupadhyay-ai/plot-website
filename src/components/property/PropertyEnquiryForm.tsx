@@ -6,9 +6,14 @@ import { Send, CheckCircle2 } from 'lucide-react'
 interface PropertyEnquiryFormProps {
   propertyTitle: string
   propertyCode: string
+  isPlot?: boolean
 }
 
-export function PropertyEnquiryForm({ propertyTitle, propertyCode }: PropertyEnquiryFormProps) {
+export function PropertyEnquiryForm({
+  propertyTitle,
+  propertyCode,
+  isPlot = true,
+}: PropertyEnquiryFormProps) {
   const [name, setName] = useState('')
   const [phone, setPhone] = useState('')
   const [email, setEmail] = useState('')
@@ -29,7 +34,7 @@ export function PropertyEnquiryForm({ propertyTitle, propertyCode }: PropertyEnq
           phone,
           email,
           message,
-          source: `Property Detail: ${propertyTitle} (${propertyCode})`,
+          source: `${isPlot ? 'Plot' : 'Property'} Detail: ${propertyTitle} (${propertyCode})`,
         }),
       })
 
@@ -46,12 +51,14 @@ export function PropertyEnquiryForm({ propertyTitle, propertyCode }: PropertyEnq
   if (submitted) {
     return (
       <div className="text-center py-6">
-        <CheckCircle2 size={40} className="text-brand-accent mx-auto mb-4" />
-        <h4 className="font-serif font-bold text-lg mb-2">Enquiry Sent!</h4>
-        <p className="text-text-secondary text-sm">We&apos;ll get back to you shortly regarding this property.</p>
-        <button 
+        <CheckCircle2 size={40} className="text-brand-primary mx-auto mb-4" />
+        <h4 className="font-display font-bold text-lg mb-2">Enquiry Sent!</h4>
+        <p className="text-text-secondary text-sm font-sans">
+          We&apos;ll get back to you shortly regarding this {isPlot ? 'plot' : 'property'}.
+        </p>
+        <button
           onClick={() => setSubmitted(false)}
-          className="text-brand-secondary text-xs font-semibold mt-4 hover:underline"
+          className="text-brand-primary text-xs font-semibold mt-4 hover:underline font-sans"
         >
           Send another enquiry
         </button>
@@ -85,17 +92,13 @@ export function PropertyEnquiryForm({ propertyTitle, propertyCode }: PropertyEnq
         onChange={(e) => setEmail(e.target.value)}
       />
       <textarea
-        placeholder="Message (optional)"
+        placeholder={isPlot ? 'Ask about this plot (optional)' : 'Message (optional)'}
         className="textarea"
         rows={3}
         value={message}
         onChange={(e) => setMessage(e.target.value)}
       />
-      <button 
-        type="submit" 
-        disabled={loading}
-        className="btn-primary w-full justify-center"
-      >
+      <button type="submit" disabled={loading} className="btn-primary w-full justify-center">
         {loading ? 'Sending...' : 'Send Enquiry'}
       </button>
     </form>

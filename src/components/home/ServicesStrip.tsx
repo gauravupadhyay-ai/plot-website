@@ -1,25 +1,25 @@
 'use client'
 import { motion } from 'framer-motion'
 import Link from 'next/link'
-import { ArrowRight, Home, Briefcase, Landmark } from 'lucide-react'
+import { ArrowRight, Layers, Briefcase, Landmark } from 'lucide-react'
 
 const services = [
   {
-    icon: Home,
-    title: 'Buying Property',
-    description: 'Expert guidance to find your dream home within your budget. From search to possession, we handle everything.',
+    icon: Layers,
+    title: 'Buying Plots',
+    description: 'Find residential and NA plots that match your budget, size, and locality — from search to registration.',
     href: '/services/buying-property',
   },
   {
     icon: Briefcase,
-    title: 'Real Estate Consulting',
-    description: 'Unbiased advice for buying, selling, and investment decisions backed by deep Vadodara market knowledge.',
+    title: 'Plot Consulting',
+    description: 'Clear advice on title, NA status, location growth, and fair pricing for Vadodara land deals.',
     href: '/services/real-estate-consultant',
   },
   {
     icon: Landmark,
-    title: 'Home Loan Assistance',
-    description: 'Hassle-free loan processing with trusted banking partners. Get the best rates with minimal paperwork.',
+    title: 'Plot Loan Assistance',
+    description: 'Help comparing plot loan options and paperwork so financing does not slow your purchase.',
     href: '/services/home-loan',
   },
 ]
@@ -34,7 +34,7 @@ export function ServicesStrip() {
             How We Help You
           </h2>
           <p className="section-subtitle mx-auto text-center">
-            Comprehensive real estate services tailored to your needs
+            Plot-focused services from shortlist to paperwork
           </p>
         </div>
 
@@ -48,17 +48,17 @@ export function ServicesStrip() {
               transition={{ delay: i * 0.15 }}
             >
               <Link href={service.href} className="group block h-full">
-                <div className="card h-full p-8 flex flex-col !rounded-2xl border border-transparent hover:border-brand-secondary/20">
-                  <div className="w-14 h-14 rounded-2xl bg-brand-secondary/10 flex items-center justify-center mb-6 group-hover:bg-brand-secondary/20 transition-colors">
-                    <service.icon size={26} className="text-brand-secondary" />
+                <div className="card h-full p-8 flex flex-col !rounded-2xl border border-transparent hover:border-brand-primary/20">
+                  <div className="w-14 h-14 rounded-2xl bg-brand-primary/10 flex items-center justify-center mb-6 group-hover:bg-brand-primary/15 transition-colors">
+                    <service.icon size={26} className="text-brand-primary" />
                   </div>
-                  <h3 className="font-serif font-bold text-xl text-text-primary mb-3 group-hover:text-brand-secondary transition-colors">
+                  <h3 className="font-display font-bold text-xl text-text-primary mb-3 group-hover:opacity-70 transition-opacity">
                     {service.title}
                   </h3>
                   <p className="text-text-secondary text-[15px] leading-relaxed mb-6 flex-1">
                     {service.description}
                   </p>
-                  <span className="text-brand-secondary text-sm font-semibold flex items-center gap-2 group-hover:gap-3 transition-all">
+                  <span className="text-brand-primary text-sm font-semibold flex items-center gap-2 group-hover:gap-3 transition-all">
                     Learn More <ArrowRight size={14} />
                   </span>
                 </div>

@@ -10,18 +10,18 @@ export async function POST(request: Request) {
     }
 
     const resendApiKey = process.env.RESEND_API_KEY
-    const contactEmail = process.env.CONTACT_EMAIL || 'morincontact@gmail.com'
+    const contactEmail = process.env.CONTACT_EMAIL || 'contact@gauravplots.com'
 
     if (resendApiKey && resendApiKey !== 're_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx') {
       const { Resend } = await import('resend')
       const resend = new Resend(resendApiKey)
 
       await resend.emails.send({
-        from: 'Morin Property <noreply@morinpropertys.com>',
+        from: 'Gaurav Plots <noreply@gauravplots.com>',
         to: contactEmail,
-        subject: `New Property Listing: ${propertyType} in ${locality || city || 'Vadodara'}`,
+        subject: `New Plot Listing: ${propertyType} in ${locality || city || 'Vadodara'}`,
         html: `
-          <h2>New Property Listing Submission</h2>
+          <h2>New Plot Listing Submission</h2>
           <h3>Owner Details</h3>
           <p><strong>Name:</strong> ${ownerName}</p>
           <p><strong>Phone:</strong> ${phone}</p>

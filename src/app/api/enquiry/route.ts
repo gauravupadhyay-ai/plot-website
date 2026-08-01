@@ -30,18 +30,18 @@ export async function POST(request: Request) {
 
     // 2. Send email via Resend if API key is configured
     const resendApiKey = process.env.RESEND_API_KEY
-    const contactEmail = process.env.CONTACT_EMAIL || 'morincontact@gmail.com'
+    const contactEmail = process.env.CONTACT_EMAIL || 'contact@gauravplots.com'
 
     if (resendApiKey && resendApiKey !== 're_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx') {
       const { Resend } = await import('resend')
       const resend = new Resend(resendApiKey)
 
       await resend.emails.send({
-        from: 'Morin Property <noreply@morinpropertys.com>',
+        from: 'Gaurav Plots <noreply@gauravplots.com>',
         to: contactEmail,
         subject: `New Enquiry from ${name}${propertyCode ? ` — ${propertyCode}` : ''}`,
         html: `
-          <h2>New Property Enquiry</h2>
+          <h2>New Plot Enquiry</h2>
           <table style="border-collapse:collapse;width:100%">
             <tr><td style="padding:8px;font-weight:bold;border:1px solid #ddd">Name</td><td style="padding:8px;border:1px solid #ddd">${name}</td></tr>
             <tr><td style="padding:8px;font-weight:bold;border:1px solid #ddd">Phone</td><td style="padding:8px;border:1px solid #ddd">${phone}</td></tr>
