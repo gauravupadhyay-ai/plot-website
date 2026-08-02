@@ -1,6 +1,7 @@
 'use client'
 
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
+import { createPortal } from 'react-dom'
 import { motion, AnimatePresence, LayoutGroup } from 'framer-motion'
 import { Search, MapPin, Wallet, Layers, Ruler, ChevronDown, X } from 'lucide-react'
 import { useRouter } from 'next/navigation'
@@ -71,10 +72,16 @@ export function HeroMobileFilters() {
 export function HeroDesktop() {
   const router = useRouter()
   const [expanded, setExpanded] = useState(false)
+  const [mounted, setMounted] = useState(false)
   const [locality, setLocality] = useState('')
   const [budget, setBudget] = useState('')
   const [plotType, setPlotType] = useState('Plot')
   const [area, setArea] = useState('')
+  const panelRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    setMounted(true)
+  }, [])
 
   useEffect(() => {
     document.body.style.overflow = expanded ? 'hidden' : ''
@@ -88,8 +95,19 @@ export function HeroDesktop() {
     const onKey = (e: KeyboardEvent) => {
       if (e.key === 'Escape') setExpanded(false)
     }
+    const onPointerDown = (e: PointerEvent) => {
+      const target = e.target as Node
+      if (panelRef.current && !panelRef.current.contains(target)) {
+        setExpanded(false)
+      }
+    }
     window.addEventListener('keydown', onKey)
-    return () => window.removeEventListener('keydown', onKey)
+    // Capture so clicks on header / page content outside the hero also close it
+    document.addEventListener('pointerdown', onPointerDown, true)
+    return () => {
+      window.removeEventListener('keydown', onKey)
+      document.removeEventListener('pointerdown', onPointerDown, true)
+    }
   }, [expanded])
 
   const handleSearch = () => {
@@ -122,20 +140,6 @@ export function HeroDesktop() {
               maxShift={56}
             />
             <div className="absolute inset-0 z-[1] bg-gradient-to-b from-black/35 via-black/10 to-black/30" />
-
-            <AnimatePresence>
-              {expanded && (
-                <motion.button
-                  type="button"
-                  aria-label="Close filters"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  className="absolute inset-0 z-20 cursor-default bg-black/30"
-                  onClick={() => setExpanded(false)}
-                />
-              )}
-            </AnimatePresence>
 
             <div className="relative z-10 flex min-h-[74vh] flex-col justify-between gap-6 px-5 py-7 md:gap-8 md:px-8 md:py-8 lg:min-h-[80vh] lg:px-12 lg:py-10">
               <motion.div
@@ -197,60 +201,75 @@ export function HeroDesktop() {
                 </motion.div>
               )}
             </div>
-
-            <AnimatePresence>
-              {expanded && (
-                <motion.div
-                  className="absolute inset-0 z-30 flex items-center justify-center p-6"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  onClick={() => setExpanded(false)}
-                >
-                  <motion.div
-                    layoutId="plot-filter-panel"
-                    initial={{ scale: 0.94, opacity: 0.95 }}
-                    animate={{ scale: 1, opacity: 1 }}
-                    exit={{ scale: 0.96, opacity: 0 }}
-                    transition={{ type: 'spring', stiffness: 220, damping: 24 }}
-                    className="relative flex h-[min(80vh,80%)] w-[85%] max-w-5xl flex-col overflow-hidden rounded-3xl border border-white/40 bg-white/95 p-7 shadow-filter backdrop-blur-xl lg:w-[80%] lg:p-8"
-                    onClick={(e) => e.stopPropagation()}
-                  >
-                    <div className="mb-5 flex shrink-0 items-start justify-between gap-3">
-                      <div>
-                        <p className="text-xs font-bold uppercase tracking-wider text-text-secondary">Filter plots</p>
-                        <h2 className="font-display text-2xl font-bold text-text-primary">Find your plot</h2>
-                      </div>
-                      <button
-                        type="button"
-                        onClick={() => setExpanded(false)}
-                        className="rounded-full bg-brand-light p-2 text-text-secondary hover:text-text-primary"
-                        aria-label="Close"
-                      >
-                        <X size={18} />
-                      </button>
-                    </div>
-                    <div className="grid flex-1 grid-cols-2 content-center gap-5 overflow-hidden">
-                      {renderSelects('hero-desktop', filterState)}
-                    </div>
-                    <p className="mt-4 shrink-0 text-sm text-text-secondary">
-                      Search opens the plots page with these filters applied. Click outside to close.
-                    </p>
-                    <button
-                      type="button"
-                      onClick={handleSearch}
-                      className="mt-4 inline-flex h-12 w-full shrink-0 items-center justify-center gap-2 rounded-full bg-brand-primary px-8 text-sm font-semibold text-white shadow-cta"
-                    >
-                      <Search size={16} />
-                      Search plots
-                    </button>
-                  </motion.div>
-                </motion.div>
-              )}
-            </AnimatePresence>
           </div>
         </div>
       </section>
+
+      {mounted &&
+        createPortal(
+          <AnimatePresence>
+            {expanded && (
+              <motion.div
+                className="fixed inset-0 z-[80] flex items-center justify-center p-4 sm:p-6"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+              >
+                <button
+                  type="button"
+                  aria-label="Close filters"
+                  className="absolute inset-0 cursor-default bg-black/45 backdrop-blur-[1px]"
+                  onClick={() => setExpanded(false)}
+                />
+                <motion.div
+                  ref={panelRef}
+                  layoutId="plot-filter-panel"
+                  role="dialog"
+                  aria-modal="true"
+                  aria-labelledby="plot-filter-title"
+                  initial={{ scale: 0.94, opacity: 0.95 }}
+                  animate={{ scale: 1, opacity: 1 }}
+                  exit={{ scale: 0.96, opacity: 0 }}
+                  transition={{ type: 'spring', stiffness: 220, damping: 24 }}
+                  className="relative z-10 flex max-h-[min(85vh,720px)] w-full max-w-5xl flex-col overflow-hidden rounded-3xl border border-white/40 bg-white/95 p-6 shadow-filter backdrop-blur-xl sm:p-7 lg:w-[80%] lg:p-8"
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  <div className="mb-5 flex shrink-0 items-start justify-between gap-3">
+                    <div>
+                      <p className="text-xs font-bold uppercase tracking-wider text-text-secondary">Filter plots</p>
+                      <h2 id="plot-filter-title" className="font-display text-2xl font-bold text-text-primary">
+                        Find your plot
+                      </h2>
+                    </div>
+                    <button
+                      type="button"
+                      onClick={() => setExpanded(false)}
+                      className="rounded-full bg-brand-light p-2 text-text-secondary hover:text-text-primary"
+                      aria-label="Close"
+                    >
+                      <X size={18} />
+                    </button>
+                  </div>
+                  <div className="grid flex-1 grid-cols-2 content-center gap-5 overflow-y-auto">
+                    {renderSelects('hero-desktop', filterState)}
+                  </div>
+                  <p className="mt-4 shrink-0 text-sm text-text-secondary">
+                    Search opens the plots page with these filters applied. Click outside to close.
+                  </p>
+                  <button
+                    type="button"
+                    onClick={handleSearch}
+                    className="mt-4 inline-flex h-12 w-full shrink-0 items-center justify-center gap-2 rounded-full bg-brand-primary px-8 text-sm font-semibold text-white shadow-cta"
+                  >
+                    <Search size={16} />
+                    Search plots
+                  </button>
+                </motion.div>
+              </motion.div>
+            )}
+          </AnimatePresence>,
+          document.body
+        )}
     </LayoutGroup>
   )
 }
