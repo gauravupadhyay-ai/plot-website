@@ -12,6 +12,7 @@ const navItems = [
 
 export function MobileBottomNav() {
   const pathname = usePathname()
+  if (pathname?.startsWith('/admin')) return null
 
   return (
     <nav className="fixed bottom-0 left-0 right-0 z-50 border-t border-border bg-white pb-[env(safe-area-inset-bottom)] lg:hidden">

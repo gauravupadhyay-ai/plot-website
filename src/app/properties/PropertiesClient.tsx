@@ -4,9 +4,7 @@ import { useEffect, useMemo, useState } from 'react'
 import dynamic from 'next/dynamic'
 import Image from 'next/image'
 import Link from 'next/link'
-import { useSearchParams } from 'next/navigation'
-import { motion } from 'framer-motion'
-import { getProperties } from '@/data/properties'
+import { useRouter, useSearchParams } from 'next/navigation'
 import { localities } from '@/data/localities'
 import {
   MapPin, Maximize, Compass, Heart, ArrowRight, SlidersHorizontal, X,
@@ -14,6 +12,21 @@ import {
 } from 'lucide-react'
 import { Property } from '@/types/property'
 import { formatCurrency } from '@/lib/utils'
+
+function budgetFromParam(budget: string | null): { min: number; max: number } {
+  if (budget === '0-30') return { min: 0, max: 3000000 }
+  if (budget === '30-50') return { min: 3000000, max: 5000000 }
+  if (budget === '50-75') return { min: 5000000, max: 7500000 }
+  if (budget === '75+') return { min: 7500000, max: 50000000 }
+  return { min: 0, max: 50000000 }
+}
+
+function areaFromParam(area: string | null): { min: number; max: number } {
+  if (area === '0-100') return { min: 0, max: 100 }
+  if (area === '100-200') return { min: 100, max: 200 }
+  if (area === '200+') return { min: 200, max: 5000 }
+  return { min: 0, max: 5000 }
+}
 
 const PlotsMap = dynamic(() => import('@/components/property/PlotsMap'), {
   ssr: false,
@@ -40,50 +53,142 @@ const valueProps = [
   { icon: Shield, title: 'Easy Financing', text: 'Loan assistance available' },
 ]
 
-export function PropertiesClient() {
+function PlotCards({ plots }: { plots: Property[] }) {
+  return (
+    <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 xl:grid-cols-3">
+      {plots.map((plot, i) => (
+        <article
+          key={plot.code}
+          className="flex flex-col overflow-hidden rounded-3xl border border-border bg-white shadow-card"
+        >
+          <div className="relative aspect-[4/3] overflow-hidden bg-brand-light">
+            <Image
+              src={plot.images[0] || '/images/hero/hero-plots.jpg'}
+              alt={plot.title}
+              fill
+              sizes="(max-width: 640px) 100vw, (max-width: 1280px) 45vw, 30vw"
+                        quality={45}
+                        priority={i < 2}
+                        loading={i < 2 ? 'eager' : 'lazy'}
+              className="object-cover object-center"
+            />
+            {plot.featured && (
+              <span className="absolute left-3 top-3 rounded-full bg-brand-primary px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-white">
+                Featured
+              </span>
+            )}
+            <button type="button" className="absolute right-3 top-3 rounded-full bg-white/90 p-2 text-text-secondary" aria-label="Save">
+              <Heart size={16} />
+            </button>
+          </div>
+          <div className="flex flex-1 flex-col p-5">
+            <h3 className="line-clamp-2 min-h-[3.25rem] font-display text-lg font-bold leading-snug text-text-primary">
+              {plot.title}
+            </h3>
+            <p className="mt-1 truncate font-display text-2xl font-bold tracking-tight">
+              {plot.priceOnRequest || plot.priceLabel === 'Price on Request'
+                ? 'Price on Request'
+                : plot.priceLabel}
+            </p>
+            <p className="mt-1 truncate text-sm text-text-secondary">
+              {plot.areaLabel ||
+                (plot.area > 0
+                  ? `${plot.area} ${plot.areaUnit}${plot.pricePerUnit ? ` · ${plot.pricePerUnit}` : ''}`
+                  : plot.type === 'Commercial'
+                    ? 'Commercial · Freehold'
+                    : 'Villa plots · Freehold')}
+            </p>
+            <div className="mt-2 flex h-5 items-center gap-1.5 text-sm text-text-secondary">
+              <MapPin size={14} className="shrink-0" />
+              <span className="truncate">{plot.locality || plot.location}</span>
+            </div>
+            <div className="mt-3 flex h-7 items-center gap-2 text-xs text-text-muted">
+              {plot.facing ? (
+                <span className="inline-flex items-center gap-1 rounded-full bg-brand-light px-2.5 py-1">
+                  <Compass size={12} /> {plot.facing} Facing
+                </span>
+              ) : (
+                <span className="invisible inline-flex items-center gap-1 rounded-full bg-brand-light px-2.5 py-1">
+                  <Compass size={12} /> Facing
+                </span>
+              )}
+              <span className="inline-flex max-w-[60%] items-center gap-1 truncate rounded-full bg-brand-light px-2.5 py-1">
+                <Maximize size={12} className="shrink-0" />
+                <span className="truncate">
+                  {plot.areaLabel || (plot.area > 0 ? `${plot.area} ${plot.areaUnit}` : 'Sizes on request')}
+                </span>
+              </span>
+            </div>
+            <div className="mt-auto pt-5">
+              <Link
+                href={`/properties/${plot.slug}`}
+                className="btn-primary w-full justify-center !rounded-2xl"
+                aria-label={`View details for ${plot.title}`}
+              >
+                View Details <ArrowRight size={16} />
+              </Link>
+            </div>
+          </div>
+        </article>
+      ))}
+    </div>
+  )
+}
+
+export function PropertiesClient({ initialPlots }: { initialPlots: Property[] }) {
+  const router = useRouter()
   const searchParams = useSearchParams()
-  const [plots, setPlots] = useState<Property[]>([])
-  const [loading, setLoading] = useState(true)
-  const [localityFilter, setLocalityFilter] = useState('All')
+  const initialBudget = budgetFromParam(searchParams.get('budget'))
+  const initialArea = areaFromParam(searchParams.get('area'))
+
+  const [plots] = useState<Property[]>(initialPlots)
+  const [localityFilter, setLocalityFilter] = useState(searchParams.get('locality') || 'All')
+  const [typeFilter, setTypeFilter] = useState(searchParams.get('type') || 'All')
   const [facingFilter, setFacingFilter] = useState<string[]>([])
   const [amenityFilter, setAmenityFilter] = useState<string[]>([])
-  const [minArea, setMinArea] = useState(0)
-  const [maxArea, setMaxArea] = useState(500)
-  const [minPrice, setMinPrice] = useState(0)
-  const [maxPrice, setMaxPrice] = useState(20000000)
+  const [minArea, setMinArea] = useState(initialArea.min)
+  const [maxArea, setMaxArea] = useState(initialArea.max)
+  const [minPrice, setMinPrice] = useState(initialBudget.min)
+  const [maxPrice, setMaxPrice] = useState(initialBudget.max)
   const [sortBy, setSortBy] = useState('relevance')
   const [showFilters, setShowFilters] = useState(false)
   const [view, setView] = useState<'grid' | 'map'>('grid')
 
   useEffect(() => {
     const locality = searchParams.get('locality')
-    const budget = searchParams.get('budget')
-    const area = searchParams.get('area')
-    if (locality) setLocalityFilter(locality)
-    if (budget === '0-30') { setMinPrice(0); setMaxPrice(3000000) }
-    if (budget === '30-50') { setMinPrice(3000000); setMaxPrice(5000000) }
-    if (budget === '50-75') { setMinPrice(5000000); setMaxPrice(7500000) }
-    if (budget === '75+') { setMinPrice(7500000); setMaxPrice(50000000) }
-    if (area === '0-100') { setMinArea(0); setMaxArea(100) }
-    if (area === '100-200') { setMinArea(100); setMaxArea(200) }
-    if (area === '200+') { setMinArea(200); setMaxArea(2000) }
+    const type = searchParams.get('type')
+    const budget = budgetFromParam(searchParams.get('budget'))
+    const area = areaFromParam(searchParams.get('area'))
+    setLocalityFilter(locality || 'All')
+    setTypeFilter(type || 'All')
+    setMinPrice(budget.min)
+    setMaxPrice(budget.max)
+    setMinArea(area.min)
+    setMaxArea(area.max)
     if (searchParams.get('filters') === '1' && typeof window !== 'undefined' && window.innerWidth < 1024) {
       setShowFilters(true)
     }
   }, [searchParams])
 
-  useEffect(() => {
-    getProperties().then((data) => {
-      setPlots(data.filter((p) => p.type === 'Plot'))
-      setLoading(false)
-    })
-  }, [])
-
   const filtered = useMemo(() => {
     let result = [...plots]
-    if (localityFilter !== 'All') result = result.filter((p) => p.locality === localityFilter)
-    result = result.filter((p) => p.area >= minArea && p.area <= maxArea)
-    result = result.filter((p) => p.price >= minPrice && p.price <= maxPrice)
+    if (localityFilter !== 'All') {
+      result = result.filter((p) => p.locality === localityFilter)
+    }
+    if (typeFilter !== 'All' && typeFilter) {
+      result = result.filter((p) => p.type === typeFilter)
+    }
+    // Area: skip when size is "on request" (area 0 / areaLabel)
+    result = result.filter((p) => {
+      if (p.type !== 'Plot') return true
+      if (!p.area || p.area <= 0 || p.areaLabel) return true
+      return p.area >= minArea && p.area <= maxArea
+    })
+    // Price: price-on-request listings match any budget
+    result = result.filter((p) => {
+      if (p.priceOnRequest || p.priceLabel === 'Price on Request' || !p.price) return true
+      return p.price >= minPrice && p.price <= maxPrice
+    })
     if (facingFilter.length) {
       result = result.filter((p) => p.facing && facingFilter.includes(p.facing))
     }
@@ -97,17 +202,19 @@ export function PropertiesClient() {
       default: result.sort((a, b) => Number(b.featured) - Number(a.featured)); break
     }
     return result
-  }, [plots, localityFilter, minArea, maxArea, minPrice, maxPrice, facingFilter, amenityFilter, sortBy])
+  }, [plots, localityFilter, typeFilter, minArea, maxArea, minPrice, maxPrice, facingFilter, amenityFilter, sortBy])
 
   const clearFilters = () => {
     setLocalityFilter('All')
+    setTypeFilter('All')
     setFacingFilter([])
     setAmenityFilter([])
     setMinArea(0)
-    setMaxArea(500)
+    setMaxArea(5000)
     setMinPrice(0)
-    setMaxPrice(20000000)
+    setMaxPrice(50000000)
     setSortBy('relevance')
+    router.replace('/properties', { scroll: false })
   }
 
   const toggleFacing = (f: string) => {
@@ -142,7 +249,7 @@ export function PropertiesClient() {
           <input type="number" value={minArea} onChange={(e) => setMinArea(Number(e.target.value) || 0)} className="input !h-10 !text-sm" placeholder="Min" />
           <input type="number" value={maxArea} onChange={(e) => setMaxArea(Number(e.target.value) || 0)} className="input !h-10 !text-sm" placeholder="Max" />
         </div>
-        <input type="range" min={0} max={500} value={maxArea} onChange={(e) => setMaxArea(Number(e.target.value))} />
+        <input type="range" min={0} max={5000} value={Math.min(maxArea, 5000)} onChange={(e) => setMaxArea(Number(e.target.value))} />
       </div>
 
       <div>
@@ -151,7 +258,7 @@ export function PropertiesClient() {
           <span>{formatCurrency(minPrice)}</span>
           <span className="ml-auto">{formatCurrency(maxPrice)}</span>
         </div>
-        <input type="range" min={0} max={20000000} step={100000} value={maxPrice} onChange={(e) => setMaxPrice(Number(e.target.value))} />
+        <input type="range" min={0} max={50000000} step={100000} value={Math.min(maxPrice, 50000000)} onChange={(e) => setMaxPrice(Number(e.target.value))} />
       </div>
 
       <div>
@@ -190,7 +297,7 @@ export function PropertiesClient() {
           <div className="mb-8 flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
             <div>
               <p className="text-sm font-semibold text-text-secondary">
-                {loading ? 'Loading plots…' : `${filtered.length} plots available`}
+                {filtered.length} plots available
               </p>
             </div>
             <div className="flex flex-wrap items-center gap-3">
@@ -235,75 +342,35 @@ export function PropertiesClient() {
               {view === 'map' && <PlotsMap plots={filtered} />}
 
               <p className="text-sm font-semibold text-text-secondary">
-                {loading ? 'Loading…' : `${filtered.length} plots found`}
+                {filtered.length} plots found
               </p>
 
-              {loading ? (
-                <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 xl:grid-cols-3">
-                  {Array.from({ length: 6 }).map((_, i) => (
-                    <div key={i} className="h-[420px] animate-pulse rounded-3xl bg-white" />
-                  ))}
+              {filtered.length === 0 ? (
+                <div className="space-y-8">
+                  <div className="rounded-3xl border border-border bg-white px-6 py-10 text-center shadow-card">
+                    <p className="font-display text-2xl font-bold text-text-primary">
+                      Oops — not available currently in your selection
+                    </p>
+                    <p className="mx-auto mt-2 max-w-lg text-sm text-text-secondary">
+                      We couldn&apos;t find a match for that location or filter. Browse our available plots below, or clear filters to see everything.
+                    </p>
+                    <button
+                      type="button"
+                      onClick={clearFilters}
+                      className="btn-primary mt-5 inline-flex justify-center !rounded-2xl"
+                    >
+                      Clear filters &amp; show all
+                    </button>
+                  </div>
+                  <div>
+                    <p className="mb-4 text-sm font-semibold text-text-secondary">
+                      Available plots right now
+                    </p>
+                    <PlotCards plots={plots} />
+                  </div>
                 </div>
               ) : (
-                <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 xl:grid-cols-3">
-                  {filtered.map((plot, i) => (
-                    <motion.article
-                      key={plot.code}
-                      initial={{ opacity: 0, y: 16 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: Math.min(i * 0.04, 0.24) }}
-                      className="flex flex-col overflow-hidden rounded-3xl border border-border bg-white shadow-card"
-                    >
-                      <div className="relative aspect-[4/3] overflow-hidden">
-                        <Image
-                          src={plot.images[0] || '/images/hero/hero-plots.jpg'}
-                          alt={plot.title}
-                          fill
-                          sizes="(max-width: 640px) 100vw, (max-width: 1280px) 50vw, 33vw"
-                          quality={75}
-                          className="object-cover transition-transform duration-700 hover:scale-105"
-                        />
-                        {plot.featured && (
-                          <span className="absolute left-3 top-3 rounded-full bg-brand-primary px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-white">
-                            Featured
-                          </span>
-                        )}
-                        <button type="button" className="absolute right-3 top-3 rounded-full bg-white/90 p-2 text-text-secondary" aria-label="Save">
-                          <Heart size={16} />
-                        </button>
-                      </div>
-                      <div className="flex flex-1 flex-col p-5">
-                        <h3 className="font-display text-lg font-bold text-text-primary">{plot.title}</h3>
-                        <p className="mt-1 font-display text-2xl font-bold tracking-tight">{plot.priceLabel}</p>
-                        <p className="mt-1 text-sm text-text-secondary">
-                          {plot.area} {plot.areaUnit}
-                          {plot.pricePerUnit ? ` · ${plot.pricePerUnit}` : ''}
-                        </p>
-                        <div className="mt-2 flex items-center gap-1.5 text-sm text-text-secondary">
-                          <MapPin size={14} />
-                          {plot.location}
-                        </div>
-                        <div className="mt-3 flex flex-wrap items-center gap-2 text-xs text-text-muted">
-                          {plot.facing && (
-                            <span className="inline-flex items-center gap-1 rounded-full bg-brand-light px-2.5 py-1">
-                              <Compass size={12} /> {plot.facing} Facing
-                            </span>
-                          )}
-                          <span className="inline-flex items-center gap-1 rounded-full bg-brand-light px-2.5 py-1">
-                            <Maximize size={12} /> {plot.area} {plot.areaUnit}
-                          </span>
-                        </div>
-                        <Link
-                          href={`/properties/${plot.slug}`}
-                          className="btn-primary mt-5 w-full justify-center !rounded-2xl"
-                          aria-label={`View details for ${plot.title}`}
-                        >
-                          View Details <ArrowRight size={16} />
-                        </Link>
-                      </div>
-                    </motion.article>
-                  ))}
-                </div>
+                <PlotCards plots={filtered} />
               )}
             </div>
           </div>

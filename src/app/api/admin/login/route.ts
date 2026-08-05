@@ -8,8 +8,13 @@ export async function POST(request: Request) {
   try {
     const { email, password } = await request.json()
 
-    // Credential check using environment variables
-    if (email === process.env.LOGIN_ADMIN_EMAIL && password === process.env.LOGIN_PASSWORD) {
+    // Credential check using environment variables (+ legacy email alias)
+    const allowedEmails = [
+      process.env.LOGIN_ADMIN_EMAIL,
+      'admin@aurixxrealty.com',
+      'admin@aurixrealty.com',
+    ].filter(Boolean)
+    if (allowedEmails.includes(email) && password === process.env.LOGIN_PASSWORD) {
       // Set simple authentication cookie
       cookies().set('admin_auth', 'authenticated', {
         httpOnly: true,

@@ -1,0 +1,32 @@
+[
+  {
+    "code": "AX-YE-001",
+    "folder": "plots",
+    "slug": "expressway-residency-yamuna-expressway",
+    "type": "Plot",
+    "title": "Expressway Residency",
+    "location": "Yamuna Expy, 53 Milestone, Simrauthi, Uttar Pradesh 202165",
+    "locality": "Yamuna Expressway",
+    "price": 0,
+    "priceLabel": "Price on Request",
+    "priceOnRequest": true,
+    "area": 0,
+    "areaUnit": "sq.yd",
+    "ownership": "Freehold",
+    "status": "Available",
+    "description": "Expressway Residency — premium authority-approved villa plots on Yamuna Expressway by Laur Group.",
+    "highlights": ["Authority-approved villa plots", "Freehold ownership", "Near Jewar Airport"],
+    "amenities": ["Near Noida International Airport (Jewar)", "Near Buddh International Circuit"],
+    "featured": true,
+    "badge": "New",
+    "nearbyPlaces": [],
+    "lat": 28.189,
+    "lng": 77.612,
+    "panoramaUrl": "https://maps.google.com/maps?layer=c&panoid=1LuwhGz4KdkTqbLK_fjcfw&ie=UTF8&source=embed&output=svembed&cbp=13,72.92,,0,0",
+    "panoramaLink": "https://www.google.com/local/place/fid/0x3973490dd3e7a7dd:0x51843e4e03787275/photosphere",
+    "localImages": [
+      "public/images/plots/expressway-residency/cover.webp",
+      "seed-media/plots/yamuna-expressway1.webp"
+    ]
+  }
+]

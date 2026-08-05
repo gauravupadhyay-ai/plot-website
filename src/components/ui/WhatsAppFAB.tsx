@@ -1,8 +1,12 @@
 'use client'
 import { MessageCircle } from 'lucide-react'
+import { usePathname } from 'next/navigation'
 import { getWhatsAppUrl } from '@/lib/utils'
 
 export function WhatsAppFAB() {
+  const pathname = usePathname()
+  if (pathname?.startsWith('/admin')) return null
+
   return (
     <a
       href={getWhatsAppUrl()}

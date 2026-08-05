@@ -28,22 +28,26 @@ export async function POST(request: Request) {
 
       if (dbError) {
         console.error('Supabase Error:', dbError)
-        // Continue to send email if configured
+        return NextResponse.json(
+          { error: 'Failed to save lead', details: dbError.message },
+          { status: 500 }
+        )
       }
     } catch (dbInitError) {
       console.error('Supabase unavailable:', dbInitError)
+      return NextResponse.json({ error: 'Database unavailable' }, { status: 500 })
     }
 
     // 2. Send email via Resend if API key is configured
     const resendApiKey = process.env.RESEND_API_KEY
-    const contactEmail = process.env.CONTACT_EMAIL || 'contact@aurixrealty.com'
+    const contactEmail = process.env.CONTACT_EMAIL || 'contact@aurixxrealty.com'
 
     if (resendApiKey && resendApiKey !== 're_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx') {
       const { Resend } = await import('resend')
       const resend = new Resend(resendApiKey)
 
       await resend.emails.send({
-        from: 'Aurixrealty <noreply@aurixrealty.com>',
+        from: 'Aurixxrealty <noreply@aurixxrealty.com>',
         to: contactEmail,
         subject: `New Enquiry from ${name}${propertyCode ? ` — ${propertyCode}` : ''}`,
         html: `

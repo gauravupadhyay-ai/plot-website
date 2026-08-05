@@ -11,6 +11,7 @@ import {
   X,
   ChevronRight,
   TrendingUp,
+  PlusCircle,
 } from 'lucide-react'
 import { LogoutButton } from '@/app/admin/(dashboard)/LogoutButton'
 import { SITE_NAME } from '@/lib/utils'
@@ -18,7 +19,8 @@ import { SITE_NAME } from '@/lib/utils'
 const navItems = [
   { name: 'Dashboard', href: '/admin/dashboard', icon: LayoutDashboard },
   { name: 'Plots', href: '/admin/properties', icon: Map },
-  { name: 'Leads', href: '/admin/leads', icon: Users },
+  { name: 'Add Plot', href: '/admin/properties/add', icon: PlusCircle },
+  { name: 'Leads & Contact', href: '/admin/leads', icon: Users },
 ]
 
 export function AdminSidebar() {
@@ -63,7 +65,7 @@ export function AdminSidebar() {
             </div>
             <div>
               <h2 className="text-xl font-bold font-display text-brand-primary leading-tight">
-                Aurixrealty
+                Aurixxrealty
               </h2>
               <p className="text-[10px] uppercase tracking-widest text-text-muted font-bold">
                 Admin

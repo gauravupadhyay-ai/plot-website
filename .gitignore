@@ -34,6 +34,13 @@ Thumbs.db
 # Vercel
 .vercel
 
+# Bulk seed media (large property photos — keep local)
+seed-media/listings.json
+seed-media/plots/**
+!seed-media/plots/.gitkeep
+!seed-media/listings.example.json
+!seed-media/README.md
+
 # TypeScript
 *.tsbuildinfo
 next-env.d.ts

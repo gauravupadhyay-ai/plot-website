@@ -215,11 +215,11 @@ export function ContactClient() {
                     {PHONE_NUMBER}
                   </a>
                   <a
-                    href="mailto:contact@aurixrealty.com"
+                    href="mailto:contact@aurixxrealty.com"
                     className="flex items-center gap-3 text-text-secondary text-sm hover:text-brand-primary transition font-sans"
                   >
                     <Mail size={20} className="text-brand-primary" />
-                    contact@aurixrealty.com
+                    contact@aurixxrealty.com
                   </a>
                   <div className="flex items-center gap-3 text-text-secondary text-sm font-sans">
                     <Clock size={20} className="text-brand-primary" />

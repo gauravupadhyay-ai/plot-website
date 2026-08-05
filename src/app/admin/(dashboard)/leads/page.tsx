@@ -1,126 +1,206 @@
 import { supabase } from '@/lib/supabase'
 import { Calendar, User, Phone, Mail, MessageSquare, Info } from 'lucide-react'
 
-// Ensure we re-fetch effectively
 export const revalidate = 0
+export const dynamic = 'force-dynamic'
+
+function sourceBadge(source?: string | null) {
+  const s = (source || '').toLowerCase()
+  if (s.includes('contact')) return { label: 'Contact Form', className: 'bg-sky-100 text-sky-800' }
+  if (s.includes('plot') || s.includes('property detail')) {
+    return { label: 'Plot Enquiry', className: 'bg-amber-100 text-amber-800' }
+  }
+  if (s.includes('lead magnet') || s.includes('callback')) {
+    return { label: 'Lead Magnet', className: 'bg-violet-100 text-violet-800' }
+  }
+  return { label: source || 'Website', className: 'bg-gray-100 text-gray-700' }
+}
 
 export default async function LeadsPage() {
-  const { data: leads } = await supabase
+  const { data: leads, error } = await supabase
     .from('leads')
     .select('*')
     .order('created_at', { ascending: false })
 
+  const contactCount = (leads || []).filter((l) =>
+    String(l.source || '').toLowerCase().includes('contact')
+  ).length
+  const plotCount = (leads || []).filter((l) =>
+    /plot|property detail/i.test(String(l.source || ''))
+  ).length
+
   return (
     <div className="space-y-6">
-      <header>
-        <h1 className="text-3xl font-serif font-bold text-teal-950">Client Inquiries</h1>
-        <p className="text-text-secondary mt-1">Manage and track all property inquiries from your website.</p>
+      <header className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+        <div>
+          <h1 className="font-display text-3xl font-bold text-brand-primary">Leads &amp; Contact</h1>
+          <p className="mt-1 text-sm text-text-secondary">
+            Contact form submissions and plot enquiries from the website.
+          </p>
+        </div>
+        <div className="flex flex-wrap gap-2 text-xs font-bold">
+          <span className="rounded-full bg-brand-light px-3 py-1.5 text-brand-primary">
+            Total {leads?.length || 0}
+          </span>
+          <span className="rounded-full bg-sky-100 px-3 py-1.5 text-sky-800">Contact {contactCount}</span>
+          <span className="rounded-full bg-amber-100 px-3 py-1.5 text-amber-800">Plot {plotCount}</span>
+        </div>
       </header>
 
-      <div className="bg-white/70 backdrop-blur-md rounded-[2rem] shadow-sm border border-gray-100 overflow-hidden">
-        {/* Desktop View */}
-        <div className="hidden md:block overflow-x-auto">
-          <table className="w-full text-left border-collapse">
+      {error && (
+        <div className="rounded-2xl border border-red-100 bg-red-50 px-4 py-3 text-sm text-red-700">
+          Could not load leads: {error.message}
+        </div>
+      )}
+
+      <div className="overflow-hidden rounded-[2rem] border border-gray-100 bg-white/70 shadow-sm backdrop-blur-md">
+        <div className="hidden overflow-x-auto md:block">
+          <table className="w-full border-collapse text-left text-sm">
             <thead>
               <tr className="bg-gray-50/50">
-                <th className="px-6 py-4 font-bold text-teal-900 uppercase tracking-wider text-xs">Received</th>
-                <th className="px-6 py-4 font-bold text-teal-900 uppercase tracking-wider text-xs">Customer</th>
-                <th className="px-6 py-4 font-bold text-teal-900 uppercase tracking-wider text-xs">Context</th>
-                <th className="px-6 py-4 font-bold text-teal-900 uppercase tracking-wider text-xs">Message</th>
+                <th className="px-6 py-4 text-xs font-bold uppercase tracking-wider text-brand-primary">Received</th>
+                <th className="px-6 py-4 text-xs font-bold uppercase tracking-wider text-brand-primary">Customer</th>
+                <th className="px-6 py-4 text-xs font-bold uppercase tracking-wider text-brand-primary">Source</th>
+                <th className="px-6 py-4 text-xs font-bold uppercase tracking-wider text-brand-primary">Context</th>
+                <th className="px-6 py-4 text-xs font-bold uppercase tracking-wider text-brand-primary">Message</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-gray-100 font-medium text-sm">
-              {leads && leads.map(lead => (
-                <tr key={lead.id} className="hover:bg-teal-50/30 transition-colors">
-                  <td className="px-6 py-4 whitespace-nowrap">
-                    <div className="flex flex-col">
-                      <span className="text-teal-950">
-                        {new Date(lead.created_at).toLocaleDateString('en-IN', { day: '2-digit', month: 'short' })}
+            <tbody className="divide-y divide-gray-100 font-medium">
+              {(leads || []).map((lead) => {
+                const badge = sourceBadge(lead.source)
+                return (
+                  <tr key={lead.id} className="transition-colors hover:bg-brand-light/40">
+                    <td className="whitespace-nowrap px-6 py-4">
+                      <div className="flex flex-col">
+                        <span>
+                          {new Date(lead.created_at).toLocaleDateString('en-IN', {
+                            day: '2-digit',
+                            month: 'short',
+                            year: 'numeric',
+                          })}
+                        </span>
+                        <span className="text-[10px] uppercase text-text-muted">
+                          {new Date(lead.created_at).toLocaleTimeString('en-IN', {
+                            hour: '2-digit',
+                            minute: '2-digit',
+                          })}
+                        </span>
+                      </div>
+                    </td>
+                    <td className="px-6 py-4">
+                      <div className="flex flex-col">
+                        <span className="font-bold text-brand-primary">{lead.name}</span>
+                        <a href={`tel:${lead.phone}`} className="text-xs text-text-secondary hover:underline">
+                          {lead.phone}
+                        </a>
+                        {lead.email && (
+                          <a href={`mailto:${lead.email}`} className="text-xs text-text-muted hover:underline">
+                            {lead.email}
+                          </a>
+                        )}
+                      </div>
+                    </td>
+                    <td className="px-6 py-4">
+                      <span className={`inline-flex rounded-full px-2.5 py-1 text-[10px] font-bold uppercase tracking-wide ${badge.className}`}>
+                        {badge.label}
                       </span>
-                      <span className="text-[10px] text-teal-600 uppercase">
-                        {new Date(lead.created_at).toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' })}
-                      </span>
-                    </div>
-                  </td>
-                  <td className="px-6 py-4">
-                    <div className="flex flex-col">
-                      <span className="text-teal-950 font-bold">{lead.name}</span>
-                      <span className="text-xs text-gray-500 font-normal">{lead.phone}</span>
-                    </div>
-                  </td>
-                  <td className="px-6 py-4">
-                    <div className="flex flex-col">
-                      <span className="text-teal-800">{lead.property_code || lead.property_type || 'General'}</span>
-                      {lead.source && <span className="text-[10px] text-brand-accent uppercase tracking-tighter">{lead.source}</span>}
-                    </div>
-                  </td>
-                  <td className="px-6 py-4 max-w-xs transition-all">
-                    <p className="line-clamp-2 text-gray-600 font-normal leading-snug" title={lead.message}>
-                      {lead.message || '-'}
-                    </p>
-                  </td>
-                </tr>
-              ))}
+                    </td>
+                    <td className="px-6 py-4">
+                      <div className="flex flex-col gap-0.5">
+                        <span>{lead.property_code || lead.property_type || 'General'}</span>
+                        {lead.budget_range && (
+                          <span className="text-[10px] text-text-muted">Budget: {lead.budget_range}</span>
+                        )}
+                        {lead.user_type && (
+                          <span className="text-[10px] text-text-muted">User: {lead.user_type}</span>
+                        )}
+                      </div>
+                    </td>
+                    <td className="max-w-xs px-6 py-4">
+                      <p className="line-clamp-3 leading-snug text-text-secondary" title={lead.message || ''}>
+                        {lead.message || '—'}
+                      </p>
+                    </td>
+                  </tr>
+                )
+              })}
             </tbody>
           </table>
         </div>
 
-        {/* Mobile View */}
-        <div className="md:hidden space-y-4 p-4 text-sm">
-          {leads && leads.map(lead => (
-            <div key={lead.id} className="bg-white rounded-[2.5rem] border border-gray-100 shadow-sm overflow-hidden flex flex-col p-6 space-y-6 animate-in fade-in slide-in-from-right-4 duration-500">
-              <div className="flex justify-between items-start">
-                <div className="flex items-center gap-4">
-                  <div className="w-14 h-14 bg-teal-50 rounded-[1.25rem] flex items-center justify-center text-teal-600 shadow-inner">
-                    <User size={24} />
-                  </div>
-                  <div>
-                    <h3 className="font-bold text-lg text-teal-950 leading-tight">{lead.name}</h3>
-                    <div className="text-[10px] text-teal-600 font-bold uppercase tracking-widest flex items-center gap-1.5 mt-0.5">
-                      <Calendar size={12} /> {new Date(lead.created_at).toLocaleDateString('en-IN', { day: '2-digit', month: 'short' })}
+        <div className="space-y-4 p-4 text-sm md:hidden">
+          {(leads || []).map((lead) => {
+            const badge = sourceBadge(lead.source)
+            return (
+              <div
+                key={lead.id}
+                className="flex flex-col space-y-5 rounded-[2.5rem] border border-gray-100 bg-white p-6 shadow-sm"
+              >
+                <div className="flex items-start justify-between gap-3">
+                  <div className="flex items-center gap-4">
+                    <div className="flex h-14 w-14 items-center justify-center rounded-[1.25rem] bg-brand-light text-brand-primary shadow-inner">
+                      <User size={24} />
+                    </div>
+                    <div>
+                      <h3 className="text-lg font-bold leading-tight text-brand-primary">{lead.name}</h3>
+                      <div className="mt-0.5 flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-widest text-text-muted">
+                        <Calendar size={12} />{' '}
+                        {new Date(lead.created_at).toLocaleDateString('en-IN', {
+                          day: '2-digit',
+                          month: 'short',
+                        })}
+                      </div>
                     </div>
                   </div>
+                  <span className={`rounded-full px-3 py-1 text-[10px] font-bold uppercase ${badge.className}`}>
+                    {badge.label}
+                  </span>
                 </div>
-                <div className="bg-brand-accent/10 border border-brand-accent/20 text-brand-secondary px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-tighter">
-                  {lead.property_code || 'General'}
-                </div>
-              </div>
 
-              <div className="grid grid-cols-2 gap-3">
-                <a href={`tel:${lead.phone}`} className="flex items-center justify-center gap-2 py-3.5 bg-teal-900 text-white rounded-2xl shadow-lg shadow-teal-900/10 active:scale-95 transition-all text-xs font-bold">
-                  <Phone size={14} /> Call Now
-                </a>
-                {lead.email ? (
-                  <a href={`mailto:${lead.email}`} className="flex items-center justify-center gap-2 py-3.5 bg-white border border-gray-100 rounded-2xl shadow-sm text-teal-900 active:scale-95 transition-all text-xs font-bold">
-                    <Mail size={14} /> E-mail
+                <div className="grid grid-cols-2 gap-3">
+                  <a
+                    href={`tel:${lead.phone}`}
+                    className="flex items-center justify-center gap-2 rounded-2xl bg-brand-primary py-3.5 text-xs font-bold text-white"
+                  >
+                    <Phone size={14} /> Call
                   </a>
-                ) : (
-                  <div className="flex items-center justify-center gap-2 py-3.5 bg-gray-50 border border-gray-100 rounded-2xl text-gray-400 text-xs font-bold cursor-not-allowed">
-                    <Mail size={14} /> No Email
+                  {lead.email ? (
+                    <a
+                      href={`mailto:${lead.email}`}
+                      className="flex items-center justify-center gap-2 rounded-2xl border border-gray-100 bg-white py-3.5 text-xs font-bold text-brand-primary"
+                    >
+                      <Mail size={14} /> Email
+                    </a>
+                  ) : (
+                    <div className="flex items-center justify-center gap-2 rounded-2xl border border-gray-100 bg-gray-50 py-3.5 text-xs font-bold text-gray-400">
+                      <Mail size={14} /> No email
+                    </div>
+                  )}
+                </div>
+
+                {lead.message && (
+                  <div className="relative rounded-[1.5rem] border border-gray-100 bg-gray-50/80 p-4">
+                    <MessageSquare size={16} className="absolute -left-3 -top-3 rounded-full bg-white p-0.5 text-brand-accent shadow-sm" />
+                    <p className="text-xs italic leading-relaxed text-text-secondary">&ldquo;{lead.message}&rdquo;</p>
                   </div>
                 )}
-              </div>
 
-              {lead.message && (
-                <div className="p-4 bg-gray-50/80 rounded-[1.5rem] border border-gray-100 relative group">
-                  <MessageSquare size={16} className="absolute -top-3 -left-3 text-brand-accent bg-white rounded-full p-0.5 shadow-sm" />
-                  <p className="text-gray-600 italic leading-relaxed text-xs">&ldquo;{lead.message}&rdquo;</p>
+                <div className="flex items-center gap-2 pl-1 text-[10px] font-bold uppercase tracking-widest text-text-muted">
+                  <Info size={12} /> {lead.property_code || lead.property_type || 'General'}
+                  {lead.source ? ` · ${lead.source}` : ''}
                 </div>
-              )}
-              
-              {lead.source && (
-                <div className="flex items-center gap-2 text-[10px] text-gray-400 font-bold uppercase tracking-widest pl-1">
-                  <Info size={12} className="text-teal-400" /> Source: <span className="text-teal-900">{lead.source}</span>
-                </div>
-              )}
-            </div>
-          ))}
+              </div>
+            )
+          })}
         </div>
 
         {(!leads || leads.length === 0) && (
           <div className="px-6 py-20 text-center">
-            <MessageSquare className="mx-auto text-gray-200 mb-4" size={48} />
-            <p className="text-gray-500 font-medium">No leads generated yet.</p>
+            <MessageSquare className="mx-auto mb-4 text-gray-200" size={48} />
+            <p className="font-medium text-gray-500">No contact or enquiry leads yet.</p>
+            <p className="mt-1 text-xs text-text-muted">
+              Submissions from the Contact page and plot enquiry forms will appear here.
+            </p>
           </div>
         )}
       </div>

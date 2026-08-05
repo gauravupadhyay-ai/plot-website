@@ -2,12 +2,13 @@
 
 import React, { useEffect, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
+import Image from 'next/image'
 import { motion, AnimatePresence, LayoutGroup } from 'framer-motion'
 import { Search, MapPin, Wallet, Layers, Ruler, ChevronDown, X } from 'lucide-react'
 import { useRouter } from 'next/navigation'
-import { ParallaxImage } from '@/components/ui/ParallaxImage'
+import { searchLocalities, heroPlotImages } from '@/data/localities'
+import { SITE_NAME } from '@/lib/utils'
 
-const localities = ['Waghodia Road', 'Ajwa Road', 'Jarod', 'Subhanpura']
 const budgets = [
   { label: 'Any budget', value: '' },
   { label: 'Under ₹30L', value: '0-30' },
@@ -16,8 +17,10 @@ const budgets = [
   { label: '₹75L+', value: '75+' },
 ]
 const plotTypes = [
-  { label: 'All plots', value: 'Plot' },
+  { label: 'All listings', value: '' },
   { label: 'Residential plot', value: 'Plot' },
+  { label: 'Commercial', value: 'Commercial' },
+  { label: 'Apartment', value: 'Flat / Apartment' },
 ]
 const areas = [
   { label: 'Any size', value: '' },
@@ -26,17 +29,29 @@ const areas = [
   { label: '200+ sq.yd', value: '200+' },
 ]
 
+function useHeroSlide() {
+  const [index, setIndex] = useState(0)
+  useEffect(() => {
+    if (heroPlotImages.length < 2) return
+    const id = window.setInterval(() => {
+      setIndex((i) => (i + 1) % heroPlotImages.length)
+    }, 4500)
+    return () => window.clearInterval(id)
+  }, [])
+  return heroPlotImages[index] || heroPlotImages[0]
+}
+
 /** Client-only filters + desktop hero (mobile LCP media is server-rendered). */
 export function HeroMobileFilters() {
   const router = useRouter()
   const [locality, setLocality] = useState('')
   const [budget, setBudget] = useState('')
-  const [plotType, setPlotType] = useState('Plot')
+  const [plotType, setPlotType] = useState('')
   const [area, setArea] = useState('')
 
   const handleSearch = () => {
     const params = new URLSearchParams()
-    params.set('type', plotType || 'Plot')
+    if (plotType) params.set('type', plotType)
     if (locality) params.set('locality', locality)
     if (budget) params.set('budget', budget)
     if (area) params.set('area', area)
@@ -71,11 +86,12 @@ export function HeroMobileFilters() {
 
 export function HeroDesktop() {
   const router = useRouter()
+  const slide = useHeroSlide()
   const [expanded, setExpanded] = useState(false)
   const [mounted, setMounted] = useState(false)
   const [locality, setLocality] = useState('')
   const [budget, setBudget] = useState('')
-  const [plotType, setPlotType] = useState('Plot')
+  const [plotType, setPlotType] = useState('')
   const [area, setArea] = useState('')
   const panelRef = useRef<HTMLDivElement>(null)
 
@@ -102,7 +118,6 @@ export function HeroDesktop() {
       }
     }
     window.addEventListener('keydown', onKey)
-    // Capture so clicks on header / page content outside the hero also close it
     document.addEventListener('pointerdown', onPointerDown, true)
     return () => {
       window.removeEventListener('keydown', onKey)
@@ -112,7 +127,7 @@ export function HeroDesktop() {
 
   const handleSearch = () => {
     const params = new URLSearchParams()
-    params.set('type', plotType || 'Plot')
+    if (plotType) params.set('type', plotType)
     if (locality) params.set('locality', locality)
     if (budget) params.set('budget', budget)
     if (area) params.set('area', area)
@@ -130,32 +145,79 @@ export function HeroDesktop() {
       <section className="relative hidden overflow-hidden bg-brand-light px-4 pb-8 pt-24 sm:block lg:px-5 lg:pb-10 lg:pt-28">
         <div className="relative mx-auto max-w-[90rem] overflow-hidden rounded-[2rem] bg-white lg:rounded-[2.5rem]">
           <div className="relative min-h-[74vh] lg:min-h-[80vh]">
-            <ParallaxImage
-              src="/images/hero/home-hero-bg-desktop.jpg"
-              alt="Premium residential plots in Vadodara"
-              sizes="100vw"
-              className={`object-[center_40%] transition-[filter] duration-300 ${expanded ? 'blur-md' : ''}`}
-              baseScale={1.05}
-              maxZoom={0.12}
-              maxShift={56}
-            />
-            <div className="absolute inset-0 z-[1] bg-gradient-to-b from-black/35 via-black/10 to-black/30" />
+            <AnimatePresence mode="sync">
+              <motion.div
+                key={slide.src}
+                className="absolute inset-0"
+                initial={{ opacity: 0, scale: 1.04 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 1.1, ease: 'easeOut' }}
+              >
+                <Image
+                  src={slide.src}
+                  alt={`${slide.title} — ${slide.locality}`}
+                  fill
+                  sizes="100vw"
+                  quality={70}
+                  priority
+                  className={`object-cover object-center transition-[filter] duration-300 ${expanded ? 'blur-md' : ''}`}
+                />
+              </motion.div>
+            </AnimatePresence>
+            <div className="absolute inset-0 z-[1] bg-black/55" />
 
             <div className="relative z-10 flex min-h-[74vh] flex-col justify-between gap-6 px-5 py-7 md:gap-8 md:px-8 md:py-8 lg:min-h-[80vh] lg:px-12 lg:py-10">
               <motion.div
-                initial={{ opacity: 0, y: 18 }}
-                animate={{ opacity: expanded ? 0.2 : 1, y: 0 }}
-                className="mx-auto w-full max-w-3xl pt-6 text-center md:pt-10 lg:pt-14"
+                initial="hidden"
+                animate={expanded ? 'dimmed' : 'show'}
+                variants={{
+                  hidden: { opacity: 0 },
+                  show: { opacity: 1, transition: { staggerChildren: 0.14, delayChildren: 0.35 } },
+                  dimmed: { opacity: 0.2, transition: { duration: 0.25 } },
+                }}
+                className="relative mx-auto w-full max-w-3xl pt-6 text-center md:pt-10 lg:pt-14"
               >
-                <p className="mb-3 text-sm font-bold uppercase tracking-[0.18em] text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.55)]">
-                  Aurixrealty
-                </p>
-                <h1 className="font-display text-4xl font-extrabold tracking-tight text-white drop-shadow-[0_2px_12px_rgba(0,0,0,0.55)] md:text-5xl lg:text-6xl">
+                <motion.p
+                  variants={{
+                    hidden: { opacity: 0, y: 18 },
+                    show: { opacity: 1, y: 0, transition: { duration: 0.55, ease: [0.22, 1, 0.36, 1] } },
+                  }}
+                  className="mb-3 text-sm font-bold uppercase tracking-[0.18em] text-white"
+                >
+                  {SITE_NAME}
+                </motion.p>
+                <motion.h1
+                  variants={{
+                    hidden: { opacity: 0, y: 28 },
+                    show: { opacity: 1, y: 0, transition: { duration: 0.65, ease: [0.22, 1, 0.36, 1] } },
+                  }}
+                  className="font-display text-4xl font-extrabold tracking-tight text-white md:text-5xl lg:text-6xl"
+                >
                   Find Your Perfect Plot to Build On.
-                </h1>
-                <p className="mx-auto mt-3 max-w-xl text-sm text-white/95 drop-shadow-[0_2px_8px_rgba(0,0,0,0.5)] md:mt-4 md:text-base lg:text-lg">
-                  Verified residential plots across Vadodara — clear titles, honest guidance, site visits on request.
-                </p>
+                </motion.h1>
+                <motion.p
+                  variants={{
+                    hidden: { opacity: 0, y: 20 },
+                    show: { opacity: 1, y: 0, transition: { duration: 0.55, ease: [0.22, 1, 0.36, 1] } },
+                  }}
+                  className="mx-auto mt-3 max-w-xl text-sm text-white/95 md:mt-4 md:text-base lg:text-lg"
+                >
+                  Verified plots and commercial inventory across NCR — Yamuna Expressway, Noida, Greater Noida & Vrindavan.
+                </motion.p>
+                <motion.p
+                  key={slide.title}
+                  variants={{
+                    hidden: { opacity: 0, y: 14 },
+                    show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] } },
+                  }}
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.45 }}
+                  className="mt-3 text-xs font-semibold uppercase tracking-wider text-white/85"
+                >
+                  Now showing · {slide.title}
+                </motion.p>
               </motion.div>
 
               {!expanded && (
@@ -165,10 +227,9 @@ export function HeroDesktop() {
                   className="relative z-30 mx-auto mb-1 w-full max-w-5xl cursor-pointer px-0 sm:w-[96%] lg:w-[80%]"
                 >
                   <div className="rounded-3xl border border-black/5 bg-white p-3 shadow-filter md:p-4">
-                    {/* Tablet: 2x2 + full-width search. Desktop: single row */}
                     <div className="grid grid-cols-2 gap-2 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)_minmax(0,1fr)_minmax(0,1fr)_auto] lg:items-center lg:gap-3">
                       <FilterField icon={<MapPin size={18} />} label="Location" expanded={false}>
-                        <span className="block truncate text-sm font-semibold text-text-primary">{locality || 'Vadodara'}</span>
+                        <span className="block truncate text-sm font-semibold text-text-primary">{locality || 'All locations'}</span>
                       </FilterField>
                       <FilterField icon={<Wallet size={18} />} label="Price" expanded={false}>
                         <span className="block truncate text-sm font-semibold text-text-primary">
@@ -177,7 +238,7 @@ export function HeroDesktop() {
                       </FilterField>
                       <FilterField icon={<Layers size={18} />} label="Plot type" expanded={false}>
                         <span className="block truncate text-sm font-semibold text-text-primary">
-                          {plotTypes.find((t) => t.value === plotType)?.label || 'All plots'}
+                          {plotTypes.find((t) => t.value === plotType)?.label || 'All listings'}
                         </span>
                       </FilterField>
                       <FilterField icon={<Ruler size={18} />} label="Plot size" expanded={false}>
@@ -296,8 +357,8 @@ function renderSelects(idPrefix: string, state: FilterState) {
           onChange={(e) => setLocality(e.target.value)}
           className="w-full appearance-none bg-transparent text-sm font-semibold text-text-primary outline-none"
         >
-          <option value="">Vadodara</option>
-          {localities.map((loc) => (
+          <option value="">All locations</option>
+          {searchLocalities.map((loc) => (
             <option key={loc} value={loc}>{loc}</option>
           ))}
         </select>

@@ -1,36 +1,71 @@
 import { Locality } from '@/types/property'
 
+/** Localities aligned with live seedPlots inventory (exact `locality` name match). */
 export const localities: Locality[] = [
   {
-    slug: 'waghodia-road',
-    name: 'Waghodia Road',
-    description: 'Strong NH-48 connectivity and growing demand for residential plots. Waghodia Road is a preferred corridor for buyers seeking NA land near employment hubs with improving infrastructure.',
+    slug: 'yamuna-expressway',
+    name: 'Yamuna Expressway',
+    description:
+      'High-growth corridor near Noida International Airport, Film City, and Buddh International Circuit. Premium villa plots and residences with strong long-term demand.',
     propertyCount: 2,
-    image: '/images/waghodia-road.jpg',
+    image: '/images/plots/expressway-residency/cover.webp',
   },
   {
-    slug: 'ajwa-road',
-    name: 'Ajwa Road',
-    description: 'Greener surroundings with planned plot layouts. Ajwa Road suits families looking for residential land with a calmer setting and steady local development.',
-    propertyCount: 0,
-    image: '/images/ajwa-road.jpg',
-  },
-  {
-    slug: 'jarod',
-    name: 'Jarod',
-    description: 'Value-focused plots on the State Highway belt. Jarod offers spacious residential land options with practical city access for first-time plot buyers.',
+    slug: 'vrindavan',
+    name: 'Vrindavan',
+    description:
+      'Ultra-luxury residential plots near temples and planned infrastructure. Ideal for buyers seeking spiritual-city living with gated community layouts.',
     propertyCount: 1,
-    image: '/images/jarod.jpg',
+    image: '/images/plots/vrinda-vatika/cover.png',
   },
   {
-    slug: 'subhanpura',
-    name: 'Subhanpura',
-    description: 'Established Vadodara locality close to key city amenities. Subhanpura attracts buyers seeking well-located residential plots with strong neighbourhood demand.',
-    propertyCount: 0,
-    image: '/images/subhanpura.jpg',
+    slug: 'sector-153-noida',
+    name: 'Sector 153, Noida',
+    description:
+      'Commercial and IT office suites on the Noida Expressway belt with on-site retail and strong corporate footfall.',
+    propertyCount: 2,
+    image: '/images/plots/urbtech-business-suites/cover.jpg',
+  },
+  {
+    slug: 'gaur-yamuna-city',
+    name: 'Yamuna Expressway / Gaur Yamuna City',
+    description:
+      'Gaurs Group residences and suites on the Yamuna Expressway — Chrysalis and Aero Suites for end-users and investors.',
+    propertyCount: 1,
+    image: '/images/plots/gaur-chrysalis/cover.jpg',
+  },
+  {
+    slug: 'omicron-1a-greater-noida',
+    name: 'Omicron 1A, Greater Noida',
+    description:
+      'Eldeco 7 Peaks Residence in Omicron 1A — connected apartments with strong Greater Noida West / Expressway access.',
+    propertyCount: 1,
+    image: '/images/plots/eldeco-7-peaks/cover.jpg',
+  },
+  {
+    slug: 'knowledge-park-3',
+    name: 'Knowledge Park 3, Greater Noida',
+    description:
+      'BiiGTecH mixed-use commercial hub — retail, F&B, gaming, and offices surrounded by colleges and IT parks.',
+    propertyCount: 1,
+    image: '/images/plots/biigtech/cover.jpg',
   },
 ]
 
+/** Hero search location options (must match Property.locality). */
+export const searchLocalities = localities.map((l) => l.name)
+
+/** Best cover image per listing for homepage hero rotation. */
+export const heroPlotImages = [
+  { src: '/images/plots/expressway-residency/cover.webp', title: 'Expressway Residency', locality: 'Yamuna Expressway' },
+  { src: '/images/plots/vrinda-vatika/cover.png', title: 'Vrinda Vatika Homes', locality: 'Vrindavan' },
+  { src: '/images/plots/urbtech-business-suites/cover.jpg', title: 'Urbtech Business Suites', locality: 'Sector 153, Noida' },
+  { src: '/images/plots/urbtech-npx-extension/cover.jpg', title: 'Urbtech NPX Extension', locality: 'Sector 153, Noida' },
+  { src: '/images/plots/gaur-chrysalis/cover.jpg', title: 'Gaur Chrysalis & Aero Suites', locality: 'Yamuna Expressway' },
+  { src: '/images/plots/eldeco-7-peaks/cover.jpg', title: 'Eldeco 7 Peaks Residence', locality: 'Greater Noida' },
+  { src: '/images/plots/biigtech/cover.jpg', title: 'BiiGTecH Knowledge Park 3', locality: 'Greater Noida' },
+]
+
 export function getLocalityBySlug(slug: string): Locality | undefined {
-  return localities.find(l => l.slug === slug)
+  return localities.find((l) => l.slug === slug)
 }

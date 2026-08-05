@@ -12,12 +12,12 @@ export function LocalitiesGrid() {
       <div className="section-container">
         <SectionHeading
           eyebrow="Localities"
-          title="Plots Across Vadodara's Best Corridors"
-          subtitle="Explore residential and NA land options in well-connected neighbourhoods"
+          title="Plots Across NCR's Best Corridors"
+          subtitle="Explore residential plots and commercial inventory in well-connected neighbourhoods"
           center
         />
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mt-12">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-12">
           {localities.map((locality, i) => (
             <motion.div
               key={locality.slug}

@@ -1,10 +1,11 @@
 'use client'
 import { useState, useEffect, useCallback } from 'react'
+import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Phone, Menu, X, ChevronDown } from 'lucide-react'
-import { getCallUrl, PHONE_NUMBER } from '@/lib/utils'
+import { getCallUrl, PHONE_NUMBER, SITE_NAME } from '@/lib/utils'
 
 
 const navLinks = [
@@ -51,13 +52,18 @@ export function Header() {
     <>
       <header className="fixed top-0 left-0 right-0 z-50 border-b border-border bg-white shadow-nav">
         <div className="mx-auto max-w-[90rem] px-4 sm:px-6 lg:px-8">
-          <div className="flex h-16 items-center justify-between sm:h-20">
-            <Link href="/" className="z-10 flex min-w-0 items-center gap-2">
-              <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-brand-primary text-sm font-bold text-white sm:h-9 sm:w-9">
-                A
-              </span>
-              <span className="truncate font-display text-lg font-bold tracking-tight text-text-primary sm:text-xl">
-                Aurixrealty
+          <div className="flex h-[4.5rem] items-center justify-between sm:h-24">
+            <Link href="/" className="z-10 flex min-w-0 items-center gap-3">
+              <Image
+                src="/images/brand/aurixx-logo.png"
+                alt={SITE_NAME}
+                width={72}
+                height={72}
+                className="h-14 w-14 rounded-full object-cover sm:h-16 sm:w-16"
+                priority
+              />
+              <span className="truncate font-display text-xl font-extrabold tracking-tight text-text-primary sm:text-2xl">
+                {SITE_NAME}
               </span>
             </Link>
 
@@ -66,10 +72,10 @@ export function Header() {
                 <div key={link.label} className="group relative">
                   {link.children ? (
                     <button
-                      className={`flex items-center gap-1 rounded-full px-4 py-2 text-[15px] font-medium transition-all ${
+                      className={`flex items-center gap-1 rounded-full px-4 py-2 text-[15px] font-bold transition-all ${
                         isActive(link.href)
                           ? 'text-text-primary'
-                          : 'text-text-secondary hover:bg-black/5 hover:text-text-primary'
+                          : 'text-text-primary/80 hover:bg-black/5 hover:text-text-primary'
                       }`}
                     >
                       {link.label}
@@ -78,10 +84,10 @@ export function Header() {
                   ) : (
                     <Link
                       href={link.href}
-                      className={`rounded-full px-4 py-2 text-[15px] font-medium transition-all ${
+                      className={`rounded-full px-4 py-2 text-[15px] font-bold transition-all ${
                         isActive(link.href)
                           ? 'text-text-primary'
-                          : 'text-text-secondary hover:bg-black/5 hover:text-text-primary'
+                          : 'text-text-primary/80 hover:bg-black/5 hover:text-text-primary'
                       }`}
                     >
                       {link.label}
@@ -95,7 +101,7 @@ export function Header() {
                           <Link
                             key={child.href}
                             href={child.href}
-                            className="block px-5 py-2.5 text-[14px] text-text-secondary transition-colors hover:bg-brand-light hover:text-text-primary"
+                            className="block px-5 py-2.5 text-[14px] font-semibold text-text-secondary transition-colors hover:bg-brand-light hover:text-text-primary"
                           >
                             {child.label}
                           </Link>
@@ -108,7 +114,7 @@ export function Header() {
             </nav>
 
             <div className="hidden items-center gap-3 lg:flex">
-              <Link href="/contact" className="btn-primary !px-5 !py-2.5 text-sm">
+              <Link href="/contact" className="btn-primary !px-5 !py-2.5 text-sm font-bold">
                 Contact us
               </Link>
             </div>
@@ -151,7 +157,7 @@ export function Header() {
                         <>
                           <button
                             onClick={() => toggleDropdown(link.label)}
-                            className="flex w-full items-center justify-between rounded-xl px-4 py-3 text-lg font-semibold text-text-primary"
+                            className="flex w-full items-center justify-between rounded-xl px-4 py-3 text-lg font-bold text-text-primary"
                           >
                             {link.label}
                             <ChevronDown
@@ -172,7 +178,7 @@ export function Header() {
                                     key={child.href}
                                     href={child.href}
                                     onClick={() => setMobileOpen(false)}
-                                    className="block rounded-lg px-4 py-2.5 text-[15px] text-text-secondary"
+                                    className="block rounded-lg px-4 py-2.5 text-[15px] font-semibold text-text-secondary"
                                   >
                                     {child.label}
                                   </Link>
@@ -185,7 +191,7 @@ export function Header() {
                         <Link
                           href={link.href}
                           onClick={() => setMobileOpen(false)}
-                          className="block rounded-xl px-4 py-3 text-lg font-semibold text-text-primary"
+                          className="block rounded-xl px-4 py-3 text-lg font-bold text-text-primary"
                         >
                           {link.label}
                         </Link>

@@ -18,6 +18,10 @@ const UpcomingProjectModal = dynamic(
   () => import('@/components/ui/UpcomingProjectModal').then((m) => m.UpcomingProjectModal),
   { ssr: false }
 )
+const BrandSplash = dynamic(
+  () => import('@/components/ui/BrandSplash').then((m) => m.BrandSplash),
+  { ssr: false }
+)
 const BackToTop = dynamic(
   () => import('@/components/ui/BackToTop').then((m) => m.BackToTop),
   { ssr: false }
@@ -50,20 +54,19 @@ const spaceMono = Space_Mono({
 
 export const metadata: Metadata = {
   title: {
-    default: 'Aurixrealty — Premium Residential Plots in Vadodara',
-    template: '%s | Aurixrealty',
+    default: 'Aurixxrealty — Premium Plots & Commercial Inventory in NCR',
+    template: '%s | Aurixxrealty',
   },
   description:
-    'Aurixrealty specializes in verified residential plots across Vadodara. Find NA plots, clear-title land, and upcoming plotted projects in Waghodia Road, Ajwa Road, Subhanpura & more.',
+    'Aurixxrealty specializes in verified residential plots and commercial inventory across NCR — Yamuna Expressway, Noida, Greater Noida, and Vrindavan.',
   keywords: [
-    'plots in Vadodara',
-    'residential plots Vadodara',
-    'NA plots Vadodara',
-    'plot for sale Waghodia Road',
-    'Aurixrealty',
-    'buy plot Vadodara',
-    'land for sale Vadodara',
-    'Gujarat plots',
+    'plots in Noida',
+    'residential plots Yamuna Expressway',
+    'Greater Noida commercial',
+    'BiiGTecH Knowledge Park 3',
+    'Aurixxrealty',
+    'buy plot NCR',
+    'Vrindavan plots',
   ],
   authors: [{ name: SITE_NAME, url: SITE_URL }],
   creator: SITE_NAME,
@@ -76,7 +79,7 @@ export const metadata: Metadata = {
       url: `${SITE_URL}/og-image.jpg`,
       width: 1200,
       height: 630,
-      alt: 'Aurixrealty — Premium Residential Plots in Vadodara',
+      alt: 'Aurixxrealty — Premium Residential Plots in Vadodara',
     }],
   },
   twitter: { card: 'summary_large_image' },
@@ -102,7 +105,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             __html: JSON.stringify({
               '@context': 'https://schema.org',
               '@type': 'RealEstateAgent',
-              name: 'Aurixrealty',
+              name: 'Aurixxrealty',
               description:
                 'Vadodara plot specialists helping buyers find verified residential land with clear titles.',
               address: {
@@ -114,7 +117,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 addressCountry: 'IN',
               },
               telephone: PHONE_NUMBER,
-              email: 'contact@aurixrealty.com',
+              email: 'contact@aurixxrealty.com',
               url: SITE_URL,
               priceRange: '₹₹',
               openingHours: 'Mo-Sa 09:00-19:00',
@@ -129,6 +132,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       </head>
       <body className="bg-brand-light text-text-primary antialiased font-sans pb-16 lg:pb-0">
         <a href="#main-content" className="skip-link">Skip to main content</a>
+        <BrandSplash />
         {children}
         <WhatsAppFAB />
         <AIAssistantFAB />

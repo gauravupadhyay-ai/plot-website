@@ -1,8 +1,9 @@
 'use client'
 import { useState } from 'react'
+import Image from 'next/image'
 import Link from 'next/link'
 import { Phone, Mail, MapPin, Clock, Facebook, Youtube, Send, Award } from 'lucide-react'
-import { getCallUrl, PHONE_NUMBER } from '@/lib/utils'
+import { getCallUrl, PHONE_NUMBER, SITE_NAME } from '@/lib/utils'
 
 const credentials = [
   'Title Verified',
@@ -87,11 +88,18 @@ export function Footer() {
       <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 md:py-20 lg:px-8">
         <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-4 lg:gap-8">
           <div className="sm:col-span-2 lg:col-span-1">
-            <Link href="/" className="mb-4 inline-block">
-              <span className="font-display text-2xl font-bold text-white">Aurixrealty</span>
+            <Link href="/" className="mb-4 inline-flex items-center gap-3">
+              <Image
+                src="/images/brand/aurixx-logo.png"
+                alt={SITE_NAME}
+                width={72}
+                height={72}
+                className="h-16 w-16 rounded-full object-cover sm:h-[4.5rem] sm:w-[4.5rem]"
+              />
+              <span className="font-display text-2xl font-bold text-white">{SITE_NAME}</span>
             </Link>
             <p className="mb-6 text-[15px] leading-relaxed text-white/60">
-              Vadodara&apos;s plot specialists. Helping buyers find verified residential land with clear titles and honest guidance.
+              NCR plot specialists. Helping buyers find verified residential land and commercial inventory with clear titles and honest guidance.
             </p>
             <div className="flex gap-3">
               <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="flex h-10 w-10 items-center justify-center rounded-full bg-white/10 transition-colors hover:bg-white/20" aria-label="Facebook">
@@ -159,9 +167,9 @@ export function Footer() {
                 </a>
               </li>
               <li>
-                <a href="mailto:contact@aurixrealty.com" className="flex items-center gap-3 text-[15px] text-white/60 transition-colors hover:text-white">
+                <a href="mailto:contact@aurixxrealty.com" className="flex items-center gap-3 text-[15px] text-white/60 transition-colors hover:text-white">
                   <Mail size={18} className="flex-shrink-0 text-white" />
-                  contact@aurixrealty.com
+                  contact@aurixxrealty.com
                 </a>
               </li>
               <li className="flex items-center gap-3 text-[15px] text-white/60">
@@ -176,7 +184,7 @@ export function Footer() {
       <div className="border-t border-white/10">
         <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-3 px-4 py-5 sm:flex-row sm:px-6 lg:px-8">
           <p className="text-sm text-white/70">
-            © {new Date().getFullYear()} Aurixrealty. All Rights Reserved.
+            © {new Date().getFullYear()} Aurixxrealty. All Rights Reserved.
           </p>
           <div className="flex items-center gap-4 text-sm text-white/70">
             <Link href="/contact" className="transition-colors hover:text-white">Contact</Link>

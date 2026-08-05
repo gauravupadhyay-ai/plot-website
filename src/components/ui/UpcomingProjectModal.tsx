@@ -3,27 +3,34 @@
 import { useEffect, useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 import { AnimatePresence, motion } from 'framer-motion'
 import { X, MapPin, Sparkles, ArrowRight, MessageCircle, CheckCircle2 } from 'lucide-react'
 import { getWhatsAppUrl, SITE_NAME } from '@/lib/utils'
 
-const highlights = ['Subhanpura location', 'Clear docs', 'Sizes on request', 'Loan support']
+const highlights = ['Omicron 1A', '7 towers', '7.5 acres', 'Loan support']
 
 export function UpcomingProjectModal() {
+  const pathname = usePathname()
   const [mounted, setMounted] = useState(false)
   const [open, setOpen] = useState(false)
+  const skip =
+    pathname?.startsWith('/properties') ||
+    pathname?.startsWith('/admin') ||
+    pathname === '/admin'
 
   useEffect(() => {
+    if (skip) return
     setMounted(true)
     const timer = window.setTimeout(() => setOpen(true), 3000)
     return () => window.clearTimeout(timer)
-  }, [])
+  }, [skip])
 
   const close = () => {
     setOpen(false)
   }
 
-  if (!mounted) return null
+  if (skip || !mounted) return null
 
   return (
     <AnimatePresence>
@@ -59,15 +66,14 @@ export function UpcomingProjectModal() {
               <X size={18} />
             </button>
 
-            {/* Visual — shorter on mobile so content + CTAs fit */}
             <div className="relative h-[160px] shrink-0 sm:h-[180px] md:h-auto md:min-h-full">
               <Image
-                src="/images/gallery-images/10.jpg"
-                alt="Sarthak Enclave residential plots in Subhanpura"
+                src="/images/plots/eldeco-7-peaks/cover.jpg"
+                alt="Eldeco 7 Peaks Residence Omicron 1A Greater Noida"
                 fill
                 sizes="(max-width: 768px) 100vw, 50vw"
                 quality={75}
-                className="object-cover"
+                className="object-cover object-[72%_42%]"
                 priority
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-black/20 to-transparent md:bg-gradient-to-b md:from-black/55 md:via-black/15 md:to-transparent" />
@@ -77,38 +83,38 @@ export function UpcomingProjectModal() {
                   Featured layout
                 </span>
                 <p className="mt-2 hidden font-display text-2xl font-bold text-white drop-shadow md:block lg:text-3xl">
-                  Sarthak Enclave
+                  Eldeco 7 Peaks
                 </p>
                 <p className="mt-1 hidden items-center gap-1.5 text-sm text-white/90 md:flex">
                   <MapPin size={14} />
-                  Subhanpura, Vadodara
+                  Omicron 1A, Greater Noida
                 </p>
               </div>
             </div>
 
-            {/* Content — compact mobile, CTAs always visible */}
             <div className="flex min-h-0 flex-col p-4 sm:p-6 md:justify-center md:p-8 lg:p-10">
               <div className="min-h-0 flex-1 overflow-y-auto md:flex-none">
                 <p className="text-[10px] font-bold uppercase tracking-[0.14em] text-text-secondary sm:text-[11px]">
-                  Coming soon · {SITE_NAME}
+                  Featured · {SITE_NAME}
                 </p>
                 <h3
                   id="upcoming-project-title"
                   className="mt-1 font-display text-xl font-bold tracking-tight text-text-primary sm:text-2xl md:text-3xl"
                 >
-                  Sarthak Enclave
+                  Eldeco 7 Peaks Residence
                 </h3>
                 <p className="mt-0.5 flex items-center gap-1 text-xs font-medium text-text-secondary md:hidden">
                   <MapPin size={12} />
-                  Subhanpura, Vadodara
+                  Omicron 1A, Greater Noida
                 </p>
                 <p className="mt-2 text-sm leading-snug text-text-secondary sm:mt-3 sm:text-[15px] sm:leading-relaxed">
                   <span className="md:hidden">
-                    Residential plots in Subhanpura. Early access for availability, sizes & pricing.
+                    7 towers on 7.5 acres in Omicron 1A. Ask for availability &amp; pricing.
                   </span>
                   <span className="hidden md:inline">
-                    A residential plotted development in Subhanpura. Get early access for plot
-                    availability, sizes, and pricing — presented by {SITE_NAME}.
+                    Exclusive residences across 7 standalone towers on 7.5 acres in Omicron 1A,
+                    Greater Noida — green views, clubhouse amenities, and Expressway connectivity.
+                    Get availability via {SITE_NAME}.
                   </span>
                 </p>
 
@@ -128,7 +134,7 @@ export function UpcomingProjectModal() {
               <div className="mt-3 flex shrink-0 flex-col gap-2.5 sm:mt-5 sm:flex-row sm:gap-3 md:mt-6">
                 <a
                   href={getWhatsAppUrl(
-                    `Hi! I'm interested in Sarthak Enclave plots in Subhanpura via ${SITE_NAME}. Please share availability and pricing.`
+                    `Hi! I'm interested in Eldeco 7 Peaks Residence, Omicron 1A, Greater Noida via ${SITE_NAME}. Please share availability and pricing.`
                   )}
                   target="_blank"
                   rel="noopener noreferrer"
@@ -139,7 +145,7 @@ export function UpcomingProjectModal() {
                   WhatsApp
                 </a>
                 <Link
-                  href="/projects/sarthak-enclave"
+                  href="/properties/eldeco-7-peaks-residence-greater-noida"
                   className="inline-flex min-h-[52px] w-full shrink-0 items-center justify-center gap-2 rounded-full border border-border bg-white px-5 text-sm font-semibold leading-none text-text-primary transition hover:bg-brand-light sm:min-h-12 sm:flex-1 md:min-h-12"
                   onClick={close}
                 >

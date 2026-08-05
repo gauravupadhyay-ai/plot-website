@@ -1,8 +1,10 @@
 'use client'
 import { useState, useEffect } from 'react'
+import { usePathname } from 'next/navigation'
 import { ChevronUp } from 'lucide-react'
 
 export function BackToTop() {
+  const pathname = usePathname()
   const [show, setShow] = useState(false)
 
   useEffect(() => {
@@ -14,6 +16,8 @@ export function BackToTop() {
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' })
   }
+
+  if (pathname?.startsWith('/admin')) return null
 
   return (
     <button

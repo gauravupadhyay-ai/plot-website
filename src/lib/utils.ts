@@ -32,13 +32,13 @@ export function slugify(text: string): string {
 
 export const WHATSAPP_NUMBER = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '919711760199'
 export const PHONE_NUMBER = process.env.NEXT_PUBLIC_PHONE || '+91 97117 60199'
-export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.aurixrealty.com'
-export const SITE_NAME = process.env.NEXT_PUBLIC_SITE_NAME || 'Aurixrealty'
+export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.aurixxrealty.com'
+export const SITE_NAME = process.env.NEXT_PUBLIC_SITE_NAME || 'Aurixxrealty'
 
 export function getWhatsAppUrl(message?: string): string {
   const msg =
     message ||
-    "Hello! I found Aurixrealty and I'm interested in residential plots in Vadodara."
+    "Hello! I found Aurixxrealty and I'm interested in residential plots in Vadodara."
   return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`
 }
 

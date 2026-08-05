@@ -17,7 +17,7 @@ export function FeaturedProperties() {
     async function load() {
       const data = await getProperties()
       const plots = data
-        .filter((p) => p.type === 'Plot')
+        .filter((p) => p.type === 'Plot' || p.type === 'Commercial' || p.type === 'Flat / Apartment')
         .sort((a, b) => Number(b.featured) - Number(a.featured))
       setDisplayProps(plots.slice(0, 6))
       setLoading(false)
@@ -75,11 +75,19 @@ export function FeaturedProperties() {
                   </div>
 
                   <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent p-4 pt-12">
-                    <div className="font-mono font-bold text-xl text-white">{property.priceLabel}</div>
+                    <div className="font-mono font-bold text-xl text-white">
+                      {property.priceOnRequest || property.priceLabel === 'Price on Request'
+                        ? 'Price on Request'
+                        : property.priceLabel}
+                    </div>
                     <div className="flex items-center gap-3 text-white/80 text-xs mt-1">
                       <span>{property.type}</span>
-                      <span>•</span>
-                      <span>{property.area} {property.areaUnit}</span>
+                      {property.area > 0 && (
+                        <>
+                          <span>•</span>
+                          <span>{property.area} {property.areaUnit}</span>
+                        </>
+                      )}
                     </div>
                   </div>
 
@@ -112,7 +120,7 @@ export function FeaturedProperties() {
                     <span className="text-border">|</span>
                     <span className="flex items-center gap-1.5">
                       <Maximize size={15} className="text-brand-primary" />
-                      {property.area} {property.areaUnit}
+                      {property.area > 0 ? `${property.area} ${property.areaUnit}` : 'Sizes on request'}
                     </span>
                     {property.facing && (
                       <>
@@ -133,7 +141,11 @@ export function FeaturedProperties() {
                       View Details
                     </Link>
                     <a
-                      href={getWhatsAppUrl(`Hi! I'm interested in the plot in ${property.locality} (Code: ${property.code}) — ${property.area} ${property.areaUnit} at ${property.priceLabel}. Please share more details.`)}
+                      href={getWhatsAppUrl(
+                        property.priceOnRequest || property.priceLabel === 'Price on Request'
+                          ? `Hi! I'm interested in ${property.title} (${property.code}) at ${property.location}. Please share availability and pricing.`
+                          : `Hi! I'm interested in the plot in ${property.locality} (Code: ${property.code}) — ${property.area} ${property.areaUnit} at ${property.priceLabel}. Please share more details.`
+                      )}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="w-11 h-11 rounded-full bg-[#25D366] flex items-center justify-center text-white hover:scale-110 transition-transform shrink-0"

@@ -15,12 +15,16 @@ export interface Property {
   locality: string
   price: number
   priceLabel: string
+  /** When true, hide numeric price and show Contact / Call CTAs instead */
+  priceOnRequest?: boolean
   pricePerUnit?: string
   bhk: string
   bedrooms: number
   bathrooms: number
   area: number
   areaUnit: string
+  /** Optional display override (e.g. size range) */
+  areaLabel?: string
   floor?: string
   facing?: string
   age?: string
@@ -32,10 +36,16 @@ export interface Property {
   amenities?: string[]
   images: string[]
   videos: string[]
+  /** Price list files shown on the detail page */
+  documents?: { label: string; url: string }[]
   featured: boolean
   badge: 'For Sale' | 'Hot Deal' | 'New' | 'Sold'
   nearbyPlaces?: { name: string; distance: string }[]
   mapEmbedUrl?: string
+  /** Google Street View / photosphere embed URL */
+  panoramaUrl?: string
+  /** Open 360° in a new tab */
+  panoramaLink?: string
   lat?: number
   lng?: number
   reviews?: PlotReview[]

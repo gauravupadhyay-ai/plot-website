@@ -4,7 +4,7 @@ export const testimonials: Testimonial[] = [
   {
     id: 1,
     name: 'Sarvadnya Rajendra Awaghad',
-    quote: 'Clear advice on plot size, location, and paperwork. Aurixrealty understood exactly what we needed in Vadodara.',
+    quote: 'Clear advice on plot size, location, and paperwork. Aurixxrealty understood exactly what we needed in Vadodara.',
     rating: 5,
     type: 'Buyer',
   },
@@ -39,14 +39,14 @@ export const testimonials: Testimonial[] = [
   {
     id: 6,
     name: 'Rajesh Shriram Hajarnavis',
-    quote: 'Solid guidance for a land investment decision. Would use Aurixrealty again for future plot purchases.',
+    quote: 'Solid guidance for a land investment decision. Would use Aurixxrealty again for future plot purchases.',
     rating: 5,
     type: 'Investor',
   },
   {
     id: 7,
     name: 'Nave',
-    quote: 'Selling our plot through Aurixrealty was straightforward — clear communication and quick closure.',
+    quote: 'Selling our plot through Aurixxrealty was straightforward — clear communication and quick closure.',
     rating: 5,
     type: 'Seller',
   },

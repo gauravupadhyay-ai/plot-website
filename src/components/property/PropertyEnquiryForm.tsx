@@ -34,6 +34,8 @@ export function PropertyEnquiryForm({
           phone,
           email,
           message,
+          propertyCode,
+          propertyType: isPlot ? 'Plot' : 'Property',
           source: `${isPlot ? 'Plot' : 'Property'} Detail: ${propertyTitle} (${propertyCode})`,
         }),
       })
