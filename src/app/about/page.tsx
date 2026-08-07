@@ -7,6 +7,7 @@ import { CTABanner } from '@/components/home/CTABanner'
 import { StatsBar } from '@/components/home/StatsBar'
 import { Eye, Target, Heart, Award, Quote } from 'lucide-react'
 import { SITE_NAME } from '@/lib/utils'
+import { founders } from '@/data/team'
 
 export const metadata: Metadata = {
   title: `About ${SITE_NAME} | Real Estate Specialists in NCR`,
@@ -90,14 +91,53 @@ export default function AboutPage() {
                   &ldquo;We don&apos;t just list properties. We help families secure the space where their next
                   chapter begins.&rdquo;
                 </p>
-                <p className="text-text-primary font-semibold text-sm mt-2 font-sans">— {SITE_NAME} Team</p>
+                <p className="text-text-primary font-semibold text-sm mt-2 font-sans">
+                  — Aryan Yadav &amp; Sukhpreet Singh Kajal, Founders
+                </p>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      <section className="py-16 md:py-24 bg-brand-light">
+      <section className="bg-brand-light py-16 md:py-24">
+        <div className="section-container">
+          <div className="mb-12 text-center">
+            <p className="section-eyebrow justify-center">Leadership</p>
+            <h2 className="section-title font-display text-3xl md:text-4xl">Meet Our Founders</h2>
+            <p className="mx-auto mt-3 max-w-2xl text-text-secondary">
+              The partners behind {SITE_NAME} — building a transparent real-estate practice across NCR.
+            </p>
+          </div>
+          <div className="mx-auto grid max-w-4xl grid-cols-1 gap-6 md:grid-cols-2 md:gap-8">
+            {founders.map((founder) => {
+              const initials = founder.name
+                .split(' ')
+                .filter(Boolean)
+                .slice(0, 2)
+                .map((part) => part[0]?.toUpperCase() || '')
+                .join('')
+              return (
+                <article
+                  key={founder.name}
+                  className="card-static flex flex-col items-center p-8 text-center !rounded-2xl md:p-10"
+                >
+                  <div className="mb-5 flex h-24 w-24 items-center justify-center rounded-full bg-brand-primary font-display text-2xl font-bold text-white shadow-lg shadow-brand-primary/20">
+                    {initials}
+                  </div>
+                  <h3 className="font-display text-2xl font-bold text-text-primary">{founder.name}</h3>
+                  <p className="mt-1 text-sm font-bold uppercase tracking-wider text-brand-primary">
+                    {founder.role}
+                  </p>
+                  <p className="mt-4 font-sans leading-relaxed text-text-secondary">{founder.bio}</p>
+                </article>
+              )
+            })}
+          </div>
+        </div>
+      </section>
+
+      <section className="py-16 md:py-24 bg-white">
         <div className="section-container">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
             {[
@@ -132,7 +172,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <section className="py-16 md:py-20 bg-white">
+      <section className="bg-brand-light py-16 md:py-20">
         <div className="section-container">
           <div className="text-center mb-12">
             <p className="section-eyebrow justify-center">Credentials</p>
