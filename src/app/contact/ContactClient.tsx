@@ -1,7 +1,14 @@
 'use client'
 import { useState } from 'react'
 import { Phone, Mail, MapPin, Clock, MessageCircle, Instagram, Linkedin, Send, CheckCircle2 } from 'lucide-react'
-import { getWhatsAppUrl, getCallUrl, PHONE_NUMBER, SITE_NAME } from '@/lib/utils'
+import {
+  getWhatsAppUrl,
+  getCallUrl,
+  PHONE_NUMBER,
+  SITE_NAME,
+  CONTACT_EMAIL,
+  EMAIL_ALIASES,
+} from '@/lib/utils'
 
 export function ContactClient() {
   const [name, setName] = useState('')
@@ -214,12 +221,30 @@ export function ContactClient() {
                     {PHONE_NUMBER}
                   </a>
                   <a
-                    href="mailto:contact@aurixxrealty.com"
+                    href={`mailto:${CONTACT_EMAIL}`}
                     className="flex items-center gap-3 text-text-secondary text-sm hover:text-brand-primary transition font-sans"
                   >
                     <Mail size={20} className="text-brand-primary" />
-                    contact@aurixxrealty.com
+                    {CONTACT_EMAIL}
                   </a>
+                  <div className="rounded-2xl border border-border/60 bg-brand-light/60 px-4 py-3">
+                    <p className="mb-2 text-xs font-bold uppercase tracking-wider text-text-muted">
+                      Email aliases
+                    </p>
+                    <ul className="space-y-1.5">
+                      {EMAIL_ALIASES.map((item) => (
+                        <li key={item.email}>
+                          <a
+                            href={`mailto:${item.email}`}
+                            className="flex items-center justify-between gap-2 text-sm text-text-secondary transition hover:text-brand-primary"
+                          >
+                            <span className="font-medium text-text-primary">{item.label}</span>
+                            <span className="truncate font-mono text-xs">{item.email}</span>
+                          </a>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
                   <div className="flex items-center gap-3 text-text-secondary text-sm font-sans">
                     <Clock size={20} className="text-brand-primary" />
                     <div>

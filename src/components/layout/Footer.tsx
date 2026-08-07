@@ -3,7 +3,7 @@ import { useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { Phone, Mail, MapPin, Clock, Instagram, Linkedin, Send, Award } from 'lucide-react'
-import { getCallUrl, PHONE_NUMBER, SITE_NAME } from '@/lib/utils'
+import { CONTACT_EMAIL, getCallUrl, PHONE_NUMBER, SITE_NAME } from '@/lib/utils'
 
 const credentials = [
   'Title Verified',
@@ -169,9 +169,9 @@ export function Footer() {
                 </a>
               </li>
               <li>
-                <a href="mailto:contact@aurixxrealty.com" className="flex items-center gap-3 text-[15px] text-white/60 transition-colors hover:text-white">
+                <a href={`mailto:${CONTACT_EMAIL}`} className="flex items-center gap-3 text-[15px] text-white/60 transition-colors hover:text-white">
                   <Mail size={18} className="flex-shrink-0 text-white" />
-                  contact@aurixxrealty.com
+                  {CONTACT_EMAIL}
                 </a>
               </li>
               <li className="flex items-center gap-3 text-[15px] text-white/60">

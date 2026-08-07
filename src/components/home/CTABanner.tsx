@@ -2,7 +2,7 @@
 import { motion } from 'framer-motion'
 import Link from 'next/link'
 import { Phone, ArrowRight, MessageCircle } from 'lucide-react'
-import { getWhatsAppUrl } from '@/lib/utils'
+import { getWhatsAppUrl, PHONE_NUMBER } from '@/lib/utils'
 
 export function CTABanner() {
   return (
@@ -48,7 +48,7 @@ export function CTABanner() {
           </div>
           <p className="text-white/40 text-sm mt-8 flex items-center justify-center gap-2">
             <Phone size={14} />
-            Call us Mon–Sat, 9AM–7PM: +91 97117 60199
+            Call us Mon–Sat, 9AM–7PM: {PHONE_NUMBER}
           </p>
         </motion.div>
       </div>

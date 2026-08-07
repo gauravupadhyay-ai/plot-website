@@ -10,7 +10,8 @@ export async function POST(request: Request) {
     }
 
     const resendApiKey = process.env.RESEND_API_KEY
-    const contactEmail = process.env.CONTACT_EMAIL || 'contact@aurixxrealty.com'
+    const contactEmail =
+      process.env.CONTACT_EMAIL || process.env.NEXT_PUBLIC_CONTACT_EMAIL || 'contact@aurixxrealty.com'
 
     if (resendApiKey && resendApiKey !== 're_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx') {
       const { Resend } = await import('resend')

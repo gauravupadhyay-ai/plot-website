@@ -30,10 +30,28 @@ export function slugify(text: string): string {
     .trim()
 }
 
-export const WHATSAPP_NUMBER = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '919711760199'
-export const PHONE_NUMBER = process.env.NEXT_PUBLIC_PHONE || '+91 97117 60199'
+export const WHATSAPP_NUMBER = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '919458454789'
+export const PHONE_NUMBER = process.env.NEXT_PUBLIC_PHONE || '+91 94584 54789'
 export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.aurixxrealty.com'
 export const SITE_NAME = process.env.NEXT_PUBLIC_SITE_NAME || 'Aurixxrealty'
+
+/** Public / department email aliases */
+export const CONTACT_EMAIL =
+  process.env.NEXT_PUBLIC_CONTACT_EMAIL || process.env.CONTACT_EMAIL || 'contact@aurixxrealty.com'
+export const INFO_EMAIL = 'info@aurixxrealty.com'
+export const SALES_EMAIL = 'sales@aurixxrealty.com'
+export const SUPPORT_EMAIL = 'support@aurixxrealty.com'
+export const SOCIALS_EMAIL = 'socials@aurixxrealty.com'
+export const ADMIN_EMAIL = 'admin@aurixxrealty.com'
+
+export const EMAIL_ALIASES = [
+  { label: 'General', email: CONTACT_EMAIL },
+  { label: 'Info', email: INFO_EMAIL },
+  { label: 'Sales', email: SALES_EMAIL },
+  { label: 'Support', email: SUPPORT_EMAIL },
+  { label: 'Socials', email: SOCIALS_EMAIL },
+  { label: 'Admin', email: ADMIN_EMAIL },
+] as const
 
 export function getWhatsAppUrl(message?: string): string {
   const msg =

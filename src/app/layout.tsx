@@ -4,7 +4,7 @@ import { Outfit, Manrope, Space_Mono } from 'next/font/google'
 import { GoogleAnalytics } from '@next/third-parties/google'
 import './globals.css'
 import { MobileBottomNav } from '@/components/ui/MobileBottomNav'
-import { PHONE_NUMBER, SITE_NAME, SITE_URL } from '@/lib/utils'
+import { CONTACT_EMAIL, PHONE_NUMBER, SITE_NAME, SITE_URL } from '@/lib/utils'
 
 const WhatsAppFAB = dynamic(
   () => import('@/components/ui/WhatsAppFAB').then((m) => m.WhatsAppFAB),
@@ -124,7 +124,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               },
               areaServed: ['Greater Noida', 'Noida', 'Yamuna Expressway', 'Vrindavan', 'NCR'],
               telephone: PHONE_NUMBER,
-              email: 'contact@aurixxrealty.com',
+              email: CONTACT_EMAIL,
               url: SITE_URL,
               priceRange: '₹₹',
               openingHours: 'Mo-Sa 09:00-19:00',
