@@ -71,6 +71,11 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: SITE_NAME, url: SITE_URL }],
   creator: SITE_NAME,
+  icons: {
+    icon: [{ url: '/favicon.png', type: 'image/png' }],
+    apple: [{ url: '/favicon.png', type: 'image/png' }],
+    shortcut: '/favicon.png',
+  },
   openGraph: {
     type: 'website',
     locale: 'en_IN',

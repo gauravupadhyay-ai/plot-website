@@ -5,7 +5,7 @@ import { Footer } from '@/components/layout/Footer'
 import { PageHero } from '@/components/layout/PageHero'
 import { CTABanner } from '@/components/home/CTABanner'
 import { StatsBar } from '@/components/home/StatsBar'
-import { Eye, Target, Heart, Award, Quote } from 'lucide-react'
+import { Eye, Target, Heart, Award, Quote, Linkedin } from 'lucide-react'
 import { SITE_NAME } from '@/lib/utils'
 import { founders } from '@/data/team'
 
@@ -122,14 +122,37 @@ export default function AboutPage() {
                   key={founder.name}
                   className="card-static flex flex-col items-center p-8 text-center !rounded-2xl md:p-10"
                 >
-                  <div className="mb-5 flex h-24 w-24 items-center justify-center rounded-full bg-brand-primary font-display text-2xl font-bold text-white shadow-lg shadow-brand-primary/20">
-                    {initials}
-                  </div>
+                  {founder.image ? (
+                    <div className="relative mb-5 h-28 w-28 overflow-hidden rounded-full shadow-lg shadow-brand-primary/15 ring-4 ring-white">
+                      <Image
+                        src={founder.image}
+                        alt={founder.name}
+                        fill
+                        sizes="112px"
+                        className="object-cover object-top"
+                      />
+                    </div>
+                  ) : (
+                    <div className="mb-5 flex h-28 w-28 items-center justify-center rounded-full bg-brand-primary font-display text-2xl font-bold text-white shadow-lg shadow-brand-primary/20">
+                      {initials}
+                    </div>
+                  )}
                   <h3 className="font-display text-2xl font-bold text-text-primary">{founder.name}</h3>
                   <p className="mt-1 text-sm font-bold uppercase tracking-wider text-brand-primary">
                     {founder.role}
                   </p>
                   <p className="mt-4 font-sans leading-relaxed text-text-secondary">{founder.bio}</p>
+                  {founder.linkedin && (
+                    <a
+                      href={founder.linkedin}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="mt-5 inline-flex items-center gap-2 rounded-full bg-brand-primary/10 px-4 py-2 text-sm font-bold text-brand-primary transition hover:bg-brand-primary hover:text-white"
+                      aria-label={`${founder.name} on LinkedIn`}
+                    >
+                      <Linkedin size={16} /> LinkedIn
+                    </a>
+                  )}
                 </article>
               )
             })}

@@ -4,13 +4,15 @@ export const founders: TeamMember[] = [
   {
     name: 'Aryan Yadav',
     role: 'Co-Founder',
-    image: '',
+    image: '/images/team/aryan-yadav.png',
+    linkedin: 'https://www.linkedin.com/in/aryan-yadav-434273251/',
     bio: 'Leads strategy and client relationships across Greater Noida, Noida, Yamuna Expressway, and Vrindavan — focused on clear advice for plots, residences, and commercial deals.',
   },
   {
     name: 'Sukhpreet Singh Kajal',
     role: 'Co-Founder',
     image: '',
+    linkedin: 'https://www.linkedin.com/in/sukhpreet-singh-kajal-bab77a33/',
     bio: 'Drives operations and inventory curation at Aurixxrealty, ensuring every listing is verified and every buyer journey — from enquiry to registration — stays transparent.',
   },
 ]
