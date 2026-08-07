@@ -9,14 +9,23 @@ import { getCallUrl, PHONE_NUMBER, SITE_NAME } from '@/lib/utils'
 
 
 const navLinks = [
-  { label: 'Plots', href: '/properties' },
+  {
+    label: 'Properties',
+    href: '/properties',
+    children: [
+      { label: 'Residential Plots', href: '/properties' },
+      { label: 'Highrise Residences', href: '/highrise' },
+      { label: 'Commercial', href: '/commercial' },
+      { label: 'All Projects', href: '/projects' },
+    ],
+  },
   {
     label: 'Our services',
     href: '/services',
     children: [
       { label: 'All Services', href: '/services' },
-      { label: 'Buying a Plot', href: '/services/buying-property' },
-      { label: 'Plot Consulting', href: '/services/real-estate-consultant' },
+      { label: 'Buying Property', href: '/services/buying-property' },
+      { label: 'Real Estate Consulting', href: '/services/real-estate-consultant' },
       { label: 'Loan Assistance', href: '/services/home-loan' },
     ],
   },

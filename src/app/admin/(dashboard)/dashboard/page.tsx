@@ -38,7 +38,7 @@ export default async function DashboardOverview() {
 
   const stats = [
     {
-      label: 'Total Plots',
+      label: 'Total Listings',
       value: propertiesCount || 0,
       icon: Map,
       color: 'text-brand-primary',
@@ -67,7 +67,7 @@ export default async function DashboardOverview() {
           Overview
         </h1>
         <p className="text-text-secondary text-sm md:text-base font-sans">
-          {SITE_NAME} — real-time plot inventory and inquiry metrics.
+          {SITE_NAME} — real-time NCR inventory and inquiry metrics.
         </p>
       </header>
 
@@ -109,7 +109,7 @@ export default async function DashboardOverview() {
               <div className="rounded-lg bg-white p-2 shadow-sm">
                 <Map size={20} className="text-brand-primary" />
               </div>
-              <span className="font-sans font-medium text-brand-primary">Edit Plots</span>
+              <span className="font-sans font-medium text-brand-primary">Edit Listings</span>
               <ArrowRight size={16} className="ml-auto text-brand-primary opacity-0 transition-all group-hover:opacity-100" />
             </Link>
             <Link
@@ -119,7 +119,7 @@ export default async function DashboardOverview() {
               <div className="rounded-lg bg-white p-2 shadow-sm">
                 <PlusCircle size={20} className="text-brand-primary" />
               </div>
-              <span className="font-sans font-medium text-brand-primary">Add Plot</span>
+              <span className="font-sans font-medium text-brand-primary">Add Listing</span>
               <ArrowRight size={16} className="ml-auto text-brand-primary opacity-0 transition-all group-hover:opacity-100" />
             </Link>
             <Link
@@ -134,7 +134,7 @@ export default async function DashboardOverview() {
             </Link>
           </div>
           <p className="mt-4 text-xs text-text-muted">
-            Contact form submissions and plot enquiries both appear under Leads.
+            Contact form submissions and property enquiries both appear under Leads.
             {contactLeads > 0 ? ` ${contactLeads} recent contact lead(s) below.` : ''}
           </p>
         </div>

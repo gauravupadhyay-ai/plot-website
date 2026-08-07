@@ -27,12 +27,12 @@ export function FeaturedProperties({ plots }: { plots: FeaturedPlotCard[] }) {
       <div className="section-container">
         <div className="mb-8 flex flex-col justify-between gap-6 sm:flex-row sm:items-end">
           <SectionHeading
-            eyebrow="Featured Plots"
-            title="Handpicked Residential Plots"
-            subtitle="Verified NA land and clear-title plots in growing NCR localities"
+            eyebrow="Featured Properties"
+            title="Handpicked NCR Inventory"
+            subtitle="Plots, highrise residences, and commercial assets across Greater Noida, Noida, and Vrindavan"
           />
-          <Link href="/properties" className="btn-ghost flex shrink-0 items-center gap-2">
-            View All Plots <ArrowRight size={16} />
+          <Link href="/projects" className="btn-ghost flex shrink-0 items-center gap-2">
+            View All Projects <ArrowRight size={16} />
           </Link>
         </div>
 

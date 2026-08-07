@@ -7,66 +7,104 @@ import { PageHero } from '@/components/layout/PageHero'
 import { CTABanner } from '@/components/home/CTABanner'
 import { MapPin, ArrowRight, CheckCircle2 } from 'lucide-react'
 import { SITE_NAME } from '@/lib/utils'
+import { seedPlots } from '@/data/seedPlots'
+import { categoryFromType } from '@/lib/propertyCategories'
 
 export const metadata: Metadata = {
-  title: `Plot Projects by ${SITE_NAME} | Vadodara`,
-  description: `Explore residential plot projects curated by ${SITE_NAME} in Vadodara. Premium plot opportunities in sought-after localities.`,
+  title: `Featured Real Estate Projects | ${SITE_NAME} NCR`,
+  description: `Explore residential, highrise, and commercial projects curated by ${SITE_NAME} across Greater Noida, Noida, Yamuna Expressway, and Vrindavan.`,
 }
 
+const spotlightCodes = ['AX-E7-001', 'AX-GC-001', 'AX-BT-001', 'AX-VV-001', 'AX-YE-001', 'AX-UB-001']
+
 export default function ProjectsPage() {
+  const projects = spotlightCodes
+    .map((code) => seedPlots.find((p) => p.code === code))
+    .filter(Boolean) as typeof seedPlots
+
   return (
     <main id="main-content" className="min-h-screen">
       <Header />
       <PageHero
         title="Our Projects"
-        subtitle="Featured plot opportunities in Vadodara"
+        subtitle="Residential, highrise, and commercial opportunities across Greater Noida, Noida, and Vrindavan"
         image="/images/hero/hero-projects.jpg"
         breadcrumb={[{ label: 'Projects' }]}
       />
 
-      <section className="py-16 md:py-24 bg-brand-light">
+      <section className="bg-brand-light py-16 md:py-24">
         <div className="section-container">
-          <div className="card-static !rounded-2xl overflow-hidden max-w-4xl mx-auto">
-            <div className="relative h-64 md:h-80">
-              <Image
-                src="/images/gallery-images/10.jpg"
-                alt="Sarthak Enclave Plot Project"
-                fill
-                sizes="(max-width: 896px) 100vw, 896px"
-                quality={75}
-                className="object-cover"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-              <div className="absolute bottom-6 left-6 right-6">
-                <span className="badge badge-featured mb-3">Featured Project</span>
-                <div className="font-display font-bold text-2xl md:text-3xl text-white">
-                  Sarthak Enclave
-                </div>
-                <div className="flex items-center gap-2 text-white/70 mt-2 font-sans">
-                  <MapPin size={14} /> Subhanpura, Vadodara
-                </div>
-              </div>
-            </div>
-            <div className="p-8 md:p-12">
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
-                {['Prime Location', 'Plot Opportunities', 'Clear Documentation', 'Loan Support'].map(
-                  (item) => (
-                    <div key={item} className="flex items-center gap-2 text-sm text-text-primary font-sans">
-                      <CheckCircle2 size={14} className="text-brand-primary flex-shrink-0" /> {item}
+          <div className="mx-auto mb-10 max-w-2xl text-center">
+            <p className="text-sm font-bold uppercase tracking-wider text-brand-primary">NCR inventory</p>
+            <h2 className="mt-2 font-display text-3xl font-bold text-text-primary md:text-4xl">
+              Projects we are actively showcasing
+            </h2>
+            <p className="mt-3 text-text-secondary">
+              From villa plots and luxury residences to IT suites — curated for buyers and investors in the NCR.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
+            {projects.map((project) => {
+              const category = categoryFromType(project.type)
+              const href =
+                category === 'highrise'
+                  ? '/highrise'
+                  : category === 'commercial'
+                    ? '/commercial'
+                    : '/properties'
+              return (
+                <article
+                  key={project.code}
+                  className="card-static overflow-hidden !rounded-2xl"
+                >
+                  <div className="relative h-56 md:h-64">
+                    <Image
+                      src={project.images[0] || '/images/hero/hero-projects.jpg'}
+                      alt={project.title}
+                      fill
+                      sizes="(max-width: 768px) 100vw, 50vw"
+                      quality={70}
+                      className="object-cover"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/65 to-transparent" />
+                    <div className="absolute bottom-5 left-5 right-5">
+                      <span className="badge badge-featured mb-2">{project.type}</span>
+                      <h3 className="font-display text-xl font-bold text-white md:text-2xl">
+                        {project.title}
+                      </h3>
+                      <div className="mt-2 flex items-center gap-2 font-sans text-sm text-white/80">
+                        <MapPin size={14} /> {project.locality}
+                      </div>
                     </div>
-                  )
-                )}
-              </div>
-              <p className="text-text-secondary leading-relaxed mb-8 font-sans">
-                A residential project opportunity in one of Vadodara&apos;s well-connected
-                neighbourhoods. Sarthak Enclave is presented by {SITE_NAME} for buyers exploring
-                plot and project options with clear locality access and practical investment
-                potential.
-              </p>
-              <Link href="/projects/sarthak-enclave" className="btn-primary">
-                View Project Details <ArrowRight size={16} />
-              </Link>
-            </div>
+                  </div>
+                  <div className="p-6 md:p-8">
+                    <div className="mb-4 grid grid-cols-2 gap-2">
+                      {(project.highlights || []).slice(0, 4).map((item) => (
+                        <div
+                          key={item}
+                          className="flex items-center gap-2 font-sans text-sm text-text-primary"
+                        >
+                          <CheckCircle2 size={14} className="flex-shrink-0 text-brand-primary" />
+                          <span className="line-clamp-1">{item}</span>
+                        </div>
+                      ))}
+                    </div>
+                    <p className="mb-6 line-clamp-3 font-sans leading-relaxed text-text-secondary">
+                      {project.description}
+                    </p>
+                    <div className="flex flex-wrap gap-3">
+                      <Link href={`/properties/${project.slug}`} className="btn-primary">
+                        View listing <ArrowRight size={16} />
+                      </Link>
+                      <Link href={href} className="btn-secondary">
+                        Browse {category === 'plot' ? 'plots' : category}
+                      </Link>
+                    </div>
+                  </div>
+                </article>
+              )
+            })}
           </div>
         </div>
       </section>

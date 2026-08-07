@@ -3,9 +3,9 @@ import { TeamMember } from '@/types/property'
 export const team: TeamMember[] = [
   {
     name: 'Aurixxrealty Team',
-    role: 'Plot Specialists',
+    role: 'Real Estate Specialists',
     image: '/images/about-team.jpg',
-    bio: 'Our team focuses on residential and NA plots across Vadodara — helping you shortlist land, review paperwork, and close with clarity.',
+    bio: 'Our team focuses on plots, highrise, and commercial property across Greater Noida, Noida, Yamuna Expressway & Vrindavan — helping you shortlist, review paperwork, and close with clarity.',
   },
 ]
 
@@ -18,8 +18,8 @@ export const certifications = [
 
 export const galleryImages = [
   { src: '/images/gallery/investor-meet.jpg', alt: 'Investor Meet', caption: 'Investor Meet' },
-  { src: '/images/gallery/exhibition-navlakhi.jpg', alt: 'Exhibition Stall at Navlakhi', caption: 'Exhibition Stall at Navlakhi' },
+  { src: '/images/gallery/exhibition-navlakhi.jpg', alt: 'Exhibition Stall', caption: 'Exhibition Stall' },
   { src: '/images/gallery/credai.jpg', alt: 'At CREDAI', caption: 'At CREDAI' },
   { src: '/images/gallery/morin-team.jpg', alt: 'Aurixxrealty Team', caption: 'Aurixxrealty Team' },
-  { src: '/images/gallery/vpca-visit.jpg', alt: 'VPCA Leader Visit', caption: 'VPCA Leader Visit' },
+  { src: '/images/gallery/vpca-visit.jpg', alt: 'NCR Partner Visit', caption: 'NCR Partner Visit' },
 ]

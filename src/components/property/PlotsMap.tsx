@@ -8,16 +8,19 @@ import 'leaflet/dist/leaflet.css'
 import { Property } from '@/types/property'
 
 const localityCoords: Record<string, [number, number]> = {
-  'Waghodia Road': [22.2975, 73.248],
-  'Ajwa Road': [22.33, 73.22],
-  Jarod: [22.4167, 73.35],
-  Subhanpura: [22.32, 73.16],
-  Vadodara: [22.3072, 73.1812],
+  'Yamuna Expressway': [28.35, 77.55],
+  'Yamuna Expressway / Gaur Yamuna City': [28.34, 77.54],
+  Vrindavan: [27.5806, 77.6597],
+  'Sector 153, Noida': [28.42, 77.45],
+  'Omicron 1A, Greater Noida': [28.47, 77.51],
+  'Knowledge Park 3, Greater Noida': [28.46, 77.49],
+  'Greater Noida': [28.4744, 77.504],
+  Noida: [28.5355, 77.391],
 }
 
 function getCoords(plot: Property, index: number): [number, number] {
   if (plot.lat != null && plot.lng != null) return [plot.lat, plot.lng]
-  const base = localityCoords[plot.locality] || localityCoords.Vadodara
+  const base = localityCoords[plot.locality] || localityCoords['Greater Noida']
   // Slight offset so pins don't stack
   const ox = ((index % 3) - 1) * 0.008
   const oy = (Math.floor(index / 3) - 1) * 0.006
@@ -56,7 +59,7 @@ export default function PlotsMap({ plots }: { plots: Property[] }) {
   )
 
   const points = markers.map((m) => m.position)
-  const center = points[0] || localityCoords.Vadodara
+  const center = points[0] || localityCoords['Greater Noida']
 
   return (
     <div className="relative h-[320px] w-full overflow-hidden rounded-3xl border border-border bg-white shadow-card sm:h-[420px] lg:h-[480px]">

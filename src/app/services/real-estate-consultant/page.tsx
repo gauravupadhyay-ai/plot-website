@@ -8,8 +8,8 @@ import { Briefcase, TrendingUp, HelpCircle, FileText, CheckCircle2, Phone, Messa
 import { getWhatsAppUrl, getCallUrl, SITE_NAME } from '@/lib/utils'
 
 export const metadata: Metadata = {
-  title: `Plot Consulting | ${SITE_NAME} Vadodara`,
-  description: `Unbiased plot consulting in Vadodara for investments, selling, and locality insights from ${SITE_NAME}.`,
+  title: `Plot Consulting | ${SITE_NAME} NCR`,
+  description: `Unbiased plot consulting across Greater Noida, Noida, Yamuna Expressway & Vrindavan for investments, selling, and locality insights from ${SITE_NAME}.`,
 }
 
 export default function ConsultingPage() {
@@ -38,7 +38,7 @@ export default function ConsultingPage() {
               <div className="text-text-secondary text-lg leading-relaxed space-y-4 mb-8 font-sans">
                 <p>
                   Choosing the right plot requires more than capital — it needs clear local
-                  knowledge. With changing infrastructure and shifting area demand in Vadodara,
+                  knowledge. With changing infrastructure and shifting area demand across NCR,
                   the wrong land decision can be costly.
                 </p>
                 <p>
@@ -82,7 +82,7 @@ export default function ConsultingPage() {
               {
                 icon: TrendingUp,
                 title: 'Investors',
-                desc: 'Identify high-growth corridors and evaluate plot ROI across Vadodara localities.',
+                desc: 'Identify high-growth corridors and evaluate plot ROI across NCR localities.',
               },
               {
                 icon: Briefcase,
@@ -97,7 +97,7 @@ export default function ConsultingPage() {
               {
                 icon: FileText,
                 title: 'NRIs & Remote Buyers',
-                desc: 'Manage Vadodara plot investments remotely with complete peace of mind.',
+                desc: 'Manage NCR plot investments remotely with complete peace of mind.',
               },
             ].map((div) => (
               <div key={div.title} className="card-static p-6 !rounded-2xl">
@@ -116,7 +116,7 @@ export default function ConsultingPage() {
         <div className="section-container max-w-3xl mx-auto">
           <h2 className="font-display font-bold text-3xl mb-6">Need expert plot advice?</h2>
           <p className="text-text-secondary mb-8 font-sans">
-            Book a free consulting session with our Vadodara plot specialists.
+            Book a free consulting session with our NCR plot specialists.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <a href={getCallUrl()} className="btn-charcoal">
@@ -124,7 +124,7 @@ export default function ConsultingPage() {
             </a>
             <a
               href={getWhatsAppUrl(
-                `Hi! I'd like to book a plot consulting session with ${SITE_NAME} regarding Vadodara.`
+                `Hi! I'd like to book a plot consulting session with ${SITE_NAME} regarding Greater Noida / Noida / Yamuna Expressway.`
               )}
               target="_blank"
               rel="noopener noreferrer"

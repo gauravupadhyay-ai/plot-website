@@ -41,7 +41,7 @@ export function LeadMagnet() {
           name,
           phone,
           source: 'Lead Magnet Popup',
-          message: 'Interested in residential plots in Vadodara',
+          message: 'Interested in property across Greater Noida / Noida / Yamuna Expressway (NCR)',
         }),
       })
 
@@ -97,7 +97,7 @@ export function LeadMagnet() {
                   Thank You!
                 </h2>
                 <p className="text-text-secondary font-sans">
-                  Our plot specialist will call you shortly to help with your search.
+                  Our property specialist will call you shortly to help with your search.
                 </p>
               </div>
             ) : (
@@ -108,7 +108,7 @@ export function LeadMagnet() {
                   </div>
                   <div>
                     <h2 className="font-display font-bold text-xl text-brand-primary">
-                      Looking for Plots in Vadodara?
+                      Looking for Property in NCR?
                     </h2>
                     <p className="text-text-secondary text-sm font-sans">
                       Get a free callback from {SITE_NAME}.
@@ -152,7 +152,7 @@ export function LeadMagnet() {
                     Get a Call Back <Send size={18} />
                   </button>
                   <p className="text-[10px] text-text-muted text-center mt-4 font-sans">
-                    By clicking, you agree to receive plot updates. We respect your privacy.
+                    By clicking, you agree to receive property updates. We respect your privacy.
                   </p>
                 </form>
               </div>

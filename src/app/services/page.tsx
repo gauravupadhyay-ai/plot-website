@@ -9,36 +9,36 @@ import { ArrowRight, Map, Briefcase, Landmark } from 'lucide-react'
 import { SITE_NAME } from '@/lib/utils'
 
 export const metadata: Metadata = {
-  title: `Our Services | ${SITE_NAME} Vadodara`,
-  description: `Explore ${SITE_NAME}'s plot services: buying residential plots, plot consulting, and plot/construction loan guidance in Vadodara.`,
+  title: `Our Services | ${SITE_NAME} NCR`,
+  description: `Explore ${SITE_NAME}'s real-estate services: buying plots & property, consulting, and loan guidance across Greater Noida, Noida, Yamuna Expressway & Vrindavan.`,
 }
 
 const services = [
   {
     icon: Map,
-    title: 'Buying Plots',
+    title: 'Buying Property',
     description:
-      'Expert guidance to find the right residential plot within your budget. We handle shortlisting, site visits, documentation, and registration for a clear buying journey.',
+      'Expert guidance to find the right plot, highrise, or commercial space within your budget. We handle shortlisting, site visits, documentation, and registration for a clear buying journey.',
     href: '/services/buying-property',
-    highlights: ['Verified plot listings', 'Title & legal support', 'Locality guidance'],
+    highlights: ['Verified listings', 'Title & legal support', 'Locality guidance'],
     image: '/images/gallery-images/12.jpg',
   },
   {
     icon: Briefcase,
-    title: 'Plot Consulting',
+    title: 'Real Estate Consulting',
     description:
-      'Unbiased advice for buying, selling, and investing in plots. Our deep knowledge of Vadodara land markets helps you choose locations with long-term value.',
+      'Unbiased advice for buying, selling, and investing. Our deep knowledge of NCR markets helps you choose locations with long-term value.',
     href: '/services/real-estate-consultant',
-    highlights: ['Market analysis', 'Investment advisory', 'NRI plot consulting'],
+    highlights: ['Market analysis', 'Investment advisory', 'NRI consulting'],
     image: '/images/gallery-images/13.jpg',
   },
   {
     icon: Landmark,
-    title: 'Plot & Construction Loans',
+    title: 'Property & Construction Loans',
     description:
-      'Hassle-free loan support for plot purchase and home construction. We compare offers across banking partners and help with paperwork for faster approvals.',
+      'Hassle-free loan support for plot purchase, home construction, and property financing. We compare offers across banking partners and help with paperwork for faster approvals.',
     href: '/services/home-loan',
-    highlights: ['10+ banking partners', 'Plot loan guidance', 'Construction loan support'],
+    highlights: ['10+ banking partners', 'Plot & home loan guidance', 'Construction loan support'],
     image: '/images/gallery-images/14.jpg',
   },
 ]
@@ -50,7 +50,7 @@ export default function ServicesPage() {
 
       <PageHero
         title="Our Services"
-        subtitle="End-to-end plot services tailored for Vadodara buyers and investors"
+        subtitle="End-to-end real-estate services tailored for NCR buyers and investors"
         image="/images/hero/hero-services.jpg"
         breadcrumb={[{ label: 'Services' }]}
         imageClassName="object-cover object-[center_90%] md:object-[center_85%]"

@@ -10,7 +10,7 @@ export default function ContactPage() {
       <Header />
       <PageHero
         title="Contact Us"
-        subtitle={`Talk to ${SITE_NAME} about plots in Vadodara`}
+        subtitle={`Talk to ${SITE_NAME} about property in NCR`}
         image="/images/hero/hero-contact.jpg"
         breadcrumb={[{ label: 'Contact' }]}
         imageClassName="object-cover object-[center_40%] md:object-[center_40%]"

@@ -6,14 +6,14 @@ import { Award } from 'lucide-react'
 const credentials = [
   { name: 'NAR India', fullName: 'National Association of Realtors — Certified Member' },
   { name: 'CREDAI', fullName: 'CREDAI — Active Member' },
-  { name: 'VPCA', fullName: 'Vadodara Property Consultants Association' },
+  { name: 'NCR Network', fullName: 'NCR Property Consultants Network' },
   { name: 'eXp Realty', fullName: 'eXp Realty Certified Partner' },
   { name: 'Digital Certified', fullName: 'Digital Certified Real Estate Professional' },
 ]
 
 const eventPhotos = [
   { src: '/images/gallery-images/7.jpg', caption: 'Investor Meet 2024' },
-  { src: '/images/gallery-images/8.jpg', caption: 'Exhibition Stall at Navlakhi' },
+  { src: '/images/gallery-images/8.jpg', caption: 'Exhibition Stall' },
   { src: '/images/gallery-images/9.jpg', caption: 'NAR Certification Event' },
   { src: '/images/gallery-images/11.jpg', caption: 'At CREDAI Conference' },
 ]
@@ -27,7 +27,7 @@ export function CredentialsSection() {
           <h2 className="section-title text-3xl sm:text-4xl md:text-[2.75rem]">
             Trusted Credentials,
             <br />
-            <span className="text-brand-primary">Plot Buyers First</span>
+            <span className="text-brand-primary">Buyers First</span>
           </h2>
         </div>
 

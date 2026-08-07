@@ -108,16 +108,17 @@ export function PostPropertyClient() {
               <h3 className="font-display font-bold text-xl mb-4">Location</h3>
               <div>
                 <label className="text-sm font-semibold mb-1.5 block font-sans">City</label>
-                <input className="input" defaultValue="Vadodara" />
+                <input className="input" defaultValue="Greater Noida" />
               </div>
               <div>
                 <label className="text-sm font-semibold mb-1.5 block font-sans">Locality *</label>
                 <select className="select">
                   <option value="">Select</option>
-                  <option>Waghodia Road</option>
-                  <option>Ajwa Road</option>
-                  <option>Jarod</option>
-                  <option>Subhanpura</option>
+                  <option>Yamuna Expressway</option>
+                  <option>Greater Noida</option>
+                  <option>Sector 153, Noida</option>
+                  <option>Vrindavan</option>
+                  <option>Knowledge Park 3, Greater Noida</option>
                   <option>Other</option>
                 </select>
               </div>
@@ -129,7 +130,7 @@ export function PostPropertyClient() {
               </div>
               <div>
                 <label className="text-sm font-semibold mb-1.5 block font-sans">PIN Code</label>
-                <input className="input" placeholder="390025" />
+                <input className="input" placeholder="201310" />
               </div>
             </div>
           )}

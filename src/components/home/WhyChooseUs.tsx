@@ -12,18 +12,18 @@ const reasons = [
   },
   {
     icon: Handshake,
-    title: 'End-to-End Plot Guidance',
+    title: 'End-to-End Guidance',
     desc: 'From shortlist to site visit to registration — we stay with you.',
   },
   {
     icon: FileCheck,
     title: 'Documentation Support',
-    desc: 'Help with title review, NA checks, and loan paperwork for plots.',
+    desc: 'Help with title review, approvals, and loan paperwork for every deal.',
   },
   {
     icon: MapPin,
-    title: 'Vadodara Local Expertise',
-    desc: 'Deep knowledge of growing plot corridors and fair pricing.',
+    title: 'NCR Local Expertise',
+    desc: 'Deep knowledge of Greater Noida, Noida, Expressway & Vrindavan corridors.',
   },
 ]
 
@@ -42,7 +42,7 @@ export function WhyChooseUs() {
             <div className="relative rounded-3xl overflow-hidden aspect-[4/3]">
               <Image
                 src="/images/gallery-images/6.jpg"
-                alt="Aurixxrealty team assisting plot buyers in Vadodara"
+                alt="Aurixxrealty team assisting property buyers in NCR"
                 fill
                 sizes="(max-width: 1024px) 100vw, 50vw"
                 quality={75}
@@ -58,7 +58,7 @@ export function WhyChooseUs() {
               className="absolute -bottom-6 -right-4 md:right-8 bg-white rounded-2xl shadow-card-hover p-6 max-w-[200px] border border-border/50"
             >
               <div className="font-mono font-bold text-3xl text-brand-primary">132+</div>
-              <div className="text-text-secondary text-sm mt-1">Plots guided & sold</div>
+              <div className="text-text-secondary text-sm mt-1">Properties guided & sold</div>
             </motion.div>
           </motion.div>
 
@@ -70,12 +70,12 @@ export function WhyChooseUs() {
           >
             <p className="section-eyebrow">Why Choose Us</p>
             <h2 className="section-title text-3xl sm:text-4xl md:text-[2.5rem] mb-6">
-              Vadodara&apos;s Focused
+              NCR&apos;s Focused
               <br />
-              <span className="text-brand-primary">Plot Specialists</span>
+              <span className="text-brand-primary">Real Estate Specialists</span>
             </h2>
             <p className="text-text-secondary text-lg leading-relaxed mb-8">
-              Aurixxrealty helps you buy residential and NA land with clarity —
+              Aurixxrealty helps you buy plots, highrise, and commercial space with clarity —
               locality fit, title confidence, and honest pricing at every step.
             </p>
 
@@ -103,7 +103,7 @@ export function WhyChooseUs() {
             <div className="relative pl-6 border-l-2 border-brand-primary/30 mb-8">
               <Quote size={24} className="text-brand-primary/20 absolute -left-3 -top-1" />
               <p className="text-text-secondary italic text-[15px] leading-relaxed">
-                &ldquo;We don&apos;t just show plots. We help you buy land you can build on with confidence.&rdquo;
+                &ldquo;We don&apos;t just show listings. We help you buy property you can trust with confidence.&rdquo;
               </p>
               <p className="text-text-primary font-semibold text-sm mt-2">— Aurixxrealty Team</p>
             </div>

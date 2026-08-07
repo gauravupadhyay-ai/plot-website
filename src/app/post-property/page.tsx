@@ -8,10 +8,10 @@ export default function PostPropertyPage() {
     <main id="main-content" className="min-h-screen">
       <Header />
       <PageHero
-        title="List Your Plot"
-        subtitle="Reach genuine plot buyers across Vadodara"
+        title="List Your Property"
+        subtitle="Reach genuine buyers across Greater Noida, Noida, Yamuna Expressway & Vrindavan"
         image="/images/hero/hero-list-plot.jpg"
-        breadcrumb={[{ label: 'List Your Plot' }]}
+        breadcrumb={[{ label: 'List Your Property' }]}
       />
       <PostPropertyClient />
       <Footer />

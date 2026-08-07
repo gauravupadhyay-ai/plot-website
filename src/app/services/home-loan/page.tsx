@@ -8,8 +8,8 @@ import { Landmark, FileCheck, IndianRupee, Clock, CheckCircle2, Phone, MessageCi
 import { getWhatsAppUrl, getCallUrl, SITE_NAME } from '@/lib/utils'
 
 export const metadata: Metadata = {
-  title: `Plot & Construction Loans | ${SITE_NAME} Vadodara`,
-  description: `Fast, hassle-free plot and construction loan guidance in Vadodara with ${SITE_NAME}. Banking partners, eligibility checks, and EMI planning.`,
+  title: `Plot & Construction Loans | ${SITE_NAME} NCR`,
+  description: `Fast, hassle-free plot and construction loan guidance across Greater Noida, Noida & Yamuna Expressway with ${SITE_NAME}. Banking partners, eligibility checks, and EMI planning.`,
 }
 
 export default function HomeLoanPage() {
@@ -130,7 +130,7 @@ export default function HomeLoanPage() {
             </a>
             <a
               href={getWhatsAppUrl(
-                `Hi! I need assistance with a plot/construction loan in Vadodara via ${SITE_NAME}.`
+                `Hi! I need assistance with a plot/construction loan in Greater Noida / Noida / Yamuna Expressway via ${SITE_NAME}.`
               )}
               target="_blank"
               rel="noopener noreferrer"

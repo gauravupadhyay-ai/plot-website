@@ -5,12 +5,21 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { supabase } from '@/lib/supabase'
 import { mergeAdminInventory, type AdminListProperty } from '@/lib/adminProperty'
+import { categoryFromType, type PropertyCategory } from '@/lib/propertyCategories'
 import { Plus, Trash2, MapPin, Map, Pencil, ExternalLink } from 'lucide-react'
+
+const tabs: { id: 'all' | PropertyCategory; label: string }[] = [
+  { id: 'all', label: 'All' },
+  { id: 'plot', label: 'Plots' },
+  { id: 'highrise', label: 'Highrise' },
+  { id: 'commercial', label: 'Commercial' },
+]
 
 export default function AdminPropertiesPage() {
   const [properties, setProperties] = useState<AdminListProperty[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
+  const [tab, setTab] = useState<'all' | PropertyCategory>('all')
 
   const fetchProperties = async () => {
     setLoading(true)
@@ -34,6 +43,11 @@ export default function AdminPropertiesPage() {
     fetchProperties()
   }, [])
 
+  const visible =
+    tab === 'all'
+      ? properties
+      : properties.filter((p) => categoryFromType(p.type) === tab)
+
   const handleDelete = async (prop: AdminListProperty) => {
     if (!prop.id) {
       alert('This plot is from the website seed file. Save it once via Edit first, then you can delete the database copy.')
@@ -48,18 +62,42 @@ export default function AdminPropertiesPage() {
     <div className="space-y-6">
       <div className="flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-center">
         <div>
-          <h1 className="font-display text-3xl font-bold text-brand-primary">Plots Inventory</h1>
+          <h1 className="font-display text-3xl font-bold text-brand-primary">Property Inventory</h1>
           <p className="mt-1 text-sm text-text-secondary">
-            <strong>Edit</strong> updates a previous listing. <strong>Add New Plot</strong> creates an
-            extra listing with location + 360° fields.
+            NCR listings separated as Plots, Highrise, and Commercial. Edit previous inventory or add a
+            new listing with location + 360°.
           </p>
         </div>
         <Link
           href="/admin/properties/add"
           className="flex w-full items-center justify-center gap-2 rounded-2xl bg-brand-primary px-6 py-3 font-sans font-medium text-white shadow-lg shadow-brand-primary/20 transition-all hover:bg-black/90 sm:w-auto"
         >
-          <Plus size={20} /> Add New Plot
+          <Plus size={20} /> Add Listing
         </Link>
+      </div>
+
+      <div className="flex flex-wrap gap-2">
+        {tabs.map((t) => (
+          <button
+            key={t.id}
+            type="button"
+            onClick={() => setTab(t.id)}
+            className={`rounded-full px-4 py-2 text-xs font-bold uppercase tracking-wide transition ${
+              tab === t.id
+                ? 'bg-brand-primary text-white'
+                : 'bg-white text-text-secondary ring-1 ring-border hover:text-brand-primary'
+            }`}
+          >
+            {t.label}
+            <span className="ml-1 opacity-70">
+              (
+              {t.id === 'all'
+                ? properties.length
+                : properties.filter((p) => categoryFromType(p.type) === t.id).length}
+              )
+            </span>
+          </button>
+        ))}
       </div>
 
       {error && (
@@ -90,7 +128,7 @@ export default function AdminPropertiesPage() {
                   </td>
                 </tr>
               ) : (
-                properties.map((prop) => (
+                visible.map((prop) => (
                   <tr key={prop.editKey} className="group transition-colors hover:bg-brand-light/50">
                     <td className="px-6 py-4">
                       <div className="flex items-center gap-4">
@@ -171,7 +209,7 @@ export default function AdminPropertiesPage() {
           {loading ? (
             <div className="p-12 text-center font-medium text-gray-500">Loading list...</div>
           ) : (
-            properties.map((prop) => (
+            visible.map((prop) => (
               <div
                 key={prop.editKey}
                 className="flex flex-col overflow-hidden rounded-[2rem] border border-gray-100 bg-white shadow-sm"
@@ -225,12 +263,12 @@ export default function AdminPropertiesPage() {
           )}
         </div>
 
-        {!loading && properties.length === 0 && (
+        {!loading && visible.length === 0 && (
           <div className="px-6 py-20 text-center">
             <Map className="mx-auto mb-4 text-gray-200" size={48} />
-            <p className="font-sans font-medium text-gray-500">No plots found yet.</p>
+            <p className="font-sans font-medium text-gray-500">No listings in this category yet.</p>
             <Link href="/admin/properties/add" className="mt-4 inline-flex font-bold text-brand-primary underline">
-              Add your first plot
+              Add a listing
             </Link>
           </div>
         )}

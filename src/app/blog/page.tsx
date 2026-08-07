@@ -9,19 +9,20 @@ import { SITE_NAME, SITE_URL } from '@/lib/utils'
 
 export const metadata: Metadata = {
   title: `Plot & Real Estate Blog | ${SITE_NAME}`,
-  description: `Read expert articles on Vadodara plots — buying tips, market insights, plot loan guidance, and investment strategies from ${SITE_NAME}.`,
+  description: `Read expert articles on NCR property — buying tips, market insights, loan guidance, and investment strategies from ${SITE_NAME}.`,
   keywords: [
-    'Vadodara plots blog',
+    'NCR property blog',
+    'Greater Noida plots blog',
     'plot buying guide',
     'real estate tips',
     `${SITE_NAME} blog`,
-    'plot loan guide Vadodara',
+    'plot loan guide Noida',
     'plot investment tips',
   ],
   openGraph: {
     title: `Plot & Real Estate Blog | ${SITE_NAME}`,
     description:
-      'Expert plot articles, buying guides, and market insights for Vadodara land buyers.',
+      'Expert property articles, buying guides, and market insights for NCR buyers.',
     url: `${SITE_URL}/blog`,
     type: 'website',
   },
@@ -36,7 +37,7 @@ export default async function BlogListingPage() {
 
       <PageHero
         title="Our Blog"
-        subtitle="Expert insights, plot guides, and market updates to help you make informed land decisions in Vadodara."
+        subtitle="Expert insights, guides, and market updates to help you make informed property decisions in NCR."
         image="/images/hero/hero-blog.jpg"
         breadcrumb={[{ label: 'Blog' }]}
       />

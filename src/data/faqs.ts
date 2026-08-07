@@ -22,7 +22,7 @@ export const buyingFaqs: FAQ[] = [
   {
     question: 'What areas do you cover?',
     answer:
-      'We focus on Vadodara localities including Waghodia Road, Ajwa Road, Subhanpura, Jarod, and nearby growth corridors suitable for residential plots.',
+      'We focus on NCR corridors including Greater Noida, Noida, Yamuna Expressway, Vrindavan, and nearby growth pockets suitable for plots, highrise, and commercial property.',
   },
 ]
 
@@ -68,6 +68,6 @@ export const generalFaqs: FAQ[] = [
   {
     question: 'Can I sell my plot through Aurixxrealty?',
     answer:
-      'Yes. List your plot via our Post Property form or WhatsApp. We connect verified sellers with serious plot buyers in Vadodara.',
+      'Yes. List your property via our Post Property form or WhatsApp. We connect verified sellers with serious buyers across NCR.',
   },
 ]

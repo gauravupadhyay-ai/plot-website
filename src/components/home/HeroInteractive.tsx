@@ -56,16 +56,22 @@ export function HeroMobileFilters() {
     if (budget) params.set('budget', budget)
     if (area) params.set('area', area)
     params.set('filters', '1')
-    router.push(`/properties?${params.toString()}#plot-filters`)
+    const path =
+      plotType === 'Flat / Apartment'
+        ? '/highrise'
+        : plotType === 'Commercial'
+          ? '/commercial'
+          : '/properties'
+    router.push(`${path}?${params.toString()}#plot-filters`)
   }
 
   return (
     <div className="relative z-20 -mt-3 mx-0.5 rounded-2xl border border-black/5 bg-white p-3 shadow-filter">
       <p className="mb-0.5 text-[10px] font-bold uppercase tracking-wider text-text-secondary">
-        Filter plots
+        Filter listings
       </p>
       <p className="mb-2.5 font-display text-[15px] font-bold text-text-primary">
-        Find your plot
+        Find your property
       </p>
       <div className="grid grid-cols-1 gap-2">
         {renderSelects('hero-mobile', {
@@ -78,7 +84,7 @@ export function HeroMobileFilters() {
         className="mt-2.5 inline-flex h-11 w-full items-center justify-center gap-2 rounded-full bg-brand-primary text-sm font-semibold text-white shadow-cta"
       >
         <Search size={16} />
-        Search plots
+        Search listings
       </button>
     </div>
   )
@@ -133,7 +139,13 @@ export function HeroDesktop() {
     if (area) params.set('area', area)
     params.set('filters', '1')
     setExpanded(false)
-    router.push(`/properties?${params.toString()}#plot-filters`)
+    const path =
+      plotType === 'Flat / Apartment'
+        ? '/highrise'
+        : plotType === 'Commercial'
+          ? '/commercial'
+          : '/properties'
+    router.push(`${path}?${params.toString()}#plot-filters`)
   }
 
   const filterState = {
@@ -194,7 +206,7 @@ export function HeroDesktop() {
                   }}
                   className="font-display text-4xl font-extrabold tracking-tight text-white md:text-5xl lg:text-6xl"
                 >
-                  Find Your Perfect Plot to Build On.
+                  Find Your Perfect Property in NCR.
                 </motion.h1>
                 <motion.p
                   variants={{
@@ -236,12 +248,12 @@ export function HeroDesktop() {
                           {budgets.find((b) => b.value === budget)?.label || 'Any budget'}
                         </span>
                       </FilterField>
-                      <FilterField icon={<Layers size={18} />} label="Plot type" expanded={false}>
+                      <FilterField icon={<Layers size={18} />} label="Type" expanded={false}>
                         <span className="block truncate text-sm font-semibold text-text-primary">
                           {plotTypes.find((t) => t.value === plotType)?.label || 'All listings'}
                         </span>
                       </FilterField>
-                      <FilterField icon={<Ruler size={18} />} label="Plot size" expanded={false}>
+                      <FilterField icon={<Ruler size={18} />} label="Size" expanded={false}>
                         <span className="block truncate text-sm font-semibold text-text-primary">
                           {areas.find((a) => a.value === area)?.label || 'Any size'}
                         </span>
@@ -297,9 +309,9 @@ export function HeroDesktop() {
                 >
                   <div className="mb-5 flex shrink-0 items-start justify-between gap-3">
                     <div>
-                      <p className="text-xs font-bold uppercase tracking-wider text-text-secondary">Filter plots</p>
+                      <p className="text-xs font-bold uppercase tracking-wider text-text-secondary">Filter listings</p>
                       <h2 id="plot-filter-title" className="font-display text-2xl font-bold text-text-primary">
-                        Find your plot
+                        Find your property
                       </h2>
                     </div>
                     <button
@@ -315,7 +327,7 @@ export function HeroDesktop() {
                     {renderSelects('hero-desktop', filterState)}
                   </div>
                   <p className="mt-4 shrink-0 text-sm text-text-secondary">
-                    Search opens the plots page with these filters applied. Click outside to close.
+                    Search opens the matching listings page with these filters applied. Click outside to close.
                   </p>
                   <button
                     type="button"
@@ -323,7 +335,7 @@ export function HeroDesktop() {
                     className="mt-4 inline-flex h-12 w-full shrink-0 items-center justify-center gap-2 rounded-full bg-brand-primary px-8 text-sm font-semibold text-white shadow-cta"
                   >
                     <Search size={16} />
-                    Search plots
+                    Search listings
                   </button>
                 </motion.div>
               </motion.div>
@@ -375,7 +387,7 @@ function renderSelects(idPrefix: string, state: FilterState) {
           ))}
         </select>
       </FilterField>
-      <FilterField icon={<Layers size={16} />} label="Plot type" htmlFor={`${idPrefix}-plot-type`} expanded>
+      <FilterField icon={<Layers size={16} />} label="Type" htmlFor={`${idPrefix}-plot-type`} expanded>
         <select
           id={`${idPrefix}-plot-type`}
           value={plotType}
@@ -387,7 +399,7 @@ function renderSelects(idPrefix: string, state: FilterState) {
           ))}
         </select>
       </FilterField>
-      <FilterField icon={<Ruler size={16} />} label="Plot size" htmlFor={`${idPrefix}-area`} expanded>
+      <FilterField icon={<Ruler size={16} />} label="Size" htmlFor={`${idPrefix}-area`} expanded>
         <select
           id={`${idPrefix}-area`}
           value={area}

@@ -6,26 +6,26 @@ const steps = [
   {
     icon: MessageSquare,
     number: '01',
-    title: 'Share Your Plot Needs',
-    desc: 'Tell us budget, preferred locality, size (sq.yd), and NA / residential preference.',
+    title: 'Share Your Requirements',
+    desc: 'Tell us budget, preferred locality, property type, and what you want to build or buy.',
   },
   {
     icon: Search,
     number: '02',
-    title: 'We Shortlist Plots',
-    desc: 'Curated options with clear titles and location fit — no apartment clutter.',
+    title: 'We Shortlist Options',
+    desc: 'Curated plots, highrise, and commercial options with clear titles and location fit.',
   },
   {
     icon: MapPin,
     number: '03',
     title: 'Site Visits & Checks',
-    desc: 'We walk the land with you and flag access, boundaries, and paperwork signals.',
+    desc: 'We walk the property with you and flag access, boundaries, and paperwork signals.',
   },
   {
     icon: FileCheck,
     number: '04',
     title: 'Close with Confidence',
-    desc: 'Support on documentation, registration, and plot loan coordination.',
+    desc: 'Support on documentation, registration, and loan coordination.',
   },
 ]
 
@@ -39,7 +39,7 @@ export function HowItWorks() {
             How It Works
           </h2>
           <p className="section-subtitle mx-auto text-center">
-            Four clear steps to your plot in Vadodara
+            Four clear steps to your property in NCR
           </p>
         </div>
 

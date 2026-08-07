@@ -19,9 +19,9 @@ export async function POST(request: Request) {
       await resend.emails.send({
         from: 'Aurixxrealty <noreply@aurixxrealty.com>',
         to: contactEmail,
-        subject: `New Plot Listing: ${propertyType} in ${locality || city || 'Vadodara'}`,
+        subject: `New Property Listing: ${propertyType} in ${locality || city || 'Greater Noida'}`,
         html: `
-          <h2>New Plot Listing Submission</h2>
+          <h2>New Property Listing Submission</h2>
           <h3>Owner Details</h3>
           <p><strong>Name:</strong> ${ownerName}</p>
           <p><strong>Phone:</strong> ${phone}</p>
@@ -31,7 +31,7 @@ export async function POST(request: Request) {
           <p><strong>Type:</strong> ${propertyType}</p>
           <p><strong>Bedrooms:</strong> ${bedrooms || 'N/A'}</p>
           <p><strong>Bathrooms:</strong> ${bathrooms || 'N/A'}</p>
-          <p><strong>Location:</strong> ${locality || ''}, ${city || 'Vadodara'}</p>
+          <p><strong>Location:</strong> ${locality || ''}, ${city || 'Greater Noida'}</p>
           ${address ? `<p><strong>Address:</strong> ${address}</p>` : ''}
           ${totalArea ? `<p><strong>Total Area:</strong> ${totalArea} sq.ft.</p>` : ''}
           ${coveredArea ? `<p><strong>Covered Area:</strong> ${coveredArea} sq.ft.</p>` : ''}

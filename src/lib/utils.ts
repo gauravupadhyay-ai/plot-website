@@ -38,7 +38,7 @@ export const SITE_NAME = process.env.NEXT_PUBLIC_SITE_NAME || 'Aurixxrealty'
 export function getWhatsAppUrl(message?: string): string {
   const msg =
     message ||
-    "Hello! I found Aurixxrealty and I'm interested in residential plots in Vadodara."
+    "Hello! I found Aurixxrealty and I'm interested in real estate opportunities in NCR (Greater Noida / Noida / Vrindavan)."
   return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`
 }
 

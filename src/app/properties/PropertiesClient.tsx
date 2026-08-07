@@ -12,6 +12,7 @@ import {
 } from 'lucide-react'
 import { Property } from '@/types/property'
 import { formatCurrency } from '@/lib/utils'
+import { categoryMeta, type PropertyCategory } from '@/lib/propertyCategories'
 
 function budgetFromParam(budget: string | null): { min: number; max: number } {
   if (budget === '0-30') return { min: 0, max: 3000000 }
@@ -46,12 +47,29 @@ const amenityOptions = [
   'Underground Utilities',
 ]
 
-const valueProps = [
-  { icon: BadgeCheck, title: 'Clear Titles', text: '100% legal verified plots' },
-  { icon: Landmark, title: 'Prime Locations', text: 'Well-connected & growing' },
-  { icon: TrendingUp, title: 'High Appreciation', text: 'Best long-term returns' },
-  { icon: Shield, title: 'Easy Financing', text: 'Loan assistance available' },
-]
+const valuePropsByCategory: Record<
+  PropertyCategory,
+  { icon: typeof BadgeCheck; title: string; text: string }[]
+> = {
+  plot: [
+    { icon: BadgeCheck, title: 'Clear Titles', text: 'Legally verified land parcels' },
+    { icon: Landmark, title: 'Prime NCR Corridors', text: 'Expressway, Greater Noida, Vrindavan' },
+    { icon: TrendingUp, title: 'Long-term Growth', text: 'Infrastructure-led appreciation' },
+    { icon: Shield, title: 'Loan Support', text: 'Plot & construction finance help' },
+  ],
+  highrise: [
+    { icon: BadgeCheck, title: 'Trusted Developers', text: 'RERA-aware residential projects' },
+    { icon: Landmark, title: 'Greater Noida Focus', text: 'Omicron, Yamuna Expressway living' },
+    { icon: TrendingUp, title: 'Ready Demand', text: 'End-user & investor friendly stock' },
+    { icon: Shield, title: 'Home Loan Help', text: 'Banking partners & paperwork support' },
+  ],
+  commercial: [
+    { icon: BadgeCheck, title: 'Investment Grade', text: 'IT suites, retail & office inventory' },
+    { icon: Landmark, title: 'Noida / GN Business Hubs', text: 'Knowledge Park & Sector 153 belt' },
+    { icon: TrendingUp, title: 'Rental Potential', text: 'Assets built for occupancy demand' },
+    { icon: Shield, title: 'Deal Support', text: 'Site visits, docs & closing guidance' },
+  ],
+}
 
 function PlotCards({ plots }: { plots: Property[] }) {
   return (
@@ -135,11 +153,21 @@ function PlotCards({ plots }: { plots: Property[] }) {
   )
 }
 
-export function PropertiesClient({ initialPlots }: { initialPlots: Property[] }) {
+export function PropertiesClient({
+  initialPlots,
+  category = 'plot',
+}: {
+  initialPlots: Property[]
+  category?: PropertyCategory
+}) {
   const router = useRouter()
   const searchParams = useSearchParams()
   const initialBudget = budgetFromParam(searchParams.get('budget'))
   const initialArea = areaFromParam(searchParams.get('area'))
+  const meta = categoryMeta(category)
+  const valueProps = valuePropsByCategory[category]
+  const listingWord =
+    category === 'highrise' ? 'residences' : category === 'commercial' ? 'properties' : 'plots'
 
   const [plots] = useState<Property[]>(initialPlots)
   const [localityFilter, setLocalityFilter] = useState(searchParams.get('locality') || 'All')
@@ -214,7 +242,7 @@ export function PropertiesClient({ initialPlots }: { initialPlots: Property[] })
     setMinPrice(0)
     setMaxPrice(50000000)
     setSortBy('relevance')
-    router.replace('/properties', { scroll: false })
+    router.replace(meta.href, { scroll: false })
   }
 
   const toggleFacing = (f: string) => {
@@ -297,7 +325,7 @@ export function PropertiesClient({ initialPlots }: { initialPlots: Property[] })
           <div className="mb-8 flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
             <div>
               <p className="text-sm font-semibold text-text-secondary">
-                {filtered.length} plots available
+                {filtered.length} {listingWord} available in NCR
               </p>
             </div>
             <div className="flex flex-wrap items-center gap-3">
@@ -308,7 +336,7 @@ export function PropertiesClient({ initialPlots }: { initialPlots: Property[] })
               >
                 {view === 'grid' ? 'View on Map' : 'Grid View'}
               </button>
-              <select value={sortBy} onChange={(e) => setSortBy(e.target.value)} className="select !h-10 !w-auto !rounded-full !text-sm" aria-label="Sort plots">
+              <select value={sortBy} onChange={(e) => setSortBy(e.target.value)} className="select !h-10 !w-auto !rounded-full !text-sm" aria-label={`Sort ${listingWord}`}>
                 <option value="relevance">Sort by: Relevance</option>
                 <option value="price-asc">Price: Low to High</option>
                 <option value="price-desc">Price: High to Low</option>
@@ -342,29 +370,41 @@ export function PropertiesClient({ initialPlots }: { initialPlots: Property[] })
               {view === 'map' && <PlotsMap plots={filtered} />}
 
               <p className="text-sm font-semibold text-text-secondary">
-                {filtered.length} plots found
+                {filtered.length} {listingWord} found
               </p>
 
               {filtered.length === 0 ? (
                 <div className="space-y-8">
                   <div className="rounded-3xl border border-border bg-white px-6 py-10 text-center shadow-card">
                     <p className="font-display text-2xl font-bold text-text-primary">
-                      Oops — not available currently in your selection
+                      Nothing matches that filter right now
                     </p>
                     <p className="mx-auto mt-2 max-w-lg text-sm text-text-secondary">
-                      We couldn&apos;t find a match for that location or filter. Browse our available plots below, or clear filters to see everything.
+                      We don&apos;t have {listingWord} for that selection. Browse what&apos;s available in{' '}
+                      {meta.label.toLowerCase()} below, or explore other inventory.
                     </p>
-                    <button
-                      type="button"
-                      onClick={clearFilters}
-                      className="btn-primary mt-5 inline-flex justify-center !rounded-2xl"
-                    >
-                      Clear filters &amp; show all
-                    </button>
+                    <div className="mt-5 flex flex-wrap justify-center gap-3">
+                      <button
+                        type="button"
+                        onClick={clearFilters}
+                        className="btn-primary inline-flex justify-center !rounded-2xl"
+                      >
+                        Clear filters
+                      </button>
+                      <a href="/properties" className="btn-secondary inline-flex justify-center !rounded-2xl">
+                        Plots
+                      </a>
+                      <a href="/highrise" className="btn-secondary inline-flex justify-center !rounded-2xl">
+                        Highrise
+                      </a>
+                      <a href="/commercial" className="btn-secondary inline-flex justify-center !rounded-2xl">
+                        Commercial
+                      </a>
+                    </div>
                   </div>
                   <div>
                     <p className="mb-4 text-sm font-semibold text-text-secondary">
-                      Available plots right now
+                      Available {listingWord} right now
                     </p>
                     <PlotCards plots={plots} />
                   </div>

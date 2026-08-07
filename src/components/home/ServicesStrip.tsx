@@ -6,20 +6,20 @@ import { ArrowRight, Layers, Briefcase, Landmark } from 'lucide-react'
 const services = [
   {
     icon: Layers,
-    title: 'Buying Plots',
-    description: 'Find residential and NA plots that match your budget, size, and locality — from search to registration.',
+    title: 'Buying Property',
+    description: 'Find plots, highrise, and commercial space that match your budget, size, and locality — from search to registration.',
     href: '/services/buying-property',
   },
   {
     icon: Briefcase,
-    title: 'Plot Consulting',
-    description: 'Clear advice on title, NA status, location growth, and fair pricing for Vadodara land deals.',
+    title: 'Real Estate Consulting',
+    description: 'Clear advice on title, approvals, location growth, and fair pricing for NCR deals.',
     href: '/services/real-estate-consultant',
   },
   {
     icon: Landmark,
-    title: 'Plot Loan Assistance',
-    description: 'Help comparing plot loan options and paperwork so financing does not slow your purchase.',
+    title: 'Loan Assistance',
+    description: 'Help comparing loan options and paperwork so financing does not slow your purchase.',
     href: '/services/home-loan',
   },
 ]
@@ -34,7 +34,7 @@ export function ServicesStrip() {
             How We Help You
           </h2>
           <p className="section-subtitle mx-auto text-center">
-            Plot-focused services from shortlist to paperwork
+            End-to-end services from shortlist to paperwork
           </p>
         </div>
 

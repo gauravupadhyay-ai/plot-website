@@ -8,21 +8,21 @@ const tools = [
   {
     icon: Calculator,
     title: 'EMI Calculator',
-    desc: 'Estimate monthly payments for a plot loan — plan your budget before you visit.',
+    desc: 'Estimate monthly payments for a property loan — plan your budget before you visit.',
     href: '/tools/emi-calculator',
     isLink: true,
   },
   {
     icon: TrendingUp,
     title: 'Locality Insights',
-    desc: 'Vadodara plot corridor trends, growth pockets, and practical buying tips.',
+    desc: 'NCR corridor trends across Greater Noida, Noida, Expressway & Vrindavan — plus practical buying tips.',
     href: '/blog',
     isLink: true,
   },
   {
     icon: MessageCircle,
-    title: 'Free Plot Consultation',
-    desc: 'Talk to Aurixxrealty — no obligation, clear advice on land and paperwork.',
+    title: 'Free Consultation',
+    desc: 'Talk to Aurixxrealty — no obligation, clear advice on property and paperwork.',
     href: '',
     isLink: false,
   },
@@ -38,7 +38,7 @@ export function ToolsStrip() {
             Tools & Resources
           </h2>
           <p className="section-subtitle mx-auto text-center">
-            Practical tools for smarter plot decisions
+            Practical tools for smarter property decisions
           </p>
         </div>
 
@@ -70,7 +70,7 @@ export function ToolsStrip() {
                 </Link>
               ) : (
                 <a
-                  href={getWhatsAppUrl("Hello! I'm looking for a residential plot in Vadodara. Can we discuss my requirements?")}
+                  href={getWhatsAppUrl("Hello! I'm looking for a property in Greater Noida / Noida / Yamuna Expressway. Can we discuss my requirements?")}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="group block h-full"

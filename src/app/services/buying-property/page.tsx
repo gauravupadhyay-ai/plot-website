@@ -8,8 +8,8 @@ import { Search, MapPin, Key, MessageCircle, Phone, CheckCircle2 } from 'lucide-
 import { getWhatsAppUrl, getCallUrl, SITE_NAME } from '@/lib/utils'
 
 export const metadata: Metadata = {
-  title: `Buying Plots | ${SITE_NAME} Vadodara`,
-  description: `Expert guidance to find residential plots in Vadodara. Verified listings, clear documentation, and end-to-end support from ${SITE_NAME}.`,
+  title: `Buying Plots | ${SITE_NAME} NCR`,
+  description: `Expert guidance to find residential plots across Greater Noida, Noida, Yamuna Expressway & Vrindavan. Verified listings, clear documentation, and end-to-end support from ${SITE_NAME}.`,
 }
 
 export default function BuyingPropertyPage() {
@@ -18,7 +18,7 @@ export default function BuyingPropertyPage() {
       <Header />
       <PageHero
         title="Buying Plots"
-        subtitle="Expert guidance to find verified residential plots in Vadodara"
+        subtitle="Expert guidance to find verified residential plots across NCR"
         image="/images/hero/hero-buying.jpg"
         breadcrumb={[
           { label: 'Services', href: '/services' },
@@ -124,7 +124,7 @@ export default function BuyingPropertyPage() {
             </a>
             <a
               href={getWhatsAppUrl(
-                `Hello! I want to start my plot search in Vadodara with ${SITE_NAME}.`
+                `Hello! I want to start my plot search in Greater Noida / Noida / Yamuna Expressway with ${SITE_NAME}.`
               )}
               target="_blank"
               rel="noopener noreferrer"

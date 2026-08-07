@@ -4,6 +4,7 @@ import { useState } from 'react'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import { supabase } from '@/lib/supabase'
+import { categoryFromType } from '@/lib/propertyCategories'
 import {
   Info,
   TrendingUp,
@@ -189,6 +190,7 @@ export function AdminPropertyForm({
         images: imageUrls,
         videos: videoUrls,
         featured: true,
+        category: categoryFromType(type),
         map_embed_url: mapEmbedUrl.trim() || null,
         lat: lat.trim() ? Number(lat) : null,
         lng: lng.trim() ? Number(lng) : null,
@@ -197,8 +199,8 @@ export function AdminPropertyForm({
       }
 
       const saveErrorHint = (message: string) => {
-        if (/column|schema|panorama|map_embed|lat|lng/i.test(message)) {
-          return `${message} — run supabase_admin_location_360.sql in the Supabase SQL Editor, then try again.`
+        if (/column|schema|category|panorama|map_embed|lat|lng/i.test(message)) {
+          return `${message} — run supabase_admin_location_360.sql and supabase_property_categories.sql in the Supabase SQL Editor, then try again.`
         }
         return message
       }
@@ -253,12 +255,12 @@ export function AdminPropertyForm({
     <div className="mx-auto mb-20 max-w-4xl">
       <header className="mb-8 space-y-2">
         <h1 className="font-display text-3xl font-bold text-brand-primary">
-          {mode === 'edit' ? 'Edit existing listing' : 'Add new plot'}
+          {mode === 'edit' ? 'Edit existing listing' : 'Add property listing'}
         </h1>
         <p className="text-sm text-text-secondary">
           {mode === 'edit'
-            ? 'Update a previously saved listing — title, price, media, map location, and 360° links.'
-            : 'Create an extra plot listing. Include map location and a 360° / Street View link below.'}
+            ? 'Update a previously saved NCR listing — plots, highrise, or commercial — including map and 360° links.'
+            : 'Add a plot, highrise, or commercial listing for Greater Noida / Noida / Vrindavan. Include location and 360° links below.'}
         </p>
       </header>
 

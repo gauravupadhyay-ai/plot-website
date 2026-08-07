@@ -24,16 +24,16 @@ export function CTABanner() {
           viewport={{ once: true }}
         >
           <h2 className="font-display font-bold text-3xl sm:text-4xl md:text-5xl text-white mb-4 leading-tight">
-            Your Plot in Vadodara
+            Your Property in NCR
             <br />
             <span className="text-white/80">Starts with a Clear Conversation.</span>
           </h2>
           <p className="text-white/60 text-lg mb-10 max-w-2xl mx-auto">
-            Join buyers who trust Aurixxrealty for residential land, NA status clarity, and honest guidance.
+            Join buyers who trust Aurixxrealty for plots, highrise, and commercial space — with clear titles and honest guidance.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <a
-              href={getWhatsAppUrl("Hello! I'd like a free consultation about residential plots in Vadodara.")}
+              href={getWhatsAppUrl("Hello! I'd like a free consultation about property in Greater Noida / Noida / Yamuna Expressway.")}
               target="_blank"
               rel="noopener noreferrer"
               className="btn-primary !text-base !px-8 !py-4"
@@ -42,7 +42,7 @@ export function CTABanner() {
               Schedule a Free Consultation
             </a>
             <Link href="/properties" className="btn-white !text-base !px-8 !py-4">
-              Browse All Plots
+              Browse Listings
               <ArrowRight size={16} />
             </Link>
           </div>

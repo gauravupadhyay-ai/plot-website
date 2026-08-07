@@ -9,24 +9,24 @@ import { Eye, Target, Heart, Award, Quote } from 'lucide-react'
 import { SITE_NAME } from '@/lib/utils'
 
 export const metadata: Metadata = {
-  title: `About ${SITE_NAME} | Plot Specialists in Vadodara`,
-  description: `Learn about ${SITE_NAME} — Vadodara's trusted plot specialists helping families and investors find verified residential plots with transparent guidance.`,
+  title: `About ${SITE_NAME} | Real Estate Specialists in NCR`,
+  description: `Learn about ${SITE_NAME} — NCR's trusted real-estate specialists helping families and investors find verified plots, highrise, and commercial property with transparent guidance.`,
 }
 
 const credentials = [
   'NAR Certified',
   'CREDAI Member',
-  'VPCA Member',
+  'NCR Network Member',
   'eXp Realty Certified',
   'Digital Certified',
 ]
 
 const galleryEvents = [
   { src: '/images/gallery-images/6.jpg', caption: 'Investor Meet 2024' },
-  { src: '/images/gallery-images/7.jpg', caption: 'Exhibition at Navlakhi' },
+  { src: '/images/gallery-images/7.jpg', caption: 'Exhibition Stall' },
   { src: '/images/gallery-images/8.jpg', caption: 'At CREDAI Conference' },
   { src: '/images/gallery-images/9.jpg', caption: 'Team Photo' },
-  { src: '/images/gallery-images/10.jpg', caption: 'VPCA Leader Visit' },
+  { src: '/images/gallery-images/10.jpg', caption: 'NCR Partner Visit' },
   { src: '/images/gallery-images/11.jpg', caption: 'Office' },
 ]
 
@@ -37,7 +37,7 @@ export default function AboutPage() {
 
       <PageHero
         title={`About ${SITE_NAME}`}
-        subtitle="Plot specialists helping Vadodara families invest with clarity."
+        subtitle="Real-estate specialists helping NCR families invest with clarity."
         image="/images/hero/hero-about.jpg"
         breadcrumb={[{ label: 'About' }]}
         imageClassName="object-cover object-[center_40%] md:object-[center_40%]"
@@ -59,34 +59,35 @@ export default function AboutPage() {
               </div>
               <div className="absolute -bottom-6 -right-4 md:right-6 bg-white rounded-2xl shadow-card-hover p-6 max-w-[180px] border border-border/50">
                 <div className="font-mono font-bold text-3xl text-brand-primary">5+</div>
-                <div className="text-text-secondary text-sm mt-1 font-sans">Years serving Vadodara</div>
+                <div className="text-text-secondary text-sm mt-1 font-sans">Years serving NCR</div>
               </div>
             </div>
 
             <div>
               <p className="section-eyebrow">Our Story</p>
               <h2 className="section-title text-3xl md:text-4xl mb-6 font-display">
-                From Local Expertise to Vadodara&apos;s{' '}
-                <span className="text-brand-primary">Plot Specialists</span>
+                From Local Expertise to NCR&apos;s{' '}
+                <span className="text-brand-primary">Real Estate Specialists</span>
               </h2>
               <div className="text-text-secondary text-lg leading-relaxed space-y-6 font-sans">
                 <p>
-                  {SITE_NAME} was founded with a clear focus: help people buy residential plots in
-                  Vadodara with transparency, local insight, and zero pressure. Based on Waghodia
-                  Road, we guide buyers through verified plot options, clear documentation, and
-                  practical investment advice — so every decision feels informed and secure.
+                  {SITE_NAME} was founded with a clear focus: help people buy property across
+                  Greater Noida, Noida, Yamuna Expressway, and Vrindavan with transparency, local
+                  insight, and zero pressure. Based along the Greater Noida / Yamuna Expressway
+                  corridor, we guide buyers through verified plots, highrise, and commercial
+                  options — so every decision feels informed and secure.
                 </p>
                 <p>
-                  Whether you are buying your first plot to build a home, looking for a long-term
-                  land investment, or comparing localities across Vadodara, our team stays with you
-                  from shortlist to registration.
+                  Whether you are buying your first plot to build a home, looking for a highrise
+                  apartment, exploring commercial space, or comparing localities across NCR, our
+                  team stays with you from shortlist to registration.
                 </p>
               </div>
 
               <div className="mt-8 pl-6 border-l-2 border-brand-primary/30 relative">
                 <Quote size={24} className="text-brand-primary/20 absolute -left-3 -top-1" />
                 <p className="text-text-secondary italic text-[15px] leading-relaxed font-sans">
-                  &ldquo;We don&apos;t just list plots. We help families secure the land where their next
+                  &ldquo;We don&apos;t just list properties. We help families secure the space where their next
                   chapter begins.&rdquo;
                 </p>
                 <p className="text-text-primary font-semibold text-sm mt-2 font-sans">— {SITE_NAME} Team</p>
@@ -104,7 +105,7 @@ export default function AboutPage() {
                 icon: Eye,
                 title: 'Our Vision',
                 content:
-                  'Make plot buying in Vadodara clear and trustworthy — so every family feels secure about the land they choose.',
+                  'Make property buying in NCR clear and trustworthy — so every family feels secure about the home or land they choose.',
               },
               {
                 icon: Target,
@@ -116,7 +117,7 @@ export default function AboutPage() {
                 icon: Heart,
                 title: 'Our Values',
                 content:
-                  'Transparency first. We prioritise clear titles, fair pricing, and support before, during, and after every plot transaction.',
+                  'Transparency first. We prioritise clear titles, fair pricing, and support before, during, and after every transaction.',
               },
             ].map((item) => (
               <div key={item.title} className="card-static p-8 text-center !rounded-2xl">

@@ -2,7 +2,7 @@
 import { useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
-import { Phone, Mail, MapPin, Clock, Facebook, Youtube, Send, Award } from 'lucide-react'
+import { Phone, Mail, MapPin, Clock, Instagram, Linkedin, Send, Award } from 'lucide-react'
 import { getCallUrl, PHONE_NUMBER, SITE_NAME } from '@/lib/utils'
 
 const credentials = [
@@ -41,10 +41,10 @@ export function Footer() {
           <div className="flex flex-col items-center justify-between gap-6 md:flex-row">
             <div>
               <h3 className="font-display text-xl font-bold text-white">
-                Get new plot alerts for Vadodara
+                Get new property alerts for NCR
               </h3>
               <p className="mt-1 text-sm text-white/50">
-                Join buyers who receive curated plot listings weekly.
+                Join buyers who receive curated listings weekly.
               </p>
             </div>
             <form onSubmit={handleNewsletter} className="flex w-full gap-3 md:w-auto">
@@ -99,14 +99,14 @@ export function Footer() {
               <span className="font-display text-2xl font-bold text-white">{SITE_NAME}</span>
             </Link>
             <p className="mb-6 text-[15px] leading-relaxed text-white/60">
-              NCR plot specialists. Helping buyers find verified residential land and commercial inventory with clear titles and honest guidance.
+              NCR real-estate specialists. Helping buyers find verified plots, highrise, and commercial inventory across Greater Noida, Noida, Yamuna Expressway &amp; Vrindavan.
             </p>
             <div className="flex gap-3">
-              <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="flex h-10 w-10 items-center justify-center rounded-full bg-white/10 transition-colors hover:bg-white/20" aria-label="Facebook">
-                <Facebook size={18} />
+              <a href="https://www.instagram.com/aurixxrealty" target="_blank" rel="noopener noreferrer" className="flex h-10 w-10 items-center justify-center rounded-full bg-white/10 transition-colors hover:bg-white/20" aria-label="Instagram">
+                <Instagram size={18} />
               </a>
-              <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" className="flex h-10 w-10 items-center justify-center rounded-full bg-white/10 transition-colors hover:bg-white/20" aria-label="YouTube">
-                <Youtube size={18} />
+              <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="flex h-10 w-10 items-center justify-center rounded-full bg-white/10 transition-colors hover:bg-white/20" aria-label="LinkedIn">
+                <Linkedin size={18} />
               </a>
             </div>
           </div>
@@ -117,6 +117,8 @@ export function Footer() {
               {[
                 { label: 'Home', href: '/' },
                 { label: 'Plots', href: '/properties' },
+                { label: 'Highrise', href: '/highrise' },
+                { label: 'Commercial', href: '/commercial' },
                 { label: 'Projects', href: '/projects' },
                 { label: 'About Us', href: '/about' },
                 { label: 'Blog', href: '/blog' },
@@ -136,10 +138,10 @@ export function Footer() {
             <h4 className="mb-5 font-sans text-sm font-bold uppercase tracking-wider text-white/80">Our Services</h4>
             <ul className="space-y-3">
               {[
-                { label: 'Buying a Plot', href: '/services/buying-property' },
-                { label: 'Plot Consulting', href: '/services/real-estate-consultant' },
+                { label: 'Buying Property', href: '/services/buying-property' },
+                { label: 'Real Estate Consulting', href: '/services/real-estate-consultant' },
                 { label: 'Loan Assistance', href: '/services/home-loan' },
-                { label: 'List Your Plot', href: '/post-property' },
+                { label: 'List Your Property', href: '/post-property' },
                 { label: 'EMI Calculator', href: '/tools/emi-calculator' },
               ].map((link) => (
                 <li key={link.href}>
@@ -157,7 +159,7 @@ export function Footer() {
               <li className="flex gap-3">
                 <MapPin size={18} className="mt-1 flex-shrink-0 text-white" />
                 <span className="text-[15px] leading-relaxed text-white/60">
-                  Kubereshwar Rd, Goverdhan Township, Kendranagar, Waghodia Road, Vadodara, Gujarat — 390025
+                  Greater Noida / Yamuna Expressway corridor, Uttar Pradesh (NCR)
                 </span>
               </li>
               <li>

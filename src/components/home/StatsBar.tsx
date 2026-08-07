@@ -4,10 +4,10 @@ import { useInView } from '@/hooks/useInView'
 import { Layers, MapPin, FileCheck, Users } from 'lucide-react'
 
 const stats = [
-  { icon: Layers, value: 132, suffix: '+', label: 'Plots Sold', context: 'Clear-title land across Vadodara.' },
-  { icon: MapPin, value: 4, suffix: '+', label: 'Key Localities', context: 'Waghodia, Ajwa, Jarod & more.' },
-  { icon: FileCheck, value: 100, suffix: '%', label: 'Title Focus', context: 'NA status & paperwork first.' },
-  { icon: Users, value: 5, suffix: '+', label: 'Years of Service', context: 'Trusted plot guidance.' },
+  { icon: Layers, value: 132, suffix: '+', label: 'Properties Sold', context: 'Clear-title inventory across NCR.' },
+  { icon: MapPin, value: 4, suffix: '+', label: 'Key Corridors', context: 'Greater Noida, Noida, Expressway & more.' },
+  { icon: FileCheck, value: 100, suffix: '%', label: 'Title Focus', context: 'Approvals & paperwork first.' },
+  { icon: Users, value: 5, suffix: '+', label: 'Years of Service', context: 'Trusted real-estate guidance.' },
 ]
 
 function StatItem({ icon: Icon, value, suffix, label, context, delay }: typeof stats[0] & { delay: number }) {

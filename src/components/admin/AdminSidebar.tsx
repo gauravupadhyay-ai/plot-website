@@ -5,7 +5,7 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import {
   LayoutDashboard,
-  Map,
+  Building2,
   Users,
   Menu,
   X,
@@ -18,8 +18,8 @@ import { SITE_NAME } from '@/lib/utils'
 
 const navItems = [
   { name: 'Dashboard', href: '/admin/dashboard', icon: LayoutDashboard },
-  { name: 'Plots', href: '/admin/properties', icon: Map },
-  { name: 'Add Plot', href: '/admin/properties/add', icon: PlusCircle },
+  { name: 'Inventory', href: '/admin/properties', icon: Building2 },
+  { name: 'Add Listing', href: '/admin/properties/add', icon: PlusCircle },
   { name: 'Leads & Contact', href: '/admin/leads', icon: Users },
 ]
 

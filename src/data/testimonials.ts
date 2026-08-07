@@ -4,7 +4,7 @@ export const testimonials: Testimonial[] = [
   {
     id: 1,
     name: 'Sarvadnya Rajendra Awaghad',
-    quote: 'Clear advice on plot size, location, and paperwork. Aurixxrealty understood exactly what we needed in Vadodara.',
+    quote: 'Clear advice on plot size, location, and paperwork. Aurixxrealty understood exactly what we needed in Greater Noida.',
     rating: 5,
     type: 'Buyer',
   },

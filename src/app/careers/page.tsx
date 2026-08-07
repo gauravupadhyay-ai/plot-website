@@ -6,14 +6,14 @@ import { Users, TrendingUp, GraduationCap, Clock, Upload, Send } from 'lucide-re
 import { SITE_NAME } from '@/lib/utils'
 
 export const metadata: Metadata = {
-  title: `Join Our Team | ${SITE_NAME} Vadodara`,
-  description: `Be part of Vadodara's growing plot specialists team. Explore career opportunities at ${SITE_NAME}.`,
+  title: `Join Our Team | ${SITE_NAME} NCR`,
+  description: `Be part of NCR's growing real-estate specialists team. Explore career opportunities at ${SITE_NAME}.`,
 }
 
 const roles = [
-  { title: 'Plot Sales Executive', location: 'Vadodara', type: 'Full-time' },
-  { title: 'Plot Marketing Associate', location: 'Vadodara', type: 'Full-time' },
-  { title: 'Plot Loan DSA Partner', location: 'Vadodara', type: 'Commission-based' },
+  { title: 'Sales Executive', location: 'Greater Noida / Noida', type: 'Full-time' },
+  { title: 'Marketing Associate', location: 'Greater Noida / Noida', type: 'Full-time' },
+  { title: 'Loan DSA Partner', location: 'NCR', type: 'Commission-based' },
 ]
 
 const benefits = [
@@ -45,7 +45,7 @@ export default function CareersPage() {
       <Header />
       <PageHero
         title="Join Our Team"
-        subtitle="Be part of Vadodara's growing plot specialists team"
+        subtitle="Be part of NCR's growing real-estate specialists team"
         image="/images/hero/hero-careers.jpg"
         breadcrumb={[{ label: 'Careers' }]}
       />
