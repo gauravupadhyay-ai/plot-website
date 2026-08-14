@@ -5,6 +5,7 @@ import {
   getWhatsAppUrl,
   getCallUrl,
   PHONE_NUMBER,
+  SECONDARY_PHONE_NUMBER,
   SITE_NAME,
   CONTACT_EMAIL,
   EMAIL_ALIASES,
@@ -219,6 +220,13 @@ export function ContactClient() {
                   >
                     <Phone size={20} className="text-brand-primary" />
                     {PHONE_NUMBER}
+                  </a>
+                  <a
+                    href={`tel:${SECONDARY_PHONE_NUMBER.replace(/\s+/g, '')}`}
+                    className="flex items-center gap-3 text-text-secondary text-sm hover:text-brand-primary transition font-sans"
+                  >
+                    <Phone size={20} className="text-brand-primary" />
+                    {SECONDARY_PHONE_NUMBER}
                   </a>
                   <a
                     href={`mailto:${CONTACT_EMAIL}`}

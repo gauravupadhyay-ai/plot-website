@@ -32,6 +32,7 @@ export function slugify(text: string): string {
 
 export const WHATSAPP_NUMBER = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '919458454789'
 export const PHONE_NUMBER = process.env.NEXT_PUBLIC_PHONE || '+91 94584 54789'
+export const SECONDARY_PHONE_NUMBER = '+91 97117 60199'
 export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.aurixxrealty.com'
 export const SITE_NAME = process.env.NEXT_PUBLIC_SITE_NAME || 'Aurixxrealty'
 

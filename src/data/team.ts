@@ -11,7 +11,7 @@ export const founders: TeamMember[] = [
   {
     name: 'Sukhpreet Singh Kajal',
     role: 'Co-Founder',
-    image: '',
+    image: '/images/team/sukhpreet-singh-kajal.png',
     linkedin: 'https://www.linkedin.com/in/sukhpreet-singh-kajal-bab77a33/',
     bio: 'Drives operations and inventory curation at Aurixxrealty, ensuring every listing is verified and every buyer journey — from enquiry to registration — stays transparent.',
   },
