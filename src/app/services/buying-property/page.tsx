@@ -5,7 +5,7 @@ import { Footer } from '@/components/layout/Footer'
 import { PageHero } from '@/components/layout/PageHero'
 import { CTABanner } from '@/components/home/CTABanner'
 import { Search, MapPin, Key, MessageCircle, Phone, CheckCircle2 } from 'lucide-react'
-import { getWhatsAppUrl, getCallUrl, SITE_NAME } from '@/lib/utils'
+import { getWhatsAppUrl, getCallUrl, getSecondaryCallUrl, SECONDARY_PHONE_NUMBER, SITE_NAME } from '@/lib/utils'
 
 export const metadata: Metadata = {
   title: `Buying Plots | ${SITE_NAME} NCR`,
@@ -121,6 +121,9 @@ export default function BuyingPropertyPage() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <a href={getCallUrl()} className="btn-charcoal">
               <Phone size={18} /> Call to Discuss
+            </a>
+            <a href={getSecondaryCallUrl()} className="btn-charcoal">
+              <Phone size={18} /> {SECONDARY_PHONE_NUMBER}
             </a>
             <a
               href={getWhatsAppUrl(

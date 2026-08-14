@@ -2,8 +2,9 @@
 import { useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
-import { Phone, Mail, MapPin, Clock, Instagram, Linkedin, Send, Award } from 'lucide-react'
-import { CONTACT_EMAIL, getCallUrl, PHONE_NUMBER, SITE_NAME } from '@/lib/utils'
+import { Mail, MapPin, Clock, Instagram, Linkedin, Send, Award } from 'lucide-react'
+import { CONTACT_EMAIL, SITE_NAME } from '@/lib/utils'
+import { ContactPhoneLinks } from '@/components/ui/ContactPhoneLinks'
 
 const credentials = [
   'Title Verified',
@@ -162,12 +163,7 @@ export function Footer() {
                   Greater Noida / Yamuna Expressway corridor, Uttar Pradesh (NCR)
                 </span>
               </li>
-              <li>
-                <a href={getCallUrl()} className="flex items-center gap-3 text-[15px] text-white/60 transition-colors hover:text-white">
-                  <Phone size={18} className="flex-shrink-0 text-white" />
-                  {PHONE_NUMBER}
-                </a>
-              </li>
+              <ContactPhoneLinks variant="footer" iconSize={18} asListItems />
               <li>
                 <a href={`mailto:${CONTACT_EMAIL}`} className="flex items-center gap-3 text-[15px] text-white/60 transition-colors hover:text-white">
                   <Mail size={18} className="flex-shrink-0 text-white" />

@@ -8,7 +8,7 @@ import {
   MessageCircle, Phone, ShieldCheck, Star, Maximize2, X, ZoomIn, ZoomOut,
 } from 'lucide-react'
 import { Property } from '@/types/property'
-import { getCallUrl, getWhatsAppUrl, PHONE_NUMBER, SITE_NAME } from '@/lib/utils'
+import { getCallUrl, getSecondaryCallUrl, getTelUrl, getWhatsAppUrl, CONTACT_PHONES, SITE_NAME } from '@/lib/utils'
 import { GoogleReviewCard, GoogleMark, GoogleStars } from '@/components/ui/GoogleReviewCard'
 
 export function PlotDetailView({
@@ -555,6 +555,9 @@ export function PlotDetailView({
                   <a href={getCallUrl()} className="btn-secondary mt-3 w-full justify-center !rounded-2xl">
                     <Phone size={16} /> Call Us
                   </a>
+                  <a href={getSecondaryCallUrl()} className="btn-secondary mt-3 w-full justify-center !rounded-2xl">
+                    <Phone size={16} /> Call {CONTACT_PHONES[1]}
+                  </a>
                 </>
               ) : (
                 <>
@@ -568,6 +571,9 @@ export function PlotDetailView({
                   </a>
                   <a href={getCallUrl()} className="btn-secondary mt-3 w-full justify-center !rounded-2xl">
                     <Phone size={16} /> Get Callback
+                  </a>
+                  <a href={getSecondaryCallUrl()} className="btn-secondary mt-3 w-full justify-center !rounded-2xl">
+                    <Phone size={16} /> Call {CONTACT_PHONES[1]}
                   </a>
                 </>
               )}
@@ -597,8 +603,19 @@ export function PlotDetailView({
                 rel="noopener noreferrer"
                 className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-text-primary"
               >
-                <MessageCircle size={16} /> Chat on WhatsApp · {PHONE_NUMBER}
+                <MessageCircle size={16} /> Chat on WhatsApp
               </a>
+              <div className="mt-3 space-y-2">
+                {CONTACT_PHONES.map((phone) => (
+                  <a
+                    key={phone}
+                    href={getTelUrl(phone)}
+                    className="flex items-center gap-2 text-sm font-semibold text-text-primary hover:text-brand-primary"
+                  >
+                    <Phone size={16} /> {phone}
+                  </a>
+                ))}
+              </div>
             </div>
 
             <div className="rounded-3xl border border-border bg-white p-5 shadow-card">

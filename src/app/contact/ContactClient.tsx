@@ -4,12 +4,13 @@ import { Phone, Mail, MapPin, Clock, MessageCircle, Instagram, Linkedin, Send, C
 import {
   getWhatsAppUrl,
   getCallUrl,
-  PHONE_NUMBER,
+  getSecondaryCallUrl,
   SECONDARY_PHONE_NUMBER,
   SITE_NAME,
   CONTACT_EMAIL,
   EMAIL_ALIASES,
 } from '@/lib/utils'
+import { ContactPhoneLinks } from '@/components/ui/ContactPhoneLinks'
 
 export function ContactClient() {
   const [name, setName] = useState('')
@@ -214,20 +215,7 @@ export function ContactClient() {
                       Greater Noida / Yamuna Expressway corridor, Uttar Pradesh (NCR)
                     </p>
                   </div>
-                  <a
-                    href={getCallUrl()}
-                    className="flex items-center gap-3 text-text-secondary text-sm hover:text-brand-primary transition font-sans"
-                  >
-                    <Phone size={20} className="text-brand-primary" />
-                    {PHONE_NUMBER}
-                  </a>
-                  <a
-                    href={`tel:${SECONDARY_PHONE_NUMBER.replace(/\s+/g, '')}`}
-                    className="flex items-center gap-3 text-text-secondary text-sm hover:text-brand-primary transition font-sans"
-                  >
-                    <Phone size={20} className="text-brand-primary" />
-                    {SECONDARY_PHONE_NUMBER}
-                  </a>
+                  <ContactPhoneLinks />
                   <a
                     href={`mailto:${CONTACT_EMAIL}`}
                     className="flex items-center gap-3 text-text-secondary text-sm hover:text-brand-primary transition font-sans"
@@ -264,9 +252,12 @@ export function ContactClient() {
                 </div>
               </div>
 
-              <div className="grid grid-cols-2 gap-3">
+              <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
                 <a href={getCallUrl()} className="btn-charcoal justify-center !py-3 text-sm">
                   <Phone size={16} /> Call Now
+                </a>
+                <a href={getSecondaryCallUrl()} className="btn-charcoal justify-center !py-3 text-sm">
+                  <Phone size={16} /> {SECONDARY_PHONE_NUMBER}
                 </a>
                 <a
                   href={getWhatsAppUrl(

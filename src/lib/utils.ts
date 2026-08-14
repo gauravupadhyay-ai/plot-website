@@ -32,7 +32,8 @@ export function slugify(text: string): string {
 
 export const WHATSAPP_NUMBER = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '919458454789'
 export const PHONE_NUMBER = process.env.NEXT_PUBLIC_PHONE || '+91 94584 54789'
-export const SECONDARY_PHONE_NUMBER = '+91 97117 60199'
+export const SECONDARY_PHONE_NUMBER = process.env.NEXT_PUBLIC_SECONDARY_PHONE || '+91 97117 60199'
+export const CONTACT_PHONES = [PHONE_NUMBER, SECONDARY_PHONE_NUMBER] as const
 export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.aurixxrealty.com'
 export const SITE_NAME = process.env.NEXT_PUBLIC_SITE_NAME || 'Aurixxrealty'
 
@@ -61,6 +62,14 @@ export function getWhatsAppUrl(message?: string): string {
   return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`
 }
 
+export function getTelUrl(phone: string): string {
+  return `tel:${phone.replace(/\s+/g, '')}`
+}
+
 export function getCallUrl(): string {
-  return `tel:${PHONE_NUMBER.replace(/\s+/g, '')}`
+  return getTelUrl(PHONE_NUMBER)
+}
+
+export function getSecondaryCallUrl(): string {
+  return getTelUrl(SECONDARY_PHONE_NUMBER)
 }

@@ -5,7 +5,7 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Phone, Menu, X, ChevronDown } from 'lucide-react'
-import { getCallUrl, PHONE_NUMBER, SITE_NAME } from '@/lib/utils'
+import { getCallUrl, getSecondaryCallUrl, PHONE_NUMBER, SECONDARY_PHONE_NUMBER, SITE_NAME } from '@/lib/utils'
 
 
 const navLinks = [
@@ -220,6 +220,10 @@ export function Header() {
                   <a href={getCallUrl()} className="btn-secondary w-full justify-center">
                     <Phone size={18} />
                     {PHONE_NUMBER}
+                  </a>
+                  <a href={getSecondaryCallUrl()} className="btn-secondary w-full justify-center">
+                    <Phone size={18} />
+                    {SECONDARY_PHONE_NUMBER}
                   </a>
                 </div>
               </div>

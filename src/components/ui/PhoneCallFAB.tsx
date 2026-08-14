@@ -1,15 +1,21 @@
 'use client'
 import { Phone } from 'lucide-react'
-import { getCallUrl } from '@/lib/utils'
+import { CONTACT_PHONES, getCallUrl, getSecondaryCallUrl } from '@/lib/utils'
 
 export function PhoneCallFAB() {
   return (
-    <a
-      href={getCallUrl()}
-      className="fixed bottom-20 left-6 z-50 w-[60px] h-[60px] rounded-full bg-brand-primary flex items-center justify-center shadow-lg hover:shadow-xl hover:scale-110 transition-all duration-300 lg:hidden"
-      aria-label="Call us"
-    >
-      <Phone size={24} className="text-white" />
-    </a>
+    <div className="fixed bottom-20 left-6 z-50 flex flex-col gap-2 lg:hidden">
+      {CONTACT_PHONES.map((phone, index) => (
+        <a
+          key={phone}
+          href={index === 0 ? getCallUrl() : getSecondaryCallUrl()}
+          className="flex h-[60px] w-[60px] items-center justify-center rounded-full bg-brand-primary shadow-lg transition-all duration-300 hover:scale-110 hover:shadow-xl"
+          aria-label={`Call ${phone}`}
+          title={phone}
+        >
+          <Phone size={24} className="text-white" />
+        </a>
+      ))}
+    </div>
   )
 }
