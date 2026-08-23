@@ -7,6 +7,7 @@ import { AnimatePresence, motion } from 'framer-motion'
 import { Bot, Send, X, ExternalLink } from 'lucide-react'
 import { seedPlots } from '@/data/seedPlots'
 import { categoryFromType, PROPERTY_CATEGORIES } from '@/lib/propertyCategories'
+import { isMinimalChromeRoute } from '@/lib/routes'
 
 type ChatMessage = {
   role: 'user' | 'assistant'
@@ -182,7 +183,7 @@ export function AIAssistantFAB() {
     setInput('')
   }
 
-  if (pathname?.startsWith('/admin')) return null
+  if (isMinimalChromeRoute(pathname)) return null
 
   return (
     <>

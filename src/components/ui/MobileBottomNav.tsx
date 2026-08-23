@@ -2,6 +2,7 @@
 import { usePathname } from 'next/navigation'
 import Link from 'next/link'
 import { Home, Layers, Building2, Phone } from 'lucide-react'
+import { isMinimalChromeRoute } from '@/lib/routes'
 
 const navItems = [
   { icon: Home, label: 'Home', href: '/' },
@@ -12,7 +13,7 @@ const navItems = [
 
 export function MobileBottomNav() {
   const pathname = usePathname()
-  if (pathname?.startsWith('/admin')) return null
+  if (isMinimalChromeRoute(pathname)) return null
 
   return (
     <nav className="fixed bottom-0 left-0 right-0 z-50 border-t border-border bg-white pb-[env(safe-area-inset-bottom)] lg:hidden">

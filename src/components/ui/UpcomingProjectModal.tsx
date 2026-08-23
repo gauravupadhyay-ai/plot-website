@@ -7,6 +7,7 @@ import { usePathname } from 'next/navigation'
 import { AnimatePresence, motion } from 'framer-motion'
 import { X, MapPin, Sparkles, ArrowRight, MessageCircle, CheckCircle2 } from 'lucide-react'
 import { getWhatsAppUrl, SITE_NAME } from '@/lib/utils'
+import { isMinimalChromeRoute } from '@/lib/routes'
 
 const highlights = ['Omicron 1A', '7 towers', '7.5 acres', 'Loan support']
 
@@ -16,8 +17,7 @@ export function UpcomingProjectModal() {
   const [open, setOpen] = useState(false)
   const skip =
     pathname?.startsWith('/properties') ||
-    pathname?.startsWith('/admin') ||
-    pathname === '/admin'
+    isMinimalChromeRoute(pathname)
 
   useEffect(() => {
     if (skip) return

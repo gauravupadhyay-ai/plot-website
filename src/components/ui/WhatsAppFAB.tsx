@@ -2,10 +2,11 @@
 import { MessageCircle } from 'lucide-react'
 import { usePathname } from 'next/navigation'
 import { getWhatsAppUrl } from '@/lib/utils'
+import { isMinimalChromeRoute } from '@/lib/routes'
 
 export function WhatsAppFAB() {
   const pathname = usePathname()
-  if (pathname?.startsWith('/admin')) return null
+  if (isMinimalChromeRoute(pathname)) return null
 
   return (
     <a

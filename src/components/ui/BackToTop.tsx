@@ -2,6 +2,7 @@
 import { useState, useEffect } from 'react'
 import { usePathname } from 'next/navigation'
 import { ChevronUp } from 'lucide-react'
+import { isMinimalChromeRoute } from '@/lib/routes'
 
 export function BackToTop() {
   const pathname = usePathname()
@@ -17,7 +18,7 @@ export function BackToTop() {
     window.scrollTo({ top: 0, behavior: 'smooth' })
   }
 
-  if (pathname?.startsWith('/admin')) return null
+  if (isMinimalChromeRoute(pathname)) return null
 
   return (
     <button

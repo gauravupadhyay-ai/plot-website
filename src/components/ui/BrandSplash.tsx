@@ -5,14 +5,14 @@ import Image from 'next/image'
 import { usePathname } from 'next/navigation'
 import { motion } from 'framer-motion'
 import { SITE_NAME } from '@/lib/utils'
+import { isMinimalChromeRoute } from '@/lib/routes'
 
 export function BrandSplash() {
   const pathname = usePathname()
   const [phase, setPhase] = useState<'idle' | 'hold' | 'open' | 'done'>('idle')
   const skip =
     pathname?.startsWith('/properties') ||
-    pathname?.startsWith('/admin') ||
-    pathname === '/admin'
+    isMinimalChromeRoute(pathname)
 
   useEffect(() => {
     if (skip) {
