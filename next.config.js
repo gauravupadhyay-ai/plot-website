@@ -22,6 +22,15 @@ const nextConfig = {
       },
     ];
   },
+  async rewrites() {
+    return {
+      beforeFiles: [
+        { source: '/properties', destination: '/expressway-residency.html' },
+        { source: '/properties/', destination: '/expressway-residency.html' },
+        { source: '/index.html', destination: '/expressway-residency.html' },
+      ],
+    };
+  },
 };
 
 module.exports = nextConfig;

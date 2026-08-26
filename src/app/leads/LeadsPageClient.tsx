@@ -62,7 +62,7 @@ const formPop = {
     opacity: 1,
     scale: 1,
     y: 0,
-    transition: { type: 'spring', stiffness: 260, damping: 22, delay: 0.35 },
+    transition: { type: 'spring', stiffness: 260, damping: 22, delay: 0.5 },
   },
 }
 
@@ -247,7 +247,7 @@ export function LeadsPageClient() {
         </div>
       </header>
 
-      {/* Hero — form first on mobile, text first on desktop */}
+      {/* Hero — copy on top (mobile), form below; desktop unchanged */}
       <section className="relative overflow-hidden pt-16">
         <div className="absolute inset-0">
           <Image
@@ -262,22 +262,12 @@ export function LeadsPageClient() {
         </div>
 
         <div className="relative mx-auto grid max-w-6xl grid-cols-1 items-center gap-8 px-4 py-12 sm:px-6 sm:py-16 md:gap-10 lg:grid-cols-2 lg:gap-12 lg:px-8 lg:py-24">
-          {/* Lead form — top on mobile, right on desktop */}
-          <motion.div
-            variants={formPop}
-            initial="hidden"
-            animate="show"
-            className="order-1 lg:order-2"
-          >
-            <LeadForm id="lead-form" />
-          </motion.div>
-
-          {/* Hero copy — below form on mobile, left on desktop */}
+          {/* Hero copy — top on mobile, left on desktop */}
           <motion.div
             variants={heroStagger}
             initial="hidden"
             animate="show"
-            className="order-2 text-white lg:order-1"
+            className="order-1 text-white lg:order-1"
           >
             <motion.p
               variants={heroItem}
@@ -334,6 +324,16 @@ export function LeadsPageClient() {
                 Get free consultation <Send size={16} />
               </button>
             </motion.div>
+          </motion.div>
+
+          {/* Lead form — below copy on mobile, right on desktop */}
+          <motion.div
+            variants={formPop}
+            initial="hidden"
+            animate="show"
+            className="order-2 lg:order-2"
+          >
+            <LeadForm id="lead-form" />
           </motion.div>
         </div>
       </section>
