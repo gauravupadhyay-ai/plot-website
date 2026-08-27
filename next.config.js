@@ -24,20 +24,14 @@ const nextConfig = {
   },
   async redirects() {
     return [
-      { source: '/the-corridor.html', destination: '/the-corridor', permanent: true },
+      { source: '/the-corridor', destination: '/properties', permanent: true },
+      { source: '/the-corridor/', destination: '/properties', permanent: true },
+      { source: '/the-corridor.html', destination: '/properties', permanent: true },
+      { source: '/expressway-residency', destination: '/properties', permanent: true },
+      { source: '/expressway-residency.html', destination: '/properties', permanent: true },
+      { source: '/properties/expressway-residency-yamuna-expressway', destination: '/properties', permanent: true },
       { source: '/index.html', destination: '/properties', permanent: true },
     ];
-  },
-  async rewrites() {
-    return {
-      beforeFiles: [
-        { source: '/properties', destination: '/expressway-residency.html' },
-        { source: '/properties/', destination: '/expressway-residency.html' },
-        { source: '/expressway-residency', destination: '/expressway-residency.html' },
-        { source: '/the-corridor', destination: '/the-corridor.html' },
-        { source: '/the-corridor/', destination: '/the-corridor.html' },
-      ],
-    };
   },
 };
 

@@ -39,8 +39,6 @@ function matchProperties(q: string) {
       if ((q.includes('urbtech') || q.includes('business suite') || q.includes('npx')) &&
         (p.code === 'AX-UB-001' || p.code === 'AX-NX-001'))
         return { p, score: score + 4 }
-      if ((q.includes('expressway residency') || q.includes('yamuna')) && p.code === 'AX-YE-001')
-        return { p, score: score + 3 }
       return { p, score }
     })
     .filter((x) => x.score > 0)

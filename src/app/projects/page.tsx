@@ -15,7 +15,7 @@ export const metadata: Metadata = {
   description: `Explore residential, highrise, and commercial projects curated by ${SITE_NAME} across Greater Noida, Noida, Yamuna Expressway, and Vrindavan.`,
 }
 
-const spotlightCodes = ['AX-E7-001', 'AX-GC-001', 'AX-BT-001', 'AX-VV-001', 'AX-YE-001', 'AX-UB-001']
+const spotlightCodes = ['AX-E7-001', 'AX-GC-001', 'AX-BT-001', 'AX-VV-001', 'AX-UB-001']
 
 export default function ProjectsPage() {
   const projects = spotlightCodes

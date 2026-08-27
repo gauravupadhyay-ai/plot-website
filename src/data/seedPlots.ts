@@ -1,66 +1,7 @@
 import { Property } from '@/types/property'
 
-/** Local inventory — Expressway, Vrinda, Urbtech, Gaur Chrysalis & Aero, Eldeco 7 Peaks */
+/** Local inventory — Vrinda, Urbtech, Gaur Chrysalis & Aero, Eldeco 7 Peaks, BiiGTecH */
 export const seedPlots: Property[] = [
-  {
-    slug: 'expressway-residency-yamuna-expressway',
-    code: 'AX-YE-001',
-    type: 'Plot',
-    title: 'Expressway Residency',
-    location: 'Yamuna Expy, 53 Milestone, Simrauthi, Uttar Pradesh 202165',
-    locality: 'Yamuna Expressway',
-    price: 0,
-    priceLabel: 'Price on Request',
-    priceOnRequest: true,
-    pricePerUnit: undefined,
-    bhk: 'N/A',
-    bedrooms: 0,
-    bathrooms: 0,
-    area: 0,
-    areaUnit: 'sq.yd',
-    facing: undefined,
-    ownership: 'Freehold',
-    status: 'Available',
-    age: 'New',
-    description:
-      'Expressway Residency is a premium, authority-approved residential development along the Yamuna Expressway corridor in Greater Noida, developed by the Laur Group (Laur Developers). The project focuses on freehold residential villa plots and premium land investments in one of NCR’s fastest-growing real estate hubs.\n\nKey infrastructure & connectivity: Noida International Airport (Jewar) about 10–15 minutes away; close to the planned 1,000-acre Film City, Buddh International Circuit, and Night Safari; near the Multi-modal Logistics Hub and JP Cricket Stadium; surrounded by a major education zone with leading universities including Galgotias University and Gautam Buddha University.',
-    highlights: [
-      'Authority-approved villa plots',
-      'Freehold ownership',
-      'Yamuna Expressway corridor',
-      'Near Jewar Airport',
-      'Near Film City & BIC',
-      'Laur Group development',
-    ],
-    amenities: [
-      'Near Noida International Airport (Jewar)',
-      'Close to planned Film City',
-      'Near Buddh International Circuit',
-      'Near Night Safari',
-      'Near Multi-modal Logistics Hub',
-      'Near JP Cricket Stadium',
-      '7+ universities nearby',
-    ],
-    images: [
-      '/images/plots/expressway-residency/cover.webp',
-      '/images/plots/expressway-residency/02.jpg',
-      '/images/plots/expressway-residency/03.webp',
-    ],
-    videos: [],
-    featured: true,
-    badge: 'New',
-    nearbyPlaces: [],
-    mapEmbedUrl: '',
-    panoramaUrl:
-      'https://www.google.com/maps/embed?pb=!1m0!3m2!1sen!2sin!4v1720000000000!6m8!1m7!1s1LuwhGz4KdkTqbLK_fjcfw!2m2!1d28.189!2d77.612!3f72.92!4f0!5f0.7',
-    panoramaLink:
-      'https://www.google.com/local/place/fid/0x3973490dd3e7a7dd:0x51843e4e03787275/photosphere?iu=https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid%3D1LuwhGz4KdkTqbLK_fjcfw%26cb_client%3Dlu.gallery.gps%26w%3D160%26h%3D106%26yaw%3D72.92326%26pitch%3D0%26thumbfov%3D100&ik=CAISFjFMdXdoR3o0S2RrVHFiTEtfZmpjZnc%3D',
-    lat: 28.189,
-    lng: 77.612,
-    ratingAvg: 4.8,
-    ratingCount: 24,
-    reviews: [],
-  },
   {
     slug: 'vrinda-vatika-homes-vrindavan',
     code: 'AX-VV-001',

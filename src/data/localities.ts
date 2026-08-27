@@ -3,14 +3,6 @@ import { Locality } from '@/types/property'
 /** Localities aligned with live seedPlots inventory (exact `locality` name match). */
 export const localities: Locality[] = [
   {
-    slug: 'yamuna-expressway',
-    name: 'Yamuna Expressway',
-    description:
-      'High-growth corridor near Noida International Airport, Film City, and Buddh International Circuit. Premium villa plots and residences with strong long-term demand.',
-    propertyCount: 2,
-    image: '/images/plots/expressway-residency/cover.webp',
-  },
-  {
     slug: 'vrindavan',
     name: 'Vrindavan',
     description:
@@ -57,7 +49,6 @@ export const searchLocalities = localities.map((l) => l.name)
 
 /** Best cover image per listing for homepage hero rotation. */
 export const heroPlotImages = [
-  { src: '/images/plots/expressway-residency/cover.webp', title: 'Expressway Residency', locality: 'Yamuna Expressway' },
   { src: '/images/plots/vrinda-vatika/cover.png', title: 'Vrinda Vatika Homes', locality: 'Vrindavan' },
   { src: '/images/plots/urbtech-business-suites/cover.jpg', title: 'Urbtech Business Suites', locality: 'Sector 153, Noida' },
   { src: '/images/plots/urbtech-npx-extension/cover.jpg', title: 'Urbtech NPX Extension', locality: 'Sector 153, Noida' },

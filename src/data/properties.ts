@@ -12,6 +12,11 @@ const LEGACY_DEMO_CODES = new Set([
   'GP-P005',
   'GP-P006',
   'AX-AS-001', // merged into AX-GC-001
+  'AX-YE-001', // Expressway Residency — hidden from public site
+])
+
+const HIDDEN_SLUGS = new Set([
+  'expressway-residency-yamuna-expressway',
 ])
 
 async function getReviewsByCodes(codes: string[]): Promise<Record<string, PlotReview[]>> {
@@ -175,7 +180,7 @@ async function fetchPropertiesUncached(): Promise<Property[]> {
     }
 
     for (const row of data) {
-      if (LEGACY_DEMO_CODES.has(row.code)) continue
+      if (LEGACY_DEMO_CODES.has(row.code) || HIDDEN_SLUGS.has(row.slug)) continue
       const mapped = mapProperty(row)
       if (seedByCode.has(row.code) || seedBySlug.has(row.slug)) {
         byCode.set(row.code, withSeedOverrides(mapped))
@@ -210,7 +215,7 @@ async function fetchPropertiesUncached(): Promise<Property[]> {
   }
 }
 
-export const getProperties = unstable_cache(fetchPropertiesUncached, ['properties-list-v1'], {
+export const getProperties = unstable_cache(fetchPropertiesUncached, ['properties-list-v2'], {
   revalidate: 300,
 })
 
@@ -218,6 +223,8 @@ export async function getPropertyBySlug(slug: string): Promise<Property | undefi
   // Aero Suites merged into Chrysalis listing
   const resolvedSlug =
     slug === 'gaur-aero-suites-yamuna-expressway' ? 'gaur-chrysalis-greater-noida' : slug
+
+  if (HIDDEN_SLUGS.has(resolvedSlug)) return undefined
   const fromSeed = seedPlots.find((p) => p.slug === resolvedSlug)
 
   // Prefer seed for known inventory — avoids Supabase + reviews latency on detail pages
