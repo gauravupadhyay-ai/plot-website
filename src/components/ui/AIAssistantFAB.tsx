@@ -30,6 +30,10 @@ function matchProperties(q: string) {
       const score = words.reduce((acc, w) => (hay.includes(w) ? acc + 1 : acc), 0)
       // Boost direct name hits
       if (q.includes('eldeco') && p.code === 'AX-E7-001') return { p, score: score + 5 }
+      if ((q.includes('hari shyam') || q.includes('jewar') || q.includes('hari kripa')) && p.code === 'AX-HS-001')
+        return { p, score: score + 5 }
+      if ((q.includes('lalita') || q.includes('nandgaon') || q.includes('barsana')) && p.code === 'AX-LK-001')
+        return { p, score: score + 5 }
       if ((q.includes('vrinda') || q.includes('vrindavan')) && p.code === 'AX-VV-001')
         return { p, score: score + 5 }
       if ((q.includes('gaur') || q.includes('chrysalis') || q.includes('aero')) && p.code === 'AX-GC-001')

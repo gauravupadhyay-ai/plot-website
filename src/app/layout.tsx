@@ -54,7 +54,7 @@ const spaceMono = Space_Mono({
 
 export const metadata: Metadata = {
   title: {
-    default: 'Aurixxrealty — Real Estate in Greater Noida, Noida & Vrindavan',
+    default: 'Aurixxrealty | Real Estate in Greater Noida, Noida & Vrindavan',
     template: '%s | Aurixxrealty',
   },
   description:
@@ -85,7 +85,7 @@ export const metadata: Metadata = {
       url: `${SITE_URL}/og-image.jpg`,
       width: 1200,
       height: 630,
-      alt: 'Aurixxrealty — Real Estate in Greater Noida, Noida & Vrindavan',
+      alt: 'Aurixxrealty | Real Estate in Greater Noida, Noida & Vrindavan',
     }],
   },
   twitter: { card: 'summary_large_image' },

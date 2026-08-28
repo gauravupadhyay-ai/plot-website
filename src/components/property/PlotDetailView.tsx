@@ -509,11 +509,11 @@ export function PlotDetailView({
                 </Link>
               )}
 
-              {priceDocuments.length ? (
+              {(property.documents?.length ? (
                 <div className="mt-4 space-y-2">
                   <p className="text-xs font-bold uppercase tracking-wider text-text-muted">Downloads</p>
                   <div className="flex flex-col gap-2">
-                    {priceDocuments.map((doc) => (
+                    {property.documents.map((doc) => (
                       <a
                         key={doc.url}
                         href={doc.url}
@@ -536,7 +536,7 @@ export function PlotDetailView({
                     *Price subject to terms. Confirm current starting price before booking.
                   </p>
                 </div>
-              ) : null}
+              ) : null)}
 
               <div className="mt-5 grid grid-cols-2 gap-3">
                 {specs.map((s) => (

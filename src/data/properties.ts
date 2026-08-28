@@ -116,7 +116,9 @@ function withSeedOverrides(property: Property): Property {
     seed.code === 'AX-NX-001' ||
     seed.code === 'AX-GC-001' ||
     seed.code === 'AX-E7-001' ||
-    seed.code === 'AX-BT-001'
+    seed.code === 'AX-BT-001' ||
+    seed.code === 'AX-HS-001' ||
+    seed.code === 'AX-LK-001'
   const images = uniqueUrls(
     useSeedMedia
       ? seed.images
@@ -215,7 +217,7 @@ async function fetchPropertiesUncached(): Promise<Property[]> {
   }
 }
 
-export const getProperties = unstable_cache(fetchPropertiesUncached, ['properties-list-v2'], {
+export const getProperties = unstable_cache(fetchPropertiesUncached, ['properties-list-v4'], {
   revalidate: 300,
 })
 

@@ -3,6 +3,22 @@ import { Locality } from '@/types/property'
 /** Localities aligned with live seedPlots inventory (exact `locality` name match). */
 export const localities: Locality[] = [
   {
+    slug: 'jewar-yamuna-expressway',
+    name: 'Jewar / Yamuna Expressway',
+    description:
+      'Pre-launch gated plots on the Jewar growth corridor — Yamuna Expressway access, Noida International Airport, and Film City-led infrastructure.',
+    propertyCount: 1,
+    image: '/images/plots/hari_shyam_township/jawer_plot1.jpeg',
+  },
+  {
+    slug: 'nandgaon-barsana',
+    name: 'Nandgaon / Barsana',
+    description:
+      'Pre-launch government-approved plots in the Braj spiritual circuit — Nandgaon, Barsana, Govardhan, and Vrindavan connectivity.',
+    propertyCount: 1,
+    image: '/images/plots/lalita-kunj/cover.jpg',
+  },
+  {
     slug: 'vrindavan',
     name: 'Vrindavan',
     description:
@@ -49,6 +65,8 @@ export const searchLocalities = localities.map((l) => l.name)
 
 /** Best cover image per listing for homepage hero rotation. */
 export const heroPlotImages = [
+  { src: '/images/plots/hari_shyam_township/jawer_plot1.jpeg', title: 'Hari Shyam Township', locality: 'Jewar / Yamuna Expressway' },
+  { src: '/images/plots/lalita-kunj/cover.jpg', title: 'Lalita Kunj', locality: 'Nandgaon / Barsana' },
   { src: '/images/plots/vrinda-vatika/cover.png', title: 'Vrinda Vatika Homes', locality: 'Vrindavan' },
   { src: '/images/plots/urbtech-business-suites/cover.jpg', title: 'Urbtech Business Suites', locality: 'Sector 153, Noida' },
   { src: '/images/plots/urbtech-npx-extension/cover.jpg', title: 'Urbtech NPX Extension', locality: 'Sector 153, Noida' },
