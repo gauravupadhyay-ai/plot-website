@@ -5,14 +5,30 @@ import dynamic from 'next/dynamic'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter, useSearchParams } from 'next/navigation'
-import { localities } from '@/data/localities'
 import {
-  MapPin, Maximize, Compass, Heart, ArrowRight, SlidersHorizontal, X,
-  Shield, TrendingUp, Landmark, BadgeCheck,
+    MapPin, Maximize, Compass, Heart, ArrowRight, SlidersHorizontal, X,
+    Shield, TrendingUp, Landmark, BadgeCheck,
 } from 'lucide-react'
 import { Property } from '@/types/property'
 import { formatCurrency } from '@/lib/utils'
 import { categoryMeta, type PropertyCategory } from '@/lib/propertyCategories'
+
+const SHUBH_LABH_CODES = ['AX-NS-001', 'AX-RK-001', 'AX-RP-001']
+const SHUBH_LABH_PROJECTS = [
+  { value: 'Nari Semri Plots', code: 'AX-NS-001' },
+  { value: 'Radha Krishna Vrindavan Ashram', code: 'AX-RK-001' },
+  { value: 'Radha Krishna Puram', code: 'AX-RP-001' },
+] as const
+
+function matchesLocation(plot: Property, localityFilter: string): boolean {
+  if (localityFilter === 'All') return true
+  if (localityFilter === 'Shubh Labh Group') {
+    return plot.developer === 'Shubh Labh Group' || SHUBH_LABH_CODES.includes(plot.code)
+  }
+  const project = SHUBH_LABH_PROJECTS.find((item) => item.value === localityFilter)
+  if (project) return plot.code === project.code
+  return plot.locality === localityFilter
+}
 
 function budgetFromParam(budget: string | null): { min: number; max: number } {
   if (budget === '0-30') return { min: 0, max: 3000000 }
@@ -103,6 +119,11 @@ function PlotCards({ plots }: { plots: Property[] }) {
             <h3 className="line-clamp-2 min-h-[3.25rem] font-display text-lg font-bold leading-snug text-text-primary">
               {plot.title}
             </h3>
+            {plot.developer ? (
+              <p className="mt-0.5 truncate text-[11px] font-semibold uppercase tracking-wider text-text-muted">
+                {plot.developer}
+              </p>
+            ) : null}
             <p className="mt-1 truncate font-display text-2xl font-bold tracking-tight">
               {plot.priceOnRequest || plot.priceLabel === 'Price on Request'
                 ? 'Price on Request'
@@ -201,7 +222,7 @@ export function PropertiesClient({
   const filtered = useMemo(() => {
     let result = [...plots]
     if (localityFilter !== 'All') {
-      result = result.filter((p) => p.locality === localityFilter)
+      result = result.filter((p) => matchesLocation(p, localityFilter))
     }
     if (typeFilter !== 'All' && typeFilter) {
       result = result.filter((p) => p.type === typeFilter)
@@ -252,6 +273,14 @@ export function PropertiesClient({
     setAmenityFilter((prev) => (prev.includes(a) ? prev.filter((x) => x !== a) : [...prev, a]))
   }
 
+  const listingLocalities = useMemo(
+    () => [...new Set(plots.map((p) => p.locality).filter(Boolean))],
+    [plots]
+  )
+  const showShubhLabhFilters = plots.some(
+    (p) => p.developer === 'Shubh Labh Group' || SHUBH_LABH_CODES.includes(p.code)
+  )
+
   const FilterPanel = (
     <div className="space-y-6 rounded-3xl border border-border bg-white p-5 shadow-card sm:p-6">
       <div className="flex items-center justify-between">
@@ -265,9 +294,17 @@ export function PropertiesClient({
         <label className="mb-2 block text-sm font-semibold">Location</label>
         <select value={localityFilter} onChange={(e) => setLocalityFilter(e.target.value)} className="select !h-11 !text-sm">
           <option value="All">All localities</option>
-          {localities.map((loc) => (
-            <option key={loc.slug} value={loc.name}>{loc.name}</option>
+          {listingLocalities.map((name) => (
+            <option key={name} value={name}>{name}</option>
           ))}
+          {showShubhLabhFilters ? (
+            <>
+              <option value="Shubh Labh Group">Shubh Labh Group</option>
+              {SHUBH_LABH_PROJECTS.map((project) => (
+                <option key={project.code} value={project.value}>{project.value}</option>
+              ))}
+            </>
+          ) : null}
         </select>
       </div>
 
@@ -352,8 +389,10 @@ export function PropertiesClient({
             </div>
           </div>
 
-          <div id="plot-filters" className="grid scroll-mt-28 gap-6 lg:grid-cols-[280px_1fr]">
-            <aside className="hidden lg:block">{FilterPanel}</aside>
+          <div id="plot-filters" className="grid scroll-mt-28 gap-6 lg:grid-cols-[280px_minmax(0,1fr)] lg:items-start">
+            <aside className="hidden lg:sticky lg:top-28 lg:block lg:self-start">
+              {FilterPanel}
+            </aside>
 
             {showFilters && (
               <div className="fixed inset-0 z-50 bg-black/40 lg:hidden" onClick={() => setShowFilters(false)}>
@@ -366,7 +405,7 @@ export function PropertiesClient({
               </div>
             )}
 
-            <div className="space-y-6">
+            <div className="min-w-0 space-y-6">
               {view === 'map' && <PlotsMap plots={filtered} />}
 
               <p className="text-sm font-semibold text-text-secondary">

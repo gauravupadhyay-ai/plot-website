@@ -118,7 +118,10 @@ function withSeedOverrides(property: Property): Property {
     seed.code === 'AX-E7-001' ||
     seed.code === 'AX-BT-001' ||
     seed.code === 'AX-HS-001' ||
-    seed.code === 'AX-LK-001'
+    seed.code === 'AX-LK-001' ||
+    seed.code === 'AX-NS-001' ||
+    seed.code === 'AX-RK-001' ||
+    seed.code === 'AX-RP-001'
   const images = uniqueUrls(
     useSeedMedia
       ? seed.images
@@ -137,6 +140,8 @@ function withSeedOverrides(property: Property): Property {
   return {
     ...seed,
     ...property,
+    title: seed.code === 'AX-RK-001' ? seed.title : property.title,
+    slug: seed.code === 'AX-RK-001' ? seed.slug : property.slug,
     images: images.length ? images : uniqueUrls(seed.images),
     videos: videos.length ? videos : uniqueUrls(seed.videos),
     panoramaUrl: property.panoramaUrl || seed.panoramaUrl,
@@ -146,6 +151,8 @@ function withSeedOverrides(property: Property): Property {
     mapEmbedUrl: property.mapEmbedUrl || seed.mapEmbedUrl,
     priceOnRequest: property.priceOnRequest ?? seed.priceOnRequest,
     documents: property.documents?.length ? property.documents : seed.documents,
+    developer: property.developer || seed.developer,
+    ambientAudio: seed.ambientAudio?.length ? seed.ambientAudio : property.ambientAudio,
     nearbyPlaces: property.nearbyPlaces?.length ? property.nearbyPlaces : seed.nearbyPlaces,
     areaLabel: property.areaLabel || seed.areaLabel,
     highlights: property.highlights?.length ? property.highlights : seed.highlights,
@@ -217,14 +224,18 @@ async function fetchPropertiesUncached(): Promise<Property[]> {
   }
 }
 
-export const getProperties = unstable_cache(fetchPropertiesUncached, ['properties-list-v4'], {
+export const getProperties = unstable_cache(fetchPropertiesUncached, ['properties-list-v7'], {
   revalidate: 300,
 })
 
 export async function getPropertyBySlug(slug: string): Promise<Property | undefined> {
   // Aero Suites merged into Chrysalis listing
   const resolvedSlug =
-    slug === 'gaur-aero-suites-yamuna-expressway' ? 'gaur-chrysalis-greater-noida' : slug
+    slug === 'gaur-aero-suites-yamuna-expressway'
+      ? 'gaur-chrysalis-greater-noida'
+      : slug === 'shri-radha-krishna-vihar-vrindavan'
+        ? 'radha-krishna-vrindavan-ashram'
+        : slug
 
   if (HIDDEN_SLUGS.has(resolvedSlug)) return undefined
   const fromSeed = seedPlots.find((p) => p.slug === resolvedSlug)

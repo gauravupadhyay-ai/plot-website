@@ -38,6 +38,10 @@ export interface Property {
   videos: string[]
   /** Price list files shown on the detail page */
   documents?: { label: string; url: string }[]
+  /** Developer / group name (used in catalog filters) */
+  developer?: string
+  /** Soft looping tracks for Vrindavan / Braj project pages */
+  ambientAudio?: string[]
   featured: boolean
   badge: 'For Sale' | 'Hot Deal' | 'New' | 'Sold'
   nearbyPlaces?: { name: string; distance: string }[]

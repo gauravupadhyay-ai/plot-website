@@ -34,6 +34,14 @@ function matchProperties(q: string) {
         return { p, score: score + 5 }
       if ((q.includes('lalita') || q.includes('nandgaon') || q.includes('barsana')) && p.code === 'AX-LK-001')
         return { p, score: score + 5 }
+      if ((q.includes('nari') || q.includes('semri') || q.includes('radha rani township')) && p.code === 'AX-NS-001')
+        return { p, score: score + 5 }
+      if ((q.includes('radha krishna vihar') || q.includes('vrindavan ashram') || q.includes('ashram') || q.includes('asharam')) && p.code === 'AX-RK-001')
+        return { p, score: score + 5 }
+      if ((q.includes('radha krishna puram') || q.includes('puram')) && p.code === 'AX-RP-001')
+        return { p, score: score + 5 }
+      if ((q.includes('shubh labh') || q.includes('sukhdev')) && (p.code === 'AX-NS-001' || p.code === 'AX-RK-001' || p.code === 'AX-RP-001'))
+        return { p, score: score + 4 }
       if ((q.includes('vrinda') || q.includes('vrindavan')) && p.code === 'AX-VV-001')
         return { p, score: score + 5 }
       if ((q.includes('gaur') || q.includes('chrysalis') || q.includes('aero')) && p.code === 'AX-GC-001')

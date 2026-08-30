@@ -12,6 +12,7 @@ const localityCoords: Record<string, [number, number]> = {
   'Yamuna Expressway / Gaur Yamuna City': [28.34, 77.54],
   'Jewar / Yamuna Expressway': [28.165, 77.585],
   'Nandgaon / Barsana': [27.711, 77.386],
+  'Nari Semri / Vrindavan': [27.57, 77.655],
   Vrindavan: [27.5806, 77.6597],
   'Sector 153, Noida': [28.42, 77.45],
   'Omicron 1A, Greater Noida': [28.47, 77.51],

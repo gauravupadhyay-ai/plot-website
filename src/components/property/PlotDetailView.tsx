@@ -10,6 +10,8 @@ import {
 import { Property } from '@/types/property'
 import { getCallUrl, getSecondaryCallUrl, getTelUrl, getWhatsAppUrl, CONTACT_PHONES, SITE_NAME } from '@/lib/utils'
 import { GoogleReviewCard, GoogleMark, GoogleStars } from '@/components/ui/GoogleReviewCard'
+import { VrindavanAmbience } from '@/components/property/VrindavanAmbience'
+import { ambienceTracksFor } from '@/lib/vrindavanAmbience'
 
 export function PlotDetailView({
   property,
@@ -130,6 +132,7 @@ export function PlotDetailView({
         ? 'Apartment'
         : 'Residential Plot'
   const panoramaEmbed = property.panoramaUrl || ''
+  const ambienceTracks = useMemo(() => ambienceTracksFor(property), [property])
 
   return (
     <div className="bg-brand-light px-4 pb-16 pt-24 sm:px-6 lg:px-8 lg:pt-28">
@@ -143,6 +146,7 @@ export function PlotDetailView({
           <span>›</span>
           <span className="font-medium text-text-primary">{property.title}</span>
         </nav>
+        {ambienceTracks.length > 0 && <VrindavanAmbience tracks={ambienceTracks} />}
 
         <div className="grid grid-cols-1 gap-6 lg:grid-cols-[minmax(0,7fr)_minmax(0,3fr)] lg:gap-8">
           {/* Left */}

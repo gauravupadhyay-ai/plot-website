@@ -16,7 +16,15 @@ export const localities: Locality[] = [
     description:
       'Pre-launch government-approved plots in the Braj spiritual circuit — Nandgaon, Barsana, Govardhan, and Vrindavan connectivity.',
     propertyCount: 1,
-    image: '/images/plots/lalita-kunj/cover.jpg',
+    image: '/images/plots/lalita-kunj/01.jpg',
+  },
+  {
+    slug: 'nari-semri-vrindavan',
+    name: 'Nari Semri / Vrindavan',
+    description:
+      'Shubh Labh Group plotted townships on NH-2 near Sanskriti University — Nari Semri Plots, Radha Krishna Vrindavan Ashram, and Radha Krishna Puram.',
+    propertyCount: 3,
+    image: '/images/plots/nari-semri/01.jpg',
   },
   {
     slug: 'vrindavan',
@@ -66,7 +74,10 @@ export const searchLocalities = localities.map((l) => l.name)
 /** Best cover image per listing for homepage hero rotation. */
 export const heroPlotImages = [
   { src: '/images/plots/hari_shyam_township/jawer_plot1.jpeg', title: 'Hari Shyam Township', locality: 'Jewar / Yamuna Expressway' },
-  { src: '/images/plots/lalita-kunj/cover.jpg', title: 'Lalita Kunj', locality: 'Nandgaon / Barsana' },
+  { src: '/images/plots/lalita-kunj/01.jpg', title: 'Lalita Kunj', locality: 'Nandgaon / Barsana' },
+  { src: '/images/plots/nari-semri/01.jpg', title: 'Nari Semri Plots', locality: 'Nari Semri / Vrindavan' },
+  { src: '/images/plots/radha-krishna-vihar/01.jpg', title: 'Radha Krishna Vrindavan Ashram', locality: 'Nari Semri / Vrindavan' },
+  { src: '/images/plots/radha-krishna-puram/01.jpg', title: 'Radha Krishna Puram', locality: 'Nari Semri / Vrindavan' },
   { src: '/images/plots/vrinda-vatika/cover.png', title: 'Vrinda Vatika Homes', locality: 'Vrindavan' },
   { src: '/images/plots/urbtech-business-suites/cover.jpg', title: 'Urbtech Business Suites', locality: 'Sector 153, Noida' },
   { src: '/images/plots/urbtech-npx-extension/cover.jpg', title: 'Urbtech NPX Extension', locality: 'Sector 153, Noida' },

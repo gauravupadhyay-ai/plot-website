@@ -22,6 +22,7 @@ export async function getCategoryListings(category: PropertyCategory): Promise<P
       panoramaUrl: undefined,
       panoramaLink: undefined,
       documents: undefined,
+      ambientAudio: undefined,
     }
   })
 }

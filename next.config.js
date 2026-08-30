@@ -30,6 +30,7 @@ const nextConfig = {
       { source: '/expressway-residency', destination: '/properties', permanent: true },
       { source: '/expressway-residency.html', destination: '/properties', permanent: true },
       { source: '/properties/expressway-residency-yamuna-expressway', destination: '/properties', permanent: true },
+      { source: '/properties/shri-radha-krishna-vihar-vrindavan', destination: '/properties/radha-krishna-vrindavan-ashram', permanent: true },
       { source: '/index.html', destination: '/properties', permanent: true },
     ];
   },
