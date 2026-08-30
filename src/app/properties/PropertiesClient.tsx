@@ -274,7 +274,7 @@ export function PropertiesClient({
   }
 
   const listingLocalities = useMemo(
-    () => [...new Set(plots.map((p) => p.locality).filter(Boolean))],
+    () => Array.from(new Set(plots.map((p) => p.locality).filter(Boolean))),
     [plots]
   )
   const showShubhLabhFilters = plots.some(
