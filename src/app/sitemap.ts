@@ -2,6 +2,7 @@ import type { MetadataRoute } from 'next'
 import { getProperties } from '@/data/properties'
 import { getAllBlogPosts } from '@/data/blogPosts'
 import { SITE_URL } from '@/lib/utils'
+import { PLOT_LANDING_SLUGS } from '@/lib/plotLandingSlugs'
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = SITE_URL
@@ -41,5 +42,20 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.7,
   }))
 
-  return [...staticPages, ...propertyPages, ...blogPages]
+  const landingPages = PLOT_LANDING_SLUGS.flatMap((slug) => [
+    {
+      url: `${baseUrl}/${slug}`,
+      lastModified: new Date(),
+      changeFrequency: 'weekly' as const,
+      priority: 0.85,
+    },
+    {
+      url: `${baseUrl}/${slug}/the-corridor`,
+      lastModified: new Date(),
+      changeFrequency: 'weekly' as const,
+      priority: 0.8,
+    },
+  ])
+
+  return [...staticPages, ...landingPages, ...propertyPages, ...blogPages]
 }

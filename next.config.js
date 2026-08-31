@@ -1,4 +1,14 @@
 /** @type {import('next').NextConfig} */
+
+const plotLandingSlugs = [
+  'hari-shyam-township-jewar',
+  'lalita-kunj-nandgaon-barsana',
+  'nari-semri-plots-vrindavan',
+  'radha-krishna-vrindavan-ashram',
+  'radha-krishna-puram-vrindavan',
+  'vrinda-vatika-homes-vrindavan',
+]
+
 const nextConfig = {
   images: {
     formats: ['image/avif', 'image/webp'],
@@ -33,6 +43,14 @@ const nextConfig = {
       { source: '/properties/shri-radha-krishna-vihar-vrindavan', destination: '/properties/radha-krishna-vrindavan-ashram', permanent: true },
       { source: '/index.html', destination: '/properties', permanent: true },
     ];
+  },
+  async rewrites() {
+    return plotLandingSlugs.flatMap((slug) => [
+      { source: `/${slug}`, destination: `/landings/${slug}.html` },
+      { source: `/${slug}/`, destination: `/landings/${slug}.html` },
+      { source: `/${slug}/the-corridor`, destination: `/landings/${slug}-the-corridor.html` },
+      { source: `/${slug}/the-corridor/`, destination: `/landings/${slug}-the-corridor.html` },
+    ]);
   },
 };
 

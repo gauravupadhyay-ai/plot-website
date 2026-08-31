@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "seed:properties": "node scripts/seed-properties-to-supabase.mjs"
+    "seed:properties": "node scripts/seed-properties-to-supabase.mjs",
+    "generate:landings": "node scripts/generate-plot-landings.mjs"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.9.0",
