@@ -3,7 +3,7 @@ import { useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { Mail, MapPin, Clock, Instagram, Linkedin, Send, Award } from 'lucide-react'
-import { CONTACT_EMAIL, SITE_NAME } from '@/lib/utils'
+import { CONTACT_EMAIL, OFFICE_ADDRESS, SITE_NAME } from '@/lib/utils'
 import { ContactPhoneLinks } from '@/components/ui/ContactPhoneLinks'
 
 const credentials = [
@@ -160,7 +160,7 @@ export function Footer() {
               <li className="flex gap-3">
                 <MapPin size={18} className="mt-1 flex-shrink-0 text-white" />
                 <span className="text-[15px] leading-relaxed text-white/60">
-                  Greater Noida / Yamuna Expressway corridor, Uttar Pradesh (NCR)
+                  {OFFICE_ADDRESS}
                 </span>
               </li>
               <ContactPhoneLinks variant="footer" iconSize={18} asListItems />

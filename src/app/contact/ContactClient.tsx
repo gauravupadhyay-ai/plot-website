@@ -9,6 +9,8 @@ import {
   SITE_NAME,
   CONTACT_EMAIL,
   EMAIL_ALIASES,
+  OFFICE_ADDRESS,
+  OFFICE_MAPS_EMBED,
 } from '@/lib/utils'
 import { ContactPhoneLinks } from '@/components/ui/ContactPhoneLinks'
 
@@ -212,7 +214,7 @@ export function ContactClient() {
                   <div className="flex gap-3">
                     <MapPin size={20} className="text-brand-primary flex-shrink-0 mt-1" />
                     <p className="text-text-secondary text-sm leading-relaxed font-sans">
-                      Greater Noida / Yamuna Expressway corridor, Uttar Pradesh (NCR)
+                      {OFFICE_ADDRESS}
                     </p>
                   </div>
                   <ContactPhoneLinks />
@@ -294,7 +296,7 @@ export function ContactClient() {
       <section className="bg-white">
         <div className="h-[350px] md:h-[450px]">
           <iframe
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d112183.0!2d77.5040!3d28.4744!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390ce5a43173357b%3A0x37ffce30c87cc03f!2sGreater%20Noida%2C%20Uttar%20Pradesh!5e0!3m2!1sen!2sin!4v1"
+            src={OFFICE_MAPS_EMBED}
             width="100%"
             height="100%"
             style={{ border: 0 }}

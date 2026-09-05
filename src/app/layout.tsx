@@ -4,7 +4,7 @@ import { Outfit, Manrope, Space_Mono } from 'next/font/google'
 import { GoogleAnalytics } from '@next/third-parties/google'
 import './globals.css'
 import { MobileBottomNav } from '@/components/ui/MobileBottomNav'
-import { CONTACT_EMAIL, CONTACT_PHONES, SITE_NAME, SITE_URL } from '@/lib/utils'
+import { CONTACT_EMAIL, CONTACT_PHONES, OFFICE_ADDRESS_SCHEMA, SITE_NAME, SITE_URL } from '@/lib/utils'
 
 const WhatsAppFAB = dynamic(
   () => import('@/components/ui/WhatsAppFAB').then((m) => m.WhatsAppFAB),
@@ -116,11 +116,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 'NCR real estate specialists helping buyers find verified plots, residences, and commercial inventory with clear titles.',
               address: {
                 '@type': 'PostalAddress',
-                streetAddress: 'Greater Noida & Yamuna Expressway corridor',
-                addressLocality: 'Greater Noida',
-                addressRegion: 'Uttar Pradesh',
-                postalCode: '201310',
-                addressCountry: 'IN',
+                ...OFFICE_ADDRESS_SCHEMA,
               },
               areaServed: ['Greater Noida', 'Noida', 'Yamuna Expressway', 'Vrindavan', 'NCR'],
               telephone: [...CONTACT_PHONES],

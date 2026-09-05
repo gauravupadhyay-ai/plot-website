@@ -8,7 +8,7 @@ import {
   MessageCircle, Phone, ShieldCheck, Star, Maximize2, X, ZoomIn, ZoomOut,
 } from 'lucide-react'
 import { Property } from '@/types/property'
-import { getCallUrl, getSecondaryCallUrl, getTelUrl, getWhatsAppUrl, CONTACT_PHONES, SITE_NAME } from '@/lib/utils'
+import { getCallUrl, getSecondaryCallUrl, getTelUrl, getWhatsAppUrl, CONTACT_PHONES, OFFICE_ADDRESS, SITE_NAME } from '@/lib/utils'
 import { GoogleReviewCard, GoogleMark, GoogleStars } from '@/components/ui/GoogleReviewCard'
 import { VrindavanAmbience } from '@/components/property/VrindavanAmbience'
 import { ambienceTracksFor } from '@/lib/vrindavanAmbience'
@@ -632,13 +632,11 @@ export function PlotDetailView({
                   {property.location}
                 </span>
               </p>
-              {property.slug.includes('vrinda-vatika') && (
-                <p className="mt-3 text-sm text-text-secondary">
-                  <span className="font-semibold text-text-primary">Head office</span>
-                  <br />
-                  1502B, Supertech Astralis Supernova, Sector-94, Noida – 201313
-                </p>
-              )}
+              <p className="mt-3 text-sm text-text-secondary">
+                <span className="font-semibold text-text-primary">Our office</span>
+                <br />
+                {OFFICE_ADDRESS}
+              </p>
               <div className="relative mt-4 h-36 overflow-hidden rounded-2xl bg-[linear-gradient(135deg,#e8eaed,#f3f4f6)]">
                 <div className="absolute inset-0 flex items-center justify-center">
                   <div className="rounded-full bg-brand-primary px-3 py-1.5 text-xs font-bold text-white shadow-cta">

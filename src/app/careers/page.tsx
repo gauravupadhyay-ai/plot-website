@@ -11,8 +11,8 @@ export const metadata: Metadata = {
 }
 
 const roles = [
-  { title: 'Sales Executive', location: 'Greater Noida / Noida', type: 'Full-time' },
-  { title: 'Marketing Associate', location: 'Greater Noida / Noida', type: 'Full-time' },
+  { title: 'Sales Executive', location: 'Noida, Sector 132', type: 'Full-time' },
+  { title: 'Marketing Associate', location: 'Noida, Sector 132', type: 'Full-time' },
   { title: 'Loan DSA Partner', location: 'NCR', type: 'Commission-based' },
 ]
 

@@ -129,6 +129,7 @@ function footer(p) {
       <a href="/${p.slug}/the-corridor">The Corridor</a>
     </nav>
     <span>${esc(p.footerPlace)}</span>
+    <span>Office No. 701, 7th Floor, Tower A, Urbtech Trade Centre (UTC), Plot No. B-35, Sector 132, Noida, Gautam Buddha Nagar, Uttar Pradesh – 201304, India</span>
     <span><a href="mailto:contact@aurixxrealty.com">contact@aurixxrealty.com</a></span>
     <span>© 2026 Aurixxrealty. All Rights Reserved.</span>
   </div>

@@ -74,8 +74,8 @@ export default function AboutPage() {
                 <p>
                   {SITE_NAME} was founded with a clear focus: help people buy property across
                   Greater Noida, Noida, Yamuna Expressway, and Vrindavan with transparency, local
-                  insight, and zero pressure. Based along the Greater Noida / Yamuna Expressway
-                  corridor, we guide buyers through verified plots, highrise, and commercial
+                  insight, and zero pressure. Based at Urbtech Trade Centre, Sector 132, Noida,
+                  we guide buyers through verified plots, highrise, and commercial
                   options — so every decision feels informed and secure.
                 </p>
                 <p>

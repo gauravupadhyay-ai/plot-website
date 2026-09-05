@@ -37,6 +37,21 @@ export const CONTACT_PHONES = [PHONE_NUMBER, SECONDARY_PHONE_NUMBER] as const
 export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.aurixxrealty.com'
 export const SITE_NAME = process.env.NEXT_PUBLIC_SITE_NAME || 'Aurixxrealty'
 
+export const OFFICE_ADDRESS =
+  'Office No. 701, 7th Floor, Tower A, Urbtech Trade Centre (UTC), Plot No. B-35, Sector 132, Noida, Gautam Buddha Nagar, Uttar Pradesh – 201304, India'
+
+export const OFFICE_ADDRESS_SCHEMA = {
+  streetAddress:
+    'Office No. 701, 7th Floor, Tower A, Urbtech Trade Centre (UTC), Plot No. B-35, Sector 132',
+  addressLocality: 'Noida',
+  addressRegion: 'Uttar Pradesh',
+  postalCode: '201304',
+  addressCountry: 'IN',
+} as const
+
+export const OFFICE_MAPS_EMBED =
+  'https://www.google.com/maps?q=Urbtech+Trade+Centre+UTC+Plot+B-35+Sector+132+Noida+201304&output=embed'
+
 /** Public / department email aliases */
 export const CONTACT_EMAIL =
   process.env.NEXT_PUBLIC_CONTACT_EMAIL || process.env.CONTACT_EMAIL || 'contact@aurixxrealty.com'

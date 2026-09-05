@@ -8,6 +8,7 @@ import { Bot, Send, X, ExternalLink } from 'lucide-react'
 import { seedPlots } from '@/data/seedPlots'
 import { categoryFromType, PROPERTY_CATEGORIES } from '@/lib/propertyCategories'
 import { isMinimalChromeRoute } from '@/lib/routes'
+import { OFFICE_ADDRESS } from '@/lib/utils'
 
 type ChatMessage = {
   role: 'user' | 'assistant'
@@ -74,6 +75,14 @@ function findAnswer(input: string): ChatMessage {
     highrise.length ? `${highrise.length} highrise residence(s)` : null,
     commercial.length ? `${commercial.length} commercial propert(ies)` : null,
   ].filter(Boolean)
+
+  if (/\b(office|address|visit you|your location|where are you)\b/.test(q)) {
+    return {
+      role: 'assistant',
+      text: `Our office is ${OFFICE_ADDRESS}`,
+      links: [{ label: 'Contact & map', href: '/contact' }],
+    }
+  }
 
   // Coverage / areas
   if (/where|area|localit|cover|noida|vrindavan|greater noida|ncr|expressway/.test(q)) {
