@@ -47,8 +47,8 @@ const pages = [
       img('jewar-airport'),
     ],
     eyebrow: 'Jewar Growth Corridor · Hari Kripa Buildscape',
-    h1: 'The Airport Is Coming. This Plot Is Already Here.',
-    subhead: 'Pre-launch gated plots from ₹18,000–₹22,000 / gaj. 50 to 200 gaj, beside the Yamuna Expressway. Site visits are open now.',
+    h1: 'Airport Is Coming. Plot Is Ready.',
+    subhead: 'Pre-launch gated plots from ₹18,000–₹22,000 / gaj on the Yamuna Expressway. Sizes 50 to 200 gaj. Site visits are open now.',
     heroReview: {
       name: 'Vikram Mehra',
       type: 'Investor',
@@ -57,7 +57,7 @@ const pages = [
       quote:
         'Went to Jewar expecting another messy airport listing. Aurixxrealty walked Hari Shyam Township with us, showed 50 to 200 gaj, and did not rush the booking. That is why we locked a plot before this belt gets louder.',
     },
-    chips: ['Freehold', 'Pre-Launch', 'Gated Township', 'Limited Inventory'],
+    chips: ['Freehold', 'Pre-Launch', 'Gated Township', 'Hari Kripa'],
     stats: [
       { word: '₹18–22k / gaj.', desc: 'Pre-launch rate today for 50, 100, 150 and 200 gaj plots - before the corridor fully prices in the airport.' },
       { word: 'Airport Belt.', desc: 'Noida International Airport is coming up in Jewar. Land on this stretch is the kind buyers ask about first.' },
@@ -116,12 +116,12 @@ const pages = [
     ],
     offerLead: 'Hari Shyam Township is a premium gated township by Hari Kripa Buildscape Pvt. Ltd. - for buyers who want land near Noida’s new airport secured before the Jewar corridor fully builds out.',
     offerItems: [
-      'Freehold ownership - full title, in your name',
-      'Plot sizes 50, 100, 150 and 200 gaj',
-      'Pre-launch ₹18,000–₹22,000 per gaj',
-      'Wide roads, green environment, parks, electricity & water',
-      'Gated society on the Jewar growth corridor',
-      'Site visit available before you commit',
+      'Freehold ownership · Full title, in your name',
+      'Plot sizes 50–200 gaj · Four options at pre-launch',
+      'Pre-launch ₹18,000–₹22,000 · Per gaj rate band today',
+      'Wide roads & parks · Electricity and water planned in',
+      'Gated society · On the Jewar growth corridor',
+      'Site visit first · Walk the land before you commit',
     ],
     offerNote: 'Exact plot availability and the current rate band are confirmed per plot - share your details and we’ll send them directly.',
     mapSrc: 'https://www.google.com/maps?q=Noida+International+Airport+Jewar&z=12&hl=en&output=embed',
@@ -154,7 +154,7 @@ const pages = [
     ],
     eyebrow: 'Jewar Growth Corridor · Rama Global Infra',
     h1: 'A Township Designed for Tomorrow.',
-    subhead: 'Gated plots near Jattari Market, behind Khatu Shyam Mandir. About 25 minutes from Jewar Airport. Park, mandir, club, and 25–40 ft roads. Price on request.',
+    subhead: 'Gated plots near Jattari Market, behind Khatu Shyam Mandir. About 25 minutes from Jewar Airport. Park, mandir, club on site.',
     heroReview: {
       name: 'Rohit Agarwal',
       type: 'Investor',
@@ -163,7 +163,7 @@ const pages = [
       quote:
         'Wanted land near the airport without another messy open-field listing. Aurixxrealty walked Rama Enclave, showed the gated layout and the Jattari drive, and did not rush the booking. That is why we asked for a plot size instead of walking away.',
     },
-    chips: ['Price on Request', 'Gated Society', 'Park · Mandir · Club', 'Jewar Airport Belt'],
+    chips: ['Gated Society', '25 min Airport', 'Park · Mandir · Club', 'Rama Global'],
     stats: [
       { word: 'Airport Belt.', desc: 'About 25 minutes from Jewar International Airport, near Jattari Market behind Khatu Shyam Mandir - on the Yamuna Expressway growth corridor.' },
       { word: 'Gated Township.', desc: 'Park, mandir, and club on site. Internal roads of 25, 30 and 40 ft, with a concrete boundary wall and government electricity.' },
@@ -237,12 +237,12 @@ const pages = [
     ],
     offerLead: 'Rama Enclave is a premium gated township by Rama Global Infra Pvt. Ltd. - for buyers who want land near Noida’s new airport in a society with park, mandir, and club, not only a fenced field.',
     offerItems: [
-      'Price on request - confirmed per plot after a site discussion',
-      'Residential plots around 100–125 sq.yd · commercial shops ~56 sq.yd',
-      'Gated society with park, mandir, and club',
-      'Internal roads 25, 30 and 40 ft · concrete boundary wall',
+      'Price on request · Confirmed per plot after site discussion',
+      'Residential 100–125 sq.yd · Commercial shops ~56 sq.yd',
+      'Gated society · Park, mandir, and club on site',
+      'Internal roads 25–40 ft · Concrete boundary wall',
       'Government electricity · 24/7 water, power, and security',
-      'U.P. government registry and mutation · concrete construction permitted',
+      'U.P. registry & mutation · Concrete construction permitted',
     ],
     offerNote: 'Exact plot availability and the current rate are confirmed per plot - share your details and we’ll send them directly.',
     mapSrc: 'https://www.google.com/maps?q=28.025278,77.642222&z=14&hl=en&output=embed',
@@ -270,8 +270,8 @@ const pages = [
     heroImage: '/images/plots/lalita-kunj/01.jpg',
     heroImages: [img('radha-rani-barsana'), img('nandgaon'), img('lalita-township')],
     eyebrow: 'Nandgaon–Barsana · Pre-Launch',
-    h1: '₹21,000 Today. Beat the Launch Price.',
-    subhead: 'Lock ₹32,500 / gaj at Lalita Kunj before the expected ₹45,500 launch. 582 plots, Zila Panchayat approved, allotted through a draw.',
+    h1: '₹21,000 Today. Beat Launch Price.',
+    subhead: 'Lock ₹32,500 / gaj at Lalita Kunj before the expected ₹45,500 launch. 582 plots. Zila Panchayat approved. Draw allotment open.',
     heroReview: {
       name: 'Priya Sharma',
       type: 'Buyer',
@@ -280,7 +280,7 @@ const pages = [
       quote:
         'We wanted Braj land without paying launch rates. Aurixxrealty explained the ₹21,000 registration and the draw in plain language, then took us to Lalita Kunj. After the visit we registered. Finally felt like we understood the papers, not only the brochure.',
     },
-    chips: ['₹21,000 Registration', 'Zila Panchayat Approved', '80C Benefit', 'RERA Coming'],
+    chips: ['₹21,000 Entry', 'Zila Approved', '80C Benefit', 'RERA Coming'],
     stats: [
       { word: '₹32,500 / gaj.', desc: 'Pre-launch rate today. Expected launch is ₹45,500 per gaj - early registration is how you lock the gap.' },
       { word: '₹21,000.', desc: 'Registration is open at ₹21,000. Plots are allotted through a draw - a limited window, not an open-ended offer.' },
@@ -375,8 +375,8 @@ const pages = [
     heroImage: '/images/plots/nari-semri/01.jpg',
     heroImages: VRINDAVAN_HERO,
     eyebrow: 'NH-2 · Mathura–Vrindavan',
-    h1: 'Not Near Vrindavan. On the Road Into It.',
-    subhead: 'Gated Shubh Labh plots on NH-2, next to Sanskriti University. 60–500 sq.yd. Pricing on request after a site visit.',
+    h1: 'Not Near Vrindavan. On The Road.',
+    subhead: 'Gated Shubh Labh plots on NH-2, next to Sanskriti University. Sizes 60 to 500 sq.yd. Pricing on request after site visit.',
     heroReview: {
       name: 'Rohit Malhotra',
       type: 'Buyer',
@@ -385,7 +385,7 @@ const pages = [
       quote:
         'Most NH-2 listings were a khet with a board. Aurixxrealty took us to the Nari Semri layout near Sanskriti University, showed the gate and the road widths, and only then talked price. That order is why we are still with Aurixxrealty on this plot.',
     },
-    chips: ['Price on Request', 'Shubh Labh Group', 'Gated Township', 'NH-2 Corridor'],
+    chips: ['Price on Request', 'Shubh Labh', 'Gated Township', 'NH-2 Corridor'],
     stats: [
       { word: '60–500 sq.yd.', desc: 'Typical sizes include 60, 100, 150, 200, 250 and 500 square yards - confirmed after a site discussion.' },
       { word: 'Highway Belt.', desc: 'On the NH-19 / NH-2 corridor near Sanskriti University - the road people already use to reach Mathura–Vrindavan.' },
@@ -455,7 +455,7 @@ const pages = [
     heroImage: '/images/plots/radha-krishna-vihar/01.jpg',
     heroImages: VRINDAVAN_HERO,
     eyebrow: 'Vrindavan · Opposite Sukhdev Dhaba',
-    h1: 'Temple Mornings. A Plot You Can Find.',
+    h1: 'Temple Mornings. Plot You Can Find.',
     subhead: 'Gated Radha Krishna Vrindavan Ashram on NH-2, opposite Sukhdev Dhaba. Parks, courts, temple circuit. Pricing on request.',
     heroReview: {
       name: 'Meenakshi Iyer',
@@ -465,7 +465,7 @@ const pages = [
       quote:
         'We wanted a Vrindavan plot we could actually pin on a map. Aurixxrealty showed Radha Krishna Vrindavan Ashram opposite Sukhdev Dhaba and walked the gate with us. Prem Mandir on the same drive. That is the address we were looking for.',
     },
-    chips: ['Price on Request', 'Shubh Labh Group', 'Gated Community', 'NH-2 Vrindavan'],
+    chips: ['Price on Request', 'Shubh Labh', 'Gated Community', 'NH-2 Vrindavan'],
     stats: [
       { word: 'Ashram Address.', desc: 'Not a generic NH-2 khet. A named gated community - Radha Krishna Vrindavan Ashram - on the Vrindavan approach.' },
       { word: 'On NH-2.', desc: 'Opposite Sukhdev Dhaba, near Nari Semri. Highway access first, temple circuit second - both on the same drive.' },
@@ -535,8 +535,8 @@ const pages = [
     heroImage: '/images/plots/radha-krishna-puram/01.jpg',
     heroImages: VRINDAVAN_HERO,
     eyebrow: 'NH-2 · Nari Semri Village',
-    h1: 'A Colony on NH-2. Not a Painted Board.',
-    subhead: 'Radha Krishna Puram: 25–40 ft streets, parks, shops in the layout, opposite Sukhdev Dhaba. Pricing on request.',
+    h1: 'Colony on NH-2. Not a Board.',
+    subhead: 'Radha Krishna Puram has 25 to 40 ft streets, parks, and shops in layout, opposite Sukhdev Dhaba. Pricing on request today.',
     heroReview: {
       name: 'Harshvardhan Singh',
       type: 'Investor',
@@ -545,7 +545,7 @@ const pages = [
       quote:
         'I did not want a dead-end society. Aurixxrealty showed Radha Krishna Puram as a gated colony with 25 to 40 ft roads and shops in the plan. Opposite a dhaba every driver already knows. That is an address you can explain later.',
     },
-    chips: ['Price on Request', 'Shubh Labh Group', 'Gated Colony', 'Shops in Layout'],
+    chips: ['Price on Request', 'Shubh Labh', 'Gated Colony', 'Shops in Layout'],
     stats: [
       { word: 'Gated Colony.', desc: 'Internal roads from 25 ft to 40 ft, dedicated parks, water and electrical lines, 24/7 security - a colony, not a raw parcel.' },
       { word: 'On NH-2.', desc: 'Nari Semri Village, opposite Sukhdev Dhaba, Chhata Rural, Mathura 281401. A postal pin, not a “coming soon” sector.' },
@@ -678,12 +678,14 @@ const pages = [
     ],
     offerLead: 'Vrinda Vatika Homes (VVH Group) offers freehold residential plots in a gated community on NH-2, Semri - for buyers who want a Vrindavan home next to Sanskriti University, with club-house amenities, not only a fenced khet.',
     offerItems: [
-      'From ₹29,900* per sq.yd · 110–255 sq.yd',
-      'Market outlook around ₹39,900* in the next 1½–2 years',
-      'On NH-2, only 900 m from Sanskriti University',
+      'From ₹29,900* per sq.yd · Premium plots at an unbeatable price',
+      'Market outlook ~₹39,900* · In the next 1½–2 years',
+      'On NH-2, only 900 m · From Sanskriti University',
       '8 min Vishno Devi · 10 min Prem Mandir & Chandrodaya',
       '12 min Garud Govind & ISKCON · 15 min Bankey Bihari',
-      'Club house, pools, parks, CCTV, solar lighting, power backup',
+      'Club house, pools, parks · CCTV, solar lighting, power backup',
+      'Freehold gated community · 80(1) approved residential plots',
+      'Bank & Govt Loans · Financing support on this property',
     ],
     offerNote: '*Starting price is subject to terms. Confirm current applicability of ₹29,900 per sq.yd before booking.',
     mapSrc: 'https://www.google.com/maps?q=NH-2+Semri+Vrindavan+Uttar+Pradesh+281401&z=14&hl=en&output=embed',

@@ -135,11 +135,281 @@ function googleReviewsHeader() {
 
 function heroTrust(p) {
   const review = p.heroReview || LANDING_REVIEWS[0]
-  return `<div class="hero-trust reveal">
+  return `<aside class="hero-trust reveal">
         ${googleReviewsHeader()}
         ${googleReviewCard(review)}
-        <button type="button" class="btn btn-gold btn-block js-open-lead">Get Pricing &amp; Availability</button>
+        <button type="button" class="hero-trust-cta js-open-lead">Get Pricing &amp; Availability <span aria-hidden="true">→</span></button>
+      </aside>`
+}
+
+function heroFeatureIcon(label) {
+  const t = String(label).toLowerCase()
+  // Freehold / ownership shield
+  if (/freehold|secure|title|registry|mutation|ownership/.test(t))
+    return `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.55" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 4.5 6.4v5.1c0 4.9 3.2 8.4 7.5 9.9 4.3-1.5 7.5-5 7.5-9.9V6.4L12 3Z"/><path d="m8.8 12.1 2.2 2.2 4.2-4.3"/></svg>`
+  // Map pin / distance
+  if (/campus|university|from |near |metre|meter|\d+\s*m\b|km|min|mins|hour|nearby|noida|delhi|gurugram|airport|nh-?2|expressway|jewar|corridor|belt/.test(t))
+    return `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.55" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7.2-5.6 7.2-11.2a7.2 7.2 0 1 0-14.4 0C4.8 15.4 12 21 12 21Z"/><circle cx="12" cy="9.8" r="2.6"/><path d="M12 7.6v.2"/></svg>`
+  // Bank / loans
+  if (/loan|bank|govt|government/.test(t) && !/approv|80\(?1\)?|rera|zila/.test(t))
+    return `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.55" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 4l9 6.5"/><path d="M5 10.5V19h14v-8.5"/><path d="M3 19h18"/><path d="M9 14.5h.01M12 14.5h.01M15 14.5h.01"/></svg>`
+  // Approvals / temple-like stamp
+  if (/approv|80\(?1\)?|rera|zila|panchayat|80c|credai|nar/.test(t))
+    return `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.55" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h16"/><path d="M6.5 20V11l5.5-5 5.5 5v9"/><path d="M10 20v-4.5h4V20"/><path d="M12 6v2.5"/><circle cx="12" cy="4.2" r="1.1"/></svg>`
+  // Leaf / trusted developer / group
+  if (/group|vvh|rama|hari|shubh|developer|trusted/.test(t))
+    return `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.55" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21c0-8.5 4.2-13.2 9-14-1.2 6.2-4.8 9.8-9 14Z"/><path d="M12 21C12 12.5 7.8 7.8 3 7c1.2 6.2 4.8 9.8 9 14Z"/><path d="M12 21V10"/></svg>`
+  // Gated / society / township
+  if (/gated|society|township|colony|inventory|pre-?launch|new|shops/.test(t))
+    return `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.55" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V9.5L12 4l8 5.5V20"/><path d="M9.5 20v-5h5v5"/><path d="M4 20h16"/></svg>`
+  // Park / mandir / club / green
+  if (/park|mandir|club|green|temple/.test(t))
+    return `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.55" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22V12"/><path d="M7 12a5 5 0 0 1 5-5 5 5 0 0 1 5 5c-2.8 0-5 1.6-5 4.2S9.8 12 7 12Z"/><path d="M12 7V4"/></svg>`
+  // Price
+  if (/₹|price|request|registration/.test(t))
+    return `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.55" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9 8h5.2a2.4 2.4 0 0 1 0 4.8H9l4.8 5"/><path d="M9 12.8h5.2"/></svg>`
+  return `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.55" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l2.4 4.9L20 9l-4 3.9.9 5.4L12 15.8 7.1 18.3 8 12.9 4 9l5.6-1.1L12 3z"/></svg>`
+}
+
+function formatHeroTitle(h1) {
+  const text = String(h1 || '').trim()
+  const idx = text.indexOf('. ')
+  if (idx !== -1) {
+    return `<span class="h1-a">${esc(text.slice(0, idx + 1))}</span><br><span class="h1-b">${esc(text.slice(idx + 2))}</span>`
+  }
+  // Long single-line titles: break before "for …" (e.g. "A Township Designed for Tomorrow.")
+  const forMatch = text.match(/^(.{12,}?)\s+(for\s+.+)$/i)
+  if (forMatch) {
+    return `<span class="h1-a">${esc(forMatch[1])}</span><br><span class="h1-b">${esc(forMatch[2])}</span>`
+  }
+  return esc(text)
+}
+
+function formatSubhead(text) {
+  const raw = String(text || '').trim()
+  if (!raw) return ''
+  // Split on sentence boundaries only (". "), so abbreviations like sq.yd stay intact
+  const sentences = raw.includes('. ')
+    ? raw.split(/(?<=\.)\s+/).filter(Boolean)
+    : [raw]
+  const lines = []
+  for (const sentence of sentences) {
+    const s = sentence.trim()
+    if (!s) continue
+    if (s.length <= 56) {
+      lines.push(esc(s))
+      continue
+    }
+    const target = Math.floor(s.length * 0.58)
+    let breakAt = s.lastIndexOf(' ', target)
+    if (breakAt < 28) breakAt = s.indexOf(' ', Math.floor(s.length / 2))
+    if (breakAt > 0) {
+      lines.push(esc(s.slice(0, breakAt)))
+      lines.push(esc(s.slice(breakAt + 1)))
+    } else {
+      lines.push(esc(s))
+    }
+  }
+  return lines.join('<br>')
+}
+
+function mapsOpenUrl(mapSrc) {
+  const src = String(mapSrc || '')
+  const q = src.match(/[?&]q=([^&]+)/)
+  if (q) return `https://www.google.com/maps/search/?api=1&query=${q[1]}`
+  return src.replace(/([?&])output=embed/, '').replace(/&&/g, '&') || 'https://www.google.com/maps'
+}
+
+function mapDirectionLabel(p) {
+  if (p.mapDirection) return p.mapDirection
+  const t = `${p.slug} ${p.title} ${p.location || ''} ${p.mapCaption || ''}`.toLowerCase()
+  if (/jewar|noida|airport|jattari|yamuna/.test(t)) return 'To Delhi NCR'
+  if (/vrindavan|mathura|barsana|nandgaon|semri|braj/.test(t)) return 'To Mathura'
+  return 'Open route'
+}
+
+function formatOfferHeading(title) {
+  const t = String(title || '').trim()
+  const idx = t.indexOf(':')
+  if (idx !== -1) {
+    const lead = t.slice(0, idx).trim()
+    const rest = t.slice(idx + 1).trim()
+    return `<span class="offer-h2-lead">Introducing ${esc(lead)}:</span>${
+      rest ? `<span class="offer-h2-rest">${esc(rest)}</span>` : ''
+    }`
+  }
+  return `<span class="offer-h2-lead">Introducing ${esc(t)}:</span>`
+}
+
+function offerFeatureIcon(label, index) {
+  const t = String(label).toLowerCase()
+  // Rising chart for market outlook / growth
+  if (/outlook|market|growth|future|trend|↑/.test(t))
+    return `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19V5"/><path d="M4 19h16"/><path d="m8 14 3.2-3.2 2.8 2.8L20 7"/><path d="M15.5 7H20v4.5"/></svg>`
+  // Rupee / pricing
+  if (/₹|price|rate|registration|request|per sq|gaj|entry/.test(t))
+    return `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M9 8h5.5a2.5 2.5 0 0 1 0 5H9l5.5 5.5"/><path d="M9 12.5h5.5"/></svg>`
+  // Temple / timed darshan
+  if (/mandir|temple|iskcon|bihari|vishno|prem|garud|chandrodaya|ashram|darshan/.test(t))
+    return `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h16"/><path d="M6.5 20V11l5.5-5 5.5 5v9"/><path d="M10 20v-4.5h4V20"/><path d="M12 6v2.2"/><circle cx="12" cy="4.2" r="1"/></svg>`
+  // Clock for minute distances
+  if (/\d+\s*min|minutes/.test(t))
+    return `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>`
+  // Location / highway / campus
+  if (/nh-?2|m from|campus|university|airport|corridor|road|near|opposite|jattari|semri|highway|expressway/.test(t))
+    return `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-5.4 7-11a7 7 0 1 0-14 0c0 5.6 7 11 7 11Z"/><circle cx="12" cy="10" r="2.4"/></svg>`
+  // Shield / approvals / freehold
+  if (/freehold|title|registry|mutation|approv|80|rera|zila|secure|ownership|panchayat/.test(t))
+    return `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 4.5 6.4v5.1c0 4.9 3.2 8.4 7.5 9.9 4.3-1.5 7.5-5 7.5-9.9V6.4L12 3Z"/><path d="m8.8 12.1 2.2 2.2 4.2-4.3"/></svg>`
+  // Home / gated / amenities
+  if (/gated|society|township|colony|club|park|pool|cctv|power|amenit|shop|plot size|residential|house|solar/.test(t))
+    return `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M4 20V9.5L12 4l8 5.5V20"/><path d="M9.5 20v-5h5v5"/></svg>`
+  // Bank / loans
+  if (/loan|bank|govt|financ|water|electric|security/.test(t))
+    return `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 4l9 6.5"/><path d="M5 10.5V19h14v-8.5"/><path d="M3 19h18"/><path d="M9 14h.01M12 14h.01M15 14h.01"/></svg>`
+  const fallbacks = [
+    `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M8 12h8M12 8v8"/></svg>`,
+    `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3c-3.5 3.2-6 6.4-6 9.2A6 6 0 0 0 18 12.2C18 9.4 15.5 6.2 12 3Z"/><path d="M12 22v-7"/></svg>`,
+  ]
+  return fallbacks[index % fallbacks.length]
+}
+
+function offerFeatureItems(p) {
+  const items = p.offerItems.some((item) => /loan/i.test(item))
+    ? p.offerItems
+    : [...p.offerItems, 'Bank & Govt Loans · Financing support on this property']
+  return items.slice(0, 8).map((item, i) => {
+    const text = String(item)
+    let title = text
+    let sub = ''
+    if (text.includes(' · ')) {
+      const parts = text.split(' · ')
+      title = parts[0]
+      sub = parts.slice(1).join(' · ')
+    } else if (text.includes(' - ')) {
+      const idx = text.indexOf(' - ')
+      title = text.slice(0, idx)
+      sub = text.slice(idx + 3)
+    } else if (text.length > 42) {
+      const mid = Math.floor(text.length / 2)
+      const breakAt = text.lastIndexOf(' ', mid + 10)
+      if (breakAt > 12) {
+        title = text.slice(0, breakAt)
+        sub = text.slice(breakAt + 1)
+      }
+    }
+    return `<li>
+            <span class="offer-feat-ico" aria-hidden="true">${offerFeatureIcon(title, i)}</span>
+            <span class="offer-feat-copy">
+              <span class="offer-feat-title">${esc(title)}</span>
+              ${sub ? `<span class="offer-feat-sub">${esc(sub)}</span>` : ''}
+            </span>
+          </li>`
+  }).join('\n          ')
+}
+
+function offerMapCard(p) {
+  const openUrl = mapsOpenUrl(p.mapSrc)
+  const direction = mapDirectionLabel(p)
+  const address = p.mapCaption || p.location || p.title
+  return `<div class="offer-map reveal" id="site-map">
+        <div class="offer-map-frame">
+          <iframe src="${esc(p.mapSrc)}" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="${esc(p.title)} site location"></iframe>
+          <a class="offer-map-open" href="${esc(openUrl)}" target="_blank" rel="noopener">
+            Open in Maps
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M14 4h6v6M20 4 10 14"/><path d="M10 4H5a1 1 0 0 0-1 1v14a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-5"/></svg>
+          </a>
+          <span class="offer-map-dir">${esc(direction)} <span aria-hidden="true">→</span></span>
+          <span class="offer-map-zoom" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="6"/><path d="m20 20-3.5-3.5M11 8v6M8 11h6"/></svg>
+          </span>
+          <a class="offer-map-address" href="${esc(openUrl)}" target="_blank" rel="noopener">
+            <span class="offer-map-pin" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s7-5.4 7-11a7 7 0 1 0-14 0c0 5.6 7 11 7 11Z"/><circle cx="12" cy="10" r="2.4"/></svg></span>
+            <span>${esc(address)}</span>
+            <span class="offer-map-go" aria-hidden="true">→</span>
+          </a>
+        </div>
       </div>`
+}
+
+function offerList(p) {
+  return offerFeatureItems(p)
+}
+
+function splitFeatureChip(chip) {
+  const text = String(chip || '').trim()
+  const fromMatch = text.match(/^(.+?)\s+from\s+(.+)$/i)
+  if (fromMatch) {
+    const title = fromMatch[1].replace(/\bm\b/i, 'M')
+    return { title, sub: `From ${fromMatch[2]}` }
+  }
+  const nearMatch = text.match(/^(.+?)\s+near\s+(.+)$/i)
+  if (nearMatch) return { title: nearMatch[1], sub: `Near ${nearMatch[2]}` }
+  const minMatch = text.match(/^(\d+\s*min)\s+(.+)$/i)
+  if (minMatch) {
+    const place = minMatch[2]
+    const sub = /airport/i.test(place) ? 'From Jewar Airport' : place
+    return { title: minMatch[1].replace(/\bmin\b/i, 'Min'), sub }
+  }
+  return { title: text, sub: '' }
+}
+
+function featureSubtitle(chip, title, existingSub) {
+  if (existingSub) return existingSub
+  const t = String(chip).toLowerCase()
+  if (/freehold|title|ownership/.test(t)) return 'Secure Ownership'
+  if (/80\(?1\)?/.test(t)) return 'Ready to Build'
+  if (/80c/.test(t)) return 'Tax Benefit'
+  if (/rera/.test(t)) return 'Buyer Protection'
+  if (/zila|panchayat|approved/.test(t)) return 'Local Approval'
+  if (/vvh|rama|hari|shubh|group|developer|kripa|global|labh/.test(t)) return 'Trusted Developer'
+  if (/gated|society|township|colony|community/.test(t)) return 'Secure Living'
+  if (/inventory/.test(t)) return 'Few Plots Left'
+  if (/pre-?launch|new/.test(t)) return 'Limited Release'
+  if (/airport|jewar|corridor|belt|expressway|nh-?2/.test(t)) return 'Growth Corridor'
+  if (/park|mandir|club|green|temple|shops/.test(t)) return 'On-Site Amenities'
+  if (/₹|registration|price|request|entry/.test(t)) return 'Transparent Pricing'
+  if (/loan|bank|govt/.test(t)) return 'Financing Support'
+  if (/campus|university|from |near |\d+\s*m|\d+\s*min/.test(t)) return 'Prime Location'
+  return title.length < 18 ? 'Key Highlight' : ''
+}
+
+function heroFeatures(chips) {
+  const list = chips.map((c) => String(c))
+  const loanIdx = list.findIndex((c) => /bank|govt|loan/i.test(c) && !/approv|80\(?1\)?/i.test(c))
+  const loanChip = loanIdx >= 0 ? list.splice(loanIdx, 1)[0] : ''
+
+  const score = (c) => {
+    const t = c.toLowerCase()
+    if (/freehold|secure|title|ownership|gated|society|township|colony|community/.test(t)) return 0
+    if (/from |near |m\b|km|metre|meter|min|campus|university|airport|corridor|belt|nh-?2/.test(t)) return 1
+    if (/approv|80\(?1\)?|rera|zila|panchayat|80c/.test(t)) return 2
+    if (/group|developer|vvh|rama|hari|shubh|kripa|global|labh/.test(t)) return 3
+    return 4
+  }
+  list.sort((a, b) => score(a) - score(b))
+
+  let loanAttached = false
+  return list.slice(0, 4).map((c) => {
+    const { title, sub } = splitFeatureChip(c)
+    let subtitle = featureSubtitle(c, title, sub)
+    if (
+      !loanAttached &&
+      loanChip &&
+      !sub &&
+      /approv|80\(?1\)?|rera|zila|panchayat|80c/i.test(c)
+    ) {
+      subtitle = loanChip
+      loanAttached = true
+    }
+    return `<li>
+            <span class="hero-feat-ico" aria-hidden="true">${heroFeatureIcon(c)}</span>
+            <span class="hero-feat-copy">
+              <span class="hero-feat-title">${esc(title)}</span>
+              ${subtitle ? `<span class="hero-feat-sub">${esc(subtitle)}</span>` : ''}
+            </span>
+          </li>`
+  }).join('\n          ')
 }
 
 const ICON_X_CIRCLE = `<svg class="book-mark-svg" viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="24" fill="#E24B4B"/><path class="book-mark-stroke" d="M16 16l16 16M32 16 16 32" fill="none" stroke="#fff" stroke-width="3.6" stroke-linecap="round"/></svg>`
@@ -584,8 +854,8 @@ function head(p, { title, description, path }) {
 <link rel="icon" href="/favicon.png" type="image/png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/landings/landing.css">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/landings/landing.css?v=offer-panel-5">
 </head>`
 }
 
@@ -618,29 +888,29 @@ function leadForm(p) {
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M18 6 6 18M6 6l12 12"/></svg>
     </button>
     <div class="form-card lead-form-card" id="lead-form-card">
-      <div id="lead-form-panel">
+      <div id="lead-form-panel" class="lead-form-panel">
         <div class="lead-form-head">
-          <p class="lead-form-eyebrow">Aurixxrealty · NAR Certified</p>
-          <h2 id="lead-form-title">Get Pricing, Availability &amp; Loan Help</h2>
+          <p class="lead-form-eyebrow">Aurixxrealty<span class="lead-form-eyebrow-line" aria-hidden="true"></span></p>
+          <h2 id="lead-form-title">Get Pricing &amp; Availability</h2>
+          <p class="lead-form-sub">Share your plot details for ${esc(p.title)}. Bank and government-supported home loans available.</p>
         </div>
         <div class="lead-form-body">
-          <p class="sub">Share your details for ${esc(p.title)}. Bank and government-supported home loans available.</p>
           <form id="lead-form" novalidate data-title="${esc(p.title)}" data-code="${esc(p.code)}" data-location="${esc(p.location)}">
             <div class="field">
               <label for="lead-name">Full Name</label>
-              <input type="text" id="lead-name" name="name" required autocomplete="name">
+              <input type="text" id="lead-name" name="name" required autocomplete="name" placeholder="Enter your full name">
             </div>
             <div class="field">
               <label for="lead-phone">Phone Number</label>
-              <input type="tel" id="lead-phone" name="phone" required autocomplete="tel" inputmode="tel" placeholder="+91">
+              <input type="tel" id="lead-phone" name="phone" required autocomplete="tel" inputmode="tel" placeholder="+91 98765 43210">
             </div>
             <div class="field">
-              <label for="lead-email">Email <span class="optional">(optional)</span></label>
-              <input type="email" id="lead-email" name="email" autocomplete="email">
+              <label for="lead-email">Email <span class="optional">(Optional)</span></label>
+              <input type="email" id="lead-email" name="email" autocomplete="email" placeholder="Enter your email address">
             </div>
-            <button type="submit" class="btn btn-gold btn-block" id="lead-submit">Get Pricing &amp; Availability</button>
+            <button type="submit" class="btn btn-gold btn-block lead-submit-btn" id="lead-submit">Get Pricing &amp; Availability <span aria-hidden="true">→</span></button>
           </form>
-          <p class="form-note">We'll only use this to share plot details. No spam.</p>
+          <p class="form-note">Private consultation · No spam.</p>
           <p id="form-status" class="form-status" hidden></p>
         </div>
       </div>
@@ -658,13 +928,6 @@ function leadForm(p) {
     </div>
   </div>
 </div>`
-}
-
-function offerList(p) {
-  const items = p.offerItems.some((item) => /loan/i.test(item))
-    ? p.offerItems
-    : [...p.offerItems, LOAN_ITEM]
-  return items.map((item) => `<li>${CHECK}${esc(item)}</li>`).join('\n          ')
 }
 
 function faqList(p) {
@@ -729,11 +992,10 @@ ${leadForm(p)}
 export function renderHome(p) {
   const home = `/${p.slug}`
   const heroShade =
-    'linear-gradient(100deg, rgba(14,14,13,.94) 0%, rgba(14,14,13,.82) 42%, rgba(14,14,13,.4) 75%, rgba(14,14,13,.15) 100%)'
+    'linear-gradient(90deg, rgba(8,10,14,.9) 0%, rgba(8,10,14,.78) 28%, rgba(8,10,14,.35) 48%, rgba(8,10,14,.08) 62%, rgba(8,10,14,0) 78%)'
   const chipSource = p.chips.some((c) => /loan/i.test(c))
     ? p.chips
     : [...p.chips, 'Bank & Govt Loans']
-  const chips = chipSource.map((c) => `<li>${esc(c)}</li>`).join('\n          ')
 
   return `${head(p, { title: p.metaTitle, description: p.metaDescription, path: home })}
 <body class="landing-page">
@@ -746,14 +1008,15 @@ ${nav(p)}
     ${heroMedia(p, heroShade)}
     <div class="hero-inner">
       <div class="hero-copy reveal">
-        <h1>${esc(p.h1)}</h1>
-        <p class="subhead">${esc(p.subhead)}</p>
-        <ul class="trust-chips">
-          ${chips}
+        ${p.eyebrow ? `<p class="hero-eyebrow">${esc(p.eyebrow)}<span class="hero-eyebrow-line" aria-hidden="true"></span></p>` : ''}
+        <h1>${formatHeroTitle(p.h1)}</h1>
+        <p class="subhead">${formatSubhead(p.subhead)}</p>
+        <ul class="hero-features">
+          ${heroFeatures(chipSource)}
         </ul>
         <div class="hero-links">
-          <a href="#landmarks" class="btn btn-outline">See what's around this land</a>
-          <button type="button" class="btn btn-gold js-open-lead">Get Pricing</button>
+          <button type="button" class="btn btn-gold js-open-lead">Get Pricing <span aria-hidden="true">→</span></button>
+          <a href="#landmarks" class="hero-text-link">See what's around this land <span aria-hidden="true">→</span></a>
         </div>
       </div>
       ${heroTrust(p)}
@@ -776,22 +1039,29 @@ ${extrasSection(p)}
   </section>
 
   <section class="section offer-section" id="offer">
-    <div class="wrap two-col">
-      <div class="offer-copy reveal">
-        <h2>Introducing ${esc(p.title)}</h2>
-        <p class="lead">${esc(p.offerLead)}</p>
-        <ul class="offer-list">
-          ${offerList(p)}
-        </ul>
-        <p class="offer-price-note">${esc(p.offerNote)}</p>
-        <div class="offer-actions">
-          <a href="#lead-form-card" class="btn btn-dark js-open-lead">Get Pricing &amp; Availability</a>
-          <a href="#site-map" class="btn btn-outline-dark">See Location &amp; Details</a>
+    <div class="wrap">
+      <div class="offer-panel">
+        <div class="offer-grid">
+          <div class="offer-copy-main reveal">
+            <p class="offer-eyebrow">Prime Location<span class="offer-eyebrow-line" aria-hidden="true"></span></p>
+            <h2>${formatOfferHeading(p.title)}</h2>
+            <p class="lead">${esc(p.offerLead)}</p>
+            <ul class="offer-features">
+              ${offerFeatureItems(p)}
+            </ul>
+          </div>
+          ${offerMapCard(p)}
+          <div class="offer-copy-foot reveal">
+            <p class="offer-price-note"><span class="offer-note-ico" aria-hidden="true">*</span>${esc(p.offerNote)}</p>
+            <div class="offer-actions">
+              <a href="#lead-form-card" class="btn btn-gold js-open-lead">Get Pricing &amp; Availability <span aria-hidden="true">→</span></a>
+              <a href="#site-map" class="btn btn-outline-dark offer-map-btn">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M12 21s7-5.4 7-11a7 7 0 1 0-14 0c0 5.6 7 11 7 11Z"/><circle cx="12" cy="10" r="2.4"/></svg>
+                See Location &amp; Details
+              </a>
+            </div>
+          </div>
         </div>
-      </div>
-      <div class="offer-map reveal" id="site-map">
-        <iframe src="${esc(p.mapSrc)}" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="${esc(p.title)} site location"></iframe>
-        <p class="map-caption">${esc(p.mapCaption)}</p>
       </div>
     </div>
   </section>
