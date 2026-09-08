@@ -12,7 +12,7 @@ const LOAN_FAQ = {
   q: 'Can I get a loan to buy this property?',
   a: 'Yes. Bank and government-supported home loans are available on these properties. Aurixxrealty helps with documentation, lender coordination, and paperwork so you can buy with financing, not only cash.',
 }
-const BADGES = `<div class="badges-row">
+const BADGES = `<div class="badges-row reveal">
     <div class="wrap">
       <div class="badge-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2 4 6v6c0 5 3.4 8.7 8 10 4.6-1.3 8-5 8-10V6l-8-4Z"/></svg>Title Verified</div>
       <div class="badge-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg>NAR Certified</div>
@@ -135,18 +135,321 @@ function googleReviewsHeader() {
 
 function heroTrust(p) {
   const review = p.heroReview || LANDING_REVIEWS[0]
-  return `<div class="hero-trust">
+  return `<div class="hero-trust reveal">
         ${googleReviewsHeader()}
         ${googleReviewCard(review)}
         <button type="button" class="btn btn-gold btn-block js-open-lead">Get Pricing &amp; Availability</button>
       </div>`
 }
 
+const ICON_X_CIRCLE = `<svg class="book-mark-svg" viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="24" fill="#E24B4B"/><path class="book-mark-stroke" d="M16 16l16 16M32 16 16 32" fill="none" stroke="#fff" stroke-width="3.6" stroke-linecap="round"/></svg>`
+const ICON_CHECK_CIRCLE = `<svg class="book-mark-svg" viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="24" fill="#2F9B5A"/><path class="book-mark-stroke book-tick-path" d="M13.5 24.5 20.5 31.5 34.5 16.5" fill="none" stroke="#fff" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"/></svg>`
+const ICON_X_SM = `<svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="10" fill="#E24B4B"/><path d="M6.4 6.4l7.2 7.2M13.6 6.4l-7.2 7.2" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/></svg>`
+const ICON_CHECK_SM = `<svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="10" fill="#2F9B5A"/><path class="book-tick-path" d="M5.4 10.2 8.4 13.2 14.6 6.6" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>`
+const ICON_RUPEE = `<svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M7 7h10M7 11h10M7 7c4 0 7 2 7 5H7l8 7"/></svg>`
+const ICON_PIN = `<svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M12 21s7-5.4 7-11a7 7 0 1 0-14 0c0 5.6 7 11 7 11Z"/><circle cx="12" cy="10" r="2.4"/></svg>`
+const ICON_HOME = `<svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linejoin="round"><path d="M4 11.5 12 5l8 6.5V20a1 1 0 0 1-1 1h-5v-6H10v6H5a1 1 0 0 1-1-1v-8.5Z"/></svg>`
+const HL_ICONS = [ICON_RUPEE, ICON_PIN, ICON_HOME]
+const HL_TONES = ['rupee', 'pin', 'home']
+
+function bookMedia(img, alt, stamp, stampClass) {
+  const photo = img
+    ? `<img src="${esc(img)}" alt="${esc(alt)}" loading="lazy">`
+    : ''
+  const badge = stamp ? `<span class="book-stamp ${stampClass}">${esc(stamp)}</span>` : ''
+  return `<div class="book-media${img ? '' : ' is-empty'}">${photo}${badge}</div>`
+}
+
+function comparisonStorySection(p) {
+  const warnList = p.flagsWarn
+    .map((t) => `<li><span class="book-li-icon">${ICON_X_SM}</span><span>${esc(t)}</span></li>`)
+    .join('\n            ')
+  const goodList = p.flagsGood
+    .map((t) => `<li><span class="book-li-icon">${ICON_CHECK_SM}</span><span>${esc(t)}</span></li>`)
+    .join('\n            ')
+  const highlights = (p.stats || [])
+    .map((s, i) => {
+      const tone = HL_TONES[i % HL_TONES.length]
+      return `<div class="book-hl-item">
+          <span class="book-hl-icon tone-${tone}">${HL_ICONS[i % HL_ICONS.length]}</span>
+          <div>
+            <div class="book-hl-value">${esc(s.word)}</div>
+            <p>${esc(s.desc)}</p>
+          </div>
+        </div>`
+    })
+    .join('\n        ')
+  const warnImg = p.compareWarnImg || ''
+  const goodImg = p.compareGoodImg || ''
+  return `
+  <section class="book-section" id="why-this">
+    <div class="wrap">
+      <div class="book-head reveal">
+        <div class="book-pill-row">
+          <span class="book-line" aria-hidden="true"></span>
+          <span class="book-pill">Before you book</span>
+          <span class="book-line" aria-hidden="true"></span>
+        </div>
+        <h2>What most listings look like vs. what we show you</h2>
+        <p>${esc(p.hook[0])} ${esc(p.hook[1])}</p>
+      </div>
+
+      <article class="book-card book-card-warn reveal reveal-left">
+        <div class="book-card-copy">
+          <div class="book-mark">${ICON_X_CIRCLE}</div>
+          <h3>${esc(p.flagsWarnLabel)}</h3>
+          <p class="book-lead">This is what we filter out before a plot reaches you.</p>
+          <ul class="book-list">${warnList}</ul>
+        </div>
+        ${bookMedia(warnImg, p.compareWarnAlt || p.flagsWarnLabel, p.compareWarnStamp || 'Not approved', 'stamp-warn')}
+      </article>
+
+      <article class="book-card book-card-good reveal reveal-right">
+        <div class="book-card-copy">
+          <div class="book-mark">${ICON_CHECK_CIRCLE}</div>
+          <h3>${esc(p.flagsGoodLabel)}</h3>
+          <p class="book-lead">This is what we walk on a site visit.</p>
+          <ul class="book-list book-list-good">${goodList}</ul>
+        </div>
+        ${bookMedia(goodImg, p.flagsGoodLabel, p.compareGoodBadge, 'stamp-good')}
+      </article>
+
+      <div class="book-highlights reveal">
+        <div class="book-hl-intro">
+          <h3>Key Highlights at a Glance</h3>
+          <span class="book-hl-rule" aria-hidden="true"></span>
+          <p>Clear numbers. No guesswork.</p>
+        </div>
+        ${highlights}
+      </div>
+    </div>
+  </section>`
+}
+
+function storyPanel(title, body, { reverse = false, img, alt, tone = 'neutral' } = {}) {
+  const media = img
+    ? `<div class="story-media"><img src="${esc(img)}" alt="${esc(alt || title)}" loading="lazy"></div>`
+    : ''
+  return `<article class="story-panel tone-${tone} reveal">
+    <div class="story-panel-inner${reverse ? ' reverse' : ''}">
+      <div class="story-copy">
+        <h3>${esc(title)}</h3>
+        ${body}
+      </div>
+      ${media}
+    </div>
+  </article>`
+}
+
+function locIcon(label) {
+  const t = String(label).toLowerCase()
+  if (/university|campus|school/.test(t)) return ICON_CAP
+  if (/airport/.test(t)) return ICON_PLANE
+  if (/temple|mandir|dham|ashram|faith/.test(t)) return ICON_TEMPLE
+  if (/metro|rail|station|train/.test(t))
+    return `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="6" y="4" width="12" height="14" rx="2"/><path d="M6 10h12M9 18v2M15 18v2M8 14h.01M16 14h.01"/></svg>`
+  if (/expressway|highway|nh-|road|noida/.test(t)) return ICON_ROAD
+  if (/delhi|gurugram|gurgaon|skyline|industrial|it hub/.test(t)) return WHY_ICONS.building
+  if (/film/.test(t))
+    return `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="6" width="16" height="12" rx="2"/><path d="m10 10 5 2.5-5 2.5V10Z"/></svg>`
+  if (/formula|f1|circuit|olympic/.test(t))
+    return `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 19V6l7 3 7-3v13"/><path d="M5 10h14"/></svg>`
+  if (/hospital|medical/.test(t))
+    return `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M12 8v8M8 12h8"/></svg>`
+  if (/park|green/.test(t))
+    return `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21V11"/><path d="M12 11c-4 0-7-2.4-7-6 3 0 7 2 7 6 0-4 4-6 7-6 0 3.6-3 6-7 6Z"/></svg>`
+  if (/gated|security|society/.test(t)) return WHY_ICONS.shield
+  if (/water|electric|power/.test(t))
+    return `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M13 3 6 14h6l-1 7 7-11h-6l1-7Z"/></svg>`
+  if (/shop|commercial/.test(t))
+    return `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 9h16l-1 11H5L4 9Z"/><path d="M8 9V7a4 4 0 0 1 8 0v2"/></svg>`
+  if (/rera|document/.test(t)) return WHY_ICONS.seal
+  if (/agra|taj/.test(t))
+    return `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 20h16M6 20V12l6-5 6 5v8"/><path d="M12 7V4"/></svg>`
+  if (/size|gaj|plot/.test(t)) return WHY_ICONS.house
+  if (/price|₹|launch/.test(t))
+    return `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M7 7h10M7 11h10M7 7c4 0 7 2 7 5H7l8 7"/></svg>`
+  return ICON_PIN_SM
+}
+
+function locCard({ img, alt, badge, title, body, iconLabel }) {
+  const media = img
+    ? `<div class="loc-media"><img src="${esc(img)}" alt="${esc(alt || title)}" loading="lazy"></div>`
+    : `<div class="loc-media is-empty" aria-hidden="true"></div>`
+  const badgeHtml = badge ? `<span class="loc-badge">${esc(badge)}</span>` : ''
+  return `<article class="loc-card reveal">
+        ${media}
+        <div class="loc-copy">
+          <div class="loc-top"><span class="loc-ico">${locIcon(iconLabel || title)}</span>${badgeHtml}</div>
+          <h3>${esc(title)}</h3>
+          ${body ? `<p>${esc(body)}</p>` : ''}
+        </div>
+      </article>`
+}
+
+function locBlock({ kicker, h2, p, cards }) {
+  if (!cards.length) return ''
+  return `
+  <section class="loc-section">
+    <div class="wrap">
+      <div class="loc-head reveal">
+        ${kicker ? `<p class="loc-kicker">${esc(kicker)}</p>` : ''}
+        <h2>${esc(h2)}</h2>
+        ${p ? `<p>${esc(p)}</p>` : ''}
+      </div>
+      <div class="loc-grid">
+      ${cards.join('\n      ')}
+      </div>
+      <div class="loc-ornament" aria-hidden="true">${FAQ_LOTUS}</div>
+    </div>
+  </section>`
+}
+
+function extrasStorySection(p) {
+  const sections = []
+
+  if (p.priceGap) {
+    const g = p.priceGap
+    sections.push(
+      locBlock({
+        kicker: 'Pricing window',
+        h2: 'Pricing window',
+        p: '',
+        cards: [
+          locCard({ img: g.nowImg, alt: g.nowAlt || g.nowLbl, badge: g.nowAmt, title: g.nowLbl, body: g.nowHint || '', iconLabel: 'price' }),
+          locCard({ img: g.laterImg, alt: g.laterAlt || g.laterLbl, badge: g.laterAmt, title: g.laterLbl, body: g.laterHint || '', iconLabel: 'price' }),
+        ],
+      })
+    )
+  }
+
+  if (p.sizes && p.sizes.length) {
+    sections.push(
+      locBlock({
+        kicker: p.sizesEyebrow || 'Plot Sizes',
+        h2: p.sizesH2 || 'Plot sizes',
+        p: p.sizesP || '',
+        cards: p.sizes.map((s) =>
+          locCard({
+            img: s.img,
+            alt: s.alt || `${s.num} ${s.unit || 'Gaj'}`,
+            badge: `${s.num} ${s.unit || 'Gaj'}`,
+            title: `${s.num} ${s.unit || 'Gaj'}`,
+            body: '',
+            iconLabel: 'plot sizes',
+          })
+        ),
+      })
+    )
+  }
+
+  if (p.drives && p.drives.length) {
+    sections.push(
+      locBlock({
+        kicker: p.drivesEyebrow || 'Location Advantage',
+        h2: p.drivesH2 || 'How close this land actually is',
+        p: p.drivesP || '',
+        cards: p.drives.map((d) =>
+          locCard({
+            img: d.img,
+            alt: d.alt || d.place,
+            badge: d.time,
+            title: d.place,
+            body: d.note || '',
+          })
+        ),
+      })
+    )
+  }
+
+  if (p.amenities && p.amenities.length) {
+    sections.push(
+      locBlock({
+        kicker: p.amenitiesEyebrow || 'Township',
+        h2: p.amenitiesH2 || 'What you are buying into',
+        p: p.amenitiesP || '',
+        cards: p.amenities.map((a) =>
+          locCard({
+            img: a.img,
+            alt: a.alt || a.title,
+            title: a.title,
+            body: a.p,
+          })
+        ),
+      })
+    )
+  }
+
+  return sections.join('\n')
+}
+
+const WHY_ICONS = {
+  clip: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="4.5" width="12" height="16" rx="1.6"/><path d="M10 4.5V3.2h6V4.5"/><circle cx="13" cy="11.2" r="2.1"/><path d="M9.6 16.6c.9-1.9 5.9-1.9 6.8 0"/></svg>`,
+  map: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8.2 9.2 6l5.4 2.4L20 6.2v11.2L14.6 19.6 9.2 17.2 4 19.4V8.2Z"/><path d="M9.2 6.2v11M14.6 8.4v11"/><circle cx="14.2" cy="12.2" r="2.1"/><path d="M14.2 14.3V17"/></svg>`,
+  land: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 17.2 8 11.5l3.6 4.2 3.1-3.8 5.8 6.3H3.5Z"/><path d="M4 19.5h16"/><circle cx="16.2" cy="8.2" r="1.8"/></svg>`,
+  seal: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M7.5 3.8h9A1.5 1.5 0 0 1 18 5.3v13.4a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 6 18.7V5.3A1.5 1.5 0 0 1 7.5 3.8Z"/><path d="M9 8.2h6M9 11.4h6"/><circle cx="15" cy="16.6" r="2.4"/><path d="M13.6 18.4 15 19.6l2.2-2.4"/></svg>`,
+  arrow: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>`,
+  shield: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3 5 6.2v5.4c0 4.2 2.8 7.4 7 8.6 4.2-1.2 7-4.4 7-8.6V6.2L12 3Z"/><path d="m9 12 2 2 4-4"/></svg>`,
+  person: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="8" r="3"/><path d="M6.5 19c.8-3.4 3-5 5.5-5s4.7 1.6 5.5 5"/></svg>`,
+  building: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h16M6 20V10l6-5 6 5v10"/><path d="M10 20v-5h4v5M9 12h1M14 12h1M9 15h1M14 15h1"/></svg>`,
+  star: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="m12 3.5 2.4 4.9 5.4.8-3.9 3.8.9 5.4L12 16.2 7.2 18.4l.9-5.4-3.9-3.8 5.4-.8L12 3.5Z"/></svg>`,
+  house: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M4 11.5 12 5l8 6.5V20a1 1 0 0 1-1 1h-5v-6H10v6H5a1 1 0 0 1-1-1v-8.5Z"/></svg>`,
+}
+
+function processStorySection() {
+  const steps = [
+    ['01', 'STEP 1', 'Share your requirements', 'Budget, timeline, and what you want to do with the plot.', WHY_ICONS.clip],
+    ['02', 'STEP 2', 'We shortlist options', 'Only plots with clear titles and a location fit reach you.', WHY_ICONS.map],
+    ['03', 'STEP 3', 'Site visit and checks', 'We walk the land with you and flag boundaries, access, and paperwork.', WHY_ICONS.land],
+    ['04', 'STEP 4', 'Close with confidence', 'Support through documentation, registration, and loan coordination.', WHY_ICONS.seal],
+  ]
+  const cards = steps
+    .map(
+      ([num, step, title, body, icon], i) => `${i ? `
+      <span class="why-arrow" aria-hidden="true">${WHY_ICONS.arrow}</span>` : ''}
+      <article class="why-card reveal">
+        <div class="why-icon-wrap">
+          <span class="why-icon">${icon}</span>
+          <span class="why-num">${num}</span>
+        </div>
+        <p class="why-step">${esc(step)}</p>
+        <h3>${esc(title)}</h3>
+        <p>${esc(body)}</p>
+        <span class="why-rule" aria-hidden="true"></span>
+      </article>`
+    )
+    .join('')
+  const trust = [
+    [WHY_ICONS.shield, 'NAR Certified'],
+    [WHY_ICONS.person, 'CREDAI Member'],
+    [WHY_ICONS.building, 'Government-Approved Projects'],
+    [WHY_ICONS.star, '4.9★ Google Reviews'],
+    [WHY_ICONS.house, '132+ Properties Guided & Sold'],
+  ]
+    .map(
+      ([icon, label]) => `<div class="why-trust-item"><span class="why-trust-icon">${icon}</span><span>${esc(label)}</span></div>`
+    )
+    .join('')
+  return `
+  <section class="why-section">
+    <div class="wrap">
+      <div class="why-head reveal">
+        <p class="why-kicker">Why Aurixxrealty</p>
+        <h2>Buyers go through us for a reason</h2>
+        <p>The same process, every time, before a plot ever reaches you.</p>
+      </div>
+      <div class="why-steps">${cards}
+      </div>
+    </div>
+    <div class="why-trust reveal">${trust}</div>
+  </section>`
+}
+
 function googleReviewsSection() {
   const cards = LANDING_REVIEWS.map(googleReviewCard).join('\n        ')
   return `
   <section class="g-reviews-section" id="google-reviews">
-    <div class="wrap">
+    <div class="wrap reveal">
       ${googleReviewsHeader()}
     </div>
     <div class="g-marquee" aria-label="Google reviews">
@@ -158,41 +461,92 @@ function googleReviewsSection() {
   </section>`
 }
 
+const ICON_CAL = `<svg class="cal-head-icon" viewBox="0 0 32 32" aria-hidden="true"><rect x="4" y="6" width="24" height="22" rx="4" fill="#C23B3B"/><path d="M4 12h24" stroke="#fff" stroke-width="2"/><circle cx="11" cy="5" r="2" fill="#fff"/><circle cx="21" cy="5" r="2" fill="#fff"/><rect x="9" y="16" width="4" height="4" rx="1" fill="#fff"/><rect x="14" y="16" width="4" height="4" rx="1" fill="#fff"/><rect x="19" y="16" width="4" height="4" rx="1" fill="#fff"/></svg>`
+const ICON_PIN_SM = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s7-5.4 7-11a7 7 0 1 0-14 0c0 5.6 7 11 7 11Z"/><circle cx="12" cy="10" r="2.2"/></svg>`
+const ICON_CAR_SM = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13h14l-1.2-4.2A2 2 0 0 0 15.9 7H8.1a2 2 0 0 0-1.9 1.8L5 13Z"/><path d="M5 13v4h2.2M17 17h2v-4"/><circle cx="8" cy="17" r="1.6"/><circle cx="16" cy="17" r="1.6"/></svg>`
+const ICON_CLOCK_SM = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="8"/><path d="M12 8v4.5L15 15"/></svg>`
+const ICON_CAP = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 10 12 6l9 4-9 4-9-4Z"/><path d="M7 12v4c2 1.4 8 1.4 10 0v-4"/></svg>`
+const ICON_TEMPLE = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3 5 9h14L12 3Z"/><path d="M6 9v10h12V9"/><path d="M10 19v-5h4v5"/></svg>`
+const ICON_PLANE = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 13 21 7l-3 10-6-2-4 5-2-1 2-5-5-1Z"/></svg>`
+const ICON_ROAD = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 4 5 20M16 4l3 16M12 6v3M12 12v3M12 18v2"/></svg>`
+
+function landmarkBadge(tag) {
+  const t = String(tag).toLowerCase()
+  if (/university|campus/.test(t)) return { label: 'University Visit', tone: 'uni', icon: ICON_CAP }
+  if (/airport/.test(t)) return { label: 'Airport', tone: 'air', icon: ICON_PLANE }
+  if (/expressway|nh-|highway|metro|rail/.test(t)) return { label: 'Highway', tone: 'road', icon: ICON_ROAD }
+  if (/temple|mandir|dham|iskcon|govardhan|nandgaon|barsana|kokilavan|vrindavan|mathura|parikrama|shani|braj/.test(t)) {
+    return { label: 'Temple Visit', tone: 'temple', icon: ICON_TEMPLE }
+  }
+  if (/film|circuit|formula|f1/.test(t)) return { label: 'On corridor', tone: 'road', icon: ICON_ROAD }
+  return { label: tag, tone: 'place', icon: ICON_PIN_SM }
+}
+
+function driveFromHeading(h3) {
+  const match = String(h3).match(/^(.+?)\s+From\s/i)
+  return match ? match[1] : ''
+}
+
 function landmarkRows(p) {
   return p.landmarks
     .map((row, i) => {
-      const reverse = row.reverse || i % 2 === 1
       const id = landmarkId(row)
-      return `<div class="landmark-row${reverse ? ' reverse' : ''} reveal" id="${esc(id)}">
-        <div class="landmark-media">
+      const badge = landmarkBadge(row.tag)
+      const drive = driveFromHeading(row.h3)
+      const clock = p.landmarksEyebrow || row.tag
+      return `<article class="cal-card reveal${i % 2 ? ' reveal-right' : ' reveal-left'}" id="${esc(id)}">
+        <div class="cal-media">
           <img src="${esc(row.img)}" alt="${esc(row.alt)}" loading="lazy">
+          <span class="cal-badge tone-${esc(badge.tone)}">${badge.icon}<span>${esc(badge.label)}</span></span>
         </div>
-        <div class="landmark-copy">
-          <span class="tag">${esc(row.tag)}</span>
+        <div class="cal-copy">
+          <p class="cal-tag">${ICON_PIN_SM}<span>${esc(row.tag)}</span></p>
           <h3>${esc(row.h3)}</h3>
-          <p>${esc(row.p)}</p>
+          <p class="cal-body">${esc(row.p)}</p>
+          <div class="cal-meta">
+            <span>${ICON_PIN_SM}${esc(row.tag)}</span>
+            ${drive ? `<span>${ICON_CAR_SM}${esc(drive)}</span>` : ''}
+            <span>${ICON_CLOCK_SM}${esc(clock)}</span>
+            <a class="cal-more js-open-lead" href="#lead-form-card">Learn More →</a>
+          </div>
         </div>
-      </div>`
+      </article>`
     })
     .join('\n\n      ')
 }
 
+const FAQ_SHIELD = `<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path fill="#fff" d="M12 3.2 5.2 6.2v5.3c0 4 2.7 7 6.8 8.3 4.1-1.3 6.8-4.3 6.8-8.3V6.2L12 3.2Z"/><path fill="#8B1D2E" d="m10.1 12.1 1.4 1.4 3.2-3.3.9.9-4.1 4.2-2.3-2.3.9-.9Z"/></svg>`
+const FAQ_LOTUS = `<svg class="faq-lotus" viewBox="0 0 32 24" fill="none" aria-hidden="true"><path fill="#8B1D2E" d="M16 21c-2.2-2.4-6.8-3.4-9.6-3.2 1.4-2.2 4.8-3.4 7.2-3.2C11.8 12.4 10 8 10 5.6c2.4 1 5 4.2 6 6.8 1-2.6 3.6-5.8 6-6.8 0 2.4-1.8 6.8-3.6 9-2.4-.2 5.8 1 7.2 3.2-2.8-.2-7.4.8-9.6 3.2Z"/><path fill="#8B1D2E" d="M16 21c0-4.4-1.2-8.2 0-12.4 1.2 4.2 0 8 0 12.4Z"/></svg>`
+
 function faqSection(p) {
   const faqs = faqList(p)
-    .map(
-      (f, i) => `<details class="faq-item"${i === 0 ? ' open' : ''}>
-        <summary>${esc(f.q)}${CHEV}</summary>
-        <div class="faq-answer">${esc(f.a)}</div>
+    .map((f, i) => {
+      const num = String(i + 1).padStart(2, '0')
+      return `<details class="faq-item reveal"${i === 0 ? ' open' : ''}>
+        <summary>
+          <span class="faq-num">${num}</span>
+          <span class="faq-split" aria-hidden="true"></span>
+          <span class="faq-q">${esc(f.q)}</span>
+          ${CHEV}
+        </summary>
+        <div class="faq-answer">
+          <span class="faq-shield">${FAQ_SHIELD}</span>
+          <p>${esc(f.a)}</p>
+        </div>
       </details>`
-    )
+    })
     .join('\n      ')
   return `
-  <section class="section faq-section" id="faqs">
+  <section class="faq-section" id="faqs">
     <div class="wrap-narrow">
-      <div class="section-head" style="margin-bottom:32px;">
-        <h2 style="font-size:clamp(24px,3vw,30px);">Before You Ask</h2>
+      <div class="faq-head reveal">
+        <p class="faq-kicker">FAQ</p>
+        <h2>Before You Ask</h2>
       </div>
+      <div class="faq-list">
       ${faqs}
+      </div>
+      <div class="faq-ornament" aria-hidden="true">${FAQ_LOTUS}</div>
     </div>
   </section>`
 }
@@ -220,7 +574,7 @@ function head(p, { title, description, path }) {
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>${esc(title)}</title>
 <meta name="description" content="${esc(description)}">
 <link rel="canonical" href="https://www.aurixxrealty.com${path}">
@@ -230,7 +584,7 @@ function head(p, { title, description, path }) {
 <link rel="icon" href="/favicon.png" type="image/png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/landings/landing.css">
 </head>`
 }
@@ -263,29 +617,34 @@ function leadForm(p) {
     <button type="button" class="lead-modal-close js-close-lead" aria-label="Close form">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M18 6 6 18M6 6l12 12"/></svg>
     </button>
-    <div class="form-card" id="lead-form-card">
+    <div class="form-card lead-form-card" id="lead-form-card">
       <div id="lead-form-panel">
-        <h2 id="lead-form-title">Get Pricing, Availability &amp; Loan Help</h2>
-        <p class="sub">NAR certified. CREDAI member. Bank and government-supported home loans available.</p>
-        <form id="lead-form" novalidate data-title="${esc(p.title)}" data-code="${esc(p.code)}" data-location="${esc(p.location)}">
-          <div class="field">
-            <label for="lead-name">Full Name</label>
-            <input type="text" id="lead-name" name="name" required autocomplete="name">
-          </div>
-          <div class="field">
-            <label for="lead-phone">Phone Number</label>
-            <input type="tel" id="lead-phone" name="phone" required autocomplete="tel" inputmode="tel" placeholder="+91">
-          </div>
-          <div class="field">
-            <label for="lead-email">Email <span class="optional">(optional)</span></label>
-            <input type="email" id="lead-email" name="email" autocomplete="email">
-          </div>
-          <button type="submit" class="btn btn-gold btn-block" id="lead-submit">Get Pricing &amp; Availability</button>
-        </form>
-        <p class="form-note">We'll only use this to share plot details. No spam.</p>
-        <p id="form-status" class="form-status" hidden></p>
+        <div class="lead-form-head">
+          <p class="lead-form-eyebrow">Aurixxrealty · NAR Certified</p>
+          <h2 id="lead-form-title">Get Pricing, Availability &amp; Loan Help</h2>
+        </div>
+        <div class="lead-form-body">
+          <p class="sub">Share your details for ${esc(p.title)}. Bank and government-supported home loans available.</p>
+          <form id="lead-form" novalidate data-title="${esc(p.title)}" data-code="${esc(p.code)}" data-location="${esc(p.location)}">
+            <div class="field">
+              <label for="lead-name">Full Name</label>
+              <input type="text" id="lead-name" name="name" required autocomplete="name">
+            </div>
+            <div class="field">
+              <label for="lead-phone">Phone Number</label>
+              <input type="tel" id="lead-phone" name="phone" required autocomplete="tel" inputmode="tel" placeholder="+91">
+            </div>
+            <div class="field">
+              <label for="lead-email">Email <span class="optional">(optional)</span></label>
+              <input type="email" id="lead-email" name="email" autocomplete="email">
+            </div>
+            <button type="submit" class="btn btn-gold btn-block" id="lead-submit">Get Pricing &amp; Availability</button>
+          </form>
+          <p class="form-note">We'll only use this to share plot details. No spam.</p>
+          <p id="form-status" class="form-status" hidden></p>
+        </div>
       </div>
-      <div id="lead-thanks" class="lead-thanks" hidden>
+      <div id="lead-thanks" class="lead-thanks lead-form-body" hidden>
         <div class="lead-thanks-tick" aria-hidden="true">
           <svg viewBox="0 0 72 72">
             <circle cx="36" cy="36" r="36" fill="#188038"/>
@@ -315,94 +674,8 @@ function faqList(p) {
   return faqs
 }
 
-function extrasInner(p) {
-  const blocks = []
-  if (p.priceGap) {
-    const g = p.priceGap
-    blocks.push(`<div class="extras-block">
-        <div class="price-gap reveal">
-          <div class="now">
-            <div class="lbl">${esc(g.nowLbl)}</div>
-            <div class="amt">${esc(g.nowAmt)}</div>
-            ${g.nowHint ? `<p class="hint">${esc(g.nowHint)}</p>` : ''}
-          </div>
-          <div class="arrow" aria-hidden="true">→</div>
-          <div class="later">
-            <div class="lbl">${esc(g.laterLbl)}</div>
-            <div class="amt">${esc(g.laterAmt)}</div>
-            ${g.laterHint ? `<p class="hint">${esc(g.laterHint)}</p>` : ''}
-          </div>
-        </div>
-      </div>`)
-  }
-  if (p.drives && p.drives.length) {
-    const cards = p.drives
-      .map(
-        (d) => `<div class="drive-card">
-          <div class="time">${esc(d.time)}</div>
-          <div class="place">${esc(d.place)}</div>
-          ${d.note ? `<p class="note">${esc(d.note)}</p>` : ''}
-        </div>`
-      )
-      .join('\n        ')
-    blocks.push(`<div class="extras-block">
-        <div class="section-head">
-          <h2>${esc(p.drivesH2 || 'How Close This Land Actually Is')}</h2>
-          ${p.drivesP ? `<p>${esc(p.drivesP)}</p>` : ''}
-        </div>
-        <div class="drive-grid reveal">${cards}</div>
-      </div>`)
-  }
-  if (p.sizes && p.sizes.length) {
-    const cards = p.sizes
-      .map(
-        (s) => `<div class="size-card">
-          <div class="num">${esc(s.num)}</div>
-          <span class="unit">${esc(s.unit || 'Gaj')}</span>
-        </div>`
-      )
-      .join('\n        ')
-    blocks.push(`<div class="extras-block">
-        <div class="section-head">
-          <h2>${esc(p.sizesH2 || 'Plot Sizes Available')}</h2>
-          ${p.sizesP ? `<p>${esc(p.sizesP)}</p>` : ''}
-        </div>
-        <div class="size-grid reveal">${cards}</div>
-      </div>`)
-  }
-  if (p.amenities && p.amenities.length) {
-    const cards = p.amenities
-      .map((a) => {
-        const media = a.img
-          ? `<div class="amenity-media"><img src="${esc(a.img)}" alt="${esc(a.alt || a.title)}" loading="lazy"></div>`
-          : ''
-        return `<div class="amenity-card${a.img ? ' has-media' : ''}">
-          ${media}
-          <h3>${esc(a.title)}</h3>
-          <p>${esc(a.p)}</p>
-        </div>`
-      })
-      .join('\n        ')
-    blocks.push(`<div class="extras-block">
-        <div class="section-head">
-          <h2>${esc(p.amenitiesH2 || 'What You Are Actually Buying Into')}</h2>
-          ${p.amenitiesP ? `<p>${esc(p.amenitiesP)}</p>` : ''}
-        </div>
-        <div class="amenity-grid reveal">${cards}</div>
-      </div>`)
-  }
-  return blocks.join('\n      ')
-}
-
 function extrasSection(p) {
-  const inner = extrasInner(p)
-  if (!inner) return ''
-  return `
-  <section class="section extras-section">
-    <div class="wrap">
-      ${inner}
-    </div>
-  </section>`
+  return extrasStorySection(p)
 }
 
 function heroImageList(p) {
@@ -461,33 +734,9 @@ export function renderHome(p) {
     ? p.chips
     : [...p.chips, 'Bank & Govt Loans']
   const chips = chipSource.map((c) => `<li>${esc(c)}</li>`).join('\n          ')
-  const stats = p.stats
-    .map(
-      (s) => `<div class="stat">
-          <div class="stat-word">${esc(s.word)}</div>
-          <div class="stat-desc">${esc(s.desc)}</div>
-        </div>`
-    )
-    .join('\n        ')
-  const warn = p.flagsWarn
-    .map(
-      (t) => `<div class="flag-card flag-warn">
-            ${WARN_ICON}
-            <p>${esc(t)}</p>
-          </div>`
-    )
-    .join('\n          ')
-  const good = p.flagsGood
-    .map(
-      (t) => `<div class="flag-card flag-good">
-            ${GOOD_ICON}
-            <p>${esc(t)}</p>
-          </div>`
-    )
-    .join('\n          ')
 
   return `${head(p, { title: p.metaTitle, description: p.metaDescription, path: home })}
-<body>
+<body class="landing-page">
 
 ${nav(p)}
 
@@ -496,14 +745,14 @@ ${nav(p)}
   <section class="hero">
     ${heroMedia(p, heroShade)}
     <div class="hero-inner">
-      <div class="hero-copy">
+      <div class="hero-copy reveal">
         <h1>${esc(p.h1)}</h1>
         <p class="subhead">${esc(p.subhead)}</p>
         <ul class="trust-chips">
           ${chips}
         </ul>
         <div class="hero-links">
-          <a href="#landmarks" class="btn btn-outline">See What's Rising Around It</a>
+          <a href="#landmarks" class="btn btn-outline">See what's around this land</a>
           <button type="button" class="btn btn-gold js-open-lead">Get Pricing</button>
         </div>
       </div>
@@ -511,43 +760,24 @@ ${nav(p)}
     </div>
   </section>
 
-  <section class="section hook-section">
-    <div class="wrap">
-      <div class="hook-copy">
-        <p>${esc(p.hook[0])}</p>
-        <p class="truth-line">${esc(p.hook[1])}</p>
-      </div>
-
-      <div class="flag-grid reveal">
-        <div>
-          <span class="flag-col-label flag-label-warn">${esc(p.flagsWarnLabel)}</span>
-          ${warn}
-        </div>
-        <div>
-          <span class="flag-col-label flag-label-good">${esc(p.flagsGoodLabel)}</span>
-          ${good}
-        </div>
-      </div>
-
-      <div class="stat-band reveal${p.stats.length > 2 ? ' three' : ''}">
-        ${stats}
-      </div>
-    </div>
-  </section>
+  ${comparisonStorySection(p)}
 ${extrasSection(p)}
-  <section class="landmarks-section" id="landmarks">
+  <section class="cal-section" id="landmarks">
     <div class="wrap">
-      <div class="section-head">
+      <div class="cal-head reveal">
+        ${ICON_CAL}
         <h2>${esc(p.landmarksH2)}</h2>
         <p>${esc(p.landmarksP)}</p>
       </div>
+      <div class="cal-stack">
       ${landmarkRows(p)}
+      </div>
     </div>
   </section>
 
   <section class="section offer-section" id="offer">
     <div class="wrap two-col">
-      <div class="offer-copy">
+      <div class="offer-copy reveal">
         <h2>Introducing ${esc(p.title)}</h2>
         <p class="lead">${esc(p.offerLead)}</p>
         <ul class="offer-list">
@@ -559,7 +789,7 @@ ${extrasSection(p)}
           <a href="#site-map" class="btn btn-outline-dark">See Location &amp; Details</a>
         </div>
       </div>
-      <div class="offer-map" id="site-map">
+      <div class="offer-map reveal" id="site-map">
         <iframe src="${esc(p.mapSrc)}" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="${esc(p.title)} site location"></iframe>
         <p class="map-caption">${esc(p.mapCaption)}</p>
       </div>
@@ -567,28 +797,12 @@ ${extrasSection(p)}
   </section>
 ${googleReviewsSection()}
 ${faqSection(p)}
-  <section class="section trust-section">
-    <div class="wrap">
-      <div class="section-head">
-        <h2>Buyers Go Through Us for a Reason</h2>
-        <p>The same process, every time, before a plot ever reaches you.</p>
-      </div>
-      <div class="process-row">
-        <div class="process-step"><span class="p-num">Step 1</span><h3>Share Your Requirements</h3><p>Budget, timeline, and what you want to do with the plot.</p></div>
-        <div class="process-step"><span class="p-num">Step 2</span><h3>We Shortlist Options</h3><p>Only plots with clear titles and location fit reach you.</p></div>
-        <div class="process-step"><span class="p-num">Step 3</span><h3>Site Visits &amp; Checks</h3><p>We walk the land with you and flag boundaries, access, paperwork.</p></div>
-        <div class="process-step"><span class="p-num">Step 4</span><h3>Close with Confidence</h3><p>Support through documentation, registration, and loan coordination.</p></div>
-      </div>
-      <div class="credentials-row">
-        <span>NAR Certified</span><span>CREDAI Member</span><span>Government-Approved Projects</span><span>4.9★ Google Reviews</span><span>132+ Properties Guided &amp; Sold</span>
-      </div>
-    </div>
-  </section>
+  ${processStorySection()}
 
   ${BADGES}
 
   <section class="close-band">
-    <div class="wrap-narrow">
+    <div class="wrap-narrow reveal">
       <h2>${esc(p.closeLead)} <span class="accent">${esc(p.closeAccent)}</span></h2>
       <p class="sub">${esc(p.closeSub)}</p>
       ${p.sellLine ? `<p class="sell-line">${esc(p.sellLine)}</p>` : ''}

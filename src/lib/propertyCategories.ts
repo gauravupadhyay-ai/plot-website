@@ -34,7 +34,7 @@ export const PROPERTY_CATEGORIES: {
     types: ['Flat / Apartment', 'Independent House'],
     heroTitle: 'Highrise Residences',
     heroSubtitle:
-      'Premium apartments and residences in Greater Noida and the Yamuna Expressway corridor.',
+      'Premium apartments, residences, and landmark highrise inventory across Greater Noida, Noida, and the Yamuna Expressway corridor.',
     breadcrumb: 'Highrise',
     heroImage: '/images/hero/hero-projects.jpg',
   },

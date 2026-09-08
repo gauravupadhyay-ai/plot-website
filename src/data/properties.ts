@@ -138,9 +138,15 @@ function withSeedOverrides(property: Property): Property {
         : seed.videos
   )
   // Database/admin edits win; seed fills gaps and supplies default media.
+  // Seed type/media always win for known inventory so catalog updates ship without a DB reseed.
+  const forceSeedType =
+    seed.code === 'AX-NX-001' ||
+    seed.code === 'AX-RE-001' ||
+    seed.code === 'AX-HS-001'
   return {
     ...seed,
     ...property,
+    type: forceSeedType ? seed.type : property.type,
     title: seed.code === 'AX-RK-001' ? seed.title : property.title,
     slug: seed.code === 'AX-RK-001' ? seed.slug : property.slug,
     images: images.length ? images : uniqueUrls(seed.images),
@@ -156,6 +162,7 @@ function withSeedOverrides(property: Property): Property {
     ambientAudio: seed.ambientAudio?.length ? seed.ambientAudio : property.ambientAudio,
     nearbyPlaces: property.nearbyPlaces?.length ? property.nearbyPlaces : seed.nearbyPlaces,
     areaLabel: property.areaLabel || seed.areaLabel,
+    bhk: forceSeedType ? seed.bhk : property.bhk,
     highlights: property.highlights?.length ? property.highlights : seed.highlights,
     amenities: property.amenities?.length ? property.amenities : seed.amenities,
   }
@@ -225,8 +232,8 @@ async function fetchPropertiesUncached(): Promise<Property[]> {
   }
 }
 
-export const getProperties = unstable_cache(fetchPropertiesUncached, ['properties-list-v7'], {
-  revalidate: 300,
+export const getProperties = unstable_cache(fetchPropertiesUncached, ['properties-list-v8'], {
+  revalidate: 60,
 })
 
 export async function getPropertyBySlug(slug: string): Promise<Property | undefined> {
