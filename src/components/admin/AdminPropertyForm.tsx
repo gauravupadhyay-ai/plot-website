@@ -200,7 +200,7 @@ export function AdminPropertyForm({
 
       const saveErrorHint = (message: string) => {
         if (/column|schema|category|panorama|map_embed|lat|lng/i.test(message)) {
-          return `${message} — run supabase_admin_location_360.sql and supabase_property_categories.sql in the Supabase SQL Editor, then try again.`
+          return `${message} - run supabase_admin_location_360.sql and supabase_property_categories.sql in the Supabase SQL Editor, then try again.`
         }
         return message
       }
@@ -222,7 +222,7 @@ export function AdminPropertyForm({
           if (dbError) throw new Error(saveErrorHint(dbError.message))
         }
       } else {
-        // Adding an extra plot — reject duplicate codes so Edit is used for previous listings
+        // Adding an extra plot - reject duplicate codes so Edit is used for previous listings
         const { data: existing } = await supabase
           .from('properties')
           .select('id')
@@ -259,7 +259,7 @@ export function AdminPropertyForm({
         </h1>
         <p className="text-sm text-text-secondary">
           {mode === 'edit'
-            ? 'Update a previously saved NCR listing — plots, highrise, or commercial — including map and 360° links.'
+            ? 'Update a previously saved NCR listing - plots, highrise, or commercial - including map and 360° links.'
             : 'Add a plot, highrise, or commercial listing for Greater Noida / Noida / Vrindavan. Include location and 360° links below.'}
         </p>
       </header>

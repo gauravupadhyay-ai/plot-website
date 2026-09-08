@@ -30,7 +30,7 @@ export function getSupabaseAdmin(): SupabaseClient {
   return adminClient
 }
 
-/** @deprecated Prefer getSupabaseAdmin() — kept for existing imports */
+/** @deprecated Prefer getSupabaseAdmin() - kept for existing imports */
 export const supabaseAdmin: SupabaseClient = new Proxy({} as SupabaseClient, {
   get(_target, prop, receiver) {
     const client = getSupabaseAdmin()

@@ -7,11 +7,11 @@ import { CONTACT_EMAIL, OFFICE_ADDRESS, SITE_NAME } from '@/lib/utils'
 import { ContactPhoneLinks } from '@/components/ui/ContactPhoneLinks'
 
 const credentials = [
+  'NAR Certified',
+  'CREDAI Member',
+  'Government-Approved Projects',
+  'Bank & Govt Loans',
   'Title Verified',
-  'NA Guidance',
-  'Site Visits',
-  'Loan Support',
-  'Clear Docs',
 ]
 
 export function Footer() {
@@ -89,15 +89,14 @@ export function Footer() {
       <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 md:py-20 lg:px-8">
         <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-4 lg:gap-8">
           <div className="sm:col-span-2 lg:col-span-1">
-            <Link href="/" className="mb-4 inline-flex items-center gap-3">
+            <Link href="/" className="mb-4 inline-flex items-center">
               <Image
                 src="/images/brand/aurixx-logo.png"
                 alt={SITE_NAME}
-                width={72}
-                height={72}
-                className="h-16 w-16 rounded-full object-cover sm:h-[4.5rem] sm:w-[4.5rem]"
+                width={180}
+                height={180}
+                className="h-16 w-auto object-contain"
               />
-              <span className="font-display text-2xl font-bold text-white">{SITE_NAME}</span>
             </Link>
             <p className="mb-6 text-[15px] leading-relaxed text-white/60">
               NCR real-estate specialists. Helping buyers find verified plots, highrise, and commercial inventory across Greater Noida, Noida, Yamuna Expressway &amp; Vrindavan.

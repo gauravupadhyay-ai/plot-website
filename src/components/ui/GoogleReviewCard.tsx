@@ -73,7 +73,7 @@ export function GoogleReviewCard({
         <GoogleMark />
       </div>
       <GoogleStars rating={rating} />
-      <p className="mt-3 flex-1 text-sm leading-relaxed text-[#3c4043] line-clamp-5">{quote}</p>
+      <p className="mt-3 flex-1 text-sm leading-relaxed text-[#3c4043]">{quote}</p>
       <p className="mt-4 text-xs font-medium text-[#1a73e8]">Posted on Google</p>
     </article>
   )

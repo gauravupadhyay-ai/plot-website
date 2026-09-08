@@ -182,7 +182,7 @@ async function main() {
 
   if (!process.env.SUPABASE_SERVICE_ROLE_KEY) {
     console.warn(
-      'Warning: SUPABASE_SERVICE_ROLE_KEY not set — using anon key. Uploads may fail if storage policies are strict.'
+      'Warning: SUPABASE_SERVICE_ROLE_KEY not set - using anon key. Uploads may fail if storage policies are strict.'
     )
   }
 
@@ -206,7 +206,7 @@ async function main() {
 
   for (const listing of listings) {
     if (!listing.code || !listing.slug || !listing.title) {
-      console.error('Each listing needs code, slug, title — skipped one entry')
+      console.error('Each listing needs code, slug, title - skipped one entry')
       continue
     }
 
@@ -292,7 +292,7 @@ async function main() {
 
   console.log('\nDone.')
   if (!dryRun) {
-    console.log('Open the site Properties page — listings should load from Supabase.')
+    console.log('Open the site Properties page - listings should load from Supabase.')
   }
 }
 

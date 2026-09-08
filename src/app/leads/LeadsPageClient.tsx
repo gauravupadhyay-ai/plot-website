@@ -32,7 +32,7 @@ const stats = [
 
 const trustPoints = [
   { icon: Shield, title: 'Verified Listings', desc: 'Every plot is checked for title clarity before we recommend it.' },
-  { icon: Handshake, title: 'Zero Pressure', desc: 'Honest advice on locality fit, pricing, and paperwork — at your pace.' },
+  { icon: Handshake, title: 'Zero Pressure', desc: 'Honest advice on locality fit, pricing, and paperwork - at your pace.' },
   { icon: MapPin, title: 'NCR Specialists', desc: 'Deep expertise across Greater Noida, Noida, Yamuna Expressway & Vrindavan.' },
   { icon: FileCheck, title: 'End-to-End Support', desc: 'From shortlist and site visit through registration and loan paperwork.' },
 ]
@@ -95,7 +95,7 @@ function LeadForm({
           phone,
           propertyType: 'Plot',
           source: 'Lead Magnet Page /leads',
-          message: 'Lead from /leads landing page — interested in plots and property in NCR.',
+          message: 'Lead from /leads landing page - interested in plots and property in NCR.',
         }),
       })
 
@@ -133,7 +133,7 @@ function LeadForm({
         <p className="section-eyebrow !justify-start">Free consultation</p>
         <h2 className="font-display text-2xl font-bold text-text-primary">Get plot options in NCR</h2>
         <p className="mt-2 text-sm text-text-secondary font-sans">
-          Share your name and number — we&apos;ll call with verified plot shortlists for Greater Noida, Noida &amp; Yamuna Expressway.
+          Share your name and number - we&apos;ll call with verified plot shortlists for Greater Noida, Noida &amp; Yamuna Expressway.
         </p>
       </div>
 
@@ -165,7 +165,7 @@ function LeadForm({
           <Send size={18} /> {loading ? 'Submitting...' : 'Get a Free Callback'}
         </button>
         <p className="text-center text-[11px] text-text-muted font-sans">
-          100% confidential. No spam — only property guidance from {SITE_NAME}.
+          100% confidential. No spam - only property guidance from {SITE_NAME}.
         </p>
       </form>
     </div>
@@ -228,7 +228,7 @@ export function LeadsPageClient() {
 
   return (
     <main id="main-content" className="min-h-screen bg-brand-light">
-      {/* Minimal header — logo only, no site navigation */}
+      {/* Minimal header - logo only, no site navigation */}
       <header className="fixed top-0 left-0 right-0 z-50 border-b border-border/60 bg-white/95 backdrop-blur-sm">
         <div className="mx-auto flex h-16 max-w-6xl items-center px-4 sm:px-6 lg:px-8">
           <div className="flex items-center gap-3">
@@ -247,7 +247,7 @@ export function LeadsPageClient() {
         </div>
       </header>
 
-      {/* Hero — copy on top (mobile), form below; desktop unchanged */}
+      {/* Hero - copy on top (mobile), form below; desktop unchanged */}
       <section className="relative overflow-hidden pt-16">
         <div className="absolute inset-0">
           <Image
@@ -262,7 +262,7 @@ export function LeadsPageClient() {
         </div>
 
         <div className="relative mx-auto grid max-w-6xl grid-cols-1 items-center gap-8 px-4 py-12 sm:px-6 sm:py-16 md:gap-10 lg:grid-cols-2 lg:gap-12 lg:px-8 lg:py-24">
-          {/* Hero copy — top on mobile, left on desktop */}
+          {/* Hero copy - top on mobile, left on desktop */}
           <motion.div
             variants={heroStagger}
             initial="hidden"
@@ -293,7 +293,7 @@ export function LeadsPageClient() {
               variants={heroItem}
               className="mt-5 max-w-xl text-base leading-relaxed text-white/90 font-sans sm:text-lg"
             >
-              Verified residential plots, clear-title focus, and end-to-end guidance from shortlist to registration — without the hard sell.
+              Verified residential plots, clear-title focus, and end-to-end guidance from shortlist to registration - without the hard sell.
             </motion.p>
 
             <motion.ul variants={heroItem} className="mt-8 space-y-3 font-sans text-sm text-white/95 sm:text-base">
@@ -326,7 +326,7 @@ export function LeadsPageClient() {
             </motion.div>
           </motion.div>
 
-          {/* Lead form — below copy on mobile, right on desktop */}
+          {/* Lead form - below copy on mobile, right on desktop */}
           <motion.div
             variants={formPop}
             initial="hidden"
@@ -393,7 +393,7 @@ export function LeadsPageClient() {
                 <span className="text-brand-primary">real estate specialists</span>
               </h2>
               <p className="mb-6 font-sans text-lg leading-relaxed text-text-secondary">
-                {SITE_NAME} helps families and investors buy residential plots, highrise, and commercial property across Greater Noida, Noida, Yamuna Expressway, and Vrindavan — with transparency at every step.
+                {SITE_NAME} helps families and investors buy residential plots, highrise, and commercial property across Greater Noida, Noida, Yamuna Expressway, and Vrindavan - with transparency at every step.
               </p>
               <p className="mb-8 font-sans leading-relaxed text-text-secondary">
                 Whether you are buying your first plot to build a home or comparing corridors for investment, our team stays with you from enquiry to registration.

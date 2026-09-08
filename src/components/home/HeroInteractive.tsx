@@ -168,7 +168,7 @@ export function HeroDesktop() {
               >
                 <Image
                   src={slide.src}
-                  alt={`${slide.title} — ${slide.locality}`}
+                  alt={`${slide.title} - ${slide.locality}`}
                   fill
                   sizes="100vw"
                   quality={70}
@@ -215,7 +215,7 @@ export function HeroDesktop() {
                   }}
                   className="mx-auto mt-3 max-w-xl text-sm text-white/95 md:mt-4 md:text-base lg:text-lg"
                 >
-                  Verified plots and commercial inventory across NCR — Yamuna Expressway, Noida, Greater Noida & Vrindavan.
+                  Verified plots and commercial inventory across NCR - Yamuna Expressway, Noida, Greater Noida & Vrindavan.
                 </motion.p>
                 <motion.p
                   key={slide.title}

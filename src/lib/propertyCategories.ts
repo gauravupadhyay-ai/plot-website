@@ -1,6 +1,6 @@
 import type { Property } from '@/types/property'
 
-/** Site inventory channels — maps to Supabase `category` + listing pages */
+/** Site inventory channels - maps to Supabase `category` + listing pages */
 export type PropertyCategory = 'plot' | 'highrise' | 'commercial'
 
 export const PROPERTY_CATEGORIES: {

@@ -41,13 +41,18 @@ export default function HomeLoanPage() {
                   work with leading banks to help you compare options and move forward with clarity.
                 </p>
                 <p>
+                  Bank and government-supported home loans are available on Aurixxrealty properties.
+                  We work with leading banks so you can buy with financing, not only cash.
+                </p>
+                <p>
                   Our loan assistance team evaluates eligibility, compares offerings across 10+
-                  banks, and supports documentation — so you can focus on choosing the right plot,
+                  banks, and supports documentation so you can focus on choosing the right plot,
                   not chasing paperwork.
                 </p>
               </div>
               <div className="space-y-3 mb-8">
                 {[
+                  'Government-supported home loans',
                   '10+ Banking Partners',
                   'Plot Loan Guidance',
                   'Construction Loan Support',

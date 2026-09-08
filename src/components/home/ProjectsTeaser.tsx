@@ -60,7 +60,7 @@ export function ProjectsTeaser() {
                 Omicron 1A, Greater Noida
               </div>
               <p className="text-white/70 leading-relaxed mb-6">
-                Premium residences across 7 standalone towers on 7.5 acres — 4-side open towers,
+                Premium residences across 7 standalone towers on 7.5 acres - 4-side open towers,
                 green views, lavish clubhouse, and strong Greater Noida / Expressway connectivity.
               </p>
 

@@ -1,6 +1,6 @@
 import { Property } from '@/types/property'
 
-/** Local inventory — Hari Shyam, Lalita Kunj, Shubh Labh Group, Vrinda, Urbtech, Gaur Chrysalis & Aero, Eldeco 7 Peaks, BiiGTecH */
+/** Local inventory - Hari Shyam, Rama Enclave, Lalita Kunj, Shubh Labh Group, Vrinda, Urbtech, Gaur Chrysalis & Aero, Eldeco 7 Peaks, BiiGTecH */
 export const seedPlots: Property[] = [
   {
     slug: 'hari-shyam-township-jewar',
@@ -24,8 +24,9 @@ export const seedPlots: Property[] = [
     status: 'Pre-Launch',
     age: 'New',
     description:
-      'Hari Shyam Township is a premium gated township presented by Hari Kripa Buildscape Pvt. Ltd. — a pre-launch residential plot opportunity on the Jewar growth corridor, beside the Yamuna Expressway and close to Noida International Airport.\n\nBuy today. Build your future in tomorrow’s growth corridor. Plots are offered in 50, 100, 150 and 200 gaj, with a pre-launching price of ₹18,000–₹22,000 per gaj. Inventory is limited; site visits are available.\n\nWhy invest near Jewar Airport: near Noida International Airport; strong Yamuna Expressway connectivity; a growing logistics and commercial ecosystem; the upcoming Film City; major infrastructure development around Jewar; future multimodal connectivity; residential and commercial development potential; and a location suited to long-term land investors.\n\nThe township is planned with wide roads, a green environment, a gated society, electricity and water facility, park and open area, and long-term growth potential along the Jewar–Yamuna Expressway belt.\n\nHari Shyam Township — where homes take shape and investments grow. Location: Jewar | Yamuna Expressway | Noida International Airport.',
+      'Hari Shyam Township is a premium gated township presented by Hari Kripa Buildscape Pvt. Ltd. - a pre-launch residential plot opportunity on the Jewar growth corridor, beside the Yamuna Expressway and close to Noida International Airport.\n\nBuy today. Build your future in tomorrow’s growth corridor. Plots are offered in 50, 100, 150 and 200 gaj, with a pre-launching price of ₹18,000–₹22,000 per gaj. Inventory is limited; site visits are available.\n\nWhy invest near Jewar Airport: near Noida International Airport; strong Yamuna Expressway connectivity; a growing logistics and commercial ecosystem; the upcoming Film City; major infrastructure development around Jewar; future multimodal connectivity; residential and commercial development potential; and a location suited to long-term land investors.\n\nThe township is planned with wide roads, a green environment, a gated society, electricity and water facility, park and open area, and long-term growth potential along the Jewar–Yamuna Expressway belt.\n\nHari Shyam Township - where homes take shape and investments grow. Location: Jewar | Yamuna Expressway | Noida International Airport.',
     highlights: [
+      'Bank and government-supported home loans available',
       'Pre-launch ₹18,000–₹22,000 / gaj',
       'Plot sizes 50, 100, 150 & 200 gaj',
       'Near Noida International Airport',
@@ -71,6 +72,90 @@ export const seedPlots: Property[] = [
     reviews: [],
   },
   {
+    slug: 'rama-enclave-jewar',
+    code: 'AX-RE-001',
+    type: 'Plot',
+    title: 'Rama Enclave',
+    location: 'Near Jattari Market, behind Khatu Shyam Mandir, Jewar–Yamuna Expressway corridor',
+    locality: 'Jewar / Yamuna Expressway',
+    price: 0,
+    priceLabel: 'Price on Request',
+    priceOnRequest: true,
+    pricePerUnit: undefined,
+    bhk: 'N/A',
+    bedrooms: 0,
+    bathrooms: 0,
+    area: 100,
+    areaUnit: 'sq.yd',
+    areaLabel: '100–125 sq.yd residential · commercial shops',
+    facing: undefined,
+    ownership: 'Freehold',
+    status: 'Available',
+    age: 'New',
+    description:
+      'Rama Enclave is a thoughtfully planned township designed for buyers who want both growth and lifestyle in one place. Located at a strategic point on the Jewar–Yamuna Expressway belt, about 25 minutes from Jewar International Airport and near Jattari Market behind Khatu Shyam Mandir, this premium gated development offers unmatched connectivity and future potential. Surrounded by rapidly developing infrastructure and upcoming commercial hubs, Rama Enclave stands as a promising opportunity for investors and homeowners alike.\n\nWide roads, well-defined plots, secure gated surroundings, and a modern layout ensure a blend of comfort, convenience, and long-term value. You do not just own a plot — you secure a future. Whether you plan to build your dream home or invest in tomorrow’s growth corridor, Rama Enclave offers the foundation. Be a part of something that is not just growing — but evolving into the future.\n\nA gated society with park, mandir, and club; internal roads of 25 ft, 30 ft, and 40 ft; government electricity; U.P. government registry and mutation; concrete construction permitted; black-pitch wide roads; a concrete boundary wall; and electricity poles. Residential plots are planned around 100–125 sq.yd (including ~100.33 and 125 sq.yd types, plus corner plots of varying sizes), with commercial shops of about 56 sq.yd.\n\nEndless connectivity. Timeless luxury. Perfectly positioned near Jattari Market behind Khatu Shyam Mandir, Rama Enclave offers effortless access to the Yamuna Expressway, Noida International Airport (Jewar), Film City, Formula 1 / Buddh International Circuit, top universities, metro, industrial and IT hubs, Rapid Rail, the Defence Corridor, Olympic Park, and the Medical Device Park. Surrounded by advanced healthcare and key urban conveniences, it delivers a rare balance of serene green living and modern accessibility.\n\nA premium gated society offering a peaceful lifestyle amidst sprawling green landscapes and wide internal roads. Enjoy a pollution-free environment with 24/7 water and electricity supply, round-the-clock security, and essential conveniences like a temple and nearby hospital, ensuring comfort, safety, and a well-balanced living experience for you and your family.\n\nAbout the builder: Rama Global Infra Pvt. Ltd. is a trusted name in the real estate and infrastructure sector, recognized for delivering high-quality plotted developments and robust infrastructure solutions that reflect reliability, transparency, and innovation. Driven by a clear vision and commitment to excellence, the group specializes in planning and developing well-structured residential and investment-focused land projects in strategically growing locations. Strong emphasis on legal clarity, timely delivery, and a customer-first approach has helped build lasting trust among clients and partners.\n\nVision: to be a leading real estate development company recognized for delivering sustainable, secure, and value-driven infrastructure that enhances both lifestyle and investment potential. Mission: to develop and deliver real estate solutions that meet the evolving aspirations of modern buyers while maintaining the highest standards of quality, ethics, and professionalism. Core values: integrity (transparent transactions and clear documentation), commitment (timely delivery and promised specifications), excellence (superior design, development, and long-term value), and customer focus (end-to-end support with a service-first approach).',
+    highlights: [
+      'Bank and government-supported home loans available',
+      'Price on request',
+      'Gated society with park, mandir & club',
+      'Internal roads 25, 30 & 40 ft',
+      'About 25 mins from Jewar Airport',
+      'U.P. government registry & mutation',
+      'By Rama Global Infra Pvt. Ltd.',
+    ],
+    amenities: [
+      'Gated society',
+      'Park, mandir & club',
+      'Sprawling greens',
+      'Wide internal roads (25–40 ft)',
+      '24/7 water & electricity',
+      '24/7 security',
+      'Concrete boundary wall',
+      'Government electricity',
+      'U.P. government registry & mutation',
+      'Concrete construction permitted',
+      'Black-pitch wide road',
+      'Electricity poles',
+      'Nearby hospital',
+    ],
+    images: [
+      '/images/plots/ram-enclave/cover.png',
+      '/images/plots/ram-enclave/01-location.png',
+      '/images/plots/ram-enclave/02-layout.png',
+    ],
+    videos: [
+      '/videos/plots/ram-enclave/01.mp4',
+      '/videos/plots/ram-enclave/02.mp4',
+      '/videos/plots/ram-enclave/03.mp4',
+      '/videos/plots/ram-enclave/04.mp4',
+      '/videos/plots/ram-enclave/05.mp4',
+    ],
+    documents: [
+      { label: 'Download Layout Plan', url: '/docs/ram-enclave/layout-plan.png' },
+    ],
+    featured: true,
+    badge: 'New',
+    developer: 'Rama Global Infra Pvt. Ltd.',
+    nearbyPlaces: [
+      { name: 'Jewar International Airport', distance: 'Approx. 25 mins' },
+      { name: 'Jattari Market', distance: 'Nearby' },
+      { name: 'Khatu Shyam Mandir', distance: 'Behind site' },
+      { name: 'Yamuna Expressway', distance: 'On corridor' },
+      { name: 'Upcoming Film City', distance: 'Growth belt' },
+      { name: 'Buddh International Circuit (F1)', distance: 'On corridor' },
+      { name: 'Medical Device Park', distance: 'Growth belt' },
+      { name: 'Defence Corridor', distance: 'Growth belt' },
+      { name: 'Olympic Park', distance: 'Growth belt' },
+    ],
+    mapEmbedUrl:
+      'https://www.google.com/maps?q=28.025278,77.642222&z=14&hl=en&output=embed',
+    lat: 28.025278,
+    lng: 77.642222,
+    ratingAvg: 4.8,
+    ratingCount: 9,
+    reviews: [],
+  },
+  {
     slug: 'lalita-kunj-nandgaon-barsana',
     code: 'AX-LK-001',
     type: 'Plot',
@@ -92,8 +177,9 @@ export const seedPlots: Property[] = [
     status: 'Pre-Launch',
     age: 'New',
     description:
-      'Lalita Kunj is a pre-launch, government-approved residential plot township at Nandgaon–Barsana — 40 acres, 582 plots, Zila Panchayat approved, with 80C benefit and mutation*. Plots are allotted through a draw. Pre-launch price is ₹32,500 per gaj, against an expected launch price of ₹45,500 per gaj. Registration is open with ₹21,000.\n\nWhy register early: early registration lets you lock the pre-launch rate before the expected launch price, with early-registration benefits and allotment through the project’s draw. Inventory is limited.\n\nA location where faith meets future growth. Lalita Kunj sits in the Barsana–Nandgaon Braj circuit — about 5 km from Nandgaon, 10 km from Shri Radha Rani Temple (Barsana), 6 km from Shani Dev Temple (Kokilavan), 15 km from Govardhan Parikrama Marg, and 25 km from Vrindavan.\n\nThe wider Barsana–Nandgaon region is seeing planned infrastructure and tourism development, including road widening, tourist amenities, parking, bypass/access-road improvements, and broader spiritual-tourism works. RERA for the project is also coming.\n\nBook your pre-launch registration today. Limited plots · Pre-launch ₹32,500/gaj · Expected launch ₹45,500/gaj.',
+      'Lalita Kunj is a pre-launch, government-approved residential plot township at Nandgaon–Barsana - 40 acres, 582 plots, Zila Panchayat approved, with 80C benefit and mutation*. Plots are allotted through a draw. Pre-launch price is ₹32,500 per gaj, against an expected launch price of ₹45,500 per gaj. Registration is open with ₹21,000.\n\nWhy register early: early registration lets you lock the pre-launch rate before the expected launch price, with early-registration benefits and allotment through the project’s draw. Inventory is limited.\n\nA location where faith meets future growth. Lalita Kunj sits in the Barsana–Nandgaon Braj circuit - about 5 km from Nandgaon, 10 km from Shri Radha Rani Temple (Barsana), 6 km from Shani Dev Temple (Kokilavan), 15 km from Govardhan Parikrama Marg, and 25 km from Vrindavan.\n\nThe wider Barsana–Nandgaon region is seeing planned infrastructure and tourism development, including road widening, tourist amenities, parking, bypass/access-road improvements, and broader spiritual-tourism works. RERA for the project is also coming.\n\nBook your pre-launch registration today. Limited plots · Pre-launch ₹32,500/gaj · Expected launch ₹45,500/gaj.',
     highlights: [
+      'Bank and government-supported home loans available',
       'Pre-launch ₹32,500 / gaj (expected launch ₹45,500)',
       'Registration from ₹21,000',
       '40 acres · 582 residential plots',
@@ -165,6 +251,7 @@ export const seedPlots: Property[] = [
     description:
       'Nari Semri plots in the Mathura–Vrindavan belt are part of large Shubh Labh Group township layouts near NH-19 (NH-2) and Sanskriti University. The corridor is marketed with substantial master-planned land (about 150 to 500+ acres across associated township layouts such as Shri Radha Rani Township).\n\nPlot sizes typically include 60, 100, 150, 200, 250 and 500 square yards. Pricing is shared on request after a site discussion, as rates vary by block and launch phase.\n\nKey amenities include a gated community, wide roads (up to 75 feet at the main entrance), sewage treatment plant (STP), 24/7 water supply via overhead tanks, parks, and CCTV security.\n\nPresented by Shubh Labh Group. Download the layout plan for block-wise plot arrangement.',
     highlights: [
+      'Bank and government-supported home loans available',
       'Price on request',
       'Plot sizes 60–500 sq.yd',
       'Near NH-19 and Sanskriti University',
@@ -234,6 +321,7 @@ export const seedPlots: Property[] = [
     description:
       'Radha Krishna Vrindavan Ashram is a gated residential plotted development by Shubh Labh Group on National Highway 2 (NH-2) near Nari Semri village, opposite Sukhdev Dhaba, Vrindavan.\n\nThe community offers ready-to-move and developing plots in various sizes, planned for families and investors looking at the Mathura–Vrindavan spiritual circuit with Yamuna Expressway access.\n\nAmenities include 24/7 security, CCTV surveillance, power backup, parks, and sports facilities such as badminton and basketball courts. Connectivity is straightforward to Prem Mandir, ISKCON Temple, and the wider Vrindavan circuit.\n\nPricing is on request. Download the layout plan for plot arrangement and approach.',
     highlights: [
+      'Bank and government-supported home loans available',
       'Price on request',
       'Gated plotted development on NH-2',
       'Near Nari Semri / opposite Sukhdev Dhaba',
@@ -305,6 +393,7 @@ export const seedPlots: Property[] = [
     description:
       'Radha Krishna Puram is a residential plotting project by Shubh Labh Group on the NH-2 corridor near Vrindavan, Mathura district. The group develops and consults on plotted projects across the Mathura–Vrindavan religious and tourism circuit.\n\nLocation: Nari Semri Village, directly on NH-2, opposite Sukhdev Dhaba, Chhata Rural, Semri, Mathura 281401. The offering is aimed at families building vacation homes and investors looking at long-term appreciation near the Yamuna Expressway belt.\n\nKey features include gated colony infrastructure, internal roads from 25 ft to 40 ft, dedicated parks, water supply lines, electrical connections, 24/7 security, and commercial shopping spaces within the layout.\n\nPricing is on request and confirmed after a site discussion. Download the revised layout plan for plot and road geometry.',
     highlights: [
+      'Bank and government-supported home loans available',
       'Price on request',
       'NH-2, Nari Semri, opposite Sukhdev Dhaba',
       'Gated colony with 25–40 ft roads',
@@ -374,10 +463,11 @@ export const seedPlots: Property[] = [
     status: 'Available for Sale',
     age: 'New',
     description:
-      'Own a freehold residential plot in the sacred town of Vrindavan, a rare chance to build your dream home in the land of Lord Krishna. Plots range from 110-255 sq. yd., starting at ₹29,900* per sq. yd., in a government 80(1)-approved gated community on NH-2, Semri, just minutes from Prem Mandir, ISKCON Temple, and the upcoming Chandrodaya Mandir.\n\nVrinda Vatika Homes offers freehold residential plots as the destination of your dream home. The project sits on NH-2, just 900 meters from Sanskriti University, giving residents both the spiritual significance of Vrindavan and easy connectivity to Delhi NCR.\n\nPricing and plot details: starting price ₹29,900* per sq. yd.; plot sizes 110 to 255 sq. yd.; government 80(1) approved. Price is subject to terms; please confirm current applicability of the starting price.\n\nAbout the developer: Vrinda Vatika Homes (VVH Group) has spent a decade helping families move into new homes, societies, and desirable plots across Delhi NCR. The developer focuses on premium residential, hospitality, commercial, integrated townships, lifestyle gated communities, and redevelopment projects, with an emphasis on health and safety, quality, and environmental standards.\n\nLocation and connectivity: New Delhi about 2 hours, Greater Noida about 1.5 hours, Gurgaon about 2 hours, Agra about 45 minutes, Mathura and Mathura Railway Station about 15 minutes. Nearby temples include Maa Vishno Devi Dham (8 min), Chandrodaya Mandir (10 min), Prem Mandir (10 min), Garud Govind Temple (12 min), ISKCON Temple (12 min), and Bankey Bihari Mandir (15 min). Also near Madan Mohan Mandir, Sri Ranganatha Mandir, Barsana Shri Radha Rani Temple, and Sanskriti University.\n\nNearby landmark: adjacent to the project is the upcoming Vrindavan Chandrodaya Mandir, planned at 700 feet to be the tallest Krishna temple in the world (a proposed development by devotees of ISKCON, Bangalore, not a VVH Group project).\n\nPoints of interest nearby include Banke Bihari Temple, ISKCON Temple, Prem Mandir, Sri Madan Mohan Temple, Rangaji Temple, Govardhan, Kesi Ghat, Nidhivan, Krishna Janma Bhumi, Dwarkadhish Temple, Vishram Ghat Mathura, Kusum Sarowar, Govind Dev Temple, Sri Radha Raman Ji, Radha Rani Mandir (Barsana), Taj Mahal, Buddh International Circuit, Film City, Cricket Stadium, Bird Sanctuary, Night Safari, and Great Adventure Mall.\n\nIdeal for residential plot buyers, second-home seekers, and spiritually inclined families. Status: Available for Sale | Freehold Plots.\n\nAurixxrealty office: Office No. 701, 7th Floor, Tower A, Urbtech Trade Centre (UTC), Plot No. B-35, Sector 132, Noida, Gautam Buddha Nagar, Uttar Pradesh – 201304, India.\nSite Office: Vrinda Vatika Homes, NH-2, Semri, Vrindavan, Uttar Pradesh 281401.\nWebsite: www.vvhgroupindia.com / www.vvhindia.com',
+      'Own a freehold residential plot in the sacred town of Vrindavan, a rare chance to build your dream home in the land of Lord Krishna. Plots range from 110-255 sq. yd., starting at ₹29,900* per sq. yd., in a government 80(1)-approved gated community on NH-2, Semri, just minutes from Prem Mandir, ISKCON Temple, and the upcoming Chandrodaya Mandir.\n\nVrinda Vatika Homes offers freehold residential plots as the destination of your dream home. The project sits on NH-2, only 900 meters from Sanskriti University, the main landmark next to the site. That is a neighbour you can walk, not a brochure distance. Families from NCR already use this campus road, so the address is easy to explain, easy to visit, and easy to live next to, with both the spiritual significance of Vrindavan and easy connectivity to Delhi NCR.\n\nPricing and plot details: starting price ₹29,900* per sq. yd.; plot sizes 110 to 255 sq. yd.; government 80(1) approved. Market analysis for this belt points toward around ₹39,900* per sq. yd. in the next 1½–2 years. That outlook is not a guarantee. Price is subject to terms; please confirm current applicability of the starting price.\n\nAbout the developer: Vrinda Vatika Homes (VVH Group) has spent a decade helping families move into new homes, societies, and desirable plots across Delhi NCR. The developer focuses on premium residential, hospitality, commercial, integrated townships, lifestyle gated communities, and redevelopment projects, with an emphasis on health and safety, quality, and environmental standards.\n\nLocation and connectivity: New Delhi about 2 hours, Greater Noida about 1.5 hours, Gurgaon about 2 hours, Agra about 45 minutes, Mathura and Mathura Railway Station about 15 minutes. Nearby temples include Maa Vishno Devi Dham (8 min), Chandrodaya Mandir (10 min), Prem Mandir (10 min), Garud Govind Temple (12 min), ISKCON Temple (12 min), and Bankey Bihari Mandir (15 min). Also near Madan Mohan Mandir, Sri Ranganatha Mandir, Barsana Shri Radha Rani Temple, and Sanskriti University.\n\nNearby landmark: adjacent to the project is the upcoming Vrindavan Chandrodaya Mandir, planned at 700 feet to be the tallest Krishna temple in the world (a proposed development by devotees of ISKCON, Bangalore, not a VVH Group project).\n\nPoints of interest nearby include Banke Bihari Temple, ISKCON Temple, Prem Mandir, Sri Madan Mohan Temple, Rangaji Temple, Govardhan, Kesi Ghat, Nidhivan, Krishna Janma Bhumi, Dwarkadhish Temple, Vishram Ghat Mathura, Kusum Sarowar, Govind Dev Temple, Sri Radha Raman Ji, Radha Rani Mandir (Barsana), Taj Mahal, Buddh International Circuit, Film City, Cricket Stadium, Bird Sanctuary, Night Safari, and Great Adventure Mall.\n\nIdeal for residential plot buyers, second-home seekers, and spiritually inclined families. Status: Available for Sale | Freehold Plots.\n\nAurixxrealty office: Office No. 701, 7th Floor, Tower A, Urbtech Trade Centre (UTC), Plot No. B-35, Sector 132, Noida, Gautam Buddha Nagar, Uttar Pradesh – 201304, India.\nSite Office: Vrinda Vatika Homes, NH-2, Semri, Vrindavan, Uttar Pradesh 281401.\nWebsite: www.vvhgroupindia.com / www.vvhindia.com',
     highlights: [
+      'Bank and government-supported home loans available',
       'On NH-2, only 900 m from Sanskriti University',
-      'From ₹29,900* per sq. yd. · 110–255 sq. yd.',
+      'From ₹29,900* per sq. yd. · outlook ~₹39,900* in 1½–2 years',
       '2 hrs New Delhi · 1.5 hrs Greater Noida · 2 hrs Gurugram',
       '45 min Agra · 15 min Mathura & railway station',
       '8–15 min from Prem Mandir, ISKCON & Bankey Bihari',
@@ -455,6 +545,7 @@ export const seedPlots: Property[] = [
     description:
       'Own a premium, fully-specced IT/business office suite at Urbtech NPX, a landmark commercial development redefining Nehru Place-style business hubs in Noida. Each unit comes with split/VRV/AHU air conditioning, premium flooring, finished walls, an independent toilet, wooden doors for privacy, and wet pantry provisions, with round-the-clock office access.\n\nUrbtech NPX is a premium retail-cum-office complex in Sector-153, Noida, positioned as a modern alternative to Delhi\'s Nehru Place, offering a more organized, world-class business environment for IT and corporate occupiers.\n\nAbout the developer: Urbtech is a premier NCR real estate development group with a diversified portfolio across housing and IT parks. Owned and led by experienced professionals, the group has delivered approximately 50 lac sq. ft. of developed area, built on a foundation of ethics, innovation, and world-class design standards.\n\nDelivered and notable projects include Intellect Park (Sector 125, Noida, 2010), Matrix Tower (Sector 132, Noida, 2012), Nehru Place Extension / NPX (Sector 153, Noida, 2014), Urbtech Trade Centre (Sector 132, Noida, 2020), Hilston Phase-I (Sector 79, Noida, 2022), Dauj Boutique Resort (Faridabad, operational 2022), Sanjeevani Homes Phase-I (Faridabad, 2024), Urbtech One 27 (Sector 127, Noida), and Urbtech Mpire (Okhla Phase-1, under construction).\n\nNotable brands and tenants at the complex include Bikanervala, Domino\'s Pizza, TekMindz, Tata Projects Limited, GMR, Axis Bank, Mtandt, Gold\'s Gym, Jalisco, and many more.\n\nIdeal for IT companies, corporate offices, and business suites. Status: Available for Sale.',
     highlights: [
+      'Bank and government-supported home loans available',
       'Premium IT office suites',
       'Urbtech NPX, Sector-153',
       'Fully finished interiors',
@@ -534,6 +625,7 @@ export const seedPlots: Property[] = [
     description:
       'Urbtech NPX (Nehru Place Extension) is a ready-to-move business hub on the Noida Expressway in Sector 153 - the perfect business address, right on the expressway. Own your piece of space and start your business today.\n\nNPX is designed by renowned architects DFA as a Ground + 16 floor complex of about 1 million sq. ft. with double basement parking. It sits about a 15-minute drive from the DND toll road, surrounded by major residential sectors and corporate hubs from Kalindi Kunj to Greater Noida, adjacent to about 400 acres of residential townships and a proposed metro station where work has already started.\n\nProject segments include a retail zone, corporate business offices, serviced business suites (bare-shell, semi-furnished, and fully furnished), creative arena, support service arena, the largest food court of NCR (national and international brands, coffee shops, multi-cuisine restaurants, fast food, ice cream parlours, and food kiosks), plus banks and ATMs. Serviced suites offer virtual office solutions with call handling, dedicated reception, mail handling, video conference hall, and meeting rooms.\n\nRecreation and support: club with meditation centre, health fitness centre with steam and sauna, swimming pool, and creche / day care. Other highlights: centrally air-conditioned, 100% power backup, 24-hour water supply, round-the-clock 3-tier security, high-speed elevators, WiFi connectivity, large floor plates, and escalators.\n\nPay 50% now and start your business today, with the rest in 6 months (offer subject to terms).\n\nAbout Urbtech: delivered projects include Intellect (Sec-125), Matrix and UTC (Sec-132), Hilston group housing (Sec-79), and Mpire (Okhla).',
     highlights: [
+      'Bank and government-supported home loans available',
       'Ready for possession',
       'Sector 153, Noida Expressway',
       'Ground + 16 floors',
@@ -623,6 +715,7 @@ export const seedPlots: Property[] = [
     description:
       'When a region starts attracting the world, smart investors move early. With Buddh International Circuit, Noida International Airport, and rising global interest, the Yamuna Expressway corridor is no longer about the future - it is already happening.\n\nThis listing covers Gaurs Group offerings on the corridor: Gaur Chrysalis (3 and 4 BHK bespoke residences in Sector 22-D) and Gaur Aero Suites (studio / suite apartments at Gaur Yamuna City, Sector 19).\n\nGaur Chrysalis: Sector 22-D, Yamuna Expressway, minutes from Noida International Airport. Address: PLOT NO. GH-12, Yamuna Expy, Gautam Budh Nagar, INDUSTRIAL DEVELOPMENT AUTHORITY, SECTOR-22D, Greater Noida, Uttar Pradesh 203209. Chrysalis 2.0 features one of Yamuna Expressway\'s finest clubhouses as the social heart of the community. Residences from about ₹1.36 Cr* / ₹1.38 Cr* (2.0). RERA: UPRERAPRJ622344/11/2025.\n\nGaur Aero Suites: Near Gaurs School, Sector 19, Gaur Yamuna City, Yamuna Expressway. Studio and suite apartments across Tower B and Iconic Tower, from about ₹74.53 Lakh* (Gold-1, 600 sq.ft) with floor and view PLC as per price list. RERA: UPRERAPRJ441797.\n\nDownload price lists, brochure, sales PPT, Aero Suites price list, and typical floor plans with super area for full configurations and charges.',
     highlights: [
+      'Bank and government-supported home loans available',
       'Chrysalis + Aero Suites',
       'Studio to 3 & 4 BHK options',
       'From ₹74.53 Lakh*',
@@ -701,6 +794,7 @@ export const seedPlots: Property[] = [
     description:
       'Eldeco 7 Peaks Residence is a premium residential development in Omicron 1A, Greater Noida, planned as exclusive 7 standalone towers spread over 7.5 acres with green views. Towers are 4-side open with diagonal positioning for optimal airflow. Each apartment is 3-side open with infinite views, wraparound curved balconies, and sunlit interiors.\n\nKey planning features include a grand double-height tower lobby with natural ambience, 4 apartments on each floor, all apartments facing greens or central tropical water features, a lavish clubhouse with state-of-the-art amenities, and 4 swimming pools (lap pool, tropical pool, all-weather heated pool, and kids pool with sand beach). Minimal vehicular movement on the surface keeps the residential experience calm. The basement with 28 cutouts ensures abundant natural light. Each tower has 3 large passenger lifts and 1 service lift, with optimum utilization of stilt area for recreational activities.\n\nConnectivity: close to the Noida-Greater Noida Expressway, Yamuna Expressway, GT Road, and Eastern Peripheral Expressway for easy travel across Delhi NCR. Linked via the Aqua Line metro, with the Knowledge Park-V extension further improving access. Noida International Airport enhances long-term accessibility and property appreciation. Close to industrial areas, IT corridors, and commercial zones such as Ecotech, SEZs, and Kasna Industrial Area.\n\nNearby distances (approx.): Fortis Hospital 4 km, Radisson Blu 4.5 km, Delta 1 Metro 6 km, Yamuna Expressway 7 km, Noida-Greater Noida Expressway 7 km, Pari Chowk Metro 7.7 km, Kasna Industrial Area 8.5 km, Jaypee Cricket Stadium 17.3 km, Buddh International Circuit 17.5 km, Noida International Airport about 40 km.',
     highlights: [
+      'Bank and government-supported home loans available',
       '7 standalone towers on 7.5 acres',
       '4-side open towers',
       'Wraparound curved balconies',
@@ -798,6 +892,7 @@ export const seedPlots: Property[] = [
     description:
       'BiiGTecH - Marking Your Territory is a premium commercial project at Plot No. 21, Knowledge Park 3 (I.T. Park KP-21), Greater Noida. It brings together food court, gaming zone, retail, offices, and studio apartments in a mixed-use hub designed for high footfall.\n\nProject highlights: strategic location surrounded by colleges, IT hubs, and residences; excellent connectivity via Yamuna and Noida-Greater Noida Expressways; close to operational Aqua Line metro (Knowledge Park II); future road link toward Sector 146 and Advant Navis Business Park (about 12 mins); fully paid-up land with transparent investment terms; bank loan facility with construction-linked payment plans; proximity to SEZ, DLF Techpark, MetLife, NTT, EXL, Expo Mart, and more; upcoming Hindon River Bridge and 60m road projects; metro expansion (Botanical Garden-142 line) to further boost connectivity.\n\nWhere business and footfall come together: Knowledge Park 3 draws a large residential catchment, working professionals across IT and services, and a substantial student population from nearby universities and colleges.\n\nRetail and workspace: modern architecture with premium office suites, high-visibility retail, business lounges, advanced infrastructure, energy-efficient systems, ample parking, and flexible layouts. Floors include lower ground through upper floors with themed zones (Terra, Aqua, Breeze, Skye), food and entertainment levels, multiplex / gaming zones, and corporate office floors (Nexus, Pixel, Zenith, Vista).\n\nVision: Marking Your Territory - transforming spaces into vibrant commercial hubs with innovation, ownership, and community connectivity. Download retail, food and entertainment, gaming zone, and office price lists for current rates.',
     highlights: [
+      'Bank and government-supported home loans available',
       'Knowledge Park 3, Greater Noida',
       'Retail, F&B, gaming, offices',
       'Near Aqua Line metro',

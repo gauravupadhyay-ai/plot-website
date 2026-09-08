@@ -136,7 +136,7 @@ export function FeaturedProperties({ plots }: { plots: FeaturedPlotCard[] }) {
                     href={getWhatsAppUrl(
                       property.priceOnRequest || property.priceLabel === 'Price on Request'
                         ? `Hi! I'm interested in ${property.title} (${property.code}) at ${property.location}. Please share availability and pricing.`
-                        : `Hi! I'm interested in the plot in ${property.locality} (Code: ${property.code}) — ${property.area} ${property.areaUnit} at ${property.priceLabel}. Please share more details.`
+                        : `Hi! I'm interested in the plot in ${property.locality} (Code: ${property.code}) - ${property.area} ${property.areaUnit} at ${property.priceLabel}. Please share more details.`
                     )}
                     target="_blank"
                     rel="noopener noreferrer"

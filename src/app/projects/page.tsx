@@ -15,7 +15,7 @@ export const metadata: Metadata = {
   description: `Explore residential, highrise, and commercial projects curated by ${SITE_NAME} across Greater Noida, Noida, Yamuna Expressway, and Vrindavan.`,
 }
 
-const spotlightCodes = ['AX-NS-001', 'AX-RK-001', 'AX-RP-001', 'AX-LK-001', 'AX-HS-001', 'AX-E7-001', 'AX-GC-001', 'AX-BT-001', 'AX-VV-001', 'AX-UB-001']
+const spotlightCodes = ['AX-NS-001', 'AX-RK-001', 'AX-RP-001', 'AX-LK-001', 'AX-HS-001', 'AX-RE-001', 'AX-E7-001', 'AX-GC-001', 'AX-BT-001', 'AX-VV-001', 'AX-UB-001']
 
 export default function ProjectsPage() {
   const projects = spotlightCodes
@@ -40,7 +40,7 @@ export default function ProjectsPage() {
               Projects we are actively showcasing
             </h2>
             <p className="mt-3 text-text-secondary">
-              From villa plots and luxury residences to IT suites — curated for buyers and investors in the NCR.
+              From villa plots and luxury residences to IT suites - curated for buyers and investors in the NCR.
             </p>
           </div>
 

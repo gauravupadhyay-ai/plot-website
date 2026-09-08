@@ -11,13 +11,14 @@ import { founders } from '@/data/team'
 
 export const metadata: Metadata = {
   title: `About ${SITE_NAME} | Real Estate Specialists in NCR`,
-  description: `Learn about ${SITE_NAME} — NCR's trusted real-estate specialists helping families and investors find verified plots, highrise, and commercial property with transparent guidance.`,
+  description: `Learn about ${SITE_NAME} - NCR's trusted real-estate specialists helping families and investors find verified plots, highrise, and commercial property with transparent guidance.`,
 }
 
 const credentials = [
   'NAR Certified',
   'CREDAI Member',
-  'NCR Network Member',
+  'Government-Approved Projects',
+  'Bank & Govt Loans',
   'eXp Realty Certified',
   'Digital Certified',
 ]
@@ -76,7 +77,7 @@ export default function AboutPage() {
                   Greater Noida, Noida, Yamuna Expressway, and Vrindavan with transparency, local
                   insight, and zero pressure. Based at Urbtech Trade Centre, Sector 132, Noida,
                   we guide buyers through verified plots, highrise, and commercial
-                  options — so every decision feels informed and secure.
+                  options - so every decision feels informed and secure.
                 </p>
                 <p>
                   Whether you are buying your first plot to build a home, looking for a highrise
@@ -92,7 +93,7 @@ export default function AboutPage() {
                   chapter begins.&rdquo;
                 </p>
                 <p className="text-text-primary font-semibold text-sm mt-2 font-sans">
-                  — Aryan Yadav &amp; Sukhpreet Singh Kajal, Founders
+                  - Aryan Yadav &amp; Sukhpreet Singh Kajal, Founders
                 </p>
               </div>
             </div>
@@ -106,7 +107,7 @@ export default function AboutPage() {
             <p className="section-eyebrow justify-center">Leadership</p>
             <h2 className="section-title font-display text-3xl md:text-4xl">Meet Our Founders</h2>
             <p className="mx-auto mt-3 max-w-2xl text-text-secondary">
-              The partners behind {SITE_NAME} — building a transparent real-estate practice across NCR.
+              The partners behind {SITE_NAME} - building a transparent real-estate practice across NCR.
             </p>
           </div>
           <div className="mx-auto grid max-w-4xl grid-cols-1 gap-6 md:grid-cols-2 md:gap-8">
@@ -168,7 +169,7 @@ export default function AboutPage() {
                 icon: Eye,
                 title: 'Our Vision',
                 content:
-                  'Make property buying in NCR clear and trustworthy — so every family feels secure about the home or land they choose.',
+                  'Make property buying in NCR clear and trustworthy - so every family feels secure about the home or land they choose.',
               },
               {
                 icon: Target,

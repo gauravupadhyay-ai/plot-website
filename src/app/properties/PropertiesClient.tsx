@@ -71,19 +71,19 @@ const valuePropsByCategory: Record<
     { icon: BadgeCheck, title: 'Clear Titles', text: 'Legally verified land parcels' },
     { icon: Landmark, title: 'Prime NCR Corridors', text: 'Expressway, Greater Noida, Vrindavan' },
     { icon: TrendingUp, title: 'Long-term Growth', text: 'Infrastructure-led appreciation' },
-    { icon: Shield, title: 'Loan Support', text: 'Plot & construction finance help' },
+    { icon: Shield, title: 'Bank & Govt Loans', text: 'Government-supported home loans on listed properties' },
   ],
   highrise: [
     { icon: BadgeCheck, title: 'Trusted Developers', text: 'RERA-aware residential projects' },
     { icon: Landmark, title: 'Greater Noida Focus', text: 'Omicron, Yamuna Expressway living' },
     { icon: TrendingUp, title: 'Ready Demand', text: 'End-user & investor friendly stock' },
-    { icon: Shield, title: 'Home Loan Help', text: 'Banking partners & paperwork support' },
+    { icon: Shield, title: 'Bank & Govt Loans', text: 'Government-supported home loans and paperwork help' },
   ],
   commercial: [
     { icon: BadgeCheck, title: 'Investment Grade', text: 'IT suites, retail & office inventory' },
     { icon: Landmark, title: 'Noida / GN Business Hubs', text: 'Knowledge Park & Sector 153 belt' },
     { icon: TrendingUp, title: 'Rental Potential', text: 'Assets built for occupancy demand' },
-    { icon: Shield, title: 'Deal Support', text: 'Site visits, docs & closing guidance' },
+    { icon: Shield, title: 'Bank & Govt Loans', text: 'Financing support through documentation and lenders' },
   ],
 }
 

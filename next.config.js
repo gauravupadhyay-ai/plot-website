@@ -2,6 +2,7 @@
 
 const plotLandingSlugs = [
   'hari-shyam-township-jewar',
+  'rama-enclave-jewar',
   'lalita-kunj-nandgaon-barsana',
   'nari-semri-plots-vrindavan',
   'radha-krishna-vrindavan-ashram',
@@ -42,14 +43,16 @@ const nextConfig = {
       { source: '/properties/expressway-residency-yamuna-expressway', destination: '/properties', permanent: true },
       { source: '/properties/shri-radha-krishna-vihar-vrindavan', destination: '/properties/radha-krishna-vrindavan-ashram', permanent: true },
       { source: '/index.html', destination: '/properties', permanent: true },
+      ...plotLandingSlugs.flatMap((slug) => [
+        { source: `/${slug}/the-corridor`, destination: `/${slug}`, permanent: true },
+        { source: `/${slug}/the-corridor/`, destination: `/${slug}`, permanent: true },
+      ]),
     ];
   },
   async rewrites() {
     return plotLandingSlugs.flatMap((slug) => [
       { source: `/${slug}`, destination: `/landings/${slug}.html` },
       { source: `/${slug}/`, destination: `/landings/${slug}.html` },
-      { source: `/${slug}/the-corridor`, destination: `/landings/${slug}-the-corridor.html` },
-      { source: `/${slug}/the-corridor/`, destination: `/landings/${slug}-the-corridor.html` },
     ]);
   },
 };

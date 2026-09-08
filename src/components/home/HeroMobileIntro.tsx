@@ -39,7 +39,7 @@ export function HeroMobileIntro() {
         }}
         className="mt-1.5 max-w-[17rem] text-[12px] leading-snug text-white/95"
       >
-        Verified plots across NCR — clear titles & site visits.
+        Verified plots across NCR - clear titles & site visits.
       </motion.p>
     </motion.div>
   )

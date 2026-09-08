@@ -17,7 +17,7 @@ export function HeroSection() {
           <div className="relative h-[38dvh] min-h-[240px]">
             <Image
               src={first.src}
-              alt={`${first.title} — ${first.locality}`}
+              alt={`${first.title} - ${first.locality}`}
               fill
               priority
               sizes="100vw"

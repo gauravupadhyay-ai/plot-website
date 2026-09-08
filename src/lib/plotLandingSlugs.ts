@@ -1,5 +1,6 @@
 export const PLOT_LANDING_SLUGS = [
   "hari-shyam-township-jewar",
+  "rama-enclave-jewar",
   "lalita-kunj-nandgaon-barsana",
   "nari-semri-plots-vrindavan",
   "radha-krishna-vrindavan-ashram",

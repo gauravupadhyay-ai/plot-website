@@ -116,7 +116,7 @@ export default function BuyingPropertyPage() {
         <div className="section-container max-w-3xl mx-auto">
           <h2 className="font-display font-bold text-3xl mb-6">Ready to find your plot?</h2>
           <p className="text-text-secondary mb-8 font-sans">
-            Tell us your budget and preferred localities — we&apos;ll shortlist options for you.
+            Tell us your budget and preferred localities - we&apos;ll shortlist options for you.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <a href={getCallUrl()} className="btn-charcoal">

@@ -4,11 +4,11 @@ import Image from 'next/image'
 import { Award } from 'lucide-react'
 
 const credentials = [
-  { name: 'NAR India', fullName: 'National Association of Realtors — Certified Member' },
-  { name: 'CREDAI', fullName: 'CREDAI — Active Member' },
-  { name: 'NCR Network', fullName: 'NCR Property Consultants Network' },
+  { name: 'NAR India', fullName: 'National Association of Realtors, Certified Member' },
+  { name: 'CREDAI', fullName: 'CREDAI Active Member' },
+  { name: 'Govt-Approved', fullName: 'Government-approved and verified projects' },
+  { name: 'Bank & Govt Loans', fullName: 'Home loans available on listed properties' },
   { name: 'eXp Realty', fullName: 'eXp Realty Certified Partner' },
-  { name: 'Digital Certified', fullName: 'Digital Certified Real Estate Professional' },
 ]
 
 const eventPhotos = [

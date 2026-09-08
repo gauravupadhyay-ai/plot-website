@@ -27,7 +27,7 @@ export async function generateMetadata({
   if (!property) return {}
   return {
     title: `${property.title} for Sale in ${property.locality} | ${SITE_NAME}`,
-    description: `${property.title} — ${property.priceLabel}. ${property.area} ${property.areaUnit}${
+    description: `${property.title} - ${property.priceLabel}. ${property.area} ${property.areaUnit}${
       property.facing ? `, ${property.facing} facing` : ''
     } in ${property.location}. Verified plot listing by ${SITE_NAME}.`,
   }
@@ -37,7 +37,7 @@ export default async function PropertyDetailPage({ params }: { params: { slug: s
   const property = await getPropertyBySlug(params.slug)
   if (!property) notFound()
 
-  // Similar from seed only — avoids a second full Supabase round-trip
+  // Similar from seed only - avoids a second full Supabase round-trip
   const similar = seedPlots
     .filter((p) => p.code !== property.code)
     .sort((a, b) => {

@@ -113,7 +113,7 @@ export function UpcomingProjectModal() {
                   </span>
                   <span className="hidden md:inline">
                     Exclusive residences across 7 standalone towers on 7.5 acres in Omicron 1A,
-                    Greater Noida — green views, clubhouse amenities, and Expressway connectivity.
+                    Greater Noida - green views, clubhouse amenities, and Expressway connectivity.
                     Get availability via {SITE_NAME}.
                   </span>
                 </p>

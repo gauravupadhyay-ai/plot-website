@@ -82,7 +82,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
     <>
       <Header />
 
-      {/* Hero Section with Cover Image — server-rendered for fast LCP */}
+      {/* Hero Section with Cover Image - server-rendered for fast LCP */}
       {post.coverImage?.startsWith('/') && (
         <link rel="preload" as="image" href={post.coverImage} fetchPriority="high" />
       )}

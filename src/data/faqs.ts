@@ -17,7 +17,7 @@ export const buyingFaqs: FAQ[] = [
   {
     question: 'Can you help with loans for plot purchase?',
     answer:
-      'Yes. We assist with plot and construction loan options through banking partners — eligibility, documents, and disbursement coordination.',
+      'Yes. We assist with plot and construction loan options through banking partners - eligibility, documents, and disbursement coordination.',
   },
   {
     question: 'What areas do you cover?',
@@ -40,7 +40,7 @@ export const homeLoanFaqs: FAQ[] = [
   {
     question: 'How long does approval take?',
     answer:
-      'Initial eligibility feedback can be quick. Full sanction depends on documentation and legal verification of the plot — often about 1–3 weeks.',
+      'Initial eligibility feedback can be quick. Full sanction depends on documentation and legal verification of the plot - often about 1–3 weeks.',
   },
   {
     question: 'Do you charge for loan assistance?',

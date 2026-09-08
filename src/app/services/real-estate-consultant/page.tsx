@@ -37,7 +37,7 @@ export default function ConsultingPage() {
               </h2>
               <div className="text-text-secondary text-lg leading-relaxed space-y-4 mb-8 font-sans">
                 <p>
-                  Choosing the right plot requires more than capital — it needs clear local
+                  Choosing the right plot requires more than capital - it needs clear local
                   knowledge. With changing infrastructure and shifting area demand across NCR,
                   the wrong land decision can be costly.
                 </p>

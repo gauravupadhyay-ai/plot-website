@@ -19,7 +19,7 @@ export function BrandSplash() {
       setPhase('done')
       return
     }
-    // Full document loads only (layout mount) — not client-side route changes
+    // Full document loads only (layout mount) - not client-side route changes
     setPhase('hold')
     const openTimer = window.setTimeout(() => setPhase('open'), 1200)
     const doneTimer = window.setTimeout(() => setPhase('done'), 2500)

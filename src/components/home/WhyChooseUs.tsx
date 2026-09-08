@@ -13,7 +13,7 @@ const reasons = [
   {
     icon: Handshake,
     title: 'End-to-End Guidance',
-    desc: 'From shortlist to site visit to registration — we stay with you.',
+    desc: 'From shortlist to site visit to registration, we stay with you.',
   },
   {
     icon: FileCheck,
@@ -75,8 +75,8 @@ export function WhyChooseUs() {
               <span className="text-brand-primary">Real Estate Specialists</span>
             </h2>
             <p className="text-text-secondary text-lg leading-relaxed mb-8">
-              Aurixxrealty helps you buy plots, highrise, and commercial space with clarity —
-              locality fit, title confidence, and honest pricing at every step.
+              Aurixxrealty helps you buy plots, highrise, and commercial space with clarity:
+              locality fit, title confidence, honest pricing, and government-supported home loans at every step.
             </p>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-10">
@@ -105,7 +105,7 @@ export function WhyChooseUs() {
               <p className="text-text-secondary italic text-[15px] leading-relaxed">
                 &ldquo;We don&apos;t just show listings. We help you buy property you can trust with confidence.&rdquo;
               </p>
-              <p className="text-text-primary font-semibold text-sm mt-2">— Aurixxrealty Team</p>
+              <p className="text-text-primary font-semibold text-sm mt-2">Aurixxrealty Team</p>
             </div>
 
             <Link href="/about" className="btn-charcoal">

@@ -42,20 +42,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.7,
   }))
 
-  const landingPages = PLOT_LANDING_SLUGS.flatMap((slug) => [
-    {
-      url: `${baseUrl}/${slug}`,
-      lastModified: new Date(),
-      changeFrequency: 'weekly' as const,
-      priority: 0.85,
-    },
-    {
-      url: `${baseUrl}/${slug}/the-corridor`,
-      lastModified: new Date(),
-      changeFrequency: 'weekly' as const,
-      priority: 0.8,
-    },
-  ])
+  const landingPages = PLOT_LANDING_SLUGS.map((slug) => ({
+    url: `${baseUrl}/${slug}`,
+    lastModified: new Date(),
+    changeFrequency: 'weekly' as const,
+    priority: 0.85,
+  }))
 
   return [...staticPages, ...landingPages, ...propertyPages, ...blogPages]
 }

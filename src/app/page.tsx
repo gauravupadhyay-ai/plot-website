@@ -33,7 +33,7 @@ const ToolsStrip = dynamic(
 )
 
 export default function HomePage() {
-  // Seed covers only — no client fetch / Supabase wait for Featured Plots
+  // Seed covers only - no client fetch / Supabase wait for Featured Plots
   const featuredPlots = seedPlots
     .filter((p) => p.type === 'Plot' || p.type === 'Commercial' || p.type === 'Flat / Apartment')
     .sort((a, b) => Number(b.featured) - Number(a.featured))
@@ -76,7 +76,7 @@ export default function HomePage() {
       <HeroSection />
       <StatsBar />
 
-      {/* Inventory first, then social proof — strongest trust sequence */}
+      {/* Inventory first, then social proof - strongest trust sequence */}
       <FeaturedProperties plots={featuredPlots} />
       <TestimonialsCarousel />
 

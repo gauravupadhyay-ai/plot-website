@@ -9,7 +9,7 @@ import { SITE_NAME, SITE_URL } from '@/lib/utils'
 
 export const metadata: Metadata = {
   title: `Plot & Real Estate Blog | ${SITE_NAME}`,
-  description: `Read expert articles on NCR property — buying tips, market insights, loan guidance, and investment strategies from ${SITE_NAME}.`,
+  description: `Read expert articles on NCR property - buying tips, market insights, loan guidance, and investment strategies from ${SITE_NAME}.`,
   keywords: [
     'NCR property blog',
     'Greater Noida plots blog',

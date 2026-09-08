@@ -66,14 +66,11 @@ export function Header() {
               <Image
                 src="/images/brand/aurixx-logo.png"
                 alt={SITE_NAME}
-                width={72}
-                height={72}
-                className="h-14 w-14 rounded-full object-cover sm:h-16 sm:w-16"
+                width={180}
+                height={180}
+                className="h-14 w-auto max-h-16 object-contain sm:h-16"
                 priority
               />
-              <span className="truncate font-display text-xl font-extrabold tracking-tight text-text-primary sm:text-2xl">
-                {SITE_NAME}
-              </span>
             </Link>
 
             <nav className="hidden items-center gap-1 lg:flex">

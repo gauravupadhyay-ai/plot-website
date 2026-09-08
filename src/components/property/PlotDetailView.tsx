@@ -11,7 +11,9 @@ import { Property } from '@/types/property'
 import { getCallUrl, getSecondaryCallUrl, getTelUrl, getWhatsAppUrl, CONTACT_PHONES, OFFICE_ADDRESS, SITE_NAME } from '@/lib/utils'
 import { GoogleReviewCard, GoogleMark, GoogleStars } from '@/components/ui/GoogleReviewCard'
 import { VrindavanAmbience } from '@/components/property/VrindavanAmbience'
+import { PlotVisualSections } from '@/components/property/PlotVisualSections'
 import { ambienceTracksFor } from '@/lib/vrindavanAmbience'
+import { getPlotVisualSections } from '@/data/plotVisualSections'
 
 export function PlotDetailView({
   property,
@@ -133,6 +135,10 @@ export function PlotDetailView({
         : 'Residential Plot'
   const panoramaEmbed = property.panoramaUrl || ''
   const ambienceTracks = useMemo(() => ambienceTracksFor(property), [property])
+  const visualSections = useMemo(
+    () => getPlotVisualSections(property.slug, property.code),
+    [property.slug, property.code]
+  )
 
   return (
     <div className="bg-brand-light px-4 pb-16 pt-24 sm:px-6 lg:px-8 lg:pt-28">
@@ -363,7 +369,7 @@ export function PlotDetailView({
                     {para}
                   </p>
                 ))}
-                {property.amenities && property.amenities.length > 0 && (
+                {!visualSections && property.amenities && property.amenities.length > 0 && (
                   <ul className="mt-5 grid grid-cols-1 gap-2 sm:grid-cols-2">
                     {property.amenities.map((a) => (
                       <li key={a} className="flex items-center gap-2 text-sm text-text-primary">
@@ -376,7 +382,9 @@ export function PlotDetailView({
               </div>
             </section>
 
-            {(property.nearbyPlaces?.length || 0) > 0 && (
+            {visualSections && <PlotVisualSections sections={visualSections} />}
+
+            {!visualSections && (property.nearbyPlaces?.length || 0) > 0 && (
               <section className="rounded-3xl border border-border bg-white p-6 shadow-card">
                 <h2 className="mb-4 font-display text-2xl font-bold">Location and Connectivity</h2>
                 <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
@@ -488,6 +496,16 @@ export function PlotDetailView({
               <h1 className="mt-3 font-display text-xl font-bold tracking-tight text-text-primary sm:text-2xl lg:text-[1.35rem] lg:leading-snug xl:text-2xl">
                 {property.title}
               </h1>
+              <ul className="mt-3 flex flex-wrap gap-2">
+                {['NAR Certified', 'CREDAI Member', 'Government-Approved', 'Bank & Govt Loans'].map((item) => (
+                  <li key={item} className="rounded-md bg-emerald-50 px-2.5 py-1 text-[11px] font-semibold text-emerald-800">
+                    {item}
+                  </li>
+                ))}
+              </ul>
+              <p className="mt-3 text-sm leading-relaxed text-text-secondary">
+                Bank and government-supported home loans are available on this property. Aurixxrealty helps with documentation and lender coordination.
+              </p>
               <div className="mt-3 flex flex-wrap items-end gap-3">
                 {priceDocuments.length ? (
                   <>

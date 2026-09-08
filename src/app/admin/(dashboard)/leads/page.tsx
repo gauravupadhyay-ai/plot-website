@@ -118,7 +118,7 @@ export default async function LeadsPage() {
                     </td>
                     <td className="max-w-xs px-6 py-4">
                       <p className="line-clamp-3 leading-snug text-text-secondary" title={lead.message || ''}>
-                        {lead.message || '—'}
+                        {lead.message || '-'}
                       </p>
                     </td>
                   </tr>

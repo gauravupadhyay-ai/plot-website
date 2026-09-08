@@ -48,7 +48,7 @@ const spaceMono = Space_Mono({
   variable: '--font-mono',
   display: 'swap',
   weight: ['400', '700'],
-  // Mono is rarely above-the-fold — keep it off the critical path
+  // Mono is rarely above-the-fold - keep it off the critical path
   preload: false,
 })
 

@@ -29,7 +29,7 @@ export function CTABanner() {
             <span className="text-white/80">Starts with a Clear Conversation.</span>
           </h2>
           <p className="text-white/60 text-lg mb-10 max-w-2xl mx-auto">
-            Join buyers who trust Aurixxrealty for plots, highrise, and commercial space — with clear titles and honest guidance.
+            Join buyers who trust Aurixxrealty for plots, highrise, and commercial space - with clear titles and honest guidance.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <a

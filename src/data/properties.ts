@@ -3,7 +3,7 @@ import { Property, PlotReview } from '@/types/property'
 import { supabase } from '@/lib/supabase'
 import { seedPlots } from '@/data/seedPlots'
 
-/** Old demo inventory codes — never show these once seedPlots is the source of truth */
+/** Old demo inventory codes - never show these once seedPlots is the source of truth */
 const LEGACY_DEMO_CODES = new Set([
   'GP-P001',
   'GP-P002',
@@ -12,7 +12,7 @@ const LEGACY_DEMO_CODES = new Set([
   'GP-P005',
   'GP-P006',
   'AX-AS-001', // merged into AX-GC-001
-  'AX-YE-001', // Expressway Residency — hidden from public site
+  'AX-YE-001', // Expressway Residency - hidden from public site
 ])
 
 const HIDDEN_SLUGS = new Set([
@@ -118,6 +118,7 @@ function withSeedOverrides(property: Property): Property {
     seed.code === 'AX-E7-001' ||
     seed.code === 'AX-BT-001' ||
     seed.code === 'AX-HS-001' ||
+    seed.code === 'AX-RE-001' ||
     seed.code === 'AX-LK-001' ||
     seed.code === 'AX-NS-001' ||
     seed.code === 'AX-RK-001' ||
@@ -240,7 +241,7 @@ export async function getPropertyBySlug(slug: string): Promise<Property | undefi
   if (HIDDEN_SLUGS.has(resolvedSlug)) return undefined
   const fromSeed = seedPlots.find((p) => p.slug === resolvedSlug)
 
-  // Prefer seed for known inventory — avoids Supabase + reviews latency on detail pages
+  // Prefer seed for known inventory - avoids Supabase + reviews latency on detail pages
   if (fromSeed) {
     return {
       ...fromSeed,

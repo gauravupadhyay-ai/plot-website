@@ -7,7 +7,7 @@ const services = [
   {
     icon: Layers,
     title: 'Buying Property',
-    description: 'Find plots, highrise, and commercial space that match your budget, size, and locality — from search to registration.',
+    description: 'Find plots, highrise, and commercial space that match your budget, size, and locality - from search to registration.',
     href: '/services/buying-property',
   },
   {

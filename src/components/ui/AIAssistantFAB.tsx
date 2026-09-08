@@ -31,7 +31,11 @@ function matchProperties(q: string) {
       const score = words.reduce((acc, w) => (hay.includes(w) ? acc + 1 : acc), 0)
       // Boost direct name hits
       if (q.includes('eldeco') && p.code === 'AX-E7-001') return { p, score: score + 5 }
-      if ((q.includes('hari shyam') || q.includes('jewar') || q.includes('hari kripa')) && p.code === 'AX-HS-001')
+      if ((q.includes('hari shyam') || q.includes('hari kripa')) && p.code === 'AX-HS-001')
+        return { p, score: score + 5 }
+      if ((q.includes('rama enclave') || q.includes('rama global') || q.includes('jattari') || q.includes('tappal')) && p.code === 'AX-RE-001')
+        return { p, score: score + 5 }
+      if (q.includes('jewar') && (p.code === 'AX-HS-001' || p.code === 'AX-RE-001'))
         return { p, score: score + 5 }
       if ((q.includes('lalita') || q.includes('nandgaon') || q.includes('barsana')) && p.code === 'AX-LK-001')
         return { p, score: score + 5 }
@@ -89,7 +93,7 @@ function findAnswer(input: string): ChatMessage {
     return {
       role: 'assistant',
       text:
-        'We focus on NCR — Greater Noida, Noida, Yamuna Expressway, and Vrindavan. Browse plots, highrise residences, and commercial inventory below.',
+        'We focus on NCR - Greater Noida, Noida, Yamuna Expressway, and Vrindavan. Browse plots, highrise residences, and commercial inventory below.',
       links: [
         { label: 'Residential Plots', href: '/properties' },
         { label: 'Highrise', href: '/highrise' },
@@ -148,7 +152,7 @@ function findAnswer(input: string): ChatMessage {
     return {
       role: 'assistant',
       text:
-        'Aurixxrealty helps with end-to-end real estate in NCR — plots, apartments, and commercial assets. We assist with shortlisting, site visits, documentation, and loan guidance. Tell me a locality or project name (e.g. Eldeco, Vrinda Vatika, Urbtech) and I’ll link you there.',
+        'Aurixxrealty helps with end-to-end real estate in NCR - plots, apartments, and commercial assets. We assist with shortlisting, site visits, documentation, and loan guidance. Tell me a locality or project name (e.g. Eldeco, Vrinda Vatika, Urbtech) and I’ll link you there.',
       links: [
         { label: 'Projects', href: '/projects' },
         { label: 'Contact us', href: '/contact' },
@@ -175,7 +179,7 @@ export function AIAssistantFAB() {
   const [messages, setMessages] = useState<ChatMessage[]>([
     {
       role: 'assistant',
-      text: 'Hi! I’m the Aurixxrealty assistant for NCR real estate — plots, highrise residences, and commercial properties in Greater Noida, Noida, and Vrindavan. Ask for a project or property type.',
+      text: 'Hi! I’m the Aurixxrealty assistant for NCR real estate - plots, highrise residences, and commercial properties in Greater Noida, Noida, and Vrindavan. Ask for a project or property type.',
       links: [
         { label: 'Plots', href: '/properties' },
         { label: 'Highrise', href: '/highrise' },

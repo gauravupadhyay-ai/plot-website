@@ -6,22 +6,22 @@ export const founders: TeamMember[] = [
     role: 'Co-Founder',
     image: '/images/team/aryan-yadav.png',
     linkedin: 'https://www.linkedin.com/in/aryan-yadav-434273251/',
-    bio: 'Leads strategy and client relationships across Greater Noida, Noida, Yamuna Expressway, and Vrindavan — focused on clear advice for plots, residences, and commercial deals.',
+    bio: 'Leads strategy and client relationships across Greater Noida, Noida, Yamuna Expressway, and Vrindavan, focused on clear advice for plots, residences, and commercial deals.',
   },
   {
     name: 'Sukhpreet Singh Kajal',
     role: 'Co-Founder',
     image: '/images/team/sukhpreet-singh-kajal.png',
     linkedin: 'https://www.linkedin.com/in/sukhpreet-singh-kajal-bab77a33/',
-    bio: 'Drives operations and inventory curation at Aurixxrealty, ensuring every listing is verified and every buyer journey — from enquiry to registration — stays transparent.',
+    bio: 'Drives operations and inventory curation at Aurixxrealty, ensuring every listing is verified and every buyer journey, from enquiry to registration, stays transparent.',
   },
 ]
 
 export const team: TeamMember[] = [...founders]
 
 export const certifications = [
-  { name: 'NAR', fullName: 'National Association of Realtors — Certified Member' },
-  { name: 'CREDAI', fullName: 'CREDAI — Active Member' },
+  { name: 'NAR', fullName: 'National Association of Realtors, Certified Member' },
+  { name: 'CREDAI', fullName: 'CREDAI Active Member' },
   { name: 'Digital Certified', fullName: 'Digital Certified Real Estate Professional' },
   { name: 'eXp Realty', fullName: 'eXp Realty Certified' },
 ]

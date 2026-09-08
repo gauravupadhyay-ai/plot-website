@@ -67,7 +67,7 @@ export default async function DashboardOverview() {
           Overview
         </h1>
         <p className="text-text-secondary text-sm md:text-base font-sans">
-          {SITE_NAME} — real-time NCR inventory and inquiry metrics.
+          {SITE_NAME} - real-time NCR inventory and inquiry metrics.
         </p>
       </header>
 
