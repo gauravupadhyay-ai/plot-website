@@ -5,7 +5,7 @@ import { FeaturedProperties } from '@/components/home/FeaturedProperties'
 import { CTABanner } from '@/components/home/CTABanner'
 import { Header } from '@/components/layout/Header'
 import { Footer } from '@/components/layout/Footer'
-import { seedPlots } from '@/data/seedPlots'
+import { getProperties } from '@/data/properties'
 
 const TestimonialsCarousel = dynamic(
   () => import('@/components/home/TestimonialsCarousel').then((m) => m.TestimonialsCarousel)
@@ -32,11 +32,10 @@ const ToolsStrip = dynamic(
   () => import('@/components/home/ToolsStrip').then((m) => m.ToolsStrip)
 )
 
-export default function HomePage() {
-  // Seed covers only - no client fetch / Supabase wait for Featured Plots
-  const featuredPlots = seedPlots
+export default async function HomePage() {
+  // Dashboard uploads are ordered ahead of the curated inventory in getProperties.
+  const featuredPlots = (await getProperties())
     .filter((p) => p.type === 'Plot' || p.type === 'Commercial' || p.type === 'Flat / Apartment')
-    .sort((a, b) => Number(b.featured) - Number(a.featured))
     .slice(0, 6)
     .map((p) => ({
       slug: p.slug,

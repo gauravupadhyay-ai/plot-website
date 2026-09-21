@@ -136,8 +136,8 @@ export function PlotDetailView({
   const panoramaEmbed = property.panoramaUrl || ''
   const ambienceTracks = useMemo(() => ambienceTracksFor(property), [property])
   const visualSections = useMemo(
-    () => getPlotVisualSections(property.slug, property.code),
-    [property.slug, property.code]
+    () => property.visualSections || getPlotVisualSections(property.slug, property.code),
+    [property.visualSections, property.slug, property.code]
   )
 
   return (
@@ -351,7 +351,7 @@ export function PlotDetailView({
               <section>
                 <h2 className="mb-4 font-display text-2xl font-bold">Key Highlights</h2>
                 <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
-                  {property.highlights.slice(0, 6).map((h) => (
+                  {property.highlights.map((h) => (
                     <div key={h} className="rounded-2xl border border-border bg-white p-4 text-sm font-semibold text-text-primary shadow-card">
                       <CheckCircle2 size={16} className="mb-2 text-emerald-600" />
                       {h}

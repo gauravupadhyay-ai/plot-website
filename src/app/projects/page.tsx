@@ -7,6 +7,7 @@ import { PageHero } from '@/components/layout/PageHero'
 import { CTABanner } from '@/components/home/CTABanner'
 import { MapPin, ArrowRight, CheckCircle2 } from 'lucide-react'
 import { SITE_NAME } from '@/lib/utils'
+import { getProperties } from '@/data/properties'
 import { seedPlots } from '@/data/seedPlots'
 import { categoryFromType } from '@/lib/propertyCategories'
 
@@ -17,10 +18,14 @@ export const metadata: Metadata = {
 
 const spotlightCodes = ['AX-LG-001', 'AX-VV-001', 'AX-NS-001', 'AX-RK-001', 'AX-RP-001', 'AX-LK-001', 'AX-HS-001', 'AX-RE-001', 'AX-E7-001', 'AX-GC-001', 'AX-BT-001', 'AX-UB-001']
 
-export default function ProjectsPage() {
-  const projects = spotlightCodes
-    .map((code) => seedPlots.find((p) => p.code === code))
-    .filter(Boolean) as typeof seedPlots
+export default async function ProjectsPage() {
+  const all = await getProperties()
+  const seedCodes = new Set(seedPlots.map((plot) => plot.code))
+  const dashboard = all.filter((plot) => !seedCodes.has(plot.code))
+  const spotlight = spotlightCodes
+    .map((code) => all.find((plot) => plot.code === code))
+    .filter((plot): plot is NonNullable<typeof plot> => Boolean(plot))
+  const projects = [...dashboard, ...spotlight]
 
   return (
     <main id="main-content" className="min-h-screen">

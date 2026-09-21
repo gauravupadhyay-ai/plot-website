@@ -38,11 +38,14 @@ function budgetFromParam(budget: string | null): { min: number; max: number } {
   return { min: 0, max: 50000000 }
 }
 
+/** Right end of the area slider means "this size and larger", same as the 200+ preset. */
+const AREA_SLIDER_MAX = 5000
+
 function areaFromParam(area: string | null): { min: number; max: number } {
   if (area === '0-100') return { min: 0, max: 100 }
   if (area === '100-200') return { min: 100, max: 200 }
-  if (area === '200+') return { min: 200, max: 5000 }
-  return { min: 0, max: 5000 }
+  if (area === '200+') return { min: 200, max: AREA_SLIDER_MAX }
+  return { min: 0, max: AREA_SLIDER_MAX }
 }
 
 const PlotsMap = dynamic(() => import('@/components/property/PlotsMap'), {
@@ -54,14 +57,9 @@ const PlotsMap = dynamic(() => import('@/components/property/PlotsMap'), {
   ),
 })
 
-const facingOptions = ['North', 'East', 'South', 'West']
-const amenityOptions = [
-  'Gated Community',
-  '24/7 Security',
-  'Park & Green Spaces',
-  'Wide Roads',
-  'Underground Utilities',
-]
+function uniqueValues(values: Array<string | undefined | null>): string[] {
+  return Array.from(new Set(values.map((value) => value?.trim()).filter((value): value is string => Boolean(value)))).sort()
+}
 
 const valuePropsByCategory: Record<
   PropertyCategory,
@@ -195,6 +193,10 @@ export function PropertiesClient({
   const [typeFilter, setTypeFilter] = useState(searchParams.get('type') || 'All')
   const [facingFilter, setFacingFilter] = useState<string[]>([])
   const [amenityFilter, setAmenityFilter] = useState<string[]>([])
+  const [statusFilter, setStatusFilter] = useState('All')
+  const [ownershipFilter, setOwnershipFilter] = useState('All')
+  const [developerFilter, setDeveloperFilter] = useState('All')
+  const [badgeFilter, setBadgeFilter] = useState('All')
   const [minArea, setMinArea] = useState(initialArea.min)
   const [maxArea, setMaxArea] = useState(initialArea.max)
   const [minPrice, setMinPrice] = useState(initialBudget.min)
@@ -227,17 +229,31 @@ export function PropertiesClient({
     if (typeFilter !== 'All' && typeFilter) {
       result = result.filter((p) => p.type === typeFilter)
     }
-    // Area: skip when size is "on request" (area 0 / areaLabel)
+    // Skip plots whose size is on request (area 0). The slider ceiling means no maximum,
+    // so a 50,000 sq.yd listing stays visible until the range is narrowed.
     result = result.filter((p) => {
       if (p.type !== 'Plot') return true
-      if (!p.area || p.area <= 0 || p.areaLabel) return true
-      return p.area >= minArea && p.area <= maxArea
+      if (!p.area || p.area <= 0) return true
+      const upper = maxArea >= AREA_SLIDER_MAX ? Number.POSITIVE_INFINITY : maxArea
+      return p.area >= minArea && p.area <= upper
     })
     // Price: price-on-request listings match any budget
     result = result.filter((p) => {
       if (p.priceOnRequest || p.priceLabel === 'Price on Request' || !p.price) return true
       return p.price >= minPrice && p.price <= maxPrice
     })
+    if (statusFilter !== 'All') {
+      result = result.filter((p) => p.status === statusFilter)
+    }
+    if (ownershipFilter !== 'All') {
+      result = result.filter((p) => p.ownership === ownershipFilter)
+    }
+    if (developerFilter !== 'All') {
+      result = result.filter((p) => p.developer === developerFilter)
+    }
+    if (badgeFilter !== 'All') {
+      result = result.filter((p) => p.badge === badgeFilter)
+    }
     if (facingFilter.length) {
       result = result.filter((p) => p.facing && facingFilter.includes(p.facing))
     }
@@ -251,13 +267,17 @@ export function PropertiesClient({
       default: result.sort((a, b) => Number(b.featured) - Number(a.featured)); break
     }
     return result
-  }, [plots, localityFilter, typeFilter, minArea, maxArea, minPrice, maxPrice, facingFilter, amenityFilter, sortBy])
+  }, [plots, localityFilter, typeFilter, minArea, maxArea, minPrice, maxPrice, facingFilter, amenityFilter, statusFilter, ownershipFilter, developerFilter, badgeFilter, sortBy])
 
   const clearFilters = () => {
     setLocalityFilter('All')
     setTypeFilter('All')
     setFacingFilter([])
     setAmenityFilter([])
+    setStatusFilter('All')
+    setOwnershipFilter('All')
+    setDeveloperFilter('All')
+    setBadgeFilter('All')
     setMinArea(0)
     setMaxArea(5000)
     setMinPrice(0)
@@ -274,7 +294,17 @@ export function PropertiesClient({
   }
 
   const listingLocalities = useMemo(
-    () => Array.from(new Set(plots.map((p) => p.locality).filter(Boolean))),
+    () => uniqueValues(plots.map((p) => p.locality)),
+    [plots]
+  )
+  const listingTypes = useMemo(() => uniqueValues(plots.map((p) => p.type)), [plots])
+  const listingStatuses = useMemo(() => uniqueValues(plots.map((p) => p.status)), [plots])
+  const listingFacings = useMemo(() => uniqueValues(plots.map((p) => p.facing)), [plots])
+  const listingOwnerships = useMemo(() => uniqueValues(plots.map((p) => p.ownership)), [plots])
+  const listingDevelopers = useMemo(() => uniqueValues(plots.map((p) => p.developer)), [plots])
+  const listingBadges = useMemo(() => uniqueValues(plots.map((p) => p.badge)), [plots])
+  const listingAmenities = useMemo(
+    () => uniqueValues(plots.flatMap((p) => p.amenities || [])),
     [plots]
   )
   const showShubhLabhFilters = plots.some(
@@ -308,13 +338,73 @@ export function PropertiesClient({
         </select>
       </div>
 
+      {listingTypes.length > 1 ? (
+        <div>
+          <label className="mb-2 block text-sm font-semibold">Type</label>
+          <select value={typeFilter} onChange={(e) => setTypeFilter(e.target.value)} className="select !h-11 !text-sm">
+            <option value="All">All types</option>
+            {listingTypes.map((name) => (
+              <option key={name} value={name}>{name}</option>
+            ))}
+          </select>
+        </div>
+      ) : null}
+
+      {listingStatuses.length > 0 ? (
+        <div>
+          <label className="mb-2 block text-sm font-semibold">Status</label>
+          <select value={statusFilter} onChange={(e) => setStatusFilter(e.target.value)} className="select !h-11 !text-sm">
+            <option value="All">All statuses</option>
+            {listingStatuses.map((name) => (
+              <option key={name} value={name}>{name}</option>
+            ))}
+          </select>
+        </div>
+      ) : null}
+
+      {listingDevelopers.length > 0 ? (
+        <div>
+          <label className="mb-2 block text-sm font-semibold">Developer</label>
+          <select value={developerFilter} onChange={(e) => setDeveloperFilter(e.target.value)} className="select !h-11 !text-sm">
+            <option value="All">All developers</option>
+            {listingDevelopers.map((name) => (
+              <option key={name} value={name}>{name}</option>
+            ))}
+          </select>
+        </div>
+      ) : null}
+
+      {listingOwnerships.length > 0 ? (
+        <div>
+          <label className="mb-2 block text-sm font-semibold">Ownership</label>
+          <select value={ownershipFilter} onChange={(e) => setOwnershipFilter(e.target.value)} className="select !h-11 !text-sm">
+            <option value="All">All ownership</option>
+            {listingOwnerships.map((name) => (
+              <option key={name} value={name}>{name}</option>
+            ))}
+          </select>
+        </div>
+      ) : null}
+
+      {listingBadges.length > 0 ? (
+        <div>
+          <label className="mb-2 block text-sm font-semibold">Badge</label>
+          <select value={badgeFilter} onChange={(e) => setBadgeFilter(e.target.value)} className="select !h-11 !text-sm">
+            <option value="All">All badges</option>
+            {listingBadges.map((name) => (
+              <option key={name} value={name}>{name}</option>
+            ))}
+          </select>
+        </div>
+      ) : null}
+
       <div>
         <label className="mb-2 block text-sm font-semibold">Plot Area (sq.yd)</label>
         <div className="mb-2 flex gap-2">
           <input type="number" value={minArea} onChange={(e) => setMinArea(Number(e.target.value) || 0)} className="input !h-10 !text-sm" placeholder="Min" />
           <input type="number" value={maxArea} onChange={(e) => setMaxArea(Number(e.target.value) || 0)} className="input !h-10 !text-sm" placeholder="Max" />
         </div>
-        <input type="range" min={0} max={5000} value={Math.min(maxArea, 5000)} onChange={(e) => setMaxArea(Number(e.target.value))} />
+        <input type="range" min={0} max={AREA_SLIDER_MAX} value={Math.min(maxArea, AREA_SLIDER_MAX)} onChange={(e) => setMaxArea(Number(e.target.value))} />
       </div>
 
       <div>
@@ -326,29 +416,33 @@ export function PropertiesClient({
         <input type="range" min={0} max={50000000} step={100000} value={Math.min(maxPrice, 50000000)} onChange={(e) => setMaxPrice(Number(e.target.value))} />
       </div>
 
-      <div>
-        <label className="mb-2 block text-sm font-semibold">Facing</label>
-        <div className="grid grid-cols-2 gap-2">
-          {facingOptions.map((f) => (
-            <label key={f} className="flex items-center gap-2 rounded-xl border border-border px-3 py-2 text-sm">
-              <input type="checkbox" checked={facingFilter.includes(f)} onChange={() => toggleFacing(f)} className="accent-brand-primary" />
-              {f}
-            </label>
-          ))}
+      {listingFacings.length > 0 ? (
+        <div>
+          <label className="mb-2 block text-sm font-semibold">Facing</label>
+          <div className="grid grid-cols-2 gap-2">
+            {listingFacings.map((f) => (
+              <label key={f} className="flex items-center gap-2 rounded-xl border border-border px-3 py-2 text-sm">
+                <input type="checkbox" checked={facingFilter.includes(f)} onChange={() => toggleFacing(f)} className="accent-brand-primary" />
+                {f}
+              </label>
+            ))}
+          </div>
         </div>
-      </div>
+      ) : null}
 
-      <div>
-        <label className="mb-2 block text-sm font-semibold">Amenities</label>
-        <div className="space-y-2">
-          {amenityOptions.map((a) => (
-            <label key={a} className="flex items-center gap-2 text-sm text-text-secondary">
-              <input type="checkbox" checked={amenityFilter.includes(a)} onChange={() => toggleAmenity(a)} className="accent-brand-primary" />
-              {a}
-            </label>
-          ))}
+      {listingAmenities.length > 0 ? (
+        <div>
+          <label className="mb-2 block text-sm font-semibold">Amenities</label>
+          <div className="max-h-52 space-y-2 overflow-y-auto pr-1">
+            {listingAmenities.map((a) => (
+              <label key={a} className="flex items-start gap-2 text-sm text-text-secondary">
+                <input type="checkbox" checked={amenityFilter.includes(a)} onChange={() => toggleAmenity(a)} className="mt-1 accent-brand-primary" />
+                <span>{a}</span>
+              </label>
+            ))}
+          </div>
         </div>
-      </div>
+      ) : null}
 
       <button type="button" onClick={() => setShowFilters(false)} className="btn-primary w-full lg:hidden">
         Apply Filters

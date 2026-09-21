@@ -6,6 +6,7 @@ import Link from 'next/link'
 import { supabase } from '@/lib/supabase'
 import { mergeAdminInventory, type AdminListProperty } from '@/lib/adminProperty'
 import { categoryFromType, type PropertyCategory } from '@/lib/propertyCategories'
+import { refreshPublicListings } from '@/lib/refreshPublicListings'
 import { Plus, Trash2, MapPin, Map, Pencil, ExternalLink } from 'lucide-react'
 
 const tabs: { id: 'all' | PropertyCategory; label: string }[] = [
@@ -55,6 +56,7 @@ export default function AdminPropertiesPage() {
     }
     if (!confirm(`Delete "${prop.title}" from the database?`)) return
     await supabase.from('properties').delete().eq('id', prop.id)
+    await refreshPublicListings()
     fetchProperties()
   }
 

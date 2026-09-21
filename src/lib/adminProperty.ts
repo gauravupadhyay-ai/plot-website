@@ -1,6 +1,8 @@
 import { seedPlots } from '@/data/seedPlots'
+import { getPlotVisualSections } from '@/data/plotVisualSections'
 import type { AdminPropertyRecord } from '@/components/admin/AdminPropertyForm'
 import type { Property } from '@/types/property'
+import { parseListingBundle, sectionsForEditor } from '@/lib/listingStory'
 
 export type AdminListProperty = {
   id: string | null
@@ -47,10 +49,17 @@ export function seedToAdminRecord(seed: Property): AdminPropertyRecord {
     status: seed.status || 'Available',
     facing: seed.facing || '',
     ownership: seed.ownership || 'Freehold',
+    area_label: seed.areaLabel || '',
+    developer: seed.developer || '',
+    price_per_unit: seed.pricePerUnit || '',
+    visual_sections: getPlotVisualSections(seed.slug, seed.code) || null,
   }
 }
 
 export function dbRowToAdminRecord(row: Record<string, unknown>): AdminPropertyRecord {
+  const bundle = parseListingBundle(row.nearby_places)
+  const slug = String(row.slug || '')
+  const code = String(row.code || '')
   return {
     id: String(row.id),
     slug: String(row.slug || ''),
@@ -80,6 +89,10 @@ export function dbRowToAdminRecord(row: Record<string, unknown>): AdminPropertyR
     status: String(row.status || 'Available'),
     facing: String(row.facing || ''),
     ownership: String(row.ownership || 'Freehold'),
+    area_label: bundle.areaLabel || '',
+    developer: bundle.developer || '',
+    price_per_unit: bundle.pricePerUnit || String(row.price_per_unit || ''),
+    visual_sections: sectionsForEditor(slug, code, row.nearby_places),
   }
 }
 

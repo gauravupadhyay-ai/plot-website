@@ -45,6 +45,8 @@ export interface Property {
   featured: boolean
   badge: 'For Sale' | 'Hot Deal' | 'New' | 'Sold'
   nearbyPlaces?: { name: string; distance: string }[]
+  /** Township cards + circuit stories, same layout as Lalita Kunj */
+  visualSections?: import('@/data/plotVisualSections').PlotVisualSections
   mapEmbedUrl?: string
   /** Google Street View / photosphere embed URL */
   panoramaUrl?: string

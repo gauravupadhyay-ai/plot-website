@@ -2,6 +2,8 @@ import { unstable_cache } from 'next/cache'
 import { Property, PlotReview } from '@/types/property'
 import { supabase } from '@/lib/supabase'
 import { seedPlots } from '@/data/seedPlots'
+import { coordsFromMapsUrl } from '@/lib/mapCoords'
+import { parseListingBundle } from '@/lib/listingStory'
 
 /** Old demo inventory codes - never show these once seedPlots is the source of truth */
 const LEGACY_DEMO_CODES = new Set([
@@ -43,6 +45,7 @@ async function getReviewsByCodes(codes: string[]): Promise<Record<string, PlotRe
 }
 
 function mapProperty(dbProp: any, reviews: PlotReview[] = []): Property {
+  const bundle = parseListingBundle(dbProp.nearby_places)
   return {
     slug: dbProp.slug,
     code: dbProp.code,
@@ -53,7 +56,9 @@ function mapProperty(dbProp: any, reviews: PlotReview[] = []): Property {
     price: Number(dbProp.price),
     priceLabel: dbProp.price_label,
     priceOnRequest: Boolean(dbProp.price_on_request) || dbProp.price_label === 'Price on Request',
-    pricePerUnit: dbProp.price_per_unit || undefined,
+    pricePerUnit: bundle.pricePerUnit || dbProp.price_per_unit || undefined,
+    areaLabel: bundle.areaLabel,
+    developer: bundle.developer,
     bhk: dbProp.bhk || 'N/A',
     bedrooms: dbProp.bedrooms ?? 0,
     bathrooms: dbProp.bathrooms ?? 0,
@@ -72,7 +77,8 @@ function mapProperty(dbProp: any, reviews: PlotReview[] = []): Property {
     videos: dbProp.videos || [],
     featured: Boolean(dbProp.featured),
     badge: dbProp.badge || 'For Sale',
-    nearbyPlaces: dbProp.nearby_places || [],
+    nearbyPlaces: bundle.places,
+    visualSections: bundle.sections,
     mapEmbedUrl: dbProp.map_embed_url,
     panoramaUrl: dbProp.panorama_url || undefined,
     panoramaLink: dbProp.panorama_link || undefined,
@@ -82,6 +88,21 @@ function mapProperty(dbProp: any, reviews: PlotReview[] = []): Property {
     ratingAvg: dbProp.rating_avg != null ? Number(dbProp.rating_avg) : undefined,
     ratingCount: dbProp.rating_count != null ? Number(dbProp.rating_count) : undefined,
   }
+}
+
+function withMapCoords(property: Property, row?: { map_embed_url?: string | null; panorama_url?: string | null; panorama_link?: string | null }): Property {
+  if (property.lat != null && property.lng != null && !Number.isNaN(property.lat) && !Number.isNaN(property.lng)) {
+    return property
+  }
+  const coords =
+    coordsFromMapsUrl(row?.map_embed_url) ||
+    coordsFromMapsUrl(row?.panorama_url) ||
+    coordsFromMapsUrl(row?.panorama_link) ||
+    coordsFromMapsUrl(property.mapEmbedUrl) ||
+    coordsFromMapsUrl(property.panoramaUrl) ||
+    coordsFromMapsUrl(property.panoramaLink)
+  if (!coords) return property
+  return { ...property, lat: coords.lat, lng: coords.lng }
 }
 
 function uniqueUrls(urls: string[] | undefined): string[] {
@@ -159,6 +180,8 @@ function withSeedOverrides(property: Property): Property {
     priceOnRequest: property.priceOnRequest ?? seed.priceOnRequest,
     documents: property.documents?.length ? property.documents : seed.documents,
     developer: property.developer || seed.developer,
+    visualSections: property.visualSections,
+    pricePerUnit: property.pricePerUnit || seed.pricePerUnit,
     ambientAudio: seed.ambientAudio?.length ? seed.ambientAudio : property.ambientAudio,
     nearbyPlaces: property.nearbyPlaces?.length ? property.nearbyPlaces : seed.nearbyPlaces,
     areaLabel: property.areaLabel || seed.areaLabel,
@@ -210,19 +233,27 @@ async function fetchPropertiesUncached(): Promise<Property[]> {
       }
     }
 
-    const ordered: Property[] = []
+    const seeded: Property[] = []
     const used = new Set<string>()
     for (const seed of seedPlots) {
       const item = byCode.get(seed.code)
       if (item) {
-        ordered.push(item)
+        seeded.push(item)
         used.add(seed.code)
       }
     }
-    for (const [code, item] of Array.from(byCode.entries())) {
-      if (!used.has(code)) ordered.push(item)
+    // Dashboard uploads are not in seedPlots. Show them first so a new listing
+    // is on the catalog immediately, in the same cards as the existing inventory.
+    const dashboard: Property[] = []
+    for (const row of data) {
+      if (LEGACY_DEMO_CODES.has(row.code) || HIDDEN_SLUGS.has(row.slug)) continue
+      if (seedByCode.has(row.code) || seedBySlug.has(row.slug) || used.has(row.code)) continue
+      const item = byCode.get(row.code)
+      if (!item) continue
+      dashboard.push(withMapCoords(item, row))
+      used.add(row.code)
     }
-    return ordered
+    return [...dashboard, ...seeded]
   } catch {
     return seedPlots.map((p) => ({
       ...p,
@@ -232,8 +263,9 @@ async function fetchPropertiesUncached(): Promise<Property[]> {
   }
 }
 
-export const getProperties = unstable_cache(fetchPropertiesUncached, ['properties-list-v9'], {
+export const getProperties = unstable_cache(fetchPropertiesUncached, ['properties-list-v11'], {
   revalidate: 60,
+  tags: ['properties'],
 })
 
 export async function getPropertyBySlug(slug: string): Promise<Property | undefined> {
@@ -260,7 +292,7 @@ export async function getPropertyBySlug(slug: string): Promise<Property | undefi
   try {
     const { data, error } = await supabase.from('properties').select('*').eq('slug', resolvedSlug).single()
     if (!error && data && !LEGACY_DEMO_CODES.has(data.code)) {
-      return withSeedOverrides(mapProperty(data))
+      return withMapCoords(withSeedOverrides(mapProperty(data)), data)
     }
   } catch {
     // fall through

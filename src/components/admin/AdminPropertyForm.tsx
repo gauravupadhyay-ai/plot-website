@@ -5,6 +5,25 @@ import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import { supabase } from '@/lib/supabase'
 import { categoryFromType } from '@/lib/propertyCategories'
+import { coordsFromMapsUrl } from '@/lib/mapCoords'
+import { refreshPublicListings } from '@/lib/refreshPublicListings'
+import type { PlotVisualSections } from '@/data/plotVisualSections'
+import {
+  AMENITY_PRESETS,
+  AREA_UNIT_OPTIONS,
+  BHK_OPTIONS,
+  DEVELOPER_OPTIONS,
+  FACING_OPTIONS,
+  HIGHLIGHT_PRESETS,
+  LOCALITY_OPTIONS,
+  OWNERSHIP_OPTIONS,
+  PRICE_LABEL_OPTIONS,
+  STATUS_OPTIONS,
+  emptyVisualSections,
+  serializeListingBundle,
+} from '@/lib/listingStory'
+import { ChoiceList, ComboField } from '@/components/admin/FieldControls'
+import { ListingStoryEditor } from '@/components/admin/ListingStoryEditor'
 import {
   Info,
   TrendingUp,
@@ -47,6 +66,10 @@ export type AdminPropertyRecord = {
   status?: string
   facing?: string
   ownership?: string
+  area_label?: string
+  developer?: string
+  price_per_unit?: string
+  visual_sections?: PlotVisualSections | null
 }
 
 export function AdminPropertyForm({
@@ -79,11 +102,15 @@ export function AdminPropertyForm({
   const [lng, setLng] = useState(initial?.lng != null ? String(initial.lng) : '')
   const [panoramaUrl, setPanoramaUrl] = useState(initial?.panorama_url || '')
   const [panoramaLink, setPanoramaLink] = useState(initial?.panorama_link || '')
-  const [highlightsText, setHighlightsText] = useState((initial?.highlights || []).join('\n'))
-  const [amenitiesText, setAmenitiesText] = useState((initial?.amenities || []).join('\n'))
+  const [highlights, setHighlights] = useState<string[]>(initial?.highlights || [])
+  const [amenities, setAmenities] = useState<string[]>(initial?.amenities || [])
   const [status, setStatus] = useState(initial?.status || 'Available')
   const [facing, setFacing] = useState(initial?.facing || '')
   const [ownership, setOwnership] = useState(initial?.ownership || 'Freehold')
+  const [areaLabel, setAreaLabel] = useState(initial?.area_label || '')
+  const [developer, setDeveloper] = useState(initial?.developer || '')
+  const [pricePerUnit, setPricePerUnit] = useState(initial?.price_per_unit || '')
+  const [sections, setSections] = useState<PlotVisualSections>(initial?.visual_sections || emptyVisualSections())
 
   const [existingImages, setExistingImages] = useState<string[]>(initial?.images || [])
   const [existingVideos, setExistingVideos] = useState<string[]>(initial?.videos || [])
@@ -157,14 +184,10 @@ export function AdminPropertyForm({
           ? initial.slug
           : `${title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}-${Math.random().toString(36).slice(2, 6)}`
 
-      const highlights = highlightsText
-        .split('\n')
-        .map((line) => line.trim())
-        .filter(Boolean)
-      const amenities = amenitiesText
-        .split('\n')
-        .map((line) => line.trim())
-        .filter(Boolean)
+      const pastedCoords =
+        coordsFromMapsUrl(mapEmbedUrl) ||
+        coordsFromMapsUrl(panoramaUrl) ||
+        coordsFromMapsUrl(panoramaLink)
 
       const payload = {
         slug,
@@ -192,10 +215,16 @@ export function AdminPropertyForm({
         featured: true,
         category: categoryFromType(type),
         map_embed_url: mapEmbedUrl.trim() || null,
-        lat: lat.trim() ? Number(lat) : null,
-        lng: lng.trim() ? Number(lng) : null,
+        lat: lat.trim() ? Number(lat) : pastedCoords?.lat ?? null,
+        lng: lng.trim() ? Number(lng) : pastedCoords?.lng ?? null,
         panorama_url: panoramaUrl.trim() || null,
         panorama_link: panoramaLink.trim() || null,
+        nearby_places: serializeListingBundle({
+          sections,
+          areaLabel,
+          developer,
+          pricePerUnit,
+        }),
       }
 
       const saveErrorHint = (message: string) => {
@@ -237,6 +266,7 @@ export function AdminPropertyForm({
         if (dbError) throw new Error(saveErrorHint(dbError.message))
       }
 
+      await refreshPublicListings()
       router.push('/admin/properties')
       router.refresh()
     } catch (err: unknown) {
@@ -315,28 +345,33 @@ export function AdminPropertyForm({
             </div>
 
             <div className="space-y-2">
-              <label className={labelClass}>City / Address area</label>
+              <label className={labelClass}>City / Address area *</label>
               <input
                 required
                 type="text"
                 value={location}
                 onChange={(e) => setLocation(e.target.value)}
                 className={inputClass}
-                placeholder="e.g. Greater Noida, Uttar Pradesh"
+                placeholder="e.g. Nandgaon–Barsana, Braj, Uttar Pradesh"
               />
             </div>
 
-            <div className="space-y-2">
-              <label className={labelClass}>Neighborhood / Locality</label>
-              <input
-                required
-                type="text"
-                value={locality}
-                onChange={(e) => setLocality(e.target.value)}
-                className={inputClass}
-                placeholder="e.g. Omicron 1A, Greater Noida"
-              />
-            </div>
+            <ComboField
+              label="Neighborhood / Locality"
+              required
+              value={locality}
+              onChange={setLocality}
+              options={LOCALITY_OPTIONS}
+              placeholder="e.g. Nandgaon / Barsana"
+            />
+
+            <ComboField
+              label="Developer"
+              value={developer}
+              onChange={setDeveloper}
+              options={DEVELOPER_OPTIONS}
+              placeholder="Developer or group name"
+            />
 
             <div className="space-y-2">
               <label className={labelClass}>Badge</label>
@@ -352,62 +387,24 @@ export function AdminPropertyForm({
               </select>
             </div>
 
-            <div className="space-y-2">
-              <label className={labelClass}>Status</label>
-              <select
-                value={status}
-                onChange={(e) => setStatus(e.target.value)}
-                className="w-full rounded-2xl border-none bg-gray-50/50 px-6 py-4 font-semibold focus:ring-2 focus:ring-brand-primary/30"
-              >
-                <option value="Available">Available</option>
-                <option value="Under Construction">Under Construction</option>
-                <option value="Sold Out">Sold Out</option>
-              </select>
-            </div>
+            <ComboField label="Status" required value={status} onChange={setStatus} options={STATUS_OPTIONS} />
+            <ComboField label="Facing" value={facing} onChange={setFacing} options={FACING_OPTIONS} placeholder="e.g. East" />
+            <ComboField label="Ownership" value={ownership} onChange={setOwnership} options={OWNERSHIP_OPTIONS} />
 
-            <div className="space-y-2">
-              <label className={labelClass}>Facing</label>
-              <input
-                type="text"
-                value={facing}
-                onChange={(e) => setFacing(e.target.value)}
-                className={inputClass}
-                placeholder="e.g. East, North-East"
-              />
-            </div>
-
-            <div className="space-y-2">
-              <label className={labelClass}>Ownership</label>
-              <input
-                type="text"
-                value={ownership}
-                onChange={(e) => setOwnership(e.target.value)}
-                className={inputClass}
-                placeholder="Freehold"
-              />
-            </div>
-
-            <div className="space-y-2 md:col-span-2">
-              <label className={labelClass}>Highlights (one per line)</label>
-              <textarea
-                value={highlightsText}
-                onChange={(e) => setHighlightsText(e.target.value)}
-                rows={4}
-                className={inputClass}
-                placeholder="Authority-approved villa plots&#10;Near Jewar Airport"
-              />
-            </div>
-
-            <div className="space-y-2 md:col-span-2">
-              <label className={labelClass}>Amenities (one per line)</label>
-              <textarea
-                value={amenitiesText}
-                onChange={(e) => setAmenitiesText(e.target.value)}
-                rows={4}
-                className={inputClass}
-                placeholder="Clubhouse&#10;24x7 Security"
-              />
-            </div>
+            <ChoiceList
+              label="Key highlights"
+              hint="Shown as the highlight cards under the gallery. Pick presets or add a custom line."
+              presets={HIGHLIGHT_PRESETS}
+              values={highlights}
+              onChange={setHighlights}
+            />
+            <ChoiceList
+              label="Amenities"
+              hint="Used on the listing and in the public filter panel. Pick presets or add a custom amenity."
+              presets={AMENITY_PRESETS}
+              values={amenities}
+              onChange={setAmenities}
+            />
           </div>
         </section>
 
@@ -512,15 +509,32 @@ export function AdminPropertyForm({
                 placeholder="0 for Price on Request"
               />
             </div>
+            <ComboField
+              label="Marketing label"
+              required
+              value={priceLabel}
+              onChange={setPriceLabel}
+              options={PRICE_LABEL_OPTIONS}
+              placeholder="₹32,500 / gaj"
+            />
             <div className="space-y-2">
-              <label className={labelClass}>Marketing Label</label>
+              <label className={labelClass}>Price note</label>
               <input
-                required
                 type="text"
-                value={priceLabel}
-                onChange={(e) => setPriceLabel(e.target.value)}
+                value={pricePerUnit}
+                onChange={(e) => setPricePerUnit(e.target.value)}
                 className={inputClass}
-                placeholder="Price on Request"
+                placeholder="Pre-launch ₹32,500 / gaj · expected launch ₹45,500 / gaj"
+              />
+            </div>
+            <div className="space-y-2">
+              <label className={labelClass}>Size label on the card</label>
+              <input
+                type="text"
+                value={areaLabel}
+                onChange={(e) => setAreaLabel(e.target.value)}
+                className={inputClass}
+                placeholder="582 residential plots · 40 acres"
               />
             </div>
             <div className="space-y-2">
@@ -533,18 +547,37 @@ export function AdminPropertyForm({
                   onChange={(e) => setArea(e.target.value)}
                   className="flex-1 border-none bg-transparent px-6 py-4 font-bold focus:ring-0"
                 />
+                <select
+                  value={AREA_UNIT_OPTIONS.includes(areaUnit) ? areaUnit : '__custom__'}
+                  onChange={(e) => {
+                    if (e.target.value !== '__custom__') setAreaUnit(e.target.value)
+                    else setAreaUnit('')
+                  }}
+                  className="w-28 bg-brand-primary text-center text-[10px] font-black uppercase tracking-widest text-white"
+                >
+                  {AREA_UNIT_OPTIONS.map((unit) => (
+                    <option key={unit} value={unit}>
+                      {unit}
+                    </option>
+                  ))}
+                  <option value="__custom__">Custom</option>
+                </select>
+              </div>
+            </div>
+            {!AREA_UNIT_OPTIONS.includes(areaUnit) ? (
+              <div className="space-y-2">
+                <label className={labelClass}>Custom area unit</label>
                 <input
+                  required
                   type="text"
                   value={areaUnit}
                   onChange={(e) => setAreaUnit(e.target.value)}
-                  className="w-24 bg-brand-primary text-center text-[10px] font-black uppercase tracking-widest text-white"
+                  className={inputClass}
+                  placeholder="gaj"
                 />
               </div>
-            </div>
-            <div className="space-y-2">
-              <label className={labelClass}>BHK / Config</label>
-              <input type="text" value={bhk} onChange={(e) => setBhk(e.target.value)} className={inputClass} />
-            </div>
+            ) : null}
+            <ComboField label="BHK / Config" value={bhk} onChange={setBhk} options={BHK_OPTIONS} placeholder="e.g. 3 BHK + study" />
             <div className="space-y-2">
               <label className={labelClass}>Bedrooms</label>
               <input type="number" value={bedrooms} onChange={(e) => setBedrooms(e.target.value)} className={inputClass} />
@@ -675,10 +708,22 @@ export function AdminPropertyForm({
           </div>
         </section>
 
+        <ListingStoryEditor
+          value={sections}
+          onChange={setSections}
+          onUpload={async (file) => {
+            const [url] = await uploadFiles([file], 'story')
+            return url
+          }}
+        />
+
         <section className="rounded-[2.5rem] border border-gray-100 bg-white/80 p-6 shadow-sm md:p-12">
-          <label className="mb-6 block font-display text-xl font-bold text-brand-primary md:text-2xl">
-            Plot Description
+          <label className="mb-1 block font-display text-xl font-bold text-brand-primary md:text-2xl">
+            Description
           </label>
+          <p className="mb-6 text-sm text-text-muted">
+            (The main write-up on the public page. Leave a blank line between paragraphs.)
+          </p>
           <textarea
             required
             rows={6}

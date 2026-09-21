@@ -24,9 +24,18 @@ function SectionHead({
 }
 
 export function PlotVisualSections({ sections }: { sections: PlotVisualSectionsData }) {
+  const showAmenities = sections.amenities.length > 0 || Boolean(sections.amenitiesTitle?.trim())
+  const showConnectivity =
+    sections.connectivity.length > 0 ||
+    Boolean(sections.drives?.length) ||
+    Boolean(sections.connectivityTitle?.trim()) ||
+    Boolean(sections.connectivityEyebrow?.trim())
+
+  if (!showAmenities && !showConnectivity) return null
+
   return (
     <div className="space-y-8">
-      {/* Amenities */}
+      {showAmenities ? (
       <section className="rounded-3xl border border-border bg-white p-6 shadow-card sm:p-8">
         <SectionHead
           eyebrow={sections.amenitiesEyebrow}
@@ -58,8 +67,9 @@ export function PlotVisualSections({ sections }: { sections: PlotVisualSectionsD
           ))}
         </div>
       </section>
+      ) : null}
 
-      {/* Connectivity */}
+      {showConnectivity ? (
       <section className="rounded-3xl border border-border bg-white p-6 shadow-card sm:p-8">
         <SectionHead
           eyebrow={sections.connectivityEyebrow}
@@ -117,6 +127,7 @@ export function PlotVisualSections({ sections }: { sections: PlotVisualSectionsD
           })}
         </div>
       </section>
+      ) : null}
     </div>
   )
 }
