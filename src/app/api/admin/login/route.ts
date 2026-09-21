@@ -6,15 +6,28 @@ import { cookies } from 'next/headers'
 
 export async function POST(request: Request) {
   try {
-    const { email, password } = await request.json()
+    const body = await request.json()
+    const email = String(body?.email || '').trim().toLowerCase()
+    const password = String(body?.password || '').trim()
+    const expectedPassword = String(process.env.LOGIN_PASSWORD || '').trim()
 
     // Credential check using environment variables (+ legacy email alias)
     const allowedEmails = [
       process.env.LOGIN_ADMIN_EMAIL,
       'admin@aurixxrealty.com',
       'admin@aurixrealty.com',
-    ].filter(Boolean)
-    if (allowedEmails.includes(email) && password === process.env.LOGIN_PASSWORD) {
+    ]
+      .filter(Boolean)
+      .map((value) => String(value).trim().toLowerCase())
+
+    if (!expectedPassword) {
+      return NextResponse.json(
+        { success: false, error: 'Server login is not configured. Set LOGIN_PASSWORD in .env.local and restart the server.' },
+        { status: 500 }
+      )
+    }
+
+    if (allowedEmails.includes(email) && password === expectedPassword) {
       // Set simple authentication cookie
       cookies().set('admin_auth', 'authenticated', {
         httpOnly: true,

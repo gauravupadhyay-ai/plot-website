@@ -273,6 +273,38 @@ const vrindaVatika: PlotVisualSections = {
   ],
 }
 
+const IMG = (name: string) => `/images/plots/ladli-govindvan/${name}`
+
+const laadliGovindvan: PlotVisualSections = {
+  amenitiesEyebrow: 'Laadli Govindvan',
+  amenitiesTitle: 'A Community Designed for Meaningful Life',
+  amenitiesSubtitle: 'A plotted township in Vrindavan by Laadli Group. Club house, parks, gaushala, and a meditation centre on the plan.',
+  amenities: [
+    amenity('Master Plan', IMG('cover.jpg'), 'Aerial master plan of Laadli Govindvan', '489 residential plots planned with parks, roads, a club house, resort, and commercial area.'),
+    amenity('Landscape Garden', IMG('central-garden.jpg'), 'Central garden and water feature', 'Open green pockets and pathways planned for calm walks.'),
+    amenity('Meditation Centre', IMG('meditation.jpg'), 'Meditation pavilion in the landscape', 'A dhyaan kendra planned as a quiet place inside the township.'),
+    amenity('Club & Resort', IMG('retail-street.jpg'), 'Planned community street inside the township', 'Club house, resort, and commercial area sit inside the layout.'),
+    amenity('Wide Internal Roads', IMG('internal-road.jpg'), 'Internal township road', 'Roads take 32.91% of the remaining land so the layout stays open.'),
+    amenity('Gaushala', IMG('poster.jpg'), 'Laadli Govindvan project poster', 'A gaushala is part of the amenity plan, along with 24x7 security and fresh water.'),
+  ],
+  connectivityEyebrow: 'Vrindavan',
+  connectivityTitle: 'Seamless Access to Endless Possibilities',
+  connectivitySubtitle: 'Prem Mandir, Banke Bihari, NH-2, and the Yamuna Expressway, timed from the site.',
+  drives: [
+    { time: '5 min', place: 'NH-2 / Delhi-Mathura Highway', note: 'Highway access without living in the old lanes.' },
+    { time: '7 min', place: 'Prem Mandir', note: 'The marble temple on a short drive.' },
+    { time: '10 min', place: 'Banke Bihari Mandir', note: 'Morning darshan without an old-city plot.' },
+    { time: '20 min', place: 'Yamuna Expressway', note: 'The road back toward NCR.' },
+    { time: '45 min', place: 'Jewar International Airport', note: 'The new airport on the same regional map.' },
+  ],
+  connectivity: [
+    conn('Prem Mandir', 'Seven Minutes from Prem Mandir', IMG('cover.jpg'), 'Laadli Govindvan master plan', 'The brochure times Prem Mandir at about 7 minutes.'),
+    conn('Banke Bihari', 'Ten Minutes from Banke Bihari Mandir', IMG('central-garden.jpg'), 'Garden inside Laadli Govindvan', 'Close enough for darshan, planned as a quieter residential hold.'),
+    conn('ISKCON', 'Five Minutes from ISKCON Temple', IMG('meditation.jpg'), 'Meditation centre at Laadli Govindvan', 'ISKCON, Garud Govind, and the Delhi-Mathura highway are timed at about 5 minutes.'),
+    conn('Jewar Airport', 'Forty-Five Minutes from Jewar Airport', IMG('internal-road.jpg'), 'Internal road at Laadli Govindvan', 'Yamuna Expressway is about 20 minutes. Jewar International Airport is about 45 minutes.'),
+  ],
+}
+
 const bySlug: Record<string, PlotVisualSections> = {
   'rama-enclave-jewar': ramaEnclave,
   'hari-shyam-township-jewar': hariShyam,
@@ -281,6 +313,7 @@ const bySlug: Record<string, PlotVisualSections> = {
   'radha-krishna-vrindavan-ashram': radhaKrishnaAshram,
   'radha-krishna-puram-vrindavan': radhaKrishnaPuram,
   'vrinda-vatika-homes-vrindavan': vrindaVatika,
+  'laadli-govindvan-vrindavan': laadliGovindvan,
 }
 
 const byCode: Record<string, PlotVisualSections> = {
@@ -291,6 +324,7 @@ const byCode: Record<string, PlotVisualSections> = {
   'AX-RK-001': radhaKrishnaAshram,
   'AX-RP-001': radhaKrishnaPuram,
   'AX-VV-001': vrindaVatika,
+  'AX-LG-001': laadliGovindvan,
 }
 
 export function getPlotVisualSections(slug: string, code?: string): PlotVisualSections | undefined {

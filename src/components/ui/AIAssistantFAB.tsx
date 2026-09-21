@@ -49,6 +49,10 @@ function matchProperties(q: string) {
         return { p, score: score + 4 }
       if ((q.includes('vrinda') || q.includes('vrindavan')) && p.code === 'AX-VV-001')
         return { p, score: score + 5 }
+      if ((q.includes('laadli') || q.includes('ladli') || q.includes('govindvan') || q.includes('govindavan')) && p.code === 'AX-LG-001')
+        return { p, score: score + 6 }
+      if (q.includes('vrindavan') && p.code === 'AX-LG-001')
+        return { p, score: score + 4 }
       if ((q.includes('gaur') || q.includes('chrysalis') || q.includes('aero')) && p.code === 'AX-GC-001')
         return { p, score: score + 5 }
       if ((q.includes('biig') || q.includes('bigtech') || q.includes('knowledge')) && p.code === 'AX-BT-001')

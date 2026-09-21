@@ -6,7 +6,7 @@ export const VRINDAVAN_AMBIENCE_TRACKS = [
   '/audio/vrindavan/sitar.mp3',
 ]
 
-const VRINDAVAN_CODES = new Set(['AX-VV-001', 'AX-NS-001', 'AX-RK-001', 'AX-RP-001'])
+const VRINDAVAN_CODES = new Set(['AX-VV-001', 'AX-NS-001', 'AX-RK-001', 'AX-RP-001', 'AX-LG-001'])
 
 export function isVrindavanAmbienceProperty(property: Property): boolean {
   if (property.ambientAudio?.length) return true

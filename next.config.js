@@ -8,6 +8,7 @@ const plotLandingSlugs = [
   'radha-krishna-vrindavan-ashram',
   'radha-krishna-puram-vrindavan',
   'vrinda-vatika-homes-vrindavan',
+  'laadli-govindvan-vrindavan',
 ]
 
 const nextConfig = {

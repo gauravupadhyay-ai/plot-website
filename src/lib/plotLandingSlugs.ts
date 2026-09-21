@@ -5,5 +5,6 @@ export const PLOT_LANDING_SLUGS = [
   "nari-semri-plots-vrindavan",
   "radha-krishna-vrindavan-ashram",
   "radha-krishna-puram-vrindavan",
-  "vrinda-vatika-homes-vrindavan"
+  "vrinda-vatika-homes-vrindavan",
+  "laadli-govindvan-vrindavan"
 ] as const

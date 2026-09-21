@@ -30,9 +30,9 @@ export const localities: Locality[] = [
     slug: 'vrindavan',
     name: 'Vrindavan',
     description:
-      'Ultra-luxury residential plots near temples and planned infrastructure. Ideal for buyers seeking spiritual-city living with gated community layouts.',
-    propertyCount: 1,
-    image: '/images/plots/vrinda-vatika/cover.png',
+      'Plotted townships near temples and planned infrastructure. Vrinda Vatika Homes and Laadli Govindvan.',
+    propertyCount: 2,
+    image: '/images/plots/ladli-govindvan/cover.jpg',
   },
   {
     slug: 'sector-153-noida',
@@ -80,6 +80,7 @@ export const heroPlotImages = [
   { src: '/images/plots/radha-krishna-vihar/01.jpg', title: 'Radha Krishna Vrindavan Ashram', locality: 'Nari Semri / Vrindavan' },
   { src: '/images/plots/radha-krishna-puram/01.jpg', title: 'Radha Krishna Puram', locality: 'Nari Semri / Vrindavan' },
   { src: '/images/plots/vrinda-vatika/cover.png', title: 'Vrinda Vatika Homes', locality: 'Vrindavan' },
+  { src: '/images/plots/ladli-govindvan/cover.jpg', title: 'Laadli Govindvan', locality: 'Vrindavan' },
   { src: '/images/plots/urbtech-business-suites/cover.jpg', title: 'Urbtech Business Suites', locality: 'Sector 153, Noida' },
   { src: '/images/plots/urbtech-npx/cover.jpg', title: 'Urbtech NPX', locality: 'Sector 153, Noida' },
   { src: '/images/plots/gaur-chrysalis/cover.jpg', title: 'Gaur Chrysalis & Aero Suites', locality: 'Yamuna Expressway' },

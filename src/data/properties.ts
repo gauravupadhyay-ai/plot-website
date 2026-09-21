@@ -232,7 +232,7 @@ async function fetchPropertiesUncached(): Promise<Property[]> {
   }
 }
 
-export const getProperties = unstable_cache(fetchPropertiesUncached, ['properties-list-v8'], {
+export const getProperties = unstable_cache(fetchPropertiesUncached, ['properties-list-v9'], {
   revalidate: 60,
 })
 

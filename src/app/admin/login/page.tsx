@@ -22,9 +22,11 @@ export default function LoginPage() {
 
     if (res.ok) {
       router.push('/admin/dashboard')
-    } else {
-      setError('Invalid credentials.')
+      return
     }
+
+    const data = await res.json().catch(() => null)
+    setError(data?.error || 'Invalid credentials.')
   }
 
   return (
