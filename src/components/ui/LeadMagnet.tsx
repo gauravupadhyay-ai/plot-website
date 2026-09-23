@@ -11,10 +11,11 @@ export function LeadMagnet() {
   const [isSubmitted, setIsSubmitted] = useState(false)
   const [name, setName] = useState('')
   const [phone, setPhone] = useState('')
+  const [error, setError] = useState('')
   const pathname = usePathname()
 
   useEffect(() => {
-    if (pathname === '/admin/login') return
+    if (pathname?.startsWith('/admin')) return
 
     const hasSeenLeadMagnet = sessionStorage.getItem('hasSeenLeadMagnet')
     if (!hasSeenLeadMagnet) {
@@ -32,6 +33,7 @@ export function LeadMagnet() {
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()
+    setError('')
 
     try {
       const res = await fetch('/api/enquiry', {
@@ -45,15 +47,19 @@ export function LeadMagnet() {
         }),
       })
 
-      if (res.ok) {
-        setIsSubmitted(true)
-        sessionStorage.setItem('hasSeenLeadMagnet', 'true')
-        setTimeout(() => {
-          setIsVisible(false)
-        }, 3000)
+      if (!res.ok) {
+        setError('We could not save this. Please try again.')
+        return
       }
+
+      setIsSubmitted(true)
+      sessionStorage.setItem('hasSeenLeadMagnet', 'true')
+      setTimeout(() => {
+        setIsVisible(false)
+      }, 3000)
     } catch (err) {
       console.error('Failed to submit lead:', err)
+      setError('We could not save this. Please try again.')
     }
   }
 
@@ -145,6 +151,7 @@ export function LeadMagnet() {
                       onChange={(e) => setPhone(e.target.value)}
                     />
                   </div>
+                  {error ? <p className="text-sm text-red-600 font-sans">{error}</p> : null}
                   <button
                     type="submit"
                     className="btn-primary w-full justify-center !py-3.5 mt-2 text-base shadow-cta"

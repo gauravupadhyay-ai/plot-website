@@ -7,11 +7,14 @@ export const dynamic = 'force-dynamic'
 function sourceBadge(source?: string | null) {
   const s = (source || '').toLowerCase()
   if (s.includes('contact')) return { label: 'Contact Form', className: 'bg-sky-100 text-sky-800' }
-  if (s.includes('plot') || s.includes('property detail')) {
-    return { label: 'Plot Enquiry', className: 'bg-amber-100 text-amber-800' }
+  if (s.includes('newsletter')) return { label: 'Newsletter', className: 'bg-emerald-100 text-emerald-800' }
+  if (s.includes('career')) return { label: 'Career Application', className: 'bg-rose-100 text-rose-800' }
+  if (s.includes('post property')) return { label: 'List a Property', className: 'bg-orange-100 text-orange-800' }
+  if (s.includes('plot') || s.includes('property detail') || s.startsWith('/')) {
+    return { label: 'Property Enquiry', className: 'bg-amber-100 text-amber-800' }
   }
-  if (s.includes('lead magnet') || s.includes('callback')) {
-    return { label: 'Lead Magnet', className: 'bg-violet-100 text-violet-800' }
+  if (s.includes('lead magnet') || s.includes('callback') || s.includes('/leads')) {
+    return { label: 'Callback Request', className: 'bg-violet-100 text-violet-800' }
   }
   return { label: source || 'Website', className: 'bg-gray-100 text-gray-700' }
 }
@@ -35,7 +38,7 @@ export default async function LeadsPage() {
         <div>
           <h1 className="font-display text-3xl font-bold text-brand-primary">Leads &amp; Contact</h1>
           <p className="mt-1 text-sm text-text-secondary">
-            Contact form submissions and plot enquiries from the website.
+            Contact forms, property enquiries, callbacks, newsletter signups, career applications, and owner listings.
           </p>
         </div>
         <div className="flex flex-wrap gap-2 text-xs font-bold">
@@ -101,9 +104,12 @@ export default async function LeadsPage() {
                       </div>
                     </td>
                     <td className="px-6 py-4">
-                      <span className={`inline-flex rounded-full px-2.5 py-1 text-[10px] font-bold uppercase tracking-wide ${badge.className}`}>
-                        {badge.label}
-                      </span>
+                      <div className="flex flex-col gap-1">
+                        <span className={`inline-flex w-fit rounded-full px-2.5 py-1 text-[10px] font-bold uppercase tracking-wide ${badge.className}`}>
+                          {badge.label}
+                        </span>
+                        {lead.source ? <span className="text-[10px] text-text-muted">{lead.source}</span> : null}
+                      </div>
                     </td>
                     <td className="px-6 py-4">
                       <div className="flex flex-col gap-0.5">
@@ -116,8 +122,8 @@ export default async function LeadsPage() {
                         )}
                       </div>
                     </td>
-                    <td className="max-w-xs px-6 py-4">
-                      <p className="line-clamp-3 leading-snug text-text-secondary" title={lead.message || ''}>
+                    <td className="max-w-sm px-6 py-4">
+                      <p className="max-h-40 overflow-auto whitespace-pre-wrap leading-snug text-text-secondary">
                         {lead.message || '-'}
                       </p>
                     </td>
@@ -199,7 +205,7 @@ export default async function LeadsPage() {
             <MessageSquare className="mx-auto mb-4 text-gray-200" size={48} />
             <p className="font-medium text-gray-500">No contact or enquiry leads yet.</p>
             <p className="mt-1 text-xs text-text-muted">
-              Submissions from the Contact page and plot enquiry forms will appear here.
+              Submissions from the contact page, listing enquiries, callbacks, newsletter, careers, and list-your-plot form appear here.
             </p>
           </div>
         )}

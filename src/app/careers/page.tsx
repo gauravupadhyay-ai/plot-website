@@ -2,7 +2,8 @@ import type { Metadata } from 'next'
 import { Header } from '@/components/layout/Header'
 import { Footer } from '@/components/layout/Footer'
 import { PageHero } from '@/components/layout/PageHero'
-import { Users, TrendingUp, GraduationCap, Clock, Upload, Send } from 'lucide-react'
+import { Users, TrendingUp, GraduationCap, Clock } from 'lucide-react'
+import { CareerApplyForm } from '@/components/careers/CareerApplyForm'
 import { SITE_NAME } from '@/lib/utils'
 
 export const metadata: Metadata = {
@@ -101,49 +102,7 @@ export default function CareersPage() {
             Apply Now
           </h2>
           <div className="card-static p-6 md:p-8 !rounded-2xl">
-            <form className="space-y-4" action="#">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div>
-                  <label className="text-sm font-semibold mb-1.5 block font-sans">Full Name *</label>
-                  <input className="input" required />
-                </div>
-                <div>
-                  <label className="text-sm font-semibold mb-1.5 block font-sans">Phone *</label>
-                  <input className="input" type="tel" required />
-                </div>
-              </div>
-              <div>
-                <label className="text-sm font-semibold mb-1.5 block font-sans">Email *</label>
-                <input className="input" type="email" required />
-              </div>
-              <div>
-                <label className="text-sm font-semibold mb-1.5 block font-sans">
-                  Role Applying For *
-                </label>
-                <select className="select" required>
-                  <option value="">Select role</option>
-                  {roles.map((r) => (
-                    <option key={r.title} value={r.title}>
-                      {r.title}
-                    </option>
-                  ))}
-                </select>
-              </div>
-              <div>
-                <label className="text-sm font-semibold mb-1.5 block font-sans">
-                  Upload CV (PDF)
-                </label>
-                <div className="border-2 border-dashed border-border rounded-xl p-6 text-center cursor-pointer hover:border-brand-primary/50 transition">
-                  <Upload size={24} className="text-text-muted mx-auto mb-2" />
-                  <p className="text-text-secondary text-sm font-sans">
-                    Click to upload or drag & drop
-                  </p>
-                </div>
-              </div>
-              <button type="button" className="btn-primary w-full">
-                <Send size={16} /> Submit Application
-              </button>
-            </form>
+            <CareerApplyForm roles={roles} />
           </div>
         </div>
       </section>

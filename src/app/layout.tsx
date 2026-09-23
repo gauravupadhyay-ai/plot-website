@@ -14,6 +14,10 @@ const AIAssistantFAB = dynamic(
   () => import('@/components/ui/AIAssistantFAB').then((m) => m.AIAssistantFAB),
   { ssr: false }
 )
+const LeadMagnet = dynamic(
+  () => import('@/components/ui/LeadMagnet').then((m) => m.LeadMagnet),
+  { ssr: false }
+)
 const UpcomingProjectModal = dynamic(
   () => import('@/components/ui/UpcomingProjectModal').then((m) => m.UpcomingProjectModal),
   { ssr: false }
@@ -137,6 +141,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <a href="#main-content" className="skip-link">Skip to main content</a>
         <BrandSplash />
         {children}
+        <LeadMagnet />
         <WhatsAppFAB />
         <AIAssistantFAB />
         <UpcomingProjectModal />

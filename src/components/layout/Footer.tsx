@@ -22,11 +22,12 @@ export function Footer() {
     e.preventDefault()
     if (!email) return
     try {
-      await fetch('/api/newsletter', {
+      const res = await fetch('/api/newsletter', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email }),
       })
+      if (!res.ok) return
       setSubscribed(true)
       setEmail('')
       setTimeout(() => setSubscribed(false), 4000)

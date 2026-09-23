@@ -24,10 +24,12 @@ export function ContactClient() {
   const [message, setMessage] = useState('')
   const [loading, setLoading] = useState(false)
   const [submitted, setSubmitted] = useState(false)
+  const [error, setError] = useState('')
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setLoading(true)
+    setError('')
 
     try {
       const res = await fetch('/api/enquiry', {
@@ -45,16 +47,20 @@ export function ContactClient() {
         }),
       })
 
-      if (res.ok) {
-        setSubmitted(true)
-        setTimeout(() => setSubmitted(false), 5000)
-        setName('')
-        setPhone('')
-        setEmail('')
-        setMessage('')
+      if (!res.ok) {
+        setError('We could not save this enquiry. Please try again.')
+        return
       }
+
+      setSubmitted(true)
+      setTimeout(() => setSubmitted(false), 5000)
+      setName('')
+      setPhone('')
+      setEmail('')
+      setMessage('')
     } catch (err) {
       console.error(err)
+      setError('We could not save this enquiry. Please try again.')
     } finally {
       setLoading(false)
     }
@@ -188,6 +194,7 @@ export function ContactClient() {
                       onChange={(e) => setMessage(e.target.value)}
                     />
                   </div>
+                  {error ? <p className="text-sm text-red-600 font-sans">{error}</p> : null}
                   <button type="submit" disabled={loading} className="btn-primary w-full md:w-auto">
                     <Send size={16} /> {loading ? 'Sending...' : 'Send Enquiry'}
                   </button>

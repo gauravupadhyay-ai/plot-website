@@ -1,46 +1,62 @@
 import { NextResponse } from 'next/server'
+import { saveLead } from '@/lib/saveLead'
+
+export const dynamic = 'force-dynamic'
+
+function line(label: string, value: unknown) {
+  const text = String(value ?? '').trim()
+  return text ? `${label}: ${text}` : ''
+}
 
 export async function POST(request: Request) {
   try {
     const body = await request.json()
-    const { purpose, propertyType, bedrooms, bathrooms, city, locality, address, pinCode, totalArea, coveredArea, floor, totalFloors, age, facing, price, negotiable, maintenance, ownerName, phone, email } = body
+    const ownerName = String(body.ownerName || '').trim()
+    const phone = String(body.phone || '').trim()
+    const propertyType = String(body.propertyType || body.listingType || '').trim()
 
     if (!ownerName || !phone || !propertyType) {
-      return NextResponse.json({ error: 'Owner name, phone, and property type are required' }, { status: 400 })
+      return NextResponse.json(
+        { error: 'Owner name, phone, and property type are required' },
+        { status: 400 }
+      )
     }
 
-    const resendApiKey = process.env.RESEND_API_KEY
-    const contactEmail =
-      process.env.CONTACT_EMAIL || process.env.NEXT_PUBLIC_CONTACT_EMAIL || 'contact@aurixxrealty.com'
+    const message = [
+      line('Purpose', body.purpose),
+      line('Listing type', propertyType),
+      line('Facing', body.facing),
+      line('Road width', body.roadWidth),
+      line('City', body.city),
+      line('Locality', body.locality),
+      line('Address', body.address),
+      line('PIN code', body.pinCode),
+      line('Area (sq.yd)', body.areaSqYd || body.totalArea),
+      line('Area (sq.ft)', body.areaSqFt || body.coveredArea),
+      line('Dimensions', body.dimensions),
+      line('Ownership', body.ownership),
+      line('Approvals', body.approvals),
+      line('Expected price', body.price),
+      line('Negotiable', body.negotiable),
+      line('Notes', body.notes || body.message),
+    ]
+      .filter(Boolean)
+      .join('\n')
 
-    if (resendApiKey && resendApiKey !== 're_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx') {
-      const { Resend } = await import('resend')
-      const resend = new Resend(resendApiKey)
+    const saved = await saveLead({
+      name: ownerName,
+      phone,
+      email: body.email,
+      userType: 'Owner',
+      propertyType,
+      budgetRange: body.price ? `₹${body.price}` : null,
+      message,
+      source: 'Post Property',
+    })
 
-      await resend.emails.send({
-        from: 'Aurixxrealty <noreply@aurixxrealty.com>',
-        to: contactEmail,
-        subject: `New Property Listing: ${propertyType} in ${locality || city || 'Greater Noida'}`,
-        html: `
-          <h2>New Property Listing Submission</h2>
-          <h3>Owner Details</h3>
-          <p><strong>Name:</strong> ${ownerName}</p>
-          <p><strong>Phone:</strong> ${phone}</p>
-          ${email ? `<p><strong>Email:</strong> ${email}</p>` : ''}
-          <h3>Property Details</h3>
-          <p><strong>Purpose:</strong> ${purpose || 'Sell'}</p>
-          <p><strong>Type:</strong> ${propertyType}</p>
-          <p><strong>Bedrooms:</strong> ${bedrooms || 'N/A'}</p>
-          <p><strong>Bathrooms:</strong> ${bathrooms || 'N/A'}</p>
-          <p><strong>Location:</strong> ${locality || ''}, ${city || 'Greater Noida'}</p>
-          ${address ? `<p><strong>Address:</strong> ${address}</p>` : ''}
-          ${totalArea ? `<p><strong>Total Area:</strong> ${totalArea} sq.ft.</p>` : ''}
-          ${coveredArea ? `<p><strong>Covered Area:</strong> ${coveredArea} sq.ft.</p>` : ''}
-          ${price ? `<p><strong>Expected Price:</strong> ₹${Number(price).toLocaleString('en-IN')}</p>` : ''}
-          ${negotiable ? `<p><strong>Negotiable:</strong> ${negotiable}</p>` : ''}
-          <p><strong>Submitted:</strong> ${new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' })}</p>
-        `,
-      })
+    if (!saved.ok) {
+      console.error('Post property save failed:', saved.error)
+      return NextResponse.json({ error: 'Could not save this listing. Please try again.' }, { status: 500 })
     }
 
     return NextResponse.json({ success: true, message: 'Property submitted successfully' })

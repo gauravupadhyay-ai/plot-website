@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server'
-import { getSupabase } from '@/lib/supabase'
+import { saveLead } from '@/lib/saveLead'
 
 export const dynamic = 'force-dynamic'
 
@@ -22,26 +22,21 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'Name and phone are required' }, { status: 400 })
     }
 
-    try {
-      const { error: dbError } = await getSupabase().from('leads').insert([
-        {
-          name,
-          phone,
-          email: email || null,
-          user_type: userType || null,
-          property_type: propertyType || null,
-          budget_range: budgetRange || null,
-          message: message || null,
-          property_code: propertyCode || null,
-          source: source || null,
-        },
-      ])
+    const saved = await saveLead({
+      name,
+      phone,
+      email,
+      userType,
+      propertyType,
+      budgetRange,
+      message,
+      propertyCode,
+      source,
+    })
 
-      if (dbError) {
-        console.error('Supabase Error:', dbError)
-      }
-    } catch (dbInitError) {
-      console.error('Supabase unavailable:', dbInitError)
+    if (!saved.ok) {
+      console.error('Lead save failed:', saved.error)
+      return NextResponse.json({ error: 'Could not save your details. Please try again.' }, { status: 500 })
     }
 
     const resendApiKey = process.env.RESEND_API_KEY
@@ -74,7 +69,6 @@ export async function POST(request: Request) {
 
       if (result.error) {
         console.error('Resend error:', result.error)
-        return NextResponse.json({ error: 'Failed to send enquiry email' }, { status: 500 })
       }
     } else {
       console.error('RESEND_API_KEY is not configured; enquiry was not emailed')

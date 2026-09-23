@@ -20,10 +20,12 @@ export function PropertyEnquiryForm({
   const [message, setMessage] = useState('')
   const [loading, setLoading] = useState(false)
   const [submitted, setSubmitted] = useState(false)
+  const [error, setError] = useState('')
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setLoading(true)
+    setError('')
 
     try {
       const res = await fetch('/api/enquiry', {
@@ -40,11 +42,14 @@ export function PropertyEnquiryForm({
         }),
       })
 
-      if (res.ok) {
-        setSubmitted(true)
+      if (!res.ok) {
+        setError('We could not save this enquiry. Please try again.')
+        return
       }
+      setSubmitted(true)
     } catch (err) {
       console.error('Failed to submit enquiry:', err)
+      setError('We could not save this enquiry. Please try again.')
     } finally {
       setLoading(false)
     }
@@ -100,6 +105,7 @@ export function PropertyEnquiryForm({
         value={message}
         onChange={(e) => setMessage(e.target.value)}
       />
+      {error ? <p className="text-sm text-red-600 font-sans">{error}</p> : null}
       <button type="submit" disabled={loading} className="btn-primary w-full justify-center">
         {loading ? 'Sending...' : 'Send Enquiry'}
       </button>

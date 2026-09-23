@@ -14,6 +14,7 @@ import { VrindavanAmbience } from '@/components/property/VrindavanAmbience'
 import { PlotVisualSections } from '@/components/property/PlotVisualSections'
 import { ambienceTracksFor } from '@/lib/vrindavanAmbience'
 import { getPlotVisualSections } from '@/data/plotVisualSections'
+import { PropertyEnquiryForm } from '@/components/property/PropertyEnquiryForm'
 
 export function PlotDetailView({
   property,
@@ -599,6 +600,18 @@ export function PlotDetailView({
                   </a>
                 </>
               )}
+            </div>
+
+            <div className="rounded-3xl border border-border bg-white p-5 shadow-card">
+              <h3 className="font-display text-lg font-bold">Send an enquiry</h3>
+              <p className="mb-4 mt-1 text-sm text-text-secondary">
+                Your name and number are saved for our team on this listing.
+              </p>
+              <PropertyEnquiryForm
+                propertyTitle={property.title}
+                propertyCode={property.code}
+                isPlot={property.type === 'Plot'}
+              />
             </div>
 
             <div className="rounded-3xl border border-border bg-white p-5 shadow-card">
